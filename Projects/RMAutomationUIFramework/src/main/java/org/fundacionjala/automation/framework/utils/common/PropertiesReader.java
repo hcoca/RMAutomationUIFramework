@@ -40,9 +40,9 @@ public class PropertiesReader {
 	public static String getServiceURL()
 	{
 		Properties prop = getReader();
-		return prop.getProperty("server.method") + "://" 
-		 	 + prop.getProperty("server.url") + ":" 
-		 	 + prop.getProperty("server.port");
+		return prop.getProperty("SERVICE_URL_METHOD") + "://" 
+		 	 + prop.getProperty("SERVICE_URL") + ":" 
+		 	 + prop.getProperty("SERVICE_PORT");
 	}
 	/*
 	 * @return String admin url e.g. https://172.20.208.146:4040/admin
