@@ -144,7 +144,7 @@ public class PropertiesReader {
 		return getReader().getProperty("EXCHANGE_DOMAIN");
 	}
 	/*
-	 * @return String e.g. https://172.20.208.146:4040
+	 * @return String Conference room name for to work on tablet GUI
 	 */
 	public static String getConferenceRoom() {
 		return getReader().getProperty("ROOM_NAME");
