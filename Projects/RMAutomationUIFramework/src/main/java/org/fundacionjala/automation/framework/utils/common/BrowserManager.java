@@ -20,9 +20,9 @@ public class BrowserManager {
 	
 	private static String Browser;
 	
-	public static void openBrowser(String browserName) {
-	   Browser = browserName;
-       loadDriver(browserName);
+	public static void openBrowser() {
+	   Browser = PropertiesReader.getBrowser();
+       loadDriver(PropertiesReader.getBrowser());
        configureWindow();
 	}
     
