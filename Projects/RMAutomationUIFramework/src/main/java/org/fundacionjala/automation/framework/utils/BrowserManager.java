@@ -46,7 +46,7 @@ public class BrowserManager {
 			driver = new ChromeDriver();
 			break;
         case Explorer:
-        	System.setProperty("webdriver.ie.driver", "./library/IEDriverServer.exe"); 	
+        	System.setProperty("webdriver.ie.driver", "./lib/IEDriverServer.exe"); 	
 			driver = new InternetExplorerDriver();
 			break;
 		default:
@@ -64,29 +64,14 @@ public class BrowserManager {
 	}
 
 	private void openRoomManager(){
-		
-		switch (browserName) {
-		case Explorer:
-			 driver.get(UrlAdmin);
-			 clickOnAcceptRisks();
-			break;
-        case Safari:
-        	 executeScript();
-        	 driver.get(UrlAdmin);
-			break;
-		default:
+       
+		if (browserName.equalsIgnoreCase(Explorer)) {
 			driver.get(UrlAdmin);
-			break;
+			clickOnAcceptRisks();
+		} else {
+			driver.get(UrlAdmin);
 		}
 		
-	}
-
-	private void executeScript(){
-		try {
-			Runtime.getRuntime().exec("./lib/script.exe");
-		} catch (IOException e) {
-		    System.out.println("Error: " + e.getMessage());	
-		}
 	}
    
 	private void clickOnAcceptRisks()
