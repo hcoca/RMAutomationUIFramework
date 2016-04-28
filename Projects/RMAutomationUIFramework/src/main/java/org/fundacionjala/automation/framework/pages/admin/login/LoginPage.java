@@ -33,7 +33,7 @@ public class LoginPage {
 		return this;
 	}
 	
-	public AdminPage clickSigInButton()	{
+	public AdminPage clickOnSigInButton()	{
 		UIActions.waitFor(LoginMap.SIGN_IN_BUTTON);
 		UIActions.clickAt(sigInButton);
 		

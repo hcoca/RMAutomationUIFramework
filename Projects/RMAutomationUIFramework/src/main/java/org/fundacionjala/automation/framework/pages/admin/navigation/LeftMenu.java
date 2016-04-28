@@ -16,7 +16,7 @@ public class LeftMenu {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
-	public ResourcePage clickResourcesButton() {
+	public ResourcePage clickOnResourcesButton() {
 		UIActions.waitFor(LeftMenuMap.RESOURCES_BUTTON);
 		UIActions.clickAt(resourcesButton);
 		

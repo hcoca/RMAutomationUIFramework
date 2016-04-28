@@ -17,21 +17,21 @@ public class RemoveResourcePage {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
-	public ResourcePage clickRemoveButton() {
+	public ResourcePage clickOnRemoveButton() {
 		UIActions.waitFor(RemoveResourceMap.REMOVE_BUTTON);
 		UIActions.clickAt(removeButton);
 		
 		return new ResourcePage();
 	}
 	
-	public ResourcePage clickCancelButton() {
+	public ResourcePage clickOnCancelButton() {
 		UIActions.waitFor(RemoveResourceMap.CANCEL_BUTTON);
 		UIActions.clickAt(cancelButton);
 		
 		return new ResourcePage();
 	}
 	
-	public ResourcePage clickCloseButton() {
+	public ResourcePage clickOnCloseButton() {
 		UIActions.waitFor(RemoveResourceMap.CLOSE_BUTTON);
 		UIActions.clickAt(closeButton);
 		
