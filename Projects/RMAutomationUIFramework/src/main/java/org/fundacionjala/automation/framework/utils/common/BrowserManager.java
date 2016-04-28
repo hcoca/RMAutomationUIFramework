@@ -1,6 +1,5 @@
-package org.fundacionjala.automation.framework.utils;
+package org.fundacionjala.automation.framework.utils.common;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -80,7 +79,4 @@ public class BrowserManager {
 			  driver.findElement(By.id("overridelink")).click();
 		}
 	}
-	
-	
-
 }
