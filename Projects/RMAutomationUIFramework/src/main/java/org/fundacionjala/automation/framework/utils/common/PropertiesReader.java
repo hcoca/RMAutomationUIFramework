@@ -1,4 +1,4 @@
-package org.fundacionjala.automation.framework.utils;
+package org.fundacionjala.automation.framework.utils.common;
 
 import java.io.File;
 import java.io.FileInputStream;
