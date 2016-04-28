@@ -15,6 +15,6 @@ public class UIActions {
 	
 	public static void clickAt(WebElement element) {
 		element.click();
-		Logger.info("'" + element.getText() + "' button has been clicked");
+		LogManager.info("'" + element.getText() + "' button has been clicked");
 	}
 }
