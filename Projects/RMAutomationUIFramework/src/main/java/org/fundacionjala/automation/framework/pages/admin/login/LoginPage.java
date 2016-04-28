@@ -13,11 +13,11 @@ public class LoginPage {
 	@FindBy (xpath = LoginMap.SIGN_IN_BUTTON) WebElement sigInButton;
 	
 	public LoginPage() {
+		BrowserManager.setUrl("http://172.20.208.84:4040/admin/#/login");
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
-	public AdminPage clickSigInButton()
-	{
+	public AdminPage clickSigInButton()	{
 		UIActions.waitFor(LoginMap.SIGN_IN_BUTTON);
 		UIActions.clickAt(sigInButton);
 		
