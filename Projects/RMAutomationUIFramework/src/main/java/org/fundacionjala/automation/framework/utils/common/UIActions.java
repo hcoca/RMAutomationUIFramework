@@ -17,4 +17,10 @@ public class UIActions {
 		element.click();
 		LogManager.info("'" + element.getText() + "' button has been clicked");
 	}
+	
+	public static void typeOn(WebElement element, String message) {
+		element.clear();
+		element.sendKeys(message);
+		LogManager.info("'" + message + " has been set up in " + element.getText());
+	}
 }
