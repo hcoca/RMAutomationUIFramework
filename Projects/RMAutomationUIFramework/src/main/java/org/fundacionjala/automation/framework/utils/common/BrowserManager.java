@@ -36,11 +36,11 @@ public class BrowserManager {
 	        	driver = new SafariDriver();
 	        	break;
 	        case Chrome:
-	        	System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+	        	System.setProperty("webdriver.chrome.driver", PropertiesReader.getChromeDriverPath());
 				driver = new ChromeDriver();
 				break;
 	        case Explorer:
-	        	System.setProperty("webdriver.ie.driver", "./lib/IEDriverServer.exe"); 	
+	        	System.setProperty("webdriver.ie.driver", PropertiesReader.getIexploreDriverPath()); 	
 				driver = new InternetExplorerDriver();
 				break;
 			default:
