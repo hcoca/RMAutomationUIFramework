@@ -3,6 +3,8 @@ package org.fundacionjala.automation.scenario.steps.admin.resource;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
+import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.testng.Assert;
 
@@ -14,8 +16,13 @@ public class DeleteResourceSteps {
 
 	@Given("^I have a resource created with the name \"([^\"]*)\"$")
 	public void i_have_a_resource_created_with_the_name(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-		BrowserManager.openBrowser();
+		Resource resource = new Resource(arg1, arg1, "fa fa-fire", "", arg1);
+		ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", resource);
+	}
+
+	@When("^I delete the resource with the name \"([^\"]*)\"$")
+	public void i_delete_the_resource_with_the_name(String arg1) throws Throwable {
+	    BrowserManager.openBrowser();
 		LoginPage login = new LoginPage();
 		
 		login
@@ -24,18 +31,6 @@ public class DeleteResourceSteps {
 			.clickOnSigInButton()
 			.leftMenu
 			.clickOnResourcesButton()
-			.clickOnAddButton()
-			.setResourceName(arg1)
-			.setDisplayName(arg1)
-			.setDescription(arg1)
-			.clickOnSaveButton();
-	}
-
-	@When("^I delete the resource with the name \"([^\"]*)\"$")
-	public void i_delete_the_resource_with_the_name(String arg1) throws Throwable {
-	   ResourcePage resource = new ResourcePage();
-	   
-	   resource
 	   		.selectResource(arg1)
 	   		.clickOnRemoveButton();
 	}
@@ -54,7 +49,5 @@ public class DeleteResourceSteps {
 		boolean isResourcePresent = !resource.verifyResourceExist(arg1);
 		
 		Assert.assertTrue(isResourcePresent);
-		
-		BrowserManager.getDriver().quit();
 	}
 }
