@@ -30,7 +30,7 @@ public class APIManager {
 		switch (requestType) {
 		case "get":
 			jsonResponse = Unirest.get(endPoint)
-			  .header("accept", "application/json")
+			  .header("Content-Type", "application/json")
 			  .asJson();
 			break;
         case "post":
@@ -42,6 +42,9 @@ public class APIManager {
         case "put":
 			break;
         case "delete":
+        	jsonResponse = Unirest.delete(endPoint)
+			  .header("Content-Type", "application/json")
+			  .asJson();
 			break;
 		}
 		return jsonResponse;

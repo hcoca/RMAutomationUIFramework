@@ -33,4 +33,10 @@ public class ResourceAPIManager {
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, jsonObject, "post");
 		return jsonResponse.getBody();
 	}
+	
+	public static JsonNode deleteRequest(String endPoint, String resourceID ) throws UnirestException{
+		String deleteEndPoint = endPoint + "/" + resourceID;
+		HttpResponse<JsonNode> jsonResponse = APIManager.request(deleteEndPoint, "delete");
+		return jsonResponse.getBody();
+	}
 }
