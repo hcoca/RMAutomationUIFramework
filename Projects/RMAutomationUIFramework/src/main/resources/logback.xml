@@ -31,7 +31,7 @@
 		<file>./logs/test.html</file>
 	</appender>
 
-	<logger name="com.jalafundation.example" level="info"
+	<logger name="org.fundacionjala.automation" level="info"
 		additivity="false">
 		<appender-ref ref="HTML-OUT" />
 		<appender-ref ref="FILE-OUT" />
@@ -39,7 +39,7 @@
 	</logger>
 
 	<root level="info">
-		<appender-ref ref="STDOUT" />
+		<appender-ref ref="STD-OUT" />
 	</root>
 
 </configuration>

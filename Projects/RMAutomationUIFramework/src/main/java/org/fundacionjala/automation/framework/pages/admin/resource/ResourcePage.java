@@ -33,6 +33,15 @@ public class ResourcePage extends AdminPage {
 		return new RemoveResourcePage();
 	}
 	
+	public ResourcePage selectResource(String resourceName){
+		for (WebElement name : resourceNames) {
+			if (name.getText().equalsIgnoreCase(resourceName)) {
+				UIActions.clickAt(name);
+			}
+		}		
+		return this;
+	}
+	
 	public boolean verifyResourceExist(String resourceName){
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
