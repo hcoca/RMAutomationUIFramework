@@ -11,15 +11,22 @@ import org.openqa.selenium.support.PageFactory;
 public class LeftMenu {
 	
 	@FindBy (xpath = LeftMenuMap.RESOURCES_BUTTON) WebElement resourcesButton;
-	
+	@FindBy (xpath = LeftMenuMap.ISSUES_BUTTON) WebElement issuesButton;
 	public LeftMenu() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
 	public ResourcePage clickOnResourcesButton() {
+		clickOnIssuesButton();
 		UIActions.waitFor(LeftMenuMap.RESOURCES_BUTTON);
 		UIActions.clickAt(resourcesButton);
 		
 		return new ResourcePage();
+	}
+
+	public LeftMenu clickOnIssuesButton() {
+		UIActions.waitFor(LeftMenuMap.ISSUES_BUTTON);
+		UIActions.clickAt(issuesButton);
+		return this;
 	}
 }
