@@ -15,7 +15,7 @@ public class UIActions {
 	
 	public static void clickAt(WebElement element) {
 		element.click();
-		LogManager.info("'" + element.getText() + "' button has been clicked");
+		LogManager.info("Button has been clicked");
 	}
 	
 	public static void typeOn(WebElement element, String message) {
