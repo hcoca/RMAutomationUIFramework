@@ -8,6 +8,8 @@ import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
 
@@ -35,7 +37,10 @@ public class LoginPage {
 	}
 	
 	public AdminPage clickOnSigInButton()	{
-		UIActions.waitFor(LoginMap.SIGN_IN_BUTTON);
+		//UIActions.waitFor(LoginMap.SIGN_IN_BUTTON);
+		(new WebDriverWait (BrowserManager.getDriver(),15))
+			      .until(ExpectedConditions.elementToBeClickable(sigInButton)); 
+			     
 		UIActions.clickAt(sigInButton);
 		
 		return new AdminPage();

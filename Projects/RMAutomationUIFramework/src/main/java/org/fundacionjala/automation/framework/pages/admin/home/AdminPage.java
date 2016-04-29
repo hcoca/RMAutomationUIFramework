@@ -4,9 +4,10 @@ import org.fundacionjala.automation.framework.pages.admin.navigation.LeftMenu;
 
 public class AdminPage {
 	
-	protected LeftMenu leftMenu;
+	public LeftMenu leftMenu;
 	
 	public AdminPage() {
+		leftMenu = new LeftMenu();
 	}
 	
 }

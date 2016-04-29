@@ -10,4 +10,5 @@ public class ResourceInfoMap {
 	public static final String ICON = "//table[@class='table-icons']/tbody//button[@value='iconName']";
 	public static final String RIGHT_BUTTON = "//table[@class='table-icons']/thead//button[@value='1']";
 	public static final String LEFT_BUTTON = "//table[@class='table-icons']/thead//button[@value='-1']";
+	public static final String PAGE_COUNT = ".page-count";
 }

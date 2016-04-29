@@ -1,7 +1,10 @@
 package org.fundacionjala.automation.framework.pages.admin.resource;
 
+import java.util.List;
+
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceInfoMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -15,6 +18,9 @@ public class ResourceInfoPage {
 	@FindBy (xpath = ResourceInfoMap.SAVE_BUTTON) WebElement saveButton;
 	@FindBy (xpath = ResourceInfoMap.CANCEL_BUTTON) WebElement cancelButton;
 	@FindBy (xpath = ResourceInfoMap.ICON_BUTTON) WebElement iconButton;
+	@FindBy (xpath = ResourceInfoMap.LEFT_BUTTON) WebElement leftButton;
+	@FindBy (xpath = ResourceInfoMap.RIGHT_BUTTON) WebElement rightButton;
+	@FindBy (css = ResourceInfoMap.PAGE_COUNT) WebElement txt_count;
 	
 	public ResourceInfoPage()
 	{
@@ -46,14 +52,15 @@ public class ResourceInfoPage {
 	}
 	
 	public ResourceInfoPage selectIcon(String icon)
-	{//TODO: Find by page of icons
-		String xpath = ResourceInfoMap.ICON.replace("iconName", icon);
-		WebElement element;
+	{	
+		
 		UIActions.waitFor(ResourceInfoMap.ICON_BUTTON);
 		UIActions.clickAt(iconButton);
-		UIActions.waitFor(xpath);
-		element = BrowserManager.getDriver().findElement(By.xpath(xpath));
-		UIActions.clickAt(element);
+		WebElement iconToChange = FindIcon(icon);
+		if (iconToChange != null)
+		{
+			iconToChange.click();
+		}
 		
 		return this;
 	}
@@ -72,5 +79,35 @@ public class ResourceInfoPage {
 		UIActions.clickAt(cancelButton);
 		
 		return new ResourcePage();
+	}
+	
+	public WebElement FindIcon(String iconName)
+	{
+		String xpath = ResourceInfoMap.ICON.replace("iconName", iconName);
+		List<WebElement> elements;
+		LogManager.info("Finding the icon from page 1:" + iconName);
+		
+		while(txt_count.getText().charAt(0) != '1')
+		{
+			leftButton.click();
+		}
+		
+		byte count = 1;
+		elements = BrowserManager.getDriver().findElements(By.xpath(xpath));
+		while(elements.size() == 0 && count <= 9)
+		{
+			LogManager.info(iconName + " is not in the page " + count); 
+			rightButton.click();
+			elements = BrowserManager.getDriver().findElements(By.xpath(xpath));
+			count++;
+		}
+		
+		if(elements.size()>0)
+		{
+			LogManager.info(iconName + " is in the page " + count + " of icons"); 
+			return elements.get(0);
+		}
+		return null;
+		
 	}
 }
