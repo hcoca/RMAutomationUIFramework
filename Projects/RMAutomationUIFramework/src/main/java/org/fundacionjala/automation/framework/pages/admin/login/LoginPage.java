@@ -37,7 +37,6 @@ public class LoginPage {
 	}
 	
 	public AdminPage clickOnSigInButton()	{
-		//UIActions.waitFor(LoginMap.SIGN_IN_BUTTON);
 		(new WebDriverWait (BrowserManager.getDriver(),15))
 			      .until(ExpectedConditions.elementToBeClickable(sigInButton)); 
 			     

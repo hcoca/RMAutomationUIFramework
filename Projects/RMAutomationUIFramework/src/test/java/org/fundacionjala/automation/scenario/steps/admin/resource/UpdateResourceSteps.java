@@ -40,6 +40,10 @@ public class UpdateResourceSteps {
 
 	@When("^I modify the \"([^\"]*)\" field with value \"([^\"]*)\"$")
 	public void i_modify_the_name_field_with_value(String name, String value) throws Throwable {
+		//Refresh
+		resource =	(new AdminPage())
+					.leftMenu
+					.clickOnResourcesButton();
 		
 		info = resource.doubleClickOnResource(resourceName);
 		switch(name.charAt(0))
@@ -62,8 +66,18 @@ public class UpdateResourceSteps {
 	}
 	@Then("^the resource is modified according the changes \\(\"([^\"]*)\" field with value \"([^\"]*)\"\\)$")
 	public void the_resource_is_modified_according_the_changes(String name, String value) throws Throwable {
+		resource =	(new AdminPage())
+				.leftMenu
+				.clickOnResourcesButton();
+		
 		Assert.assertTrue(resource.verifyResourceModifiedByField(resourceName,name, value)); 
 		driver = BrowserManager.getDriver();
+		
+		if(name.charAt(0) == 'n')
+			resourceName = value;
+		resource.selectResource(resourceName)
+   				.clickOnRemoveButton()
+   				.clickOnRemoveButton();
 	}
 	
 
