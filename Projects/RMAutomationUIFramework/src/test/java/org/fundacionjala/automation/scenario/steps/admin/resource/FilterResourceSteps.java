@@ -13,11 +13,10 @@ import cucumber.api.java.en.When;
 
 public class FilterResourceSteps {
 	private ResourcePage resourcePage = new ResourcePage();
-	
+	private Resource resource;
 	@Given("^I have a resource$")
 	public void i_have_a_resource() throws Throwable {
-		Resource resource = new Resource("Fire", "Fire-Ball", "fa fa-fire", "", "You are on fire");
-		ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", resource);	
+		resource = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", new Resource("Fire", "Fire-Ball", "fa fa-fire", "", "You are on fire"));	
 	}
 
 	@When("^I search the resource in resources page$")
@@ -39,10 +38,7 @@ public class FilterResourceSteps {
 
 	@Then("^then the resource is deleted$")
 	public void then_the_resource_is_deleted() throws Throwable {
-		resourcePage
-		.selectResource("Fire")
-		.clickOnRemoveButton()
-		.clickOnRemoveButton();
+		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resource._id);
 		BrowserManager.getDriver().close();
 	}
 }
