@@ -1,7 +1,6 @@
 package org.fundacionjala.automation.framework.pages.admin.resource;
 
 import java.util.List;
-
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -16,6 +15,7 @@ public class ResourcePage extends AdminPage {
 	@FindBy (xpath = ResourceMap.REMOVE_BUTTON) WebElement removeButton;
 	@FindBy (xpath = ResourceMap.RESOURCE_TABLE) WebElement resourceTable;
 	@FindBy (xpath = ResourceMap.RESOURCE_NAMES) List<WebElement> resourceNames;
+	@FindBy (xpath = ResourceMap.RESOURCE_FILTER) WebElement resourceFilter;
 	
 	public ResourcePage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
@@ -31,6 +31,12 @@ public class ResourcePage extends AdminPage {
 		UIActions.waitFor(ResourceMap.REMOVE_BUTTON);
 		UIActions.clickAt(removeButton);
 		return new RemoveResourcePage();
+	}
+	
+	public ResourcePage setResourceFilter(String resourceName){
+		UIActions.waitFor(ResourceMap.RESOURCE_FILTER);
+		UIActions.typeOn(resourceFilter, resourceName);
+		return this;
 	}
 	
 	public ResourcePage selectResource(String resourceName){
