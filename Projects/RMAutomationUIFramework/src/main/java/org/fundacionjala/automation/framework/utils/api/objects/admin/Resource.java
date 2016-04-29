@@ -13,9 +13,6 @@ public class Resource extends RequestObject{
 	public int __v;
 	public String _id;
 	
-	public Resource(){
-	}
-	
 	public Resource(String name, String customName, String fontIcon, String from, String description){
 		this.name = name;
 		this.customName = customName;
@@ -42,6 +39,9 @@ public class Resource extends RequestObject{
 		jsonObject.put("from", this.from);
 		jsonObject.put("description", this.description);
 		return jsonObject;
+	}
+	
+	public Resource(){
 	}
 	
 }

@@ -26,12 +26,13 @@ public class ResourceAPIManager {
 		return resourceList;
 	}
 	
-	public static JsonNode postRequest(String endPoint, RequestObject requestBody ) throws UnirestException{
+	public static Resource postRequest(String endPoint, RequestObject requestBody ) throws UnirestException{
 		Resource resource = new Resource();
 		resource = (Resource) requestBody;
 		JSONObject jsonObject = resource.getJsonObject();
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, jsonObject, "post");
-		return jsonResponse.getBody();
+		
+		return new Resource(jsonResponse.getBody().getObject());
 	}
 	
 	public static JsonNode deleteRequest(String endPoint, String resourceID ) throws UnirestException{
