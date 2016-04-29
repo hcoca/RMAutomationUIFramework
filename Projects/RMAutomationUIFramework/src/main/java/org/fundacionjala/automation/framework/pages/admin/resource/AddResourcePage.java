@@ -2,11 +2,14 @@ package org.fundacionjala.automation.framework.pages.admin.resource;
 
 import org.fundacionjala.automation.framework.maps.admin.resource.AddResourceMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AddResourcePage {
 	
@@ -24,25 +27,36 @@ public class AddResourcePage {
 	
 	public AddResourcePage setResourceName(String name)
 	{
-		UIActions.waitFor(AddResourceMap.NAME_TEXT_FIELD);
-		UIActions.typeOn(nameTextField, name);
+		By locator = By.xpath(AddResourceMap.NAME_TEXT_FIELD);
+		(new WebDriverWait(BrowserManager.getDriver(), 10))
+		.until(ExpectedConditions.presenceOfElementLocated(locator));
+		nameTextField.sendKeys(name);
+		LogManager.info("'"+name+"' has been set");
 		
 		return this;
 	}
 	
 	public AddResourcePage setDisplayName(String displayName)
 	{
-		UIActions.waitFor(AddResourceMap.DISPLAY_NAME_TEXT_FIELD);
-		UIActions.typeOn(displayNameTextField, displayName);
+		By locator = By.xpath(AddResourceMap.DISPLAY_NAME_TEXT_FIELD);
+		(new WebDriverWait(BrowserManager.getDriver(), 10))
+		.until(ExpectedConditions.presenceOfElementLocated(locator));
+		displayNameTextField.clear();
+		displayNameTextField.sendKeys(displayName);
+		LogManager.info("'" + displayName + " has been set up in ");
 		
 		return this;
 	}
 	
 	public AddResourcePage setDescription(String description)
 	{
-		UIActions.waitFor(AddResourceMap.DESCRIPTION_TEXT_FIELD);
-		UIActions.typeOn(descriptionTextField, description);
-		
+		By locator = By.xpath(AddResourceMap.DESCRIPTION_TEXT_FIELD);
+		(new WebDriverWait(BrowserManager.getDriver(), 10))
+		.until(ExpectedConditions.presenceOfElementLocated(locator));
+		descriptionTextField.clear();
+		descriptionTextField.sendKeys(description);
+		LogManager.info("'" + description + " has been set up in ");
+				
 		return this;
 	}
 	
@@ -50,27 +64,34 @@ public class AddResourcePage {
 	{
 		String xpath = AddResourceMap.ICON.replace("iconName", icon);
 		WebElement element;
-		UIActions.waitFor(AddResourceMap.ICON_BUTTON);
-		UIActions.clickAt(iconButton);
-		UIActions.waitFor(xpath);
+		(new WebDriverWait(BrowserManager.getDriver(), 10))
+		.until(ExpectedConditions.presenceOfElementLocated(By.xpath(AddResourceMap.ICON_BUTTON)));
+		iconButton.click();
+		(new WebDriverWait(BrowserManager.getDriver(), 10))
+		.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
 		element = BrowserManager.getDriver().findElement(By.xpath(xpath));
-		UIActions.clickAt(element);
-		
+		element.click();
+		LogManager.info("'Icon' button has been selected");
+				
 		return this;
 	}
 	
 	public ResourcePage clickOnSaveButton()
 	{
-		UIActions.waitFor(AddResourceMap.SAVE_BUTTON);
-		UIActions.clickAt(saveButton);
+		(new WebDriverWait(BrowserManager.getDriver(), 10))
+		.until(ExpectedConditions.presenceOfElementLocated(By.xpath(AddResourceMap.SAVE_BUTTON)));
+		saveButton.click();
+		LogManager.info("'Save' button has been clicked");
 		
 		return new ResourcePage();
 	}
 	
 	public ResourcePage clickOnCancelButton()
 	{
-		UIActions.waitFor(AddResourceMap.CANCEL_BUTTON);
-		UIActions.clickAt(cancelButton);
+		(new WebDriverWait(BrowserManager.getDriver(), 10))
+		.until(ExpectedConditions.presenceOfElementLocated(By.xpath(AddResourceMap.CANCEL_BUTTON)));
+		cancelButton.click();
+		LogManager.info("'Cancel' button has been clicked");
 		
 		return new ResourcePage();
 	}
