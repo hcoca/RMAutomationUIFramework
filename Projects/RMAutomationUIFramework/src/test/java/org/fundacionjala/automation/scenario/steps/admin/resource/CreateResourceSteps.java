@@ -39,8 +39,7 @@ public class CreateResourceSteps {
 			.setDescription("New Computer")
 			.selectIcon("fa-eye")
 			.clickOnSaveButton();
-		//(new WebDriverWait(BrowserManager.getDriver(), 10))
-		//.until(ExpectedConditions.presenceOfElementLocated(By.xpath("dhkashdk")));
+		
 		
 	}
 
@@ -52,7 +51,6 @@ public class CreateResourceSteps {
 
 	@Then("^after that the resource is deleted$")
 	public void after_that_the_resource_is_deleted() throws Throwable {
-		//BrowserManager.getDriver().quit();
 	}
 
 }
