@@ -39,8 +39,6 @@ public class CreateResourceSteps {
 			.setDescription("New Computer")
 			.selectIcon("fa-eye")
 			.clickOnSaveButton();
-		
-		
 	}
 
 	@Then("^I validate that the resource is diplayed in resource page$")
@@ -51,6 +49,10 @@ public class CreateResourceSteps {
 
 	@Then("^after that the resource is deleted$")
 	public void after_that_the_resource_is_deleted() throws Throwable {
+		resource
+			.selectResource("nada")
+	   		.clickOnRemoveButton()
+			.clickOnRemoveButton();
 	}
 
 }
