@@ -4,15 +4,11 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
-import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import cucumber.api.java.en.Given;
@@ -22,7 +18,6 @@ import cucumber.api.java.en.When;
 public class CreateResourceSteps {
 	AdminPage home;
 	ResourcePage resource;
-	RemoveResourcePage removeresource;
 
 	@Given("^I Login to Room Manager$")
 	public void i_Login_to_Room_Manager() throws Throwable {
