@@ -3,6 +3,7 @@ package org.fundacionjala.automation.framework.pages.admin.navigation;
 import org.fundacionjala.automation.framework.maps.admin.navigation.LeftMenuMap;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,7 +18,7 @@ public class LeftMenu {
 	}
 	
 	public ResourcePage clickOnResourcesButton() {
-		clickOnIssuesButton();
+		LogManager.info("Click on resource menu");
 		UIActions.waitFor(LeftMenuMap.RESOURCES_BUTTON);
 		UIActions.clickAt(resourcesButton);
 		

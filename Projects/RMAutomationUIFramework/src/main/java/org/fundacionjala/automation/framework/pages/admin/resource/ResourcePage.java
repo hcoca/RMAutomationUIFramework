@@ -1,9 +1,13 @@
 package org.fundacionjala.automation.framework.pages.admin.resource;
 
 import java.util.List;
+
+import mx4j.log.Log;
+
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -53,17 +57,21 @@ public class ResourcePage extends AdminPage {
 	public boolean verifyResourceExist(String resourceName){
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
+				LogManager.info("[TRUE] Resource " + resourceName + " exists");
 				return true;
 			}
-		}		
+		}
+		LogManager.error("[FALSE] Resource " + resourceName + " doesn't exist");
 		return false;
 	}
+	
 	public ResourceInfoPage doubleClickOnResource(String name)
 	{
 		for (WebElement element : resourceNames) {
 			if (element.getText().equalsIgnoreCase(name)) {
 				element.click();
 				UIActions.doubleClick(element);
+				LogManager.error("Double click on Resource " + name);
 				return new ResourceInfoPage();
 			}
 		}

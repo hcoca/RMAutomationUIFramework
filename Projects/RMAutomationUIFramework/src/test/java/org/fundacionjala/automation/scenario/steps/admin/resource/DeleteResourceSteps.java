@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.scenario.steps.admin.resource;
 
+import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
@@ -31,6 +32,7 @@ public class DeleteResourceSteps {
 			.clickOnSigInButton()
 			.refreshPage()
 			.leftMenu
+			.clickOnIssuesButton()
 			.clickOnResourcesButton()
 	   		.selectResource(arg1)
 	   		.clickOnRemoveButton();
@@ -45,10 +47,15 @@ public class DeleteResourceSteps {
 
 	@Then("^I verify that the resource with the name \"([^\"]*)\" has been deleted$")
 	public void i_verify_that_the_resource_with_the_name_has_been_deleted(String arg1) throws Throwable {
-		ResourcePage resource = new ResourcePage();
+		AdminPage admin = new AdminPage();
 		
-		boolean isResourcePresent = !resource.verifyResourceExist(arg1);
+		ResourcePage resource = admin
+									.leftMenu
+									.clickOnIssuesButton()
+									.clickOnResourcesButton();
 		
-		Assert.assertTrue(isResourcePresent);
+		boolean isResourcePresent = resource.verifyResourceExist(arg1);
+		
+		Assert.assertFalse(isResourcePresent);
 	}
 }

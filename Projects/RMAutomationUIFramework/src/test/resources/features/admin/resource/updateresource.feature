@@ -11,3 +11,5 @@ Then the resource is modified according the changes ("<field>" field with value 
 Examples:
     | name                | field  |value 																		 |
     | Resource12345       | name   |  cscjiejfiejfiejfiejfiejfiejfiejfyytytytyt| 
+
+    

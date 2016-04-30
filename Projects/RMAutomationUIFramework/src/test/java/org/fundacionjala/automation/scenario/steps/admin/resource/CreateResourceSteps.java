@@ -45,6 +45,12 @@ public class CreateResourceSteps {
 
 	@Then("^I validate that the resource is diplayed in resource page$")
 	public void i_validate_that_the_resource_is_diplayed_in_resource_page() throws Throwable {
+		home.refreshPage();
+		home
+		.leftMenu
+		.clickOnIssuesButton()
+		.clickOnResourcesButton();
+		
 		Assert.assertTrue(resource
 			.verifyResourceExist("nada"));
 	}
