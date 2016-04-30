@@ -26,7 +26,8 @@ public class CreateResourceSteps {
 		home = login
 					.setUserName(PropertiesReader.getUserName())
 					.setPassword(PropertiesReader.getPassword())
-					.clickOnSigInButton();
+					.clickOnSigInButton()
+					.refreshPage();
 	}
 
 	@When("^I Create a new resource$")

@@ -29,6 +29,7 @@ public class DeleteResourceSteps {
 			.setUserName("SamuelSahonero")
 			.setPassword("Control123!")
 			.clickOnSigInButton()
+			.refreshPage()
 			.leftMenu
 			.clickOnResourcesButton()
 	   		.selectResource(arg1)
