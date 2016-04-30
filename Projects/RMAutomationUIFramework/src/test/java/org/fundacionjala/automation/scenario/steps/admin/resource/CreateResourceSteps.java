@@ -1,8 +1,13 @@
 package org.fundacionjala.automation.scenario.steps.admin.resource;
 
+import java.util.List;
+
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
+import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
+import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.openqa.selenium.By;
@@ -17,6 +22,7 @@ import cucumber.api.java.en.When;
 public class CreateResourceSteps {
 	AdminPage home;
 	ResourcePage resource;
+	RemoveResourcePage removeresource;
 
 	@Given("^I Login to Room Manager$")
 	public void i_Login_to_Room_Manager() throws Throwable {
@@ -49,10 +55,15 @@ public class CreateResourceSteps {
 
 	@Then("^after that the resource is deleted$")
 	public void after_that_the_resource_is_deleted() throws Throwable {
-		resource
-			.selectResource("nada")
-	   		.clickOnRemoveButton()
-			.clickOnRemoveButton();
+		String idResource = "";
+		List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+		for (Resource resource : listResource) {
+			if(resource.name.equalsIgnoreCase("nada"))
+			{
+				idResource = resource._id;
+			}
+		}
+		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
 	}
 
 }
