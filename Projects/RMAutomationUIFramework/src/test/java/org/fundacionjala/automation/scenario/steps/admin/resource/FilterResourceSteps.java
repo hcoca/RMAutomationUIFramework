@@ -26,8 +26,10 @@ public class FilterResourceSteps {
 	    
 	    loginPage
 	    .clickOnSigInButton()
-	    .leftMenu
-	    .clickOnResourcesButton()
+	    .refreshPage()
+		.leftMenu
+		.clickOnIssuesButton()
+		.clickOnResourcesButton()
 	    .setResourceFilter("Fire");
 	}
 
@@ -39,6 +41,5 @@ public class FilterResourceSteps {
 	@Then("^then the resource is deleted$")
 	public void then_the_resource_is_deleted() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resource._id);
-		BrowserManager.getDriver().close();
 	}
 }

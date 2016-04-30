@@ -28,6 +28,7 @@ public class UpdateResourceSteps {
 		login.setUserName(PropertiesReader.getUserName())
 			.setPassword(PropertiesReader.getPassword())
 			.clickOnSigInButton()
+			.refreshPage()
 			.leftMenu
 			.clickOnIssuesButton()
 			.clickOnResourcesButton()
