@@ -1,13 +1,14 @@
 package org.fundacionjala.automation.scenario.steps.admin.resource;
 
+import java.util.List;
+
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
+import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import cucumber.api.java.en.Given;
@@ -25,7 +26,8 @@ public class CreateResourceSteps {
 		home = login
 					.setUserName(PropertiesReader.getUserName())
 					.setPassword(PropertiesReader.getPassword())
-					.clickOnSigInButton();
+					.clickOnSigInButton()
+					.refreshPage();
 	}
 
 	@When("^I Create a new resource$")
@@ -39,18 +41,31 @@ public class CreateResourceSteps {
 			.setDescription("New Computer")
 			.selectIcon("fa-eye")
 			.clickOnSaveButton();
-		
-		
 	}
 
 	@Then("^I validate that the resource is diplayed in resource page$")
 	public void i_validate_that_the_resource_is_diplayed_in_resource_page() throws Throwable {
+		home.refreshPage();
+		home
+		.leftMenu
+		.clickOnIssuesButton()
+		.clickOnResourcesButton();
+		
 		Assert.assertTrue(resource
 			.verifyResourceExist("nada"));
 	}
 
 	@Then("^after that the resource is deleted$")
 	public void after_that_the_resource_is_deleted() throws Throwable {
+		String idResource = "";
+		List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+		for (Resource resource : listResource) {
+			if(resource.name.equalsIgnoreCase("nada"))
+			{
+				idResource = resource._id;
+			}
+		}
+		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
 	}
 
 }

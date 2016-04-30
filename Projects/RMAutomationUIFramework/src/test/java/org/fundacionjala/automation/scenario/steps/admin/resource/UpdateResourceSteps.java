@@ -10,39 +10,44 @@ import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIMana
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class UpdateResourceSteps {
-	ResourcePage resource;	
-	ResourceInfoPage info;
-	AdminPage home;
-	String resourceName;
+	private ResourcePage resourcePage;	
+	private ResourceInfoPage info;
+	private AdminPage home;
+	private String resourceName;
+	private Resource resource;
 	
 	@Given("^I have a resource created with name \"([^\"]*)\"$")
 	public void i_have_a_resource_created(String resourceNameInput) throws Throwable {
 		resourceName = resourceNameInput;
-		Resource resource = new Resource(resourceName, resourceName, "fa fa-desktop", "", resourceName);
-		ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", resource);
+		resource = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", new Resource(resourceName, resourceName, "fa fa-desktop", "", resourceName));
 		BrowserManager.openBrowser();
 		LoginPage login = new LoginPage();
 		login.setUserName(PropertiesReader.getUserName())
 			.setPassword(PropertiesReader.getPassword())
-			.clickOnSigInButton();
+			.clickOnSigInButton()
+			.refreshPage();
 		
 	}
 
 	@When("^I modify the \"([^\"]*)\" field with value \"([^\"]*)\"$")
 	public void i_modify_the_name_field_with_value(String name, String value) throws Throwable {
-		home
-			.leftMenu
-			.clickOnResourcesButton();
+		home = new AdminPage();
+		resourcePage = home
+						.leftMenu
+						.clickOnIssuesButton()
+						.clickOnResourcesButton();
 		
-		info = resource.doubleClickOnResource(resourceName);
+		info = resourcePage.doubleClickOnResource(resourceName);
 		switch(name.charAt(0))
 		{
 		case 'n':
@@ -63,27 +68,19 @@ public class UpdateResourceSteps {
 	}
 	@Then("^the resource is modified according the changes \\(\"([^\"]*)\" field with value \"([^\"]*)\"\\)$")
 	public void the_resource_is_modified_according_the_changes(String name, String value) throws Throwable {
-		resource =	(new AdminPage())
+		resourcePage =	(new AdminPage())
 				.leftMenu
+				.clickOnIssuesButton()
 				.clickOnResourcesButton();
 		
-		Assert.assertTrue(resource.verifyResourceModifiedByField(resourceName,name, value)); 
+		Assert.assertTrue(resourcePage.verifyResourceModifiedByField(resourceName,name, value)); 
 		
 		/*PostCondition - remove resource*/
-		String idResource = "";
-		if(name.charAt(0) == 'n')
-			resourceName = value;
-		List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
-		for (Resource resource : listResource) {
-			if(resource.name.equalsIgnoreCase("nada"))
-			{
-				idResource = resource._id;
-				System.out.println("");
-				System.out.println("ID - run!" + idResource);
-			}
-		}
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
+		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resource._id);
+		home.refreshPage();
+		home.leftMenu
+			.clickOnIssuesButton()
+			.clickOnResourcesButton();
+		BrowserManager.getDriver().quit();
 	}
-	
-
 }
