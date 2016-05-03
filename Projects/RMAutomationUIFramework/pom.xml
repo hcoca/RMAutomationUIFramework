@@ -91,7 +91,7 @@
 						<configuration>
 							<projectName>cucumber-reporting-example</projectName>
 							<buildNumber>${build.number}</buildNumber>
-							<outputDirectory>./reports</outputDirectory>
+							<outputDirectory>./reports/reporting</outputDirectory>
 							<cucumberOutput>./cucumber.json</cucumberOutput>
 							<parallelTesting>false</parallelTesting>
 	                        <enableFlashCharts>true</enableFlashCharts>
