@@ -10,6 +10,8 @@ import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIMana
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
@@ -82,5 +84,14 @@ public class UpdateResourceSteps {
 			.clickOnIssuesButton()
 			.clickOnResourcesButton();
 		BrowserManager.getDriver().quit();
+	}
+	
+	@After()
+	public void tearDown(Scenario scenario) {
+	    if (scenario.isFailed()) {
+	            final byte[] screenshot = ((TakesScreenshot) BrowserManager.getDriver())
+	                        .getScreenshotAs(OutputType.BYTES);
+	            scenario.embed(screenshot, "image/png"); 
+	    }
 	}
 }
