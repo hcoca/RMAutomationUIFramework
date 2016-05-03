@@ -7,7 +7,8 @@ import cucumber.api.junit.Cucumber;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features ="src/test/resources/features/admin/resource/") 
+@CucumberOptions(features ="src/test/resources/features/admin/resource/",
+				 format = { "pretty", "html:reports/cucumber" , "json:./cucumber.json"}) 
 
 public class ResourceRunnerTest extends AbstractTestNGCucumberTests{
 	              
