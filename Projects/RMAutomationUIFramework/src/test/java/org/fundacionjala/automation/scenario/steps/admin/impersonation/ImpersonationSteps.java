@@ -80,8 +80,16 @@ public class ImpersonationSteps {
 	
 	@When("^there is no Email Server Added$")
 	public void there_is_no_Email_Server_Added() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		String idService = null;
+		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
+		
+		for (Service service : listServices) {
+				idService = service._id;
+		}
+		if (idService != null)
+		{
+			ServiceAPIManager.deleteRequest("http://172.20.208.84:4040/services", idService);
+		}
 	}
 	
 	@Then("^the Authentication Type is changed to Credentials$")
@@ -93,20 +101,34 @@ public class ImpersonationSteps {
 
 	@Then("^the Impersonation Option is enabled$")
 	public void the_Impersonation_Option_is_enabled() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		boolean impersonate;
+		List<Service> listServices;
+		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
+		
+		for (Service service : listServices) {
+			impersonate = service.impersonate;
+		}
+		
+		Assert.assertTrue(impersonate);
 	}
 
 	@Then("^the Impersonation Options displayed in the Credentials Page$")
 	public void the_Impersonation_Options_displayed_in_the_Credentials_Page() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+		// Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
 	
 	@Then("^the Impersonation Option is disabled$")
 	public void the_Impersonation_Option_is_disabled() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		boolean impersonate;
+		List<Service> listServices;
+		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
+		
+		for (Service service : listServices) {
+			impersonate = service.impersonate;
+		}
+		
+		Assert.assertFalse(impersonate);
 	}
 	
 	@Then("^the Authentication Type is changed to RFID$")
