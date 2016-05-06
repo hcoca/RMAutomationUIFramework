@@ -2,6 +2,7 @@ package org.fundacionjala.automation.framework.pages.admin.navigation;
 
 import org.fundacionjala.automation.framework.maps.admin.navigation.LeftMenuMap;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
+import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
@@ -16,6 +17,7 @@ public class LeftMenu {
 	@FindBy (xpath = LeftMenuMap.RESOURCES_BUTTON) WebElement resourcesButton;
 	@FindBy (xpath = LeftMenuMap.ISSUES_BUTTON) WebElement issuesButton;
 	@FindBy (linkText = LeftMenuMap.CONFERENCE_ROOMS_BUTTON) WebElement conferenceRoomsButton;
+	@FindBy (xpath = LeftMenuMap.LOCATIONS_BUTTON) WebElement locationsButton;
 	
 	
 	public LeftMenu() {
@@ -29,6 +31,7 @@ public class LeftMenu {
 		
 		return new ResourcePage();
 	}
+	
 	public ConferenceRoomsPage clickOnConferenceRoomsButton() throws InterruptedException{
 		LogManager.info("Click on conference rooms page");
 		UIActions.clickAt(conferenceRoomsButton);
@@ -36,6 +39,12 @@ public class LeftMenu {
 		return new ConferenceRoomsPage();
 	}
 	
+	public LocationPage clickOnLocationsButton() {
+		UIActions.waitFor(LeftMenuMap.LOCATIONS_BUTTON);
+		UIActions.clickAt(locationsButton);
+		return new LocationPage();
+	}
+
 	public LeftMenu clickOnIssuesButton() {
 		UIActions.waitFor(LeftMenuMap.ISSUES_BUTTON);
 		UIActions.clickAt(issuesButton);
