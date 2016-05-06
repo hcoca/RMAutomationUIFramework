@@ -33,7 +33,7 @@ public class AddLocationSteps {
 	@When("^I add a new location with name: \"([^\"]*)\", display name\"([^\"]*)\" and description\"([^\"]*)\"$")
 	public void i_add_a_new_location_with_name_display_name_and_description(String arg1, String arg2, String arg3) throws Throwable {
 	    this.name = arg1;
-	    //locationPage =
+
 	    locationPage
 	    .clickOnAddButton()
 	    .setNameField(arg1)

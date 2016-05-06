@@ -23,7 +23,6 @@ public class Location extends RequestObject{
 	public Location(JSONObject obj){
 		name = obj.get("name").toString();
 		customName = obj.get("customName").toString();
-		//parentId = obj.get("parentId").toString();
 		path = obj.get("path").toString();
 		description = obj.get("description").toString();
 		__v = Integer.parseInt(obj.get("__v").toString());
