@@ -1,7 +1,11 @@
 package org.fundacionjala.automation.framework.pages.admin.navigation;
 
 import org.fundacionjala.automation.framework.maps.admin.navigation.LeftMenuMap;
+<<<<<<< HEAD
 import org.fundacionjala.automation.framework.pages.admin.emailserver.EmailServerPage;
+=======
+import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
+>>>>>>> d31dea4b2071483ab1f8b4a6b51dedad608038d7
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
@@ -14,6 +18,7 @@ public class LeftMenu {
 	@FindBy (xpath = LeftMenuMap.EMAILSERVER_BUTTON) WebElement emailServerButton;
 	@FindBy (xpath = LeftMenuMap.RESOURCES_BUTTON) WebElement resourcesButton;
 	@FindBy (xpath = LeftMenuMap.ISSUES_BUTTON) WebElement issuesButton;
+	@FindBy (xpath = LeftMenuMap.LOCATIONS_BUTTON) WebElement locationsButton;
 	public LeftMenu() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
@@ -24,6 +29,12 @@ public class LeftMenu {
 		UIActions.clickAt(resourcesButton);
 		
 		return new ResourcePage();
+	}
+	
+	public LocationPage clickOnLocationsButton() {
+		UIActions.waitFor(LeftMenuMap.LOCATIONS_BUTTON);
+		UIActions.clickAt(locationsButton);
+		return new LocationPage();
 	}
 
 	public LeftMenu clickOnIssuesButton() {
