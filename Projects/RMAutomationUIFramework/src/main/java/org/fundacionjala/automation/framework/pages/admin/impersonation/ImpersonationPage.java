@@ -3,10 +3,11 @@ package org.fundacionjala.automation.framework.pages.admin.impersonation;
 import org.fundacionjala.automation.framework.maps.admin.impersonation.ImpersonationMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
-import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ImpersonationPage {
 	
@@ -21,7 +22,7 @@ public class ImpersonationPage {
 	}
 	
 	public ImpersonationPage clickOnUseImpersonationCheckBox() {
-		UIActions.waitFor(ImpersonationMap.USE_IMPERSONATION_CHECK_BOX);
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(useImpersonationCheckBox));
 		useImpersonationCheckBox.click();
 		
 		LogManager.info("Impersonation CheckBox has been clicked");
@@ -30,7 +31,7 @@ public class ImpersonationPage {
 	}
 	
 	public ImpersonationPage clickOnUserAndPasswordRadioButton() {
-		UIActions.waitFor(ImpersonationMap.USER_AND_PASSWORD_RADIO_BUTTON);
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(userAndPasswordRadioButton));
 		userAndPasswordRadioButton.click();
 		
 		LogManager.info("User and Password Radio Button has been clicked");
@@ -39,7 +40,7 @@ public class ImpersonationPage {
 	}
 	
 	public ImpersonationPage clickOnRFIDRadioButton() {
-		UIActions.waitFor(ImpersonationMap.RFID_RADIO_BUTTON);
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(RFIDRadioButton));
 		RFIDRadioButton.click();
 		
 		LogManager.info("RFID Radio Button has been clicked");
@@ -48,7 +49,7 @@ public class ImpersonationPage {
 	}
 	
 	public ImpersonationPage clickOnSaveButton() {
-		UIActions.waitFor(ImpersonationMap.SAVE_BUTTON);
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(saveButton));
 		saveButton.click();
 		
 		LogManager.info("Save Button has been clicked");
@@ -57,7 +58,7 @@ public class ImpersonationPage {
 	}
 	
 	public String getAccountUserName() {
-		UIActions.waitFor(ImpersonationMap.ACCOUNT_TEXT_FIELD);
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(accountTextField));
 		String userName = accountTextField.getAttribute("value");
 		
 		LogManager.info("User Name " + userName + " has been obtained");
