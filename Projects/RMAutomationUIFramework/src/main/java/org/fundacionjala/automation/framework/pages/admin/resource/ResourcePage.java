@@ -2,10 +2,9 @@ package org.fundacionjala.automation.framework.pages.admin.resource;
 
 import java.util.List;
 
-import mx4j.log.Log;
-
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
@@ -22,6 +21,7 @@ public class ResourcePage extends AdminPage {
 	@FindBy (xpath = ResourceMap.RESOURCE_TABLE) WebElement resourceTable;
 	@FindBy (xpath = ResourceMap.RESOURCE_NAMES) List<WebElement> resourceNames;
 	@FindBy (xpath = ResourceMap.RESOURCE_FILTER) WebElement resourceFilter;
+	
 	
 	public ResourcePage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
@@ -55,13 +55,27 @@ public class ResourcePage extends AdminPage {
 	}
 	
 	public boolean verifyResourceExist(String resourceName){
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		for (WebElement name : resourceNames) {
+			
 			if (name.getText().equalsIgnoreCase(resourceName)) {
 				LogManager.info("[TRUE] Resource " + resourceName + " exists");
 				return true;
 			}
 		}
 		LogManager.error("[FALSE] Resource " + resourceName + " doesn't exist");
+		return false;
+	}
+	
+	public boolean verifyResourceNotExist(String resourceName)
+	{
+		for (WebElement name : resourceNames) {
+			if (name.getText().equalsIgnoreCase(resourceName)) {
+				LogManager.info("[FALSE] Resource " + resourceName + " exists");
+				return true;
+			}
+		}
+		LogManager.error("[TRUE] Resource " + resourceName + " doesn't exist");
 		return false;
 	}
 	
@@ -106,6 +120,52 @@ public class ResourcePage extends AdminPage {
 		WebElement resourceDisplayElement = driver.findElement(By.xpath("//div[@tabindex]/div/div/child::*[3]//span[text()='"+ resourceName +"']/ancestor::div[3]/following-sibling::div[1]//span"));
 		
 		return (resourceDisplayElement.getText().equalsIgnoreCase(value));
+	}
+	public boolean verifyIconExist(String resourceName, String value)
+	{
+		WebDriver driver = BrowserManager.getDriver();
+		try {
+			if(driver.findElement(By.xpath("//div[@id='resourcesGrid']/div[2]/div//span[text()= '"+resourceName+"']/ancestor::div[4]/div[2]//span[@class='fa "+value+"']"))!= null)
+				return true;
+			else
+				return false;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+
+	public boolean verifyResourcesOnResourceTable(List<Resource> listResource) {
+		int counter = 0;
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+		for (Resource resource : listResource) {
+			 if(returnResourceName(resource.name)==true)
+				 counter = counter + 1;
+		}
+		if(counter == listResource.size())
+			return true;
+		else
+			return false;
+	}
+	private boolean returnResourceName(String name)
+	{
+		for (WebElement element : resourceNames) {
+			if (element.getText().equalsIgnoreCase(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean verifyResourceDisplayed(String arg1, String arg2, String arg3) {
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+		if(verifyResourceExist(arg1)){
+			if(verifyDisplayNameExist(arg1, arg2)){
+				if(verifyIconExist(arg1, arg3))
+					return true;
+			}
+		}
+		return false;
 	}
 
 	

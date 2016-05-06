@@ -30,7 +30,7 @@ public class ImpersonationOptionIsDisabledWhenThereIsNoEmailServerSteps {
 	
 	@When("^there is no Email Server Added$")
 	public void there_is_no_Email_Server_Added() throws Throwable {
-		/*String idService = null;
+		String idService = null;
 		List<Service> listServices;
 		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
 		
@@ -40,7 +40,7 @@ public class ImpersonationOptionIsDisabledWhenThereIsNoEmailServerSteps {
 		if(idService != null)
 		{
 			ServiceAPIManager.deleteRequest("http://172.20.208.84:4040/services", idService);
-		}*/
+		}
 		
 		AdminPage admin = new AdminPage();
 		
