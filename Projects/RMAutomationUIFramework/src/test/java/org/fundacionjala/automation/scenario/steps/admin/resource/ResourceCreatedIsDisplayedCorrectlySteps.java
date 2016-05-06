@@ -21,13 +21,14 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class CreateResourceSteps {
+public class ResourceCreatedIsDisplayedCorrectlySteps {
+	
 	AdminPage home;
 	ResourcePage resource;
-	String resourceName = "";
+	String resourceName="";
 	
-	@Given("^I Login to Room Manager$")
-	public void i_Login_to_Room_Manager() throws Throwable {
+	@Given("^I log in to Room Manager app$")
+	public void i_log_in_to_Room_Manager_app() throws Throwable {
 		BrowserManager.openBrowser();
 		LoginPage login = new LoginPage();
 		home = login
@@ -37,8 +38,8 @@ public class CreateResourceSteps {
 					.refreshPage();
 	}
 
-	@When("^I Create a new resource with name \"([^\"]*)\", with display name \"([^\"]*)\", with description \"([^\"]*)\" and icon \"([^\"]*)\"$")
-	public void i_Create_a_new_resource_with_name_with_display_name_with_description_and_icon(String arg1, String arg2, String arg3, String arg4) throws Throwable {
+	@When("^I create a resource with name \"([^\"]*)\", display name \"([^\"]*)\", description \"([^\"]*)\" and icon \"([^\"]*)\"$")
+	public void i_create_a_resource_with_name_display_name_description_and_icon(String arg1, String arg2, String arg3, String arg4) throws Throwable {
 		resourceName = arg1;
 		resource = home
 				.leftMenu
@@ -49,26 +50,24 @@ public class CreateResourceSteps {
 				.setDescription(arg3)
 				.selectIcon(arg4)
 				.clickOnSaveButton();
-
 	}
 
-	@Then("^I validate that the resource with name \"([^\"]*)\" is diplayed in resource page$")
-	public void i_validate_that_the_resource_with_name_is_diplayed_in_resource_page(String arg1) throws Throwable {
-		
-		Assert.assertTrue(resource
-				.verifyResourceExist(arg1));
-		//Post condition
-		String idResource = "";
-		List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
-		for (Resource resource : listResource) {
-			if(resource.name.equalsIgnoreCase(resourceName))
-			{
-				idResource = resource._id;
+	@Then("^I validate that resource with \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\" is displayed$")
+	public void i_validate_that_resource_with_and_is_displayed(String arg1, String arg2, String arg3) throws Throwable {
+	    Assert.assertTrue(resource.verifyResourceDisplayed(arg1, arg2, arg3));
+		 BrowserManager.getDriver().quit();
+		 //Post condition
+		 String idResource = "";
+			List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+			for (Resource resource : listResource) {
+				if(resource.name.equalsIgnoreCase(resourceName))
+				{
+					idResource = resource._id;
+				}
 			}
-		}
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
-
+			ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
 	}
+	
 	@After()
 	public void tearDown(Scenario scenario) throws UnirestException {
 
@@ -78,6 +77,4 @@ public class CreateResourceSteps {
 	            scenario.embed(screenshot, "image/png"); 
 	    }
 	}
-
-	
 }

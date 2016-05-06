@@ -21,13 +21,13 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class CreateResourceSteps {
+public class AllResourceAreDisplayedSteps {
+	
 	AdminPage home;
 	ResourcePage resource;
-	String resourceName = "";
 	
-	@Given("^I Login to Room Manager$")
-	public void i_Login_to_Room_Manager() throws Throwable {
+	@Given("^I Login to Room Manager application$")
+	public void i_Login_to_Room_Manager_application() throws Throwable {
 		BrowserManager.openBrowser();
 		LoginPage login = new LoginPage();
 		home = login
@@ -36,42 +36,58 @@ public class CreateResourceSteps {
 					.clickOnSigInButton()
 					.refreshPage();
 	}
-
-	@When("^I Create a new resource with name \"([^\"]*)\", with display name \"([^\"]*)\", with description \"([^\"]*)\" and icon \"([^\"]*)\"$")
-	public void i_Create_a_new_resource_with_name_with_display_name_with_description_and_icon(String arg1, String arg2, String arg3, String arg4) throws Throwable {
-		resourceName = arg1;
+	@Given("^I add \"([^\"]*)\" resources$")
+	public void i_add_resources(String arg1) throws Throwable {
+		
 		resource = home
 				.leftMenu
-				.clickOnResourcesButton()
+				.clickOnResourcesButton();
+		for (int i = 0; i < Integer.parseInt(arg1); i++) {
+			resource
 				.clickOnAddButton()
-				.setResourceName(arg1)
-				.setDisplayName(arg2)
-				.setDescription(arg3)
-				.selectIcon(arg4)
+				.setResourceName("resource"+i)
+				.setDisplayName("resource"+i)
+				.setDescription("resource"+i)
+				.selectIcon("fa-folder")
 				.clickOnSaveButton();
-
-	}
-
-	@Then("^I validate that the resource with name \"([^\"]*)\" is diplayed in resource page$")
-	public void i_validate_that_the_resource_with_name_is_diplayed_in_resource_page(String arg1) throws Throwable {
-		
-		Assert.assertTrue(resource
-				.verifyResourceExist(arg1));
-		//Post condition
-		String idResource = "";
-		List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
-		for (Resource resource : listResource) {
-			if(resource.name.equalsIgnoreCase(resourceName))
-			{
-				idResource = resource._id;
-			}
 		}
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
-
+				
 	}
+
+	@When("^I click on resource option$")
+	public void i_click_on_resource_option() throws Throwable {
+		 resource
+		 	.leftMenu
+		 	.clickOnIssuesButton()
+		 	.clickOnResourcesButton();
+	}
+
+	@Then("^I validate that all resources are displayed in resource table$")
+	public void i_validate_that_all_resources_are_displayed_in_resource_table() throws Throwable {
+		 List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+		 ResourcePage resources = new ResourcePage();
+		 Assert.assertTrue(
+				 resources.verifyResourcesOnResourceTable(listResource));
+		 //Post condition
+		 String res[] = {"resource0", "resource1"};
+			String idResource = "";
+			List<Resource> listResources = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+			for (int i = 0; i < res.length; i++) {
+				for (Resource resource : listResources) {
+					if(resource.name.equalsIgnoreCase(res[i]))
+					{
+						idResource = resource._id;
+						ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
+					}
+					
+				}
+			}
+	}
+	
 	@After()
 	public void tearDown(Scenario scenario) throws UnirestException {
-
+		
+		
 	    if (scenario.isFailed()) {
 	            final byte[] screenshot = ((TakesScreenshot) BrowserManager.getDriver())
 	                        .getScreenshotAs(OutputType.BYTES);
@@ -79,5 +95,4 @@ public class CreateResourceSteps {
 	    }
 	}
 
-	
 }
