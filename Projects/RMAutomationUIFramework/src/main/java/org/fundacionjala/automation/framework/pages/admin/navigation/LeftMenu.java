@@ -2,6 +2,7 @@ package org.fundacionjala.automation.framework.pages.admin.navigation;
 
 import org.fundacionjala.automation.framework.maps.admin.navigation.LeftMenuMap;
 import org.fundacionjala.automation.framework.pages.admin.emailserver.EmailServerPage;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -15,7 +16,10 @@ public class LeftMenu {
 	@FindBy (xpath = LeftMenuMap.EMAILSERVER_BUTTON) WebElement emailServerButton;
 	@FindBy (xpath = LeftMenuMap.RESOURCES_BUTTON) WebElement resourcesButton;
 	@FindBy (xpath = LeftMenuMap.ISSUES_BUTTON) WebElement issuesButton;
+	@FindBy (linkText = LeftMenuMap.CONFERENCE_ROOMS_BUTTON) WebElement conferenceRoomsButton;
 	@FindBy (xpath = LeftMenuMap.LOCATIONS_BUTTON) WebElement locationsButton;
+	
+	
 	public LeftMenu() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
@@ -26,6 +30,13 @@ public class LeftMenu {
 		UIActions.clickAt(resourcesButton);
 		
 		return new ResourcePage();
+	}
+	
+	public ConferenceRoomsPage clickOnConferenceRoomsButton() throws InterruptedException{
+		LogManager.info("Click on conference rooms page");
+		UIActions.clickAt(conferenceRoomsButton);
+		conferenceRoomsButton.click();
+		return new ConferenceRoomsPage();
 	}
 	
 	public LocationPage clickOnLocationsButton() {

@@ -29,6 +29,5 @@ public class UIActions {
 		Actions action = new Actions(BrowserManager.getDriver());
 		 action.doubleClick(element).build().perform();
 		 LogManager.info("Element of the list has been selected for edit changes.");
-		
 	}
 }
