@@ -68,5 +68,15 @@ public class ConferenceRoomsPage {
 	{
 		return true;
 	}
+	
+	public boolean VerifyIfRoomExist(String expectedResult) {
+		if(getRoom(expectedResult) != null)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 
 }
