@@ -58,7 +58,7 @@ public class DeleteResourceSteps {
 									.clickOnIssuesButton()
 									.clickOnResourcesButton();
 		
-		boolean isResourcePresent = resource.verifyResourceExist(arg1);
+		boolean isResourcePresent = resource.verifyResourceNotExist(arg1);
 		
 		Assert.assertFalse(isResourcePresent);
 	}
