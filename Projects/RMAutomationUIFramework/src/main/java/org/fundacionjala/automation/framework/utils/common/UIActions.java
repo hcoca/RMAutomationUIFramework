@@ -22,7 +22,7 @@ public class UIActions {
 	public static void typeOn(WebElement element, String message) {
 		element.clear();
 		element.sendKeys(message);
-		LogManager.info("'" + message + " has been set up in input text");
+		LogManager.info("'" + message + "' has been set up in input text");
 	}
 
 	public static void doubleClick(WebElement element) {
