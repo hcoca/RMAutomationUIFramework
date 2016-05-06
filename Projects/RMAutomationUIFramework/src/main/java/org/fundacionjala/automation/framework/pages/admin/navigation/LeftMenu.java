@@ -1,11 +1,8 @@
 package org.fundacionjala.automation.framework.pages.admin.navigation;
 
 import org.fundacionjala.automation.framework.maps.admin.navigation.LeftMenuMap;
-<<<<<<< HEAD
 import org.fundacionjala.automation.framework.pages.admin.emailserver.EmailServerPage;
-=======
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
->>>>>>> d31dea4b2071483ab1f8b4a6b51dedad608038d7
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
