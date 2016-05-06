@@ -14,10 +14,10 @@ Examples:
 
 Scenario Outline: The icon of "Out of Order" changes its color to green so the Conference Room selected changes its state to non-available.
 Given I logged to Room Manager Admin
-  And I create an Out of Order on a specific <RoomName> room 
+  And I create an Out of Order on a specific "<RoomName>" room 
 When  I did click on the icon of Out of Order
-	And I sign in to Tablet page using the <RoomName> room
-Then I validate if the <RoomName> room has changed its status to non-available
+	And I sign in to Tablet page using the "<RoomName>" room
+Then I validate if the "<RoomName>" room has changed its status to non-available
 
 Examples:
     | RoomName  |

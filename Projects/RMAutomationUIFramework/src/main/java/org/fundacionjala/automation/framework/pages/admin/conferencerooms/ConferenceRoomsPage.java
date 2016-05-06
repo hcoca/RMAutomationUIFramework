@@ -14,6 +14,13 @@ public class ConferenceRoomsPage {
 	public ConferenceRoomsPage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
+	
+	@FindBy (xpath = ConferenceRoomsMap.OUT_OF_ORDER_ICONS) WebElement outOfOrdersIcons;
+	public ConferenceRoomsPage selectOutOfOrderIcon(){
+		UIActions.waitFor(ConferenceRoomsMap.OUT_OF_ORDER_ICONS);
+		outOfOrdersIcons.click();
+		return this;
+	}
 				
    @FindBy (xpath = ConferenceRoomsMap.ROOMS_ROWS) List<WebElement> rooms;
 	public List<WebElement> getRooms()
