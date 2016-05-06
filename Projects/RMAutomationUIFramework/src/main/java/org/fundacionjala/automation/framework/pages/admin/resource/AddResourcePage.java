@@ -3,7 +3,6 @@ package org.fundacionjala.automation.framework.pages.admin.resource;
 import org.fundacionjala.automation.framework.maps.admin.resource.AddResourceMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
-import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

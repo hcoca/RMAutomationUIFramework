@@ -1,6 +1,6 @@
 package org.fundacionjala.automation.scenario.steps.admin.resource;
 
-import java.util.List;
+
 
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
@@ -13,8 +13,6 @@ import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
@@ -83,7 +81,7 @@ public class UpdateResourceSteps {
 		home.leftMenu
 			.clickOnIssuesButton()
 			.clickOnResourcesButton();
-		BrowserManager.getDriver().quit();
+		
 	}
 	
 	@After()

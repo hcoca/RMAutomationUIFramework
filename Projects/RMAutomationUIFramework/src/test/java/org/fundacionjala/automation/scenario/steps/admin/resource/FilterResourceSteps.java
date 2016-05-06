@@ -36,9 +36,9 @@ public class FilterResourceSteps {
 		.clickOnResourcesButton()
 	    .setResourceFilter("Fire");
 	}
-
-	@Then("^I validate the resource is displyed$")
-	public void i_validate_the_resource_is_displyed() throws Throwable {
+	
+	@Then("^I validate the resource is displayed$")
+	public void i_validate_the_resource_is_displayed() throws Throwable {
 		Assert.assertTrue(resourcePage.verifyResourceExist("Fire"));
 	}
 
