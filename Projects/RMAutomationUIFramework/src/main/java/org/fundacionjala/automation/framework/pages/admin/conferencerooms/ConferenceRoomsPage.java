@@ -22,7 +22,7 @@ public class ConferenceRoomsPage {
 		return this;
 	}
 				
-   @FindBy (xpath = ConferenceRoomsMap.ROOMS_ROWS) List<WebElement> rooms;
+   @FindBy (xpath = ConferenceRoomsMap.ROOMS_COLUMN) List<WebElement> rooms;
 	public List<WebElement> getRooms()
 	{
 	   return rooms;
