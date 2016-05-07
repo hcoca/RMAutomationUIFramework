@@ -22,11 +22,33 @@ Feature: Location Page
     
 
 #Scenario Outline: A location’s  name changes are displayed on Location page when it is updated
-#Given I have at least one location added with name: "<name>", display name"<displayName>" and description"<description>"
-#	And I am on location page 
+#Given I have a location added with name: "<name>", display name"<displayName>" and description"<description>" to update its name
+#	And I am on location page
 #When I update a location name with: "<updateName>"
 #Then The updated location name is displayed on location page
 
 #Examples:
 #    | name       | displayName     | description                 | updateName   |
 #    | Cochabamba | Cbba-Location   | This is Cochabamba Location | Name Updated |
+    
+    
+#Scenario Outline: A location’s display  name changes are displayed on Locations page when it is updated
+#Given I have a location added with name: "<name>", display name"<displayName>" and description"<description>" to update its display name
+#	And I am on location page
+#When I update a location display name with: "<updateDisplayName>"
+#Then The updated location display name is displayed on location page
+
+#Examples:
+#    | name       | displayName     | description                 | updateDisplayName    |
+#    | Cochabamba | Cbba-Location   | This is Cochabamba Location | Display Name Updated |
+    
+#Scenario Outline: A location’s description changes are displayed on Update Location page when it is updated
+#Given I have a location added with name: "<name>", display name"<displayName>" and description"<description>" to update its description
+#	And I am on location page
+#When I update a location description with: "<updateDescription>"
+#Then The updated location description is displayed on update location page
+
+#Examples:
+#    | name       | displayName     | description                 | updateDescription   |
+#    | Cochabamba | Cbba-Location   | This is Cochabamba Location | Description Updated |
+    

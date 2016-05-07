@@ -20,7 +20,7 @@ public class DisplayAllLocationsSteps {
 	
 	@Given("^I have at least one location added with name: \"([^\"]*)\", display name\"([^\"]*)\" and description\"([^\"]*)\"$")
 	public void i_have_at_least_one_location_added_with_name_display_name_and_description(String arg1, String arg2, String arg3) throws Throwable {
-		location = LocationAPIManager.postRequest("http://172.20.208.84:4040/locations", new Location(arg1, arg2, "572bd5d02af305ac2ee0580c", "", arg3));
+		location = LocationAPIManager.postRequest("http://172.20.208.84:4040/locations", new Location(arg1, arg2, "", "", arg3));
 	}
 
 	@Given("^I have the list of added locations$")
