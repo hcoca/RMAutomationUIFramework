@@ -22,7 +22,7 @@ public class ConferenceRoomsPage {
 		return this;
 	}
 				
-   @FindBy (xpath = ConferenceRoomsMap.ROOMS_ROWS) List<WebElement> rooms;
+   @FindBy (xpath = ConferenceRoomsMap.ROOMS_COLUMN) List<WebElement> rooms;
 	public List<WebElement> getRooms()
 	{
 	   return rooms;
@@ -42,8 +42,7 @@ public class ConferenceRoomsPage {
 	{
 		for(WebElement room : getRooms()){
 	    	String roomText = room.getText();
-	    	roomText = roomText.replaceAll("\\s+","");
-	    	if (roomText.equals(roomName)){
+	    	if (roomText.trim().equals(roomName)){
 				return room;
 			}
 	    }
@@ -51,7 +50,6 @@ public class ConferenceRoomsPage {
 	}
 	
     public RoomInfoPage openConfigurationPage(String roomToModify) {
-		
 	    UIActions.doubleClick(getRoom(roomToModify));
 		return new RoomInfoPage();
 	}
@@ -77,6 +75,4 @@ public class ConferenceRoomsPage {
 			return false;
 		}
 	}
-	
-
 }

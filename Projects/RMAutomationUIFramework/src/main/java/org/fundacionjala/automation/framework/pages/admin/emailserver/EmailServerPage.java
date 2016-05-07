@@ -127,7 +127,7 @@ public class EmailServerPage extends AdminPage {
 	}
 	
 	public boolean verifyIfThereAreRooms() {
-		List<WebElement> roomsList = BrowserManager.getDriver().findElements(By.xpath(ConferenceRoomsMap.ROOMS_ROWS));
+		List<WebElement> roomsList = BrowserManager.getDriver().findElements(By.xpath(ConferenceRoomsMap.ROOMS_COLUMN));
 		return (roomsList.size() > 0);
 
 	}

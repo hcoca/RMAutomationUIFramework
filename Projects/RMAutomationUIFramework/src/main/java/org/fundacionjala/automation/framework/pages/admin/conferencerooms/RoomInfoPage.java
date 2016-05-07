@@ -29,13 +29,13 @@ public class RoomInfoPage {
 	
 	@FindBy (xpath = RoomInfoMap.CODE_TEXTBOX) WebElement codeTextbox;
 	public RoomInfoPage typeOnCode(String code) {
-		codeTextbox.sendKeys(code);
+		UIActions.typeOn(codeTextbox, code);
 		return this;
 	}
 
 	@FindBy (xpath = RoomInfoMap.CAPACITY_TEXTBOX) WebElement capacityTextbox;
 	public RoomInfoPage typeOnCapacity(String capacity) {
-		capacityTextbox.sendKeys(capacity);
+		UIActions.typeOn(capacityTextbox, capacity);
 		return this;
 	}
 	
@@ -43,6 +43,15 @@ public class RoomInfoPage {
 	public ConferenceRoomsPage clickOnSave() {
 		UIActions.clickAt(saveButton);
 		return new ConferenceRoomsPage();
+	}
+
+	public Boolean VerifyIfCodeUpdate(String expectedResult) {
+		String code = codeTextbox.getAttribute("value");
+		if(expectedResult.equalsIgnoreCase(code)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }
