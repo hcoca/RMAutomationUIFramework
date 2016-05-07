@@ -5,6 +5,7 @@ import java.util.List;
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -15,10 +16,9 @@ public class ConferenceRoomsPage {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
-	@FindBy (xpath = ConferenceRoomsMap.OUT_OF_ORDER_ICONS) WebElement outOfOrdersIcons;
-	public ConferenceRoomsPage selectOutOfOrderIcon(){
-		UIActions.waitFor(ConferenceRoomsMap.OUT_OF_ORDER_ICONS);
-		outOfOrdersIcons.click();
+	public ConferenceRoomsPage selectOutOfOrderIcon(String roomName){
+		String iconOutOfOrder =ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace("roomName", roomName);
+		BrowserManager.getDriver().findElement(By.xpath(iconOutOfOrder)).click();
 		return this;
 	}
 				
