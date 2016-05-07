@@ -1,5 +1,7 @@
 package org.fundacionjala.automation.framework.pages.admin.conferencerooms;
 
+import java.util.List;
+
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomInfoMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
@@ -66,6 +68,38 @@ public class RoomInfoPage {
 		}else{
 			return false;
 		}
+	}
+	
+	@FindBy (xpath = RoomInfoMap.OPEN_LOCATION_LIST_BUTTON) WebElement locationListButton;
+	public RoomInfoPage clickOnLocationIconPlus() {
+		UIActions.clickAt(locationListButton);
+		return this;
+	}
+	
+	@FindBy (xpath = RoomInfoMap.LOCATION_NAME_LIST) List<WebElement> locationList;
+	private WebElement getLocation(String findLocation){
+		for (WebElement location : locationList) {
+			if(findLocation.equalsIgnoreCase(location.getText().trim())){
+				return location;
+			}	
+		}
+		return null;
+	}
+	
+	@FindBy (xpath = RoomInfoMap.DISPLAY_LOCATIONS_BUTTON) WebElement displayLocationsButton;	
+	public RoomInfoPage selectLocation(String locationName) {
+		UIActions.waitFor(RoomInfoMap.DISPLAY_LOCATIONS_BUTTON);
+		UIActions.clickAt(displayLocationsButton);
+		UIActions.clickAt(getLocation(locationName));
+		return this;
+	}
+
+	@FindBy (xpath = RoomInfoMap.LOCATION_TEXTBOX) WebElement locationTextbox;	
+	public boolean VerifyIfLocationUpdate(String expectedResult) {
+		if(locationTextbox.getText().trim().equalsIgnoreCase("Organization/"+expectedResult)){
+			return true;
+		}
+		return false;
 	}
 
 }
