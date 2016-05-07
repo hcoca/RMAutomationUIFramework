@@ -99,16 +99,16 @@ public class EmailServerPage extends AdminPage {
 	}
 
 	
-	public boolean findEmailServer() {
+	public boolean findAddButton() {
 		try{
 			(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(addButton));
-			LogManager.info("Email Server has been found");
+			LogManager.info("Add Button has been found");
 			
 			return true;
 			
 		}catch(Exception e){
 			
-			LogManager.info("Email Server has not been found");
+			LogManager.info("Add Button has not been found");
 			return false;
 		}
 	}
