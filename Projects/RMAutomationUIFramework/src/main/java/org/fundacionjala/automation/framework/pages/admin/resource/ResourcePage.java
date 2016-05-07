@@ -89,7 +89,7 @@ public class ResourcePage extends AdminPage {
 			if (element.getText().equalsIgnoreCase(name)) {
 				element.click();
 				UIActions.doubleClick(element);
-				LogManager.error("Double click on Resource " + name);
+				LogManager.info("Double click on Resource " + name);
 				return new ResourceInfoPage();
 			}
 		}
@@ -175,7 +175,6 @@ public class ResourcePage extends AdminPage {
 	public boolean verifyTotalItems(int totalItems) {
 		UIActions.waitFor(ResourceMap.RESOURCE_TABLE);
 		String xpath = ResourceMap.TOTAL_ITEMS.replace("number", String.valueOf(totalItems));
-		System.out.println("El xpath "+ xpath);
 		try {
 			if(resourceTable.findElement(By.xpath(xpath))!= null)
 				return true;
