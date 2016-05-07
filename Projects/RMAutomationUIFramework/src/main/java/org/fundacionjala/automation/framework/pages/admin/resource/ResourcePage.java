@@ -66,11 +66,11 @@ public class ResourcePage extends AdminPage {
 	public boolean verifyResourceNotExist(String resourceName)
 	{
 			if (verifyExist(resourceName)) {
-				LogManager.info("[FALSE] Resource " + resourceName + " exists");
-				return true;
+				LogManager.error("[FALSE] Resource " + resourceName + " exists");
+				return false;
 			}
-		LogManager.error("[TRUE] Resource " + resourceName + " doesn't exist");
-		return false;
+		LogManager.info("[TRUE] Resource " + resourceName + " doesn't exist");
+		return true;
 	}
 	private boolean verifyExist(String resourceName)
 	{

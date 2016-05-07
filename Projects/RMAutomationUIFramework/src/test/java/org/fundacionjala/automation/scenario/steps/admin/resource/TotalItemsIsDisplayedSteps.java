@@ -38,9 +38,9 @@ public class TotalItemsIsDisplayedSteps {
 		for (int i = 0; i < Integer.parseInt(arg1); i++) {
 			resource
 				.clickOnAddButton()
-				.setResourceName("resource"+i)
-				.setDisplayName("resource"+i)
-				.setDescription("resource"+i)
+				.setResourceName("resource" + i)
+				.setDisplayName("resource" + i)
+				.setDescription("resource" + i)
 				.selectIcon("fa-folder")
 				.clickOnSaveButton();
 		}
@@ -53,7 +53,6 @@ public class TotalItemsIsDisplayedSteps {
 		 Assert.assertTrue(
 				 resource.verifyTotalItems(totalItems)
 				 );
-		 
 		 
 		 //Post condition
 		 String idResource = "";
