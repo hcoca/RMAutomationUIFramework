@@ -48,7 +48,6 @@ public class AssociationIsDisplayedWhenRemoveButtonIsClickedSteps {
 	public void i_want_to_remove_the_resource(String arg1) throws Throwable {
 		AdminPage adminPage = new AdminPage();
 		removeResource = adminPage
-							//.refreshPage()
 							.leftMenu
 							.clickOnLocationsButton()
 							.refreshPage()
