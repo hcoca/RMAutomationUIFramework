@@ -42,10 +42,21 @@ public class EmailServerPage extends AdminPage {
 
 	public void waitAddWindowInvisible()
 	{
+		try{
 		By locator = By.xpath(EmailServerMap.EMAILSERVER_ITEM);
-		(new WebDriverWait(BrowserManager.getDriver(), 60))
+		(new WebDriverWait(BrowserManager.getDriver(), 120))
 		.until(ExpectedConditions.presenceOfElementLocated(locator));
+		}
+		catch(Exception e)
+		{AddEmailServerPage addPage = new AddEmailServerPage();
+			addPage.clickSaveButton();
+			By locator = By.xpath(EmailServerMap.EMAILSERVER_ITEM);
+			(new WebDriverWait(BrowserManager.getDriver(), 120))
+			.until(ExpectedConditions.presenceOfElementLocated(locator));
+		}
 	}
+		
+	
 	public EmailServerPage clickOnServerItemButton() {
 		UIActions.waitFor(EmailServerMap.EMAILSERVER_ITEM);
 		UIActions.clickAt(emailserver_item);
@@ -75,8 +86,8 @@ public class EmailServerPage extends AdminPage {
 		return this;
 	}
 	public void waitProcessing() {
-		LogManager.info("Waiting up to save");
-		(new WebDriverWait(BrowserManager.getDriver(), 60))
+		LogManager.info("Waiting up to save...");
+		(new WebDriverWait(BrowserManager.getDriver(), 120))
 		.until(new ExpectedCondition() {
 			@Override
 			public Boolean apply(Object obj) {
@@ -85,8 +96,6 @@ public class EmailServerPage extends AdminPage {
 				return (elementsHide.size()>0);
 			}
 		});
-		
-		
 	}
 
 	public boolean verifyCredential(String current_credential, String expected_credential) {
@@ -130,11 +139,16 @@ public class EmailServerPage extends AdminPage {
 	}
 	public boolean verifyErrorMessageInCredential() {
 		By locator = By.xpath(EmailServerMap.ERROR_MSG_CREDENTIAL);
-		(new WebDriverWait(BrowserManager.getDriver(), 60))
+		(new WebDriverWait(BrowserManager.getDriver(), 120))
 		.until(ExpectedConditions.presenceOfElementLocated(locator));
 		
 		List<WebElement> errorList = BrowserManager.getDriver().findElements(By.xpath(EmailServerMap.ERROR_MSG_CREDENTIAL));
-		return (errorList.size() > 0);
+		boolean error = errorList.size() > 0;
+		if (error)
+			LogManager.info("[PASSED]");
+		else
+			LogManager.error("[FAILED] - Error message is not displayed.");
+		return (error);
 	}
 
 }

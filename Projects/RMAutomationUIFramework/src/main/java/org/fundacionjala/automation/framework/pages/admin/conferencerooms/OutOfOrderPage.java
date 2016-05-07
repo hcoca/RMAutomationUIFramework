@@ -1,6 +1,7 @@
 package org.fundacionjala.automation.framework.pages.admin.conferencerooms;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.OutOfOrderMap;
+import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -47,7 +48,10 @@ public class OutOfOrderPage {
 	
 	@FindBy (xpath = OutOfOrderMap.ACTIVE_BUTTON) WebElement activeButton;
 	public OutOfOrderPage activeOutOfOrder() {
-		BrowserManager.getDriver().findElement(By.xpath(OutOfOrderMap.ACTIVE_BUTTON)).click();
+		By locator = By.xpath(OutOfOrderMap.ACTIVE_BUTTON);
+		(new WebDriverWait(BrowserManager.getDriver(), 120))
+		.until(ExpectedConditions.presenceOfElementLocated(locator));
+		activeButton.click();
 		return this;
 	}
 	

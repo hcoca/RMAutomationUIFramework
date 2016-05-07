@@ -20,19 +20,22 @@ public class ServiceAPIManager {
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, "get");
 		LogManager.info("GET " + endPoint + " - Response:" + jsonResponse.getStatusText());
 		JSONArray a = jsonResponse.getBody().getArray();
-		//ask for empty to do
+		
 		List<Service> serviceList = new ArrayList<Service>();
-		for (int i = 0; i < a.length() ; i++) {
-			JSONObject obj = (JSONObject) a.get(i);
-			serviceList.add(new Service(obj));
+		if (jsonResponse.getStatusText().equals("OK"))
+		{
+			for (int i = 0; i < a.length() ; i++) {
+				JSONObject obj = (JSONObject) a.get(i);
+				serviceList.add(new Service(obj));
+			}
 		}
 		return serviceList;
 	}
 	
 	public static Service postRequest(String endPoint, RequestObject requestBody ) throws UnirestException{
-		Resource resource = new Resource();
-		resource = (Resource) requestBody;
-		JSONObject jsonObject = resource.getJsonObject();
+		Service service = new Service();
+		service = (Service) requestBody;
+		JSONObject jsonObject = service.getJsonObject();
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, jsonObject, "post");
 		LogManager.info("POST Response:" +jsonResponse.getBody().getObject());
 		return new Service(jsonResponse.getBody().getObject());
