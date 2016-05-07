@@ -19,6 +19,12 @@ public class RoomInfoPage {
 		return new ResourceAssociationsPage();
 	}
 	
+	@FindBy (linkText = RoomInfoMap.OUT_OF_ORDER_PLANNING_LINK) WebElement outOfOrder;
+	public OutOfOrderPage clickOnOutOfOrder() {
+		outOfOrder.click();
+		return new OutOfOrderPage();
+	}
+	
 	@FindBy (xpath = RoomInfoMap.DISPLAY_NAME_TEXTBOX) WebElement displayNameTextbox;
 	public RoomInfoPage typeOnDisplayName(String displayName) {
 		UIActions.waitFor(RoomInfoMap.DISPLAY_NAME_TEXTBOX);

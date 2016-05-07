@@ -55,27 +55,31 @@ public class ResourcePage extends AdminPage {
 	}
 	
 	public boolean verifyResourceExist(String resourceName){
-		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
-		for (WebElement name : resourceNames) {
-			
-			if (name.getText().equalsIgnoreCase(resourceName)) {
+		if (verifyExist(resourceName)) {
 				LogManager.info("[TRUE] Resource " + resourceName + " exists");
 				return true;
 			}
-		}
 		LogManager.error("[FALSE] Resource " + resourceName + " doesn't exist");
 		return false;
 	}
 	
 	public boolean verifyResourceNotExist(String resourceName)
 	{
+			if (verifyExist(resourceName)) {
+				LogManager.error("[FALSE] Resource " + resourceName + " exists");
+				return false;
+			}
+		LogManager.info("[TRUE] Resource " + resourceName + " doesn't exist");
+		return true;
+	}
+	private boolean verifyExist(String resourceName)
+	{
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
-				LogManager.info("[FALSE] Resource " + resourceName + " exists");
 				return true;
 			}
 		}
-		LogManager.error("[TRUE] Resource " + resourceName + " doesn't exist");
 		return false;
 	}
 	
@@ -85,7 +89,7 @@ public class ResourcePage extends AdminPage {
 			if (element.getText().equalsIgnoreCase(name)) {
 				element.click();
 				UIActions.doubleClick(element);
-				LogManager.error("Double click on Resource " + name);
+				LogManager.info("Double click on Resource " + name);
 				return new ResourceInfoPage();
 			}
 		}
@@ -166,6 +170,19 @@ public class ResourcePage extends AdminPage {
 			}
 		}
 		return false;
+	}
+
+	public boolean verifyTotalItems(int totalItems) {
+		UIActions.waitFor(ResourceMap.RESOURCE_TABLE);
+		String xpath = ResourceMap.TOTAL_ITEMS.replace("number", String.valueOf(totalItems));
+		try {
+			if(resourceTable.findElement(By.xpath(xpath))!= null)
+				return true;
+			else return false;
+		} catch (Exception e) {
+			return false;
+		}
+		
 	}
 
 	
