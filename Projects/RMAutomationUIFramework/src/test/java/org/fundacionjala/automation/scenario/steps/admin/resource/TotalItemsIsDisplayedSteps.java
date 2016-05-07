@@ -10,18 +10,17 @@ import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class ResourceCreatedIsDisplayedCorrectlySteps {
-	
+public class TotalItemsIsDisplayedSteps {
 	AdminPage home;
 	ResourcePage resource;
-	String resourceName="";
 	
-	@Given("^I log in to Room Manager app$")
-	public void i_log_in_to_Room_Manager_app() throws Throwable {
+	@Given("^I Login to RoomManager APP$")
+	public void i_Login_to_RoomManager_APP() throws Throwable {
 		BrowserManager.openBrowser();
 		LoginPage login = new LoginPage();
 		home = login
@@ -31,32 +30,40 @@ public class ResourceCreatedIsDisplayedCorrectlySteps {
 					.refreshPage();
 	}
 
-	@When("^I create a resource with name \"([^\"]*)\", display name \"([^\"]*)\", description \"([^\"]*)\" and icon \"([^\"]*)\"$")
-	public void i_create_a_resource_with_name_display_name_description_and_icon(String arg1, String arg2, String arg3, String arg4) throws Throwable {
-		resourceName = arg1;
+	@When("^I create \"([^\"]*)\" resources$")
+	public void i_create_resources(String arg1) throws Throwable {
 		resource = home
 				.leftMenu
-				.clickOnResourcesButton()
+				.clickOnResourcesButton();
+		for (int i = 0; i < Integer.parseInt(arg1); i++) {
+			resource
 				.clickOnAddButton()
-				.setResourceName(arg1)
-				.setDisplayName(arg2)
-				.setDescription(arg3)
-				.selectIcon(arg4)
+				.setResourceName("resource" + i)
+				.setDisplayName("resource" + i)
+				.setDescription("resource" + i)
+				.selectIcon("fa-folder")
 				.clickOnSaveButton();
+		}
 	}
 
-	@Then("^I validate that resource with \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\" is displayed$")
-	public void i_validate_that_resource_with_and_is_displayed(String arg1, String arg2, String arg3) throws Throwable {
-	    Assert.assertTrue(resource.verifyResourceDisplayed(arg1, arg2, arg3));
+	@Then("^I validate that total resources created are displayed in resource table$")
+	public void i_validate_that_total_resources_created_are_displayed_in_resource_table() throws Throwable {
+		 List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+		 int totalItems = listResource.size();
+		 Assert.assertTrue(
+				 resource.verifyTotalItems(totalItems)
+				 );
+		 
 		 //Post condition
 		 String idResource = "";
-			List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
-			for (Resource resource : listResource) {
-				if(resource.name.equalsIgnoreCase(resourceName))
+			List<Resource> listResources = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+			for (Resource resource : listResources) {
+				if(resource.name.equalsIgnoreCase("resource0"))
 				{
 					idResource = resource._id;
 				}
 			}
 			ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
+			BrowserManager.getDriver().quit();
 	}
 }
