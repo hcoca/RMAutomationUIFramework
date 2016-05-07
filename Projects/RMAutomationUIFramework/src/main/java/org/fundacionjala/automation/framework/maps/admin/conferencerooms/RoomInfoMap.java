@@ -10,7 +10,9 @@ public class RoomInfoMap {
 	public static final String CAPACITY_TEXTBOX = "//input[@ng-model='selectedRoom.capacity']";
 	
 	public static final String OPEN_LOCATION_LIST_BUTTON = "//label[text()='Location']/following::div[1]//button";
+	public static final String DISPLAY_LOCATIONS_BUTTON = "//label[text()='Location']/following::div[1]/following::div[1]/div/treeview/div[1]/div[1]/span";
 	public static final String LOCATION_NAME_LIST = "//label[text()='Location']/following::div[1]/following::div[1]/div/treeview//transclude/div[1]";
+	public static final String LOCATION_TEXTBOX = "//label[text()='Location']/following::div[1]/div[1]";
 	public static final String SAVE_BUTTON = "//button/span[text()='Save']";
-
+	
 }

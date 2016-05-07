@@ -32,6 +32,17 @@ public class LocationPage extends AdminPage{
 	    }
 	}
 	
+	public boolean verifyLocationIsNotDisplayed(String name){
+		try {
+			locationTable.findElement(By.xpath("//span[text()='"+name+"']"));
+			LogManager.info("Test Failed");
+			return false;
+	    } catch (NoSuchElementException e) {
+	    	LogManager.warning("Test Passed");
+			return true;
+	    }
+	}
+	
 	public boolean verifyLocationIsDisplayedByDisplayName(String displayName){
 		try {
 			locationTable.findElement(By.xpath("//div[text()='"+displayName+"']"));
@@ -49,9 +60,21 @@ public class LocationPage extends AdminPage{
 		LogManager.info("'+Add'button has been clicked");
 		return new AddLocationPage();
 	}
+	
+	public RemoveLocationPage clickOnRemoveButton() {
+		removeButton.click();
+		LogManager.info("'-Remove'button has been clicked");
+		return new RemoveLocationPage();
+	}
 
 	public UpdateLocationPage doubleClickOnALocation(String displayName) {
 		UIActions.doubleClick(locationTable.findElement(By.xpath("//div[text()='"+displayName+"']")));
 		return new UpdateLocationPage();
+	}
+	
+	public LocationPage clickOnALocation(String displayName) {
+		locationTable.findElement(By.xpath("//div[text()='"+displayName+"']")).click();
+		LogManager.info(displayName+" location has been clicked");
+		return this;
 	}
 }

@@ -53,13 +53,45 @@ Feature: Location Page
 #    | Cochabamba | Cbba-Location   | This is Cochabamba Location | Description Updated |
     
     
-Scenario Outline: A location’s parent  changes are displayed on Update Location page when it is updated
-Given I have a parent location added with name: "<nameParent>" and display name"<displayNameParent>"
-	And I have a location added with name: "<nameChild>" and display name"<displayNameChild>" to update its parent
-	And I am on location page
-When I update a location parent
-Then The updated location parent is displayed on update location page
+#Scenario Outline: A location’s parent  changes are displayed on Update Location page when it is updated
+#Given I have a parent location added with name: "<nameParent>" and display name"<displayNameParent>"
+#	And I have a location added with name: "<nameChild>" and display name"<displa-yNameChild>" to update its parent
+#	And I am on location page
+#When I update a location parent
+#Then The updated location parent is displayed on update location page
+
+#Examples:
+#    | nameParent | displayNameParent  | nameChild   | displayNameChild    |
+#    | Cochabamba | Cbba-Location      | Cbba-child  | Cbba-Location-Child |
+    
+    
+#Scenario Outline: A location is not  displayed on Locations page when it is deleted
+#Given I have a location added with name: "<name>" and display name"<displayName>" to delete
+#	And I am on location page
+#When I delete the location 
+#Then The location updated is not displayed on location page
+
+#Examples:
+#    | name       | displayName   | 
+#    | Cochabamba | Cbba-Location |
+
+
+#Scenario Outline: A locations is displayed on Location page when it is added as a child of another location
+#Given I have one parent location added with name: "<nameParent>" and display name"<displayNameParent>"
+#	And I am on location page 
+#When I add a new location with name: "<name>" and display name"<displayName>" as child
+#Then The new child location added is displayed on location page
+
+#Examples:
+#    | nameParent | displayNameParent | name             | displayName           |
+#    | Cochabamba | Cbba-Location     | Cochabamba-Child | Cbba-Location-Child   |
+    
+    
+Scenario Outline: A room is displayed on Location Association page  when it is associated with a new location
+Given I am on location page 
+When I add a new location with name: "<name>" and display name"<displayName>" with an associated room
+Then The room is displayed on Location Association page as associated
 
 Examples:
-    | nameParent | displayNameParent  | nameChild   | displayNameChild    |
-    | Cochabamba | Cbba-Location      | Cbba-child  | Cbba-Location-Child |
+    | nameParent | displayNameParent | roomName |
+    | Cochabamba | Cbba-Location     | Room01   |
