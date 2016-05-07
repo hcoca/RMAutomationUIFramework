@@ -24,6 +24,7 @@ public class ResourceAssociationsPage {
 	private List<WebElement> resourcesAvailables;
 	private List<WebElement> getResourcesAvailabes()
 	{
+		
 	   return resourcesAvailables;
 	}
 	
@@ -65,7 +66,9 @@ public class ResourceAssociationsPage {
 	}
 	private void addResourceByPos(int pos)
 	{
+		UIActions.waitFor("//div[@class='list-group']/div[@ng-repeat='availableResource in availableResources']/div[3]/*");
 		WebElement btnPlusOfResource = getPlusIcons().get(pos);
+		
 		btnPlusOfResource.click();
 	}
 
