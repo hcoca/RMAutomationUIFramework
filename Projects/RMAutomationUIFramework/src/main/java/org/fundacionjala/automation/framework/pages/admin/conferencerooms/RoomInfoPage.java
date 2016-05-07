@@ -13,7 +13,6 @@ public class RoomInfoPage {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 
-	
 	@FindBy (linkText = RoomInfoMap.RESOURCES_ASSOCIATIONS_LINK) WebElement resourcesAssociations;
 	public ResourceAssociationsPage clickOnResourceAssociations() {
 		resourcesAssociations.click();
@@ -45,8 +44,17 @@ public class RoomInfoPage {
 		return new ConferenceRoomsPage();
 	}
 
-	public Boolean VerifyIfCodeUpdate(String expectedResult) {
+	public boolean VerifyIfCodeUpdate(String expectedResult) {
 		String code = codeTextbox.getAttribute("value");
+		if(expectedResult.equalsIgnoreCase(code)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public boolean VerifyIfCapacityUpdate(String expectedResult) {
+		String code = capacityTextbox.getAttribute("value");
 		if(expectedResult.equalsIgnoreCase(code)){
 			return true;
 		}else{
