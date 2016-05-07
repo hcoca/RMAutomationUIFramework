@@ -75,4 +75,24 @@ public class ConferenceRoomsPage {
 			return false;
 		}
 	}
+
+	@FindBy (xpath = ConferenceRoomsMap.RESOURCE_BUTTONS) List<WebElement> resourceButtons;
+	private WebElement getResource(String resourceName){
+		for (WebElement resource : resourceButtons) {
+			if(resource.getText().trim().equalsIgnoreCase(resourceName)){
+				return resource;
+			}
+		}
+		return null;
+	}
+	
+	
+	public boolean verifyIfResourceCreatedIsInConferenceRoomPage(
+			String expectedResult) {
+		if(getResource(expectedResult) != null){
+			return true;
+		}
+		return false;
+		
+	}
 }
