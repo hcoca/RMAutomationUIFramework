@@ -1,11 +1,13 @@
 package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.OutOfOrderPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.OutOfOrder;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,8 +20,6 @@ import cucumber.api.java.en.When;
 public class CreateOutOfOrderWithATimeDefined {
 	AdminPage home;
 	ConferenceRoomsPage room;
-	String beginTime = "12";
-	String endTime = "01";
 	
 	@Given("^I logged to Admin Room Manager$")
 	public void i_logged_to_Admin_Room_Manager() throws Throwable {
@@ -36,8 +36,8 @@ public class CreateOutOfOrderWithATimeDefined {
 		room = home.leftMenu.clickOnConferenceRoomsButton()
 	   						.openConfigurationPage("Room01")
 	   						.clickOnOutOfOrder()
-	   						.insertFromValue(beginTime)
-	   						.insertToValue(endTime)
+	   						.storeFromTime()
+	   						.storeToTime()
 	   						.activeOutOfOrder()
 	   						.clickOnSave();
 	}
@@ -58,7 +58,7 @@ public class CreateOutOfOrderWithATimeDefined {
 				    	.topMenu
 				    	.clickOnHomeButton();
 	    WebElement time =BrowserManager.getDriver().findElement(By.xpath("//div[@class='time']/div"));
-	    if(time.getText().contains(beginTime) && time.getText().contains(endTime)){
+	    if(time.getText().contains(OutOfOrderPage.timeBegin) && time.getText().contains(OutOfOrderPage.timeEnd)){
 	    	verification = true;
 	    }
 	    Assert.assertTrue(verification);
