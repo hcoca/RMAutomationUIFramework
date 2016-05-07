@@ -15,6 +15,7 @@ public class UpdateLocationPage {
 	@FindBy (xpath = UpdateLocationMap.ADD_PARENT_LOCATION_BUTTON) WebElement addParentButton;
 	@FindBy (xpath = UpdateLocationMap.PARENT_LOCATION_FIELD) WebElement parentField;
 	@FindBy (xpath = UpdateLocationMap.SAVE_BUTTON) WebElement saveButton;
+	@FindBy (xpath = UpdateLocationMap.LOCATION_ASSOCIATION_LINK) WebElement associationLink;
 	public UpdateLocationPage(){
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
@@ -66,6 +67,12 @@ public class UpdateLocationPage {
 		}
 		LogManager.warning("Test Failed");
 		return false;
+	}
+	
+	public LocationAssociationPage clickOnLocationAssociationLink(){
+		associationLink.click();
+		LogManager.info("Location associations link has been clicked");
+		return new LocationAssociationPage();
 	}
 	
 	public boolean verifyParentIsDisplayed(String parentName){
