@@ -3,6 +3,7 @@ package org.fundacionjala.automation.framework.pages.admin.resource;
 import org.fundacionjala.automation.framework.maps.admin.resource.RemoveResourceMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -36,5 +37,17 @@ public class RemoveResourcePage {
 		UIActions.clickAt(closeButton);
 		
 		return new ResourcePage();
+	}
+
+	public boolean verifyAssociatedRoomExist(String roomName) {
+		try {
+			String xpath = RemoveResourceMap.NAME_ROOM.replace("roomName", roomName);
+			if(BrowserManager.getDriver().findElement(By.xpath(xpath))!= null)
+				return true;
+			else
+				return false;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }

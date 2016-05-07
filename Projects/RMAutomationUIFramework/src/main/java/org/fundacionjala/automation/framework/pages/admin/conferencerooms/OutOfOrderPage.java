@@ -11,24 +11,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class OutOfOrderPage {
+	public static String timeBegin;
+	public static String timeEnd;
 	
 	public OutOfOrderPage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
 	@FindBy (xpath = OutOfOrderMap.FROM_FIELD) WebElement fromField;
-	public OutOfOrderPage insertFromValue(String from) {
-		BrowserManager.getDriver().findElement(By.xpath(OutOfOrderMap.FROM_FIELD)).click();
-		BrowserManager.getDriver().findElement(By.xpath(OutOfOrderMap.FROM_FIELD)).clear();
-		BrowserManager.getDriver().findElement(By.xpath(OutOfOrderMap.FROM_FIELD)).sendKeys(from);
+	public OutOfOrderPage storeFromTime() {
+		timeBegin = fromField.getAttribute("value");
 		return this;
 	}
 	 
 	@FindBy (xpath = OutOfOrderMap.TO_FIELD) WebElement toField;
-	public OutOfOrderPage insertToValue(String to) {
-		BrowserManager.getDriver().findElement(By.xpath(OutOfOrderMap.TO_FIELD)).click();
-		BrowserManager.getDriver().findElement(By.xpath(OutOfOrderMap.TO_FIELD)).clear();
-		BrowserManager.getDriver().findElement(By.xpath(OutOfOrderMap.TO_FIELD)).sendKeys(to);
+	public OutOfOrderPage storeToTime() {
+		timeEnd = toField.getAttribute("value"); 
 		return this;
 	}
 

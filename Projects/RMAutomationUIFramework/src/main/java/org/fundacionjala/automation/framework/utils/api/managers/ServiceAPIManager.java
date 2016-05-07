@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.utils.api.objects.RequestObject;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Service;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.json.JSONArray;
@@ -20,7 +19,6 @@ public class ServiceAPIManager {
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, "get");
 		LogManager.info("GET " + endPoint + " - Response:" + jsonResponse.getStatusText());
 		JSONArray a = jsonResponse.getBody().getArray();
-		
 		List<Service> serviceList = new ArrayList<Service>();
 		if (jsonResponse.getStatusText().equals("OK"))
 		{
@@ -53,5 +51,15 @@ public class ServiceAPIManager {
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(getEndPoint, "get");
 		LogManager.info("GET Response:" + jsonResponse.getBody());
 		return new Service(jsonResponse.getBody().getObject());
+	}
+	
+	public static Service putImpersonationRequest(String endPoint, String id, boolean impersonate) throws UnirestException{
+		String putEndPoint = endPoint + "/" + id;
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("impersonate", impersonate);
+		HttpResponse<JsonNode> jsonResponse = APIManager.request(putEndPoint, jsonObject, "put");
+		LogManager.info("PUT Response:" +jsonResponse.getBody().getObject());
+
+		return null;
 	}
 }
