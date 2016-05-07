@@ -52,3 +52,14 @@ Feature: Location Page
 #    | name       | displayName     | description                 | updateDescription   |
 #    | Cochabamba | Cbba-Location   | This is Cochabamba Location | Description Updated |
     
+    
+Scenario Outline: A location’s parent  changes are displayed on Update Location page when it is updated
+Given I have a parent location added with name: "<nameParent>" and display name"<displayNameParent>"
+	And I have a location added with name: "<nameChild>" and display name"<displayNameChild>" to update its parent
+	And I am on location page
+When I update a location parent
+Then The updated location parent is displayed on update location page
+
+Examples:
+    | nameParent | displayNameParent  | nameChild   | displayNameChild    |
+    | Cochabamba | Cbba-Location      | Cbba-child  | Cbba-Location-Child |
