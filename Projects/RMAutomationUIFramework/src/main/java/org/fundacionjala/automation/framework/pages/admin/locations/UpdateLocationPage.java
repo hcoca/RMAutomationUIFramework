@@ -3,6 +3,7 @@ package org.fundacionjala.automation.framework.pages.admin.locations;
 import org.fundacionjala.automation.framework.maps.admin.locations.UpdateLocationMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,6 +12,8 @@ public class UpdateLocationPage {
 	@FindBy (xpath = UpdateLocationMap.LOCATION_NAME_FIELD) WebElement nameField;
 	@FindBy (xpath = UpdateLocationMap.LOCATION_DISPLAY_NAME_FIELD) WebElement displayNameField;
 	@FindBy (xpath = UpdateLocationMap.LOCATION_DESCRIPTION_AREA) WebElement descriptionArea;
+	@FindBy (xpath = UpdateLocationMap.ADD_PARENT_LOCATION_BUTTON) WebElement addParentButton;
+	@FindBy (xpath = UpdateLocationMap.PARENT_LOCATION_FIELD) WebElement parentField;
 	@FindBy (xpath = UpdateLocationMap.SAVE_BUTTON) WebElement saveButton;
 	public UpdateLocationPage(){
 		PageFactory.initElements(BrowserManager.getDriver(), this);
@@ -43,8 +46,30 @@ public class UpdateLocationPage {
 		return new LocationPage();
 	}
 	
+	public UpdateLocationPage clickOnAddParentButton(){
+		addParentButton.click();
+		LogManager.info("Add-Parent button has been clicked");
+		return this;
+	}
+	
+	public UpdateLocationPage selectAParentLocation(String parentName){
+		BrowserManager.getDriver().findElement(By.xpath("//span[@ng-if='tree.branches.length']")).click();
+		BrowserManager.getDriver().findElement(By.xpath("//div[text()='"+parentName+"']")).click();
+		LogManager.info("A parent location has been selected");
+		return this;
+	}
+	
 	public boolean verifyDescriptionIsDisplayed(String description){
 		if (description.contentEquals(descriptionArea.getAttribute("value"))) {
+			LogManager.info("Test Passed");
+			return true;
+		}
+		LogManager.warning("Test Failed");
+		return false;
+	}
+	
+	public boolean verifyParentIsDisplayed(String parentName){
+		if (parentField.getText().contains(parentName)) {
 			LogManager.info("Test Passed");
 			return true;
 		}
