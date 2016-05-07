@@ -9,25 +9,18 @@ import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIMana
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class AllResourceAreDisplayedSteps {
-	
+public class TotalItemsIsDisplayedSteps {
 	AdminPage home;
 	ResourcePage resource;
 	
-	@Given("^I Login to Room Manager application$")
-	public void i_Login_to_Room_Manager_application() throws Throwable {
+	@Given("^I Login to RoomManager APP$")
+	public void i_Login_to_RoomManager_APP() throws Throwable {
 		BrowserManager.openBrowser();
 		LoginPage login = new LoginPage();
 		home = login
@@ -36,9 +29,9 @@ public class AllResourceAreDisplayedSteps {
 					.clickOnSigInButton()
 					.refreshPage();
 	}
-	@Given("^I add \"([^\"]*)\" resources$")
-	public void i_add_resources(String arg1) throws Throwable {
-		
+
+	@When("^I create \"([^\"]*)\" resources$")
+	public void i_create_resources(String arg1) throws Throwable {
 		resource = home
 				.leftMenu
 				.clickOnResourcesButton();
@@ -51,38 +44,27 @@ public class AllResourceAreDisplayedSteps {
 				.selectIcon("fa-folder")
 				.clickOnSaveButton();
 		}
-				
 	}
 
-	@When("^I click on resource option$")
-	public void i_click_on_resource_option() throws Throwable {
-		 resource
-		 	.leftMenu
-		 	.clickOnIssuesButton()
-		 	.clickOnResourcesButton();
-	}
-
-	@Then("^I validate that all resources are displayed in resource table$")
-	public void i_validate_that_all_resources_are_displayed_in_resource_table() throws Throwable {
+	@Then("^I validate that total resources created are displayed in resource table$")
+	public void i_validate_that_total_resources_created_are_displayed_in_resource_table() throws Throwable {
 		 List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
-		 ResourcePage resources = new ResourcePage();
+		 int totalItems = listResource.size();
 		 Assert.assertTrue(
-				 resources.verifyResourcesOnResourceTable(listResource));
+				 resource.verifyTotalItems(totalItems)
+				 );
+		 
+		 
 		 //Post condition
-		 String res[] = {"resource0", "resource1"};
-			String idResource = "";
+		 String idResource = "";
 			List<Resource> listResources = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
-			for (int i = 0; i < res.length; i++) {
-				for (Resource resource : listResources) {
-					if(resource.name.equalsIgnoreCase(res[i]))
-					{
-						idResource = resource._id;
-						ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
-					}
-					
+			for (Resource resource : listResources) {
+				if(resource.name.equalsIgnoreCase("resource0"))
+				{
+					idResource = resource._id;
 				}
 			}
+			ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
+			BrowserManager.getDriver().quit();
 	}
-
-
 }
