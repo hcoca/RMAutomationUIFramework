@@ -43,5 +43,4 @@ public class Resource extends RequestObject{
 	
 	public Resource(){
 	}
-	
 }

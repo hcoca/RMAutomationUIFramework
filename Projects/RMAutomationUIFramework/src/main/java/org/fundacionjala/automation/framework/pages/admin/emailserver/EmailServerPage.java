@@ -1,9 +1,6 @@
 package org.fundacionjala.automation.framework.pages.admin.emailserver;
 
-
-
 import java.util.List;
-
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.maps.admin.emailserver.DeleteEmailServerMap;
 import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
@@ -12,6 +9,9 @@ import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -88,6 +88,7 @@ public class EmailServerPage extends AdminPage {
 		
 		
 	}
+
 	public boolean verifyCredential(String current_credential, String expected_credential) {
 		boolean state = (current_credential.compareTo(expected_credential) == 0);
 		if (state)
@@ -96,20 +97,39 @@ public class EmailServerPage extends AdminPage {
 			LogManager.error("[FAILED] - Expected credential:" + expected_credential + ", but current credential is :" + current_credential);
 		return state;
 	}
+
+	
+	public boolean findEmailServer() {
+		try{
+			(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(addButton));
+			LogManager.info("Email Server has been found");
+			
+			return true;
+			
+		}catch(Exception e){
+			
+			LogManager.info("Email Server has not been found");
+			return false;
+		}
+	}
+
 	public DeleteEmailServerPage clickOnRemoveButton() {
 		UIActions.waitFor(EmailServerMap.REMOVE_BUTTON);
 		removeButton.click();
 		LogManager.info("Click on Remove button");
 		return new DeleteEmailServerPage();
 	}
+	
 	public void waitItemDeleted() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(DeleteEmailServerMap.YES_BUTTON)));
 		
 	}
+	
 	public boolean verifyIfThereAreRooms() {
 		List<WebElement> roomsList = BrowserManager.getDriver().findElements(By.xpath(ConferenceRoomsMap.ROOMS_ROWS));
 		return (roomsList.size() > 0);
+
 	}
 
 }
