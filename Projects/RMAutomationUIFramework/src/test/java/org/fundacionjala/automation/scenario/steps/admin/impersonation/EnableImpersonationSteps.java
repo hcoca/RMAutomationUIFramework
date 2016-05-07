@@ -17,6 +17,26 @@ public class EnableImpersonationSteps {
 
 	@Given("^the user \"([^\"]*)\" has logged in$")
 	public void the_user_has_logged_in(String arg1) throws Throwable {
+		boolean impersonate = false;
+		String id = null;
+		List<Service> listServices;
+		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
+		
+		for(Service service : listServices) {
+			id = service._id;
+		}
+		
+		if(id != null)
+		{
+			for(Service service : listServices) {
+				impersonate = service.impersonate;
+			}
+			
+			if(impersonate == true) {	
+				ServiceAPIManager.putImpersonationRequest("http://172.20.208.84:4040/services", id, false);
+			}
+		}
+		
 		BrowserManager.openBrowser();
 		LoginPage login = new LoginPage();
 		
@@ -41,6 +61,7 @@ public class EnableImpersonationSteps {
 	@Then("^the Impersonation Option is enabled$")
 	public void the_Impersonation_Option_is_enabled() throws Throwable {
 		boolean impersonate = false;
+		String id = null;
 		List<Service> listServices;
 		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
 		
@@ -49,5 +70,19 @@ public class EnableImpersonationSteps {
 		}
 		
 		Assert.assertTrue(impersonate);
+
+		List<Service> servicesList;
+		servicesList = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
+		
+		for(Service service : servicesList) {
+			id = service._id;
+		}
+		
+		if(id != null)
+		{			
+			if(impersonate == true) {	
+				ServiceAPIManager.putImpersonationRequest("http://172.20.208.84:4040/services", id, false);
+			}
+		}
 	}
 }
