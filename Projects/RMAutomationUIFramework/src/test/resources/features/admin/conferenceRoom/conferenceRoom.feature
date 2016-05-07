@@ -18,4 +18,13 @@ Then I validate if the display name has been updated in the Conference Room tabl
 
 Examples:
     | RoomName  | displayName | 
-    | Room06    |  Room006    |
+    | Room06    |  Room006    | 
+     
+Scenario Outline: "Code" of a room is updated when it is edited in "Room Info" form.
+Given I logged to Room Manager Admin
+When I edit "<RoomName>" room with a new code "<code>"
+Then I validate if the Code has been updated in the Room Info page.
+
+Examples:
+    | RoomName  |     code    | 
+    | Room06    |  code006    | 
