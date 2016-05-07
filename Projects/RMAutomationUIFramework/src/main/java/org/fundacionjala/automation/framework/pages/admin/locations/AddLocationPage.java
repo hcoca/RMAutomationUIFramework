@@ -15,6 +15,7 @@ public class AddLocationPage {
 	@FindBy (xpath = AddLocationMap.LOCATION_DESCRIPTION_AREA) WebElement descriptionArea;
 	@FindBy (xpath = AddLocationMap.ADD_PARENT_LOCATION_BUTTON) WebElement addParentButton;
 	@FindBy (xpath = AddLocationMap.SAVE_BUTTON) WebElement saveButton;
+	@FindBy (xpath = AddLocationMap.LOCATION_ASSOCIATION_LINK) WebElement associationLink;
 	public AddLocationPage(){
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
@@ -47,6 +48,12 @@ public class AddLocationPage {
 		addParentButton.click();
 		LogManager.info("Add-Parent button has been clicked");
 		return this;
+	}
+	
+	public LocationAssociationPage clickOnLocationAssociationLink(){
+		associationLink.click();
+		LogManager.info("Location associations link has been clicked");
+		return new LocationAssociationPage();
 	}
 	
 	public AddLocationPage selectAParentLocation(String parentName){
