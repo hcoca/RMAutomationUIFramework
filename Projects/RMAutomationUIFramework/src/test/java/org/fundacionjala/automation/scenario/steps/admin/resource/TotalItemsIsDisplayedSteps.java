@@ -64,6 +64,5 @@ public class TotalItemsIsDisplayedSteps {
 				}
 			}
 			ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
-			BrowserManager.getDriver().quit();
 	}
 }

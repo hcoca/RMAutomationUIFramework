@@ -46,6 +46,7 @@ public class ResourcePage extends AdminPage {
 	}
 	
 	public ResourcePage selectResource(String resourceName){
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
 				UIActions.clickAt(name);
