@@ -103,11 +103,8 @@ public class EmailServerPage extends AdminPage {
 		try{
 			(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(addButton));
 			LogManager.info("Email Server has been found");
-			
 			return true;
-			
 		}catch(Exception e){
-			
 			LogManager.info("Email Server has not been found");
 			return false;
 		}
@@ -130,6 +127,14 @@ public class EmailServerPage extends AdminPage {
 		List<WebElement> roomsList = BrowserManager.getDriver().findElements(By.xpath(ConferenceRoomsMap.ROOMS_COLUMN));
 		return (roomsList.size() > 0);
 
+	}
+	public boolean verifyErrorMessageInCredential() {
+		By locator = By.xpath(EmailServerMap.ERROR_MSG_CREDENTIAL);
+		(new WebDriverWait(BrowserManager.getDriver(), 60))
+		.until(ExpectedConditions.presenceOfElementLocated(locator));
+		
+		List<WebElement> errorList = BrowserManager.getDriver().findElements(By.xpath(EmailServerMap.ERROR_MSG_CREDENTIAL));
+		return (errorList.size() > 0);
 	}
 
 }
