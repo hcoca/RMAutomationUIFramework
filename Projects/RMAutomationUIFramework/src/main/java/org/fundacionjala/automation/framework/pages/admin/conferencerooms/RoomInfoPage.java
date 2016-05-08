@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomInfoMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +25,7 @@ public class RoomInfoPage {
 	@FindBy (linkText = RoomInfoMap.OUT_OF_ORDER_PLANNING_LINK) WebElement outOfOrder;
 	public OutOfOrderPage clickOnOutOfOrder() {
 		outOfOrder.click();
+		LogManager.info("OutOfOrder-ConferenceRooms Button has been clicked");
 		return new OutOfOrderPage();
 	}
 	
