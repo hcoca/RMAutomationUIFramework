@@ -21,7 +21,8 @@ public class ResourcePage extends AdminPage {
 	@FindBy (xpath = ResourceMap.RESOURCE_TABLE) WebElement resourceTable;
 	@FindBy (xpath = ResourceMap.RESOURCE_NAMES) List<WebElement> resourceNames;
 	@FindBy (xpath = ResourceMap.RESOURCE_FILTER) WebElement resourceFilter;
-	
+	@FindBy (xpath = ResourceMap.FIRST_PAGE_BUTTON) WebElement firstPageButton;
+	@FindBy (xpath = ResourceMap.INPUT_NUMBER_PAGE) WebElement inputNumberPage;
 	
 	public ResourcePage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
@@ -46,6 +47,7 @@ public class ResourcePage extends AdminPage {
 	}
 	
 	public ResourcePage selectResource(String resourceName){
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
 				UIActions.clickAt(name);
@@ -182,8 +184,38 @@ public class ResourcePage extends AdminPage {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public ResourcePage selectPageSizeOnDropDown(String quantity)
+	{
+		UIActions.waitFor(ResourceMap.RESOURCE_TABLE);
+		String xpath = ResourceMap.DROPDOWN_PAGE_SIZE.replace("number", quantity);
+		BrowserManager.getDriver().findElement(By.xpath(xpath)).click();
+		return new ResourcePage();
+	}
+
+	public boolean verifyNumberOfResources(int pageSize) {
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+		if(resourceNames.size()== pageSize )
+			return true;
+		else
+			return false;
 		
 	}
 
-	
+	public ResourcePage clickOnFirstPageButton() {
+		UIActions.waitFor(ResourceMap.FIRST_PAGE_BUTTON);
+		UIActions.clickAt(firstPageButton);
+		return new ResourcePage();
+	}
+
+	public boolean verifyTheFirstPage(String firstPage) {
+		UIActions.waitFor(ResourceMap.INPUT_NUMBER_PAGE);
+		System.out.println("Numbero de paginaaa"+inputNumberPage.getAttribute("value"));
+		if(inputNumberPage.getAttribute("value").equalsIgnoreCase(firstPage))
+			return true;
+		else
+			return false;
+	}
+
 }

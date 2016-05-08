@@ -6,11 +6,19 @@ import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.navigation.LeftMenu;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
+import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import cucumber.api.PendingException;
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -22,20 +30,29 @@ public class AssociatedAResouceWithRoomEnabledSteps {
 	ConferenceRoomsPage conferenceRoom;
 	LeftMenu leftMenu;
 	ResourceAssociationsPage resourceAssociations;
-	private String resourceToAssociate;
+	//private String resourceToAssociate;
 	private String roomToModify;
+	private String resourceName;
+	private Resource resourceToAssociate;
 	
-	@Before
-	public void setTup()
-	{
-	   resourceToAssociate = "ResourceFernando2";
-	   roomToModify = "Room02";
-	   BrowserManager.openBrowser();
-	}
-	
-	
+
 	@Given("^I am on the Conferenc Rooms page$")
 	public void i_am_on_the_Conferenc_Rooms_page() throws Throwable {
+		/*
+		 * 	@Before
+		 * */
+		resourceToAssociate = ResourceAPIManager
+                .postRequest("http://172.20.208.84:4040/resources"
+                 , new Resource("Key", "keys", "fa fa-key", "", "Key"));
+
+        resourceName = resourceToAssociate.customName;
+	    roomToModify = "Room02";
+	    BrowserManager.openBrowser();
+
+		
+		
+		/*
+		 * */
 		
 		LoginPage login = new LoginPage();
 		home = login
@@ -51,7 +68,7 @@ public class AssociatedAResouceWithRoomEnabledSteps {
 				.clickOnConferenceRoomsButton()
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations()
-				.addResource(resourceToAssociate)
+				.addResource(resourceName)
 				.clickOnSave();
 	}
 	
@@ -69,8 +86,13 @@ public class AssociatedAResouceWithRoomEnabledSteps {
 
 	@Then("^I can see the resource associated in Associate column$")
 	public void i_can_see_the_resource_associated_in_Associate_column() throws Throwable {
-		Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceToAssociate),
+		Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceName),
                 "The resource should be in resource column");
+		/*
+		 * 	@After()
+		 * */
+		
+		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	}
 	
 

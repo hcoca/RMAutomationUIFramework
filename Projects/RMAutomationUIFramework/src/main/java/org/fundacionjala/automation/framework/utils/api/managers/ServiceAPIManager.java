@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.utils.api.objects.RequestObject;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Service;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.json.JSONArray;
@@ -20,19 +19,21 @@ public class ServiceAPIManager {
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, "get");
 		LogManager.info("GET " + endPoint + " - Response:" + jsonResponse.getStatusText());
 		JSONArray a = jsonResponse.getBody().getArray();
-		//ask for empty to do
 		List<Service> serviceList = new ArrayList<Service>();
-		for (int i = 0; i < a.length() ; i++) {
-			JSONObject obj = (JSONObject) a.get(i);
-			serviceList.add(new Service(obj));
+		if (jsonResponse.getStatusText().equals("OK"))
+		{
+			for (int i = 0; i < a.length() ; i++) {
+				JSONObject obj = (JSONObject) a.get(i);
+				serviceList.add(new Service(obj));
+			}
 		}
 		return serviceList;
 	}
 	
 	public static Service postRequest(String endPoint, RequestObject requestBody ) throws UnirestException{
-		Resource resource = new Resource();
-		resource = (Resource) requestBody;
-		JSONObject jsonObject = resource.getJsonObject();
+		Service service = new Service();
+		service = (Service) requestBody;
+		JSONObject jsonObject = service.getJsonObject();
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, jsonObject, "post");
 		LogManager.info("POST Response:" +jsonResponse.getBody().getObject());
 		return new Service(jsonResponse.getBody().getObject());
@@ -50,5 +51,15 @@ public class ServiceAPIManager {
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(getEndPoint, "get");
 		LogManager.info("GET Response:" + jsonResponse.getBody());
 		return new Service(jsonResponse.getBody().getObject());
+	}
+	
+	public static Service putImpersonationRequest(String endPoint, String id, boolean impersonate) throws UnirestException{
+		String putEndPoint = endPoint + "/" + id;
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("impersonate", impersonate);
+		HttpResponse<JsonNode> jsonResponse = APIManager.request(putEndPoint, jsonObject, "put");
+		LogManager.info("PUT Response:" +jsonResponse.getBody().getObject());
+
+		return null;
 	}
 }

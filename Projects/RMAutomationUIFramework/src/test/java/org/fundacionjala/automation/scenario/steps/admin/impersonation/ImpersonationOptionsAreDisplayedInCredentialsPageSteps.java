@@ -1,5 +1,7 @@
 package org.fundacionjala.automation.scenario.steps.admin.impersonation;
 
+import java.util.List;
+
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
@@ -7,6 +9,8 @@ import org.fundacionjala.automation.framework.pages.tablet.scheduler.Credentials
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
+import org.fundacionjala.automation.framework.utils.api.managers.ServiceAPIManager;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Service;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.testng.Assert;
 
@@ -21,6 +25,26 @@ public class ImpersonationOptionsAreDisplayedInCredentialsPageSteps {
 	
 	@Given("^a user \"([^\"]*)\" that has logged in$")
 	public void a_user_that_has_logged_in(String arg1) throws Throwable {
+		boolean impersonate = false;
+		String id = null;
+		List<Service> listServices;
+		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
+		
+		for(Service service : listServices) {
+			id = service._id;
+		}
+		
+		if(id != null)
+		{
+			for(Service service : listServices) {
+				impersonate = service.impersonate;
+			}
+			
+			if(impersonate == true) {	
+				ServiceAPIManager.putImpersonationRequest("http://172.20.208.84:4040/services", id, false);
+			}
+		}
+		
 		BrowserManager.openBrowser();
 		LoginPage login = new LoginPage();
 		
@@ -77,5 +101,25 @@ public class ImpersonationOptionsAreDisplayedInCredentialsPageSteps {
 		}
 		
 		Assert.assertTrue(impersonationOptionsArePresent);
+		
+		boolean impersonate = false;
+		List<Service> listServices;
+		String id = null;
+		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
+		
+		for(Service service : listServices) {
+			id = service._id;
+		}
+		
+		if(id != null)
+		{
+			for(Service service : listServices) {
+				impersonate = service.impersonate;
+			}
+			
+			if(impersonate == true) {	
+				ServiceAPIManager.putImpersonationRequest("http://172.20.208.84:4040/services", id, false);
+			}
+		}
 	}
 }

@@ -40,6 +40,10 @@ public class APIManager {
 			  .asJson();
         	break;
         case "put":
+        	jsonResponse = Unirest.put(endPoint)
+			  .header("Content-Type", "application/json")
+			  .body(jsonObject)
+			  .asJson();
 			break;
         case "delete":
         	jsonResponse = Unirest.delete(endPoint)

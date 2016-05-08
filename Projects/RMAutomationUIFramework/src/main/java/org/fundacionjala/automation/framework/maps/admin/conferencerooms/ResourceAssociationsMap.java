@@ -17,8 +17,14 @@ public class ResourceAssociationsMap {
 	public static final String MINUSICONS_BUTTON 
 	                     = "//div[@class='list-group']/div[@ng-repeat='associatedResource in roomResources']/div[4]/button/*";
 
-	public static final String SAVE_BUTTON 
-	                     = "//button[@class='info']";
+	public static final String SAVE_BUTTON = "//button[contains(.,'Save')]";
+	                     //= "//button[@class='info']";
+	//css=button.info
+	
+	public static final String CANCEL_BUTTON = "//button[contains(.,'Cancel')]";
+   
+
+	                  
 	
 
 }

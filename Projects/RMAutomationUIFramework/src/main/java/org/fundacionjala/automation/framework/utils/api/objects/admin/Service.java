@@ -3,8 +3,6 @@ package org.fundacionjala.automation.framework.utils.api.objects.admin;
 import org.fundacionjala.automation.framework.utils.api.objects.RequestObject;
 import org.json.JSONObject;
 
-import com.google.gson.JsonParser;
-
 public class Service extends RequestObject{
 
 	public String credential_username;

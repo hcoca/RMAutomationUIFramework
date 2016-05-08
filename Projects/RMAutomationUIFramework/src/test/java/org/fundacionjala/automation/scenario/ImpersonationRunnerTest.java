@@ -13,6 +13,6 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 				 format = { "pretty", "html:reports/cucumber" , "json:./cucumber.json"})
 
 
-public class RunnerTest extends AbstractTestNGCucumberTests {
+public class ImpersonationRunnerTest extends AbstractTestNGCucumberTests {
 	              
 }

@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.framework.utils.api.managers;
 
+import org.fundacionjala.automation.framework.utils.api.objects.RequestObject;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Settings;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.json.JSONObject;
@@ -17,5 +18,16 @@ public class SettingsAPIManager {
 		Settings settings = new Settings(obj);
 		
 		return settings;
+	}
+	
+	public static Settings putRequest(String endPoint, RequestObject requestBody ) throws UnirestException {
+		
+		Settings settings = new Settings();
+		settings = (Settings) requestBody;
+		JSONObject jsonObject = settings.getJsonObject();
+		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, jsonObject, "put");
+		LogManager.info("PUT Response:" +jsonResponse.getBody().getObject());
+		
+		return null;
 	}
 }
