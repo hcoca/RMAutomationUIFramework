@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.navigation.LeftMenu;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
@@ -62,20 +63,8 @@ public class OneResourceAssociateToRooms {
 	   rooms.add(roomToModify03);
 	   rooms.add(roomToModify04);
 	   
-	   BrowserManager.openBrowser();
-		
-		
-		/*
-		 * */
-		
-		
-		
-		LoginPage login = new LoginPage();
-		home = login
-					.setUserName(PropertiesReader.getUserName())
-					.setPassword(PropertiesReader.getPassword())
-					.clickOnSigInButton()
-					.refreshPage();	
+	  
+		home = LoginActions.ExecuteLogin();
 		
 	}
 

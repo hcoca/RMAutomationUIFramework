@@ -3,6 +3,7 @@ package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.navigation.LeftMenu;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
@@ -37,36 +38,27 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 	
 	
 	@Given("^I am on the Conferences Rooms page$")
-	public void i_am_on_the_Conferences_Rooms_page() throws Throwable {
-		
+	public void i_am_on_the_Conferences_Rooms_page() throws Throwable {		
 		/*
 		 *@Before
 		 * */
-		resourceToAssociate = ResourceAPIManager
+	   resourceToAssociate = ResourceAPIManager
                 .postRequest("http://172.20.208.84:4040/resources"
                  , new Resource("Key", "keys", "fa fa-key", "", "Key"));
 
        resourceName = resourceToAssociate.customName;
-		
 	   roomToModify = "Room04";
 	   quantity = "10";
-	   BrowserManager.openBrowser();
-		
-		/*
-		 * */
-		
-		LoginPage login = new LoginPage();
-		home = login
-					.setUserName(PropertiesReader.getUserName())
-					.setPassword(PropertiesReader.getPassword())
-					.clickOnSigInButton()
-					.refreshPage();
+	   
+	   home = LoginActions.ExecuteLogin();
+	   conferenceRoom = home.leftMenu
+				.clickOnConferenceRoomsButton();
 	}
 
 	@Given("^I associate a resource on resources association page$")
 	public void i_associate_a_resource_on_resources_association_page() throws Throwable {
-		conferenceRoom = home.leftMenu
-				.clickOnConferenceRoomsButton()
+		
+		conferenceRoom
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations()
 				.addResource(resourceName)
