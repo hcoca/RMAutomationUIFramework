@@ -65,6 +65,6 @@ public class AssociationIsDisplayedWhenRemoveButtonIsClickedSteps {
 		//Post condition
 		removeResource.clickOnRemoveButton();
 		
-		 BrowserManager.getDriver().quit();
+
 	}
 }

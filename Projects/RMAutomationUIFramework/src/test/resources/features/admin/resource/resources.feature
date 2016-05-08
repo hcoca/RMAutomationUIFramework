@@ -53,23 +53,23 @@ Feature: Resources
 #		|		2	 |
 		
 #scenario 6
-Scenario Outline: The correct information is displayed when a resource is created
-Given I log in to Room Manager app
- When I create a resource with name "<name>", display name "<displayName>", description "<description>" and icon "<icon>"
- Then I validate that resource with "<name>", "<displayName>" and "<icon>" is displayed
+#Scenario Outline: The correct information is displayed when a resource is created
+#Given I log in to Room Manager app
+# When I create a resource with name "<name>", display name "<displayName>", description "<description>" and icon "<icon>"
+# Then I validate that resource with "<name>", "<displayName>" and "<icon>" is displayed
 
- Examples:
-	|name		 |displayName	|description					 |icon			|
-  |folder	 |folder 	    |this is a new resource|fa-folder|
+# Examples:
+#	|name		 |displayName	|description					 |icon			|
+#  |folder	 |folder 	    |this is a new resource|fa-folder|
 
  #scenario 7
- Scenario Outline: The number of total items is displayed in the resource table
- Given I Login to RoomManager APP
-  When I create "<number>" resources
-  Then I validate that total resources created are displayed in resource table 
- Examples:
-  	|number|
-		|		1	 | 
+# Scenario Outline: The number of total items is displayed in the resource table
+# Given I Login to RoomManager APP
+#  When I create "<number>" resources
+#  Then I validate that total resources created are displayed in resource table 
+# Examples:
+#  	|number|
+#		|		1	 | 
 
 #scenario 8
 Scenario Outline: A form with resource association is displayed when a resource is going to remove
@@ -82,4 +82,15 @@ Given I have a "<name>" resource created
  Examples:
 	 	|name		 	 |room	|
 		|dashboard |Room01|
+		
+#scenario 9
+Scenario Outline: The quantity selected in page size is displayed in resource table
+Given I have atleast "<numberResources>" resources created
+	And I Login to Room Manager
+ When I select a option "<number>" on page size option
+ Then I validate that the resource table size is same than the option "<number>" selected
+ 
+ Examples:
+ 		|numberResources|number|
+ 		|				52	 		|	50	|
 	
