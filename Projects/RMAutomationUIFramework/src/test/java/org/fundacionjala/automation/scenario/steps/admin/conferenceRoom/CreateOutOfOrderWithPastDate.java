@@ -26,21 +26,20 @@ public class CreateOutOfOrderWithPastDate {
 					.refreshPage();
 	    
 	}
-
-	@When("^I create an OuOfOrder with a date in the past$")
-	public void i_create_an_OuOfOrder_with_a_date_in_the_past() throws Throwable {
+	
+	@When("^I create an OuOfOrder on \"([^\"]*)\" with a date in the past$")
+	public void i_create_an_OuOfOrder_on_with_a_date_in_the_past(String arg1) throws Throwable {
 		room = home.leftMenu.clickOnConferenceRoomsButton()
-				.openConfigurationPage("Room01")
+				.openConfigurationPage(arg1)
 				.clickOnOutOfOrder()
 				.setTimeBeginDown()
 				.setTimeEndDown()
 				.activeOutOfOrder()
 				.clickOnSave();
-	    
 	}
 
-	@Then("^I validate if the Out Of Order cannot be created$")
-	public void i_validate_if_the_Out_Of_Order_cannot_be_created() throws Throwable {
+	@Then("^I validate if the Out Of Order on \"([^\"]*)\" cannot be created$")
+	public void i_validate_if_the_Out_Of_Order_on_cannot_be_created(String arg1) throws Throwable {
 		boolean verification = false;
 		WebElement messageError =BrowserManager.getDriver().findElement(By.xpath("//small[@class='inline-error ng-binding']"));
 	    if(messageError.getText().contains("Cannot establish out of order as an past event")){

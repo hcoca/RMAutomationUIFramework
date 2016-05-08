@@ -7,7 +7,6 @@ import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.OutOfOrder;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -20,6 +19,7 @@ import cucumber.api.java.en.When;
 public class CreateOutOfOrderWithATimeDefined {
 	AdminPage home;
 	ConferenceRoomsPage room;
+	HomePage hometablet;
 	
 	@Given("^I logged to Admin Room Manager$")
 	public void i_logged_to_Admin_Room_Manager() throws Throwable {
@@ -30,30 +30,32 @@ public class CreateOutOfOrderWithATimeDefined {
 					.clickOnSigInButton()
 					.refreshPage();
 	}
-	
-	@When("^I create an Out of Order$")
-	public void i_create_an_Out_of_Order() throws Throwable {
+
+	@When("^I create an Out of Order on \"([^\"]*)\" room$")
+	public void i_create_an_Out_of_Order_on_room(String arg1) throws Throwable {
 		room = home.leftMenu.clickOnConferenceRoomsButton()
-	   						.openConfigurationPage("Room01")
-	   						.clickOnOutOfOrder()
-	   						.storeFromTime()
-	   						.storeToTime()
-	   						.activeOutOfOrder()
-	   						.clickOnSave();
+							.openConfigurationPage(arg1)
+							.clickOnOutOfOrder()
+							.setTimeBeginUp()
+							.setTimeEndUp()
+							.storeFromTime()
+							.storeToTime()
+							.activeOutOfOrder()
+							.clickOnSave();
 	}
 
-	@Then("^I validate if the Out Of Order has been created with the time interval defined$")
-	public void i_validate_if_the_Out_Of_Order_has_been_created_with_the_time_interval_defined() throws Throwable {
+	@Then("^I validate if the Out Of Order on \"([^\"]*)\" room has been created with the time interval defined$")
+	public void i_validate_if_the_Out_Of_Order_on_room_has_been_created_with_the_time_interval_defined(String arg1) throws Throwable {
 		boolean verification = false;
 		ConnectionPage connection = new ConnectionPage();
 		NavigationPage navigation = connection
-				    	.setUpServiceURL("http://172.20.208.84:4040/")
-				    	.clickOnSaveButton()
-				    	.clickOnNavigationButton();
+							    	.setUpServiceURL("http://172.20.208.84:4040/")
+							    	.clickOnSaveButton()
+							    	.clickOnNavigationButton();
 	    	
-	    HomePage home =	navigation
+	    hometablet =	navigation
 				    	.clickOnRoomToggleButton()
-				    	.selectConferenceRoom("Room01")
+				    	.selectConferenceRoom(arg1)
 				    	.clickOnSaveButton()
 				    	.topMenu
 				    	.clickOnHomeButton();
@@ -62,6 +64,18 @@ public class CreateOutOfOrderWithATimeDefined {
 	    	verification = true;
 	    }
 	    Assert.assertTrue(verification);
-	    
+	    //PostCondition
+	    BrowserManager.openBrowser();
+		LoginPage login = new LoginPage();
+		home = login.setUserName("Administrator")
+					.setPassword("Control*123")
+					.clickOnSigInButton()
+					.refreshPage();
+		room = home.leftMenu.clickOnConferenceRoomsButton()
+							.openConfigurationPage(arg1)
+							.clickOnOutOfOrder()
+							.activeOutOfOrder()
+							.clickOnSave();
 	}
+
 }

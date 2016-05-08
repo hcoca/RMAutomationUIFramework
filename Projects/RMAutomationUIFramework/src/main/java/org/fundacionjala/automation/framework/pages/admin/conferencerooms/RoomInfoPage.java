@@ -29,6 +29,7 @@ public class RoomInfoPage {
 	public OutOfOrderPage clickOnOutOfOrder() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(outOfOrder));
 		outOfOrder.click();
+		LogManager.info("OutOfOrder-ConferenceRooms Button has been clicked");
 		return new OutOfOrderPage();
 	}
 	
