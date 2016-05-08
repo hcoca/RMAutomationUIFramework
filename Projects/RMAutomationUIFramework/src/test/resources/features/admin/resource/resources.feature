@@ -2,14 +2,14 @@ Feature: Resources
 	I want to create, update, remove and search resources
 
 
-#Scenario Outline: Create a new resource
-#Given I Login to Room Manager
-#When I Create a new resource with name "<name>", with display name "<displayName>", with description "<description>" and icon "<icon>"
-#Then I validate that the resource with name "<name>" is diplayed in resource page
+Scenario Outline: Create a new resource
+Given I Login to Room Manager
+When I Create a new resource with name "<name>", with display name "<displayName>", with description "<description>" and icon "<icon>"
+Then I validate that the resource with name "<name>" is diplayed in resource page
 
-#Examples:
-#	|name		 |displayName	|description					 |icon			|
-#	|computer|Computer	  |this is a new computer|fa-desktop|
+Examples:
+	|name		 |displayName	|description					 |icon			|
+	|computer|Computer	  |this is a new computer|fa-desktop|
 	
 #scenario 2
 #Scenario Outline: Delete Resource
@@ -72,16 +72,16 @@ Feature: Resources
 #		|		1	 | 
 
 #scenario 8
-Scenario Outline: A form with resource association is displayed when a resource is going to remove
-Given I have a "<name>" resource created 
-  And I Login to Room Manager web app
- When I associate the resource "<name>" to a room "<room>"
-  And I want to remove the resource "<name>"
- Then I validate that the association is displayed
+#Scenario Outline: A form with resource association is displayed when a resource is going to remove
+#Given I have a "<name>" resource created 
+#  And I Login to Room Manager web app
+# When I associate the resource "<name>" to a room "<room>"
+#  And I want to remove the resource "<name>"
+# Then I validate that the association is displayed
  
- Examples:
-	 	|name		 	 |room	|
-		|dashboard |Room01|
+# Examples:
+#	 	|name		 	 |room	|
+#		|dashboard |Room01|
 		
 #scenario 9
 Scenario Outline: The quantity selected in page size is displayed in resource table
@@ -93,4 +93,14 @@ Given I have atleast "<numberResources>" resources created
  Examples:
  		|numberResources|number|
  		|				52	 		|	50	|
-	
+ 		
+#scenario 10
+Scenario Outline: When First button is clicked the first page is displayed in resource table
+Given I have atleast "<numberResources>" created resources
+  And I Login to Room Manager
+ When I Clicked on First button on resource table
+ Then I validate that the first page is displayed on resource table
+
+Examples:  
+		|numberResources|
+ 		|				53	 		|	

@@ -1,46 +1,47 @@
 package org.fundacionjala.automation.scenario.steps.admin.resource;
 
 import java.util.List;
+
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
-import org.testng.Assert;
+import org.junit.Assert;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class QuantitySelectedInPageSizeIsDisplayedInResourceTableSteps {
-	ResourcePage resource = new ResourcePage();
-	String resourceName = "Editor";
-	int quantity = 0;
-	@Given("^I have atleast \"([^\"]*)\" resources created$")
-	public void i_have_atleast_resources_created(String arg1) throws Throwable {
+
+public class FirstPageIsDisplayedWhenFirstButtonIsClicked {
+		ResourcePage resource = new ResourcePage();
+		String firstPage = "1";
+		int quantity = 0;
+		String resourceName = "Gift";
+	@Given("^I have atleast \"([^\"]*)\" created resources$")
+	public void i_have_atleast_created_resources(String arg1) throws Throwable {
 		quantity = Integer.parseInt(arg1);
 		for (int i = 0; i < quantity; i++) {
-			Resource resource = new Resource(resourceName+i, resourceName+i, "fa fa-edit", "", resourceName+i);
+			Resource resource = new Resource(resourceName+i, resourceName+i, "fa fa-gift", "", resourceName+i);
 			ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", resource);
 		}
-		
 	}
-
-	@When("^I select a option \"([^\"]*)\" on page size option$")
-	public void i_select_a_option_on_page_size_option(String arg1) throws Throwable {
+	@When("^I Clicked on First button on resource table$")
+	public void i_Clicked_on_First_button_on_resource_table() throws Throwable {
 		AdminPage home = new AdminPage();
 		resource = home
-				.leftMenu
-				.clickOnResourcesButton()
-				.selectPageSizeOnDropDown(arg1);
+						.leftMenu
+						.clickOnResourcesButton()
+						.clickOnFirstPageButton();
 	}
 
-	@Then("^I validate that the resource table size is same than the option \"([^\"]*)\" selected$")
-	public void i_validate_that_the_resource_table_size_is_same_than_the_option_selected(String arg1) throws Throwable {
-		Assert.assertTrue(
-				resource.verifyNumberOfResources(Integer.parseInt(arg1))
-				);
-		//Post condition
-		String idResource = "";
+	@Then("^I validate that the first page is displayed on resource table$")
+	public void i_validate_that_the_first_page_is_displayed_on_resource_table() throws Throwable {
+	    Assert.assertTrue(
+			resource
+		    	.verifyTheFirstPage(firstPage));
+	    //Post condition
+	    String idResource = "";
 		List<Resource> listResources = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
 		for (int i = 0; i < quantity; i++) {
 			for (Resource resource : listResources) {
