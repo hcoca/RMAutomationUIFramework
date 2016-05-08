@@ -24,13 +24,19 @@ public class LocationAssociationPage {
 		return this;
 	}
 	
+	public LocationAssociationPage clickOnRemoveAssociatedRoom(String roomName) {
+		associatedRoomsGrid.findElement(By.xpath("//div[text()='"+roomName+"']/following::button[1]")).click();
+		LogManager.info("An available room has been removed");
+		return this;
+	}
+	
 	public LocationPage clickOnSaveButton(){
 		saveButton.click();
 		LogManager.info("Save button has been clicked");
 		return new LocationPage();
 	}
 	
-	public boolean verifyAnAvailbleRoomDisplayed(String roomName){
+	public boolean verifyAnAvailableRoomDisplayed(String roomName){
 		try {
 			availableRoomsGrid.findElement(By.xpath("//div[text()='"+roomName+"']"));
 			LogManager.info("Test Passed");
