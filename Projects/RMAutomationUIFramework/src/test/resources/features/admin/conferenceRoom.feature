@@ -42,7 +42,7 @@ When  I create an OuOfOrder on "<RoomName>" room
 Then I validate if the Out Of Order on "<RoomName>" room has been disabled correctly
 Examples:
     | RoomName  |
-    | Room07    |  
+    | Room08    |  
 
 Scenario Outline: An "Out of Order" cannot be established when a time in the past is used.
 Given I logged RoomManager Admin 
@@ -50,7 +50,7 @@ When  I create an OuOfOrder on "<RoomName>" room with a time in the past
 Then I validate if the Out Of Order on "<RoomName>" room can not be created
 Examples:
     | RoomName  |
-    | Room08    | 
+    | Room09    | 
 
 Scenario Outline: An "Out of Order" cannot be established when a date in the past is used.
 Given I logged on RoomManager Admin 
