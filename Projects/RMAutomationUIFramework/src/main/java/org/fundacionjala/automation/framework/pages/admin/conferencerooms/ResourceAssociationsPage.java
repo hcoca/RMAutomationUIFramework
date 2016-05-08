@@ -36,7 +36,9 @@ public class ResourceAssociationsPage {
 	
 	public List<WebElement> getAssociatedResources()
 	{
-		return ExplicitWait.getElementsWhenVisible(By.xpath(ResourceAssociationsMap.ASSOCIATEDRESOURCES_ROWS), 5);   
+	
+	  return ExplicitWait.getElementsWhenVisible(By.xpath(ResourceAssociationsMap.ASSOCIATEDRESOURCES_ROWS), 2);
+		
 	} 
 	
 	private List<WebElement> getMinusIcons()
@@ -95,11 +97,23 @@ public class ResourceAssociationsPage {
 	}
 	
 	
-	
 	public WebElement getResourceAssociated(String resourceName) 
 	{
 		
 		 for(WebElement resource : getAssociatedResources()){
+		    	String resText = resource.getText();
+		    	resText = resText.replaceAll("\\s+","");
+		    	if (resText.equals(resourceName)) {
+					return resource;
+				}
+		    }
+			return null;
+	}
+	
+	public WebElement getResourceAvailable(String resourceName) 
+	{
+		
+		 for(WebElement resource : getResourcesAvailabes()){
 		    	String resText = resource.getText();
 		    	resText = resText.replaceAll("\\s+","");
 		    	if (resText.equals(resourceName)) {
@@ -120,6 +134,16 @@ public class ResourceAssociationsPage {
 		return false;
 	}
 	
+    public boolean isInAvailableList(String resourceName) {
+    	
+    	if(getResourceAvailable(resourceName) != null)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+    
 	
 	
 	public ResourceAssociationsPage editQuantityOfResourceAssociated(String resource, String quantity) 
@@ -162,6 +186,7 @@ public class ResourceAssociationsPage {
 		}
 		return -1;
 	}
-    
+
+	
 	
 }

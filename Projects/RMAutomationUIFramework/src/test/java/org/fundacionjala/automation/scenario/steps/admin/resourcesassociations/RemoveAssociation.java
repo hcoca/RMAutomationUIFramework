@@ -24,12 +24,9 @@ import cucumber.api.java.en.When;
 
 public class RemoveAssociation {
 	
-	    AdminPage home;
-		ResourcePage resource;
-		ConferenceRoomsPage conferenceRoom;
-		LeftMenu leftMenu;
-		ResourceAssociationsPage resourceAssociations;
-		
+	    private AdminPage home;
+		private ConferenceRoomsPage conferenceRoom;
+		private ResourceAssociationsPage resourceAssociations;
 		private String resourceName;
 		private Resource resourceToAssociate;
 		private String roomToModify;
@@ -52,15 +49,14 @@ public class RemoveAssociation {
 	   home = LoginActions.ExecuteLogin();
 	}
 
-	@Given("^I associate a resource on associations page$")
-	public void i_associate_a_resource_on_associations_page() throws Throwable {
+	@Given("^I associate a resource on resources association page$")
+	public void i_associate_a_resource_on_resources_association_page() throws Throwable {
 		conferenceRoom = home.leftMenu
 				.clickOnConferenceRoomsButton()
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations()
 				.addResource(resourceName)
 				.clickOnSave();
-		
 	}
 
 	@When("^I remove the resource of the associated column$")
@@ -80,7 +76,7 @@ public class RemoveAssociation {
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations();
 		
-		Assert.assertFalse(resourceAssociations.isInAssociatedColumn(resourceName),
+		Assert.assertTrue(resourceAssociations.isInAvailableList(resourceName),
                 "The resource should not be in resource column");
 		
 		/*
