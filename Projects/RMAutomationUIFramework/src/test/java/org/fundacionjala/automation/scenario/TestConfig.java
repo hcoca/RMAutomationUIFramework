@@ -1,4 +1,4 @@
-package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
+package org.fundacionjala.automation.scenario;
 
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.openqa.selenium.OutputType;
@@ -13,11 +13,11 @@ public class TestConfig {
 	public void beforeScenario() {
 		
 		
-		
 	}
 
 	@After
 	public void afterScenario(Scenario scenario) {
+		
 		    if (scenario.isFailed()) {
 		            final byte[] screenshot = ((TakesScreenshot) BrowserManager.getDriver())
 		                        .getScreenshotAs(OutputType.BYTES);
