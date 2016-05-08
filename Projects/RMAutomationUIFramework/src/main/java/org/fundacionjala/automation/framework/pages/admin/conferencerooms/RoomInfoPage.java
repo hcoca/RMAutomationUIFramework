@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomInfoMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -36,6 +37,7 @@ public class RoomInfoPage {
 	 {
 		UIActions.waitFor(RoomInfoMap.OUT_OF_ORDER_LINK);
 		UIActions.clickAt(outOfOrderOption);
+		LogManager.info("Click on Out of order Planning");
 		 return new OutOfOrderPage();
 	 }
 	

@@ -3,6 +3,7 @@ package org.fundacionjala.automation.framework.pages.admin.conferencerooms;
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.OutOfOrderMap;
 import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -69,6 +70,7 @@ public class OutOfOrderPage {
 	public ConferenceRoomsPage clickOnSave() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(saveButton));
 		saveButton.click();
+		LogManager.info("Click on Save button");
 		return new ConferenceRoomsPage();
 	}
 }
