@@ -14,9 +14,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
-import cucumber.api.PendingException;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -24,32 +21,33 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class AssociatedAResouceWithRoomEnabledSteps {
-	AdminPage home;
-	ResourcePage resource;
-	ConferenceRoomsPage conferenceRoom;
-	LeftMenu leftMenu;
-	ResourceAssociationsPage resourceAssociations;
-	//private String resourceToAssociate;
-	private String roomToModify;
-	private String resourceName;
-	private Resource resourceToAssociate;
+public class RemoveAssociation {
 	
+	    AdminPage home;
+		ResourcePage resource;
+		ConferenceRoomsPage conferenceRoom;
+		LeftMenu leftMenu;
+		ResourceAssociationsPage resourceAssociations;
+		
+		private String resourceName;
+		private Resource resourceToAssociate;
+		private String roomToModify;
+	
+			
+	@Given("^I am on the Conference Room page of Room Mnanager$")
+	public void i_am_on_the_Conference_Room_page_of_Room_Mnanager() throws Throwable {
 
-	@Given("^I am on the Conferenc Rooms page$")
-	public void i_am_on_the_Conferenc_Rooms_page() throws Throwable {
-		/*
-		 * 	@Before
-		 * */
+	    /*
+	     *@Before 
+		**/
 		resourceToAssociate = ResourceAPIManager
                 .postRequest("http://172.20.208.84:4040/resources"
                  , new Resource("Key", "keys", "fa fa-key", "", "Key"));
 
-        resourceName = resourceToAssociate.customName;
-	    roomToModify = "Room02";
-	    BrowserManager.openBrowser();
-
+       resourceName = resourceToAssociate.customName;
 		
+	   roomToModify = "Room04";
+	   BrowserManager.openBrowser();
 		
 		/*
 		 * */
@@ -60,40 +58,44 @@ public class AssociatedAResouceWithRoomEnabledSteps {
 					.setPassword(PropertiesReader.getPassword())
 					.clickOnSigInButton()
 					.refreshPage();	
+		
 	}
 
-	@Given("^I associate a resource$")
-	public void i_associate_a_resource() throws Throwable {
+	@Given("^I associate a resource on associations page$")
+	public void i_associate_a_resource_on_associations_page() throws Throwable {
 		conferenceRoom = home.leftMenu
 				.clickOnConferenceRoomsButton()
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations()
 				.addResource(resourceName)
 				.clickOnSave();
-	}
-	
-	@When("^I make sure the room edited is enabled$")
-	public void i_make_sure_the_room_edited_is_enabled() throws Throwable {
-		conferenceRoom.enableRoom();
+		
 	}
 
-	@When("^when I open the pop-up configuration of the room enable$")
-	public void when_I_open_the_pop_up_configuration_of_the_room_enable() throws Throwable {
+	@When("^I remove the resource of the associated column$")
+	public void i_remove_the_resource_of_the_associated_column() throws Throwable {
+		
+		conferenceRoom
+		   .openConfigurationPage(roomToModify)
+		   .clickOnResourceAssociations()
+		   .removeResource(resourceName);
+		
+	}
+
+	@Then("^I see the resource on available resources column$")
+	public void i_see_the_resource_on_available_resources_column() throws Throwable {
+	
 		resourceAssociations = conferenceRoom
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations();
-	}
-
-	@Then("^I can see the resource associated in Associate column$")
-	public void i_can_see_the_resource_associated_in_Associate_column() throws Throwable {
-		Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceName),
-                "The resource should be in resource column");
-		/*
-		 * 	@After()
-		 * */
 		
+		Assert.assertFalse(resourceAssociations.isInAssociatedColumn(resourceName),
+                "The resource should not be in resource column");
+		
+		/*
+		 * @After
+		 * */
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	}
 	
-
 }
