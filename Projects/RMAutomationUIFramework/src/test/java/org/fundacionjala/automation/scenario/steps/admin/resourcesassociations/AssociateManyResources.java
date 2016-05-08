@@ -24,12 +24,9 @@ import cucumber.api.java.en.When;
 
 public class AssociateManyResources {
 	
-	AdminPage home;
-	ResourcePage resource;
-	ConferenceRoomsPage conferenceRoom;
-	LeftMenu leftMenu;
-	ResourceAssociationsPage resourceAssociations;
-	
+	private AdminPage home;
+	private ConferenceRoomsPage conferenceRoom;
+	private ResourceAssociationsPage resourceAssociations;
 	private String roomToModify;
 	private ArrayList<Resource> resourcesToAssociate;
     private int numResources;
