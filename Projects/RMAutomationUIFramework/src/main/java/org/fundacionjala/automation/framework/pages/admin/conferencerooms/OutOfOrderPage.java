@@ -50,6 +50,22 @@ public class OutOfOrderPage {
 		return this;
 	}
 	
+	@FindBy (xpath = "//table[@ng-focus]/tbody/tr[1]/td[1]/a") WebElement upTimeBeginButton;
+	public OutOfOrderPage setTimeBeginUp() {
+		upTimeBeginButton.click();
+		upTimeBeginButton.click();
+		LogManager.info("The BeginTime has been updated");
+		return this;
+	}	
+	
+	@FindBy (xpath = "//table[@ng-model='form.to.value']/tbody/tr[1]/td[1]/a") WebElement upTimeEndButton;
+	public OutOfOrderPage setTimeEndUp() {
+		upTimeEndButton.click();
+		upTimeEndButton.click();
+		LogManager.info("The EndTime has been updated");
+		return this;
+	}
+	
 	@FindBy (xpath = OutOfOrderMap.ACTIVE_BUTTON) WebElement activeButton;
 	public OutOfOrderPage activeOutOfOrder() {
 		LogManager.info("The OufOfOrder has been activated - ActiveButton");
