@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,6 +19,7 @@ public class ConferenceRoomsPage {
 	
 	public ConferenceRoomsPage selectOutOfOrderIcon(String roomName){
 		String iconOutOfOrder =ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace("roomName", roomName);
+		ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
 		BrowserManager.getDriver().findElement(By.xpath(iconOutOfOrder)).click();
 		return this;
 	}
