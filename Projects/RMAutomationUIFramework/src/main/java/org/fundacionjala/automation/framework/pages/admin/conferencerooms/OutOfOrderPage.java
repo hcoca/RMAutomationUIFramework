@@ -1,7 +1,9 @@
 package org.fundacionjala.automation.framework.pages.admin.conferencerooms;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.OutOfOrderMap;
+import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,7 +47,10 @@ public class OutOfOrderPage {
 	
 	@FindBy (xpath = OutOfOrderMap.ACTIVE_BUTTON) WebElement activeButton;
 	public OutOfOrderPage activeOutOfOrder() {
-		BrowserManager.getDriver().findElement(By.xpath(OutOfOrderMap.ACTIVE_BUTTON)).click();
+		By locator = By.xpath(OutOfOrderMap.ACTIVE_BUTTON);
+		(new WebDriverWait(BrowserManager.getDriver(), 120))
+		.until(ExpectedConditions.presenceOfElementLocated(locator));
+		activeButton.click();
 		return this;
 	}
 	
@@ -63,8 +68,9 @@ public class OutOfOrderPage {
 	
 	@FindBy (xpath = OutOfOrderMap.SAVE_BUTTON) WebElement saveButton;
 	public ConferenceRoomsPage clickOnSave() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(saveButton));
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(saveButton));
 		saveButton.click();
+		LogManager.info("Click on Save button");
 		return new ConferenceRoomsPage();
 	}
 }

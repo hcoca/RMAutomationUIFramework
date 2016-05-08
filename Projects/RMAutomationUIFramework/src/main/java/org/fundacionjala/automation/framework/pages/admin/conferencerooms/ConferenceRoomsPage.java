@@ -53,7 +53,14 @@ public class ConferenceRoomsPage {
 	    UIActions.doubleClick(getRoom(roomToModify));
 		return new RoomInfoPage();
 	}
-
+    
+    public RoomInfoPage doubleClickOnRoom(String roomToModify) {
+    	WebElement roomElement = getRoom(roomToModify);
+    	roomElement.click();
+    	UIActions.doubleClickJS(roomElement);
+		return new RoomInfoPage();
+	}
+    
 	public ConferenceRoomsPage enableRoom() {
 		
 		return this;
