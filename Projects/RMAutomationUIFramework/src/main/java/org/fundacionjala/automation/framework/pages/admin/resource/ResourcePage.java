@@ -183,6 +183,22 @@ public class ResourcePage extends AdminPage {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public ResourcePage selectPageSizeOnDropDown(String quantity)
+	{
+		UIActions.waitFor(ResourceMap.RESOURCE_TABLE);
+		String xpath = ResourceMap.DROPDOWN_PAGE_SIZE.replace("number", quantity);
+		BrowserManager.getDriver().findElement(By.xpath(xpath)).click();
+		return new ResourcePage();
+	}
+
+	public boolean verifyNumberOfResources(int pageSize) {
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+		if(resourceNames.size()== pageSize )
+			return true;
+		else
+			return false;
 		
 	}
 
