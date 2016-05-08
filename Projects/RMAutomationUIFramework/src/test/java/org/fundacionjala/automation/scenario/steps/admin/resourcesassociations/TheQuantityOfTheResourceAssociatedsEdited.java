@@ -26,7 +26,7 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 		 * */
 	   resourceToAssociate = ResourceAPIManager
 					                .postRequest("http://172.20.208.84:4040/resources"
-					                 , new Resource("Key", "keys", "fa fa-key", "", "Key"));
+					                 , new Resource("Key07", "keys07", "fa fa-key", "", "Key"));
 
        resourceName = resourceToAssociate.customName;
 	   roomToModify = "Room04";
