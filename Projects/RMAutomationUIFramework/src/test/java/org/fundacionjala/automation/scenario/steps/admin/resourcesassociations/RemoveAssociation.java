@@ -3,6 +3,7 @@ package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.navigation.LeftMenu;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
@@ -47,18 +48,8 @@ public class RemoveAssociation {
        resourceName = resourceToAssociate.customName;
 		
 	   roomToModify = "Room04";
-	   BrowserManager.openBrowser();
-		
-		/*
-		 * */
-		
-		LoginPage login = new LoginPage();
-		home = login
-					.setUserName(PropertiesReader.getUserName())
-					.setPassword(PropertiesReader.getPassword())
-					.clickOnSigInButton()
-					.refreshPage();	
-		
+	  
+	   home = LoginActions.ExecuteLogin();
 	}
 
 	@Given("^I associate a resource on associations page$")

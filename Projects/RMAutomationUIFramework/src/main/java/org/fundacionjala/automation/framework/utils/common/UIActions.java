@@ -12,7 +12,7 @@ public class UIActions {
 	public static void waitFor(String locatorString ) {
 		By locator = By.xpath(locatorString);
 		(new WebDriverWait(BrowserManager.getDriver(),20))
-		.until(ExpectedConditions.presenceOfElementLocated(locator));
+		.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
 	}
 	public static void waitFor(String locatorString, int timeSeconds) {
 		By locator = By.xpath(locatorString);

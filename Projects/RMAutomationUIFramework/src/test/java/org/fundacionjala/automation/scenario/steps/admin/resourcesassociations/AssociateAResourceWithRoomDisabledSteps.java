@@ -5,6 +5,7 @@ import org.fundacionjala.automation.framework.pages.admin.conferencerooms.Resour
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.navigation.LeftMenu;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
@@ -47,17 +48,8 @@ public class AssociateAResourceWithRoomDisabledSteps {
 	
 			resourceName = resourceToAssociate.customName;
 			roomToModify = "Room01";
-			BrowserManager.openBrowser();		
-		/*
-		 * */
 		
-		
-		LoginPage login = new LoginPage();
-		home = login
-					.setUserName(PropertiesReader.getUserName())
-					.setPassword(PropertiesReader.getPassword())
-					.clickOnSigInButton()
-					.refreshPage();	
+		    home = LoginActions.ExecuteLogin();	
 	}
 
 	@Given("^I have a resource associated$")
