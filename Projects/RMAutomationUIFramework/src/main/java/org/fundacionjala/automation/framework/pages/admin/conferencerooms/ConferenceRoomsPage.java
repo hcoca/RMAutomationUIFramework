@@ -19,6 +19,7 @@ public class ConferenceRoomsPage {
 	
 	public ConferenceRoomsPage selectOutOfOrderIcon(String roomName){
 		String iconOutOfOrder =ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace("roomName", roomName);
+		ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
 		BrowserManager.getDriver().findElement(By.xpath(iconOutOfOrder)).click();
 		return this;
 	}
