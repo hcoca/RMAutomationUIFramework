@@ -19,6 +19,7 @@ import cucumber.api.java.en.When;
 public class AvailableOutOfOrderSteps {
 	AdminPage home;
 	ConferenceRoomsPage room;
+	HomePage homeTablet;
 	
 	@Given("^I logged to Room Manager Admin$")
 	public void i_logged_to_Room_Manager_Admin() throws Throwable {
@@ -56,7 +57,7 @@ public class AvailableOutOfOrderSteps {
 				    	.clickOnSaveButton()
 				    	.clickOnNavigationButton();
 		
-	    HomePage home =	navigation
+		homeTablet =	navigation
 				    	.clickOnRoomToggleButton()
 				    	.selectConferenceRoom(arg1)
 				    	.clickOnSaveButton()

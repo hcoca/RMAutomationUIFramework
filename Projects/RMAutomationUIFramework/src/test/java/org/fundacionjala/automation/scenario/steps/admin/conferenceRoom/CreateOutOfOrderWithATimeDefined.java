@@ -19,6 +19,7 @@ import cucumber.api.java.en.When;
 public class CreateOutOfOrderWithATimeDefined {
 	AdminPage home;
 	ConferenceRoomsPage room;
+	HomePage hometablet;
 	
 	@Given("^I logged to Admin Room Manager$")
 	public void i_logged_to_Admin_Room_Manager() throws Throwable {
@@ -48,16 +49,16 @@ public class CreateOutOfOrderWithATimeDefined {
 		boolean verification = false;
 		ConnectionPage connection = new ConnectionPage();
 		NavigationPage navigation = connection
-				    	.setUpServiceURL("http://172.20.208.84:4040/")
-				    	.clickOnSaveButton()
-				    	.clickOnNavigationButton();
+							    	.setUpServiceURL("http://172.20.208.84:4040/")
+							    	.clickOnSaveButton()
+							    	.clickOnNavigationButton();
 	    	
-	    HomePage hometablet =	navigation
-						    	.clickOnRoomToggleButton()
-						    	.selectConferenceRoom(arg1)
-						    	.clickOnSaveButton()
-						    	.topMenu
-						    	.clickOnHomeButton();
+	    hometablet =	navigation
+				    	.clickOnRoomToggleButton()
+				    	.selectConferenceRoom(arg1)
+				    	.clickOnSaveButton()
+				    	.topMenu
+				    	.clickOnHomeButton();
 	    WebElement time =BrowserManager.getDriver().findElement(By.xpath("//div[@class='time']/div"));
 	    if(time.getText().contains(OutOfOrderPage.timeBegin) && time.getText().contains(OutOfOrderPage.timeEnd)){
 	    	verification = true;
