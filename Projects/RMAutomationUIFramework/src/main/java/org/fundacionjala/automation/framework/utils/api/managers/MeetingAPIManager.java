@@ -13,7 +13,6 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class MeetingAPIManager {
-	 ///services/{:serviceId}/rooms/{:roomId}/meetings   
 	public static List<Meeting> getRequest(String endPoint, String serviceId, String roomId) throws UnirestException{
 		HttpResponse<JsonNode> jsonResponse = APIManager
 				.request(endPoint + "/" + serviceId + "/rooms/" + roomId + "/meetings", "get");

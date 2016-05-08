@@ -17,11 +17,13 @@ public class RoomAPIManager {
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, "get");
 		LogManager.info("GET Response:" + jsonResponse.getStatusText());
 		JSONArray a = jsonResponse.getBody().getArray();
-		//ask for empty to do
 		List<Room> roomsList = new ArrayList<Room>();
-		for (int i = 0; i < a.length() ; i++) {
-			JSONObject obj = (JSONObject) a.get(i);
-			roomsList.add(new Room(obj));
+		if (jsonResponse.getStatusText().equals("OK"))
+		{
+			for (int i = 0; i < a.length() ; i++) {
+				JSONObject obj = (JSONObject) a.get(i);
+				roomsList.add(new Room(obj));
+			}
 		}
 		return roomsList;
 	}
