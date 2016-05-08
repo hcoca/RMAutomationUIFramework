@@ -77,4 +77,13 @@ public class LocationPage extends AdminPage{
 		LogManager.info(displayName+" location has been clicked");
 		return this;
 	}
+	
+	public boolean verifyNumberOfAssociations(String name, String numberOfRooms) {
+		if (locationTable.findElement(By.xpath("//span[text()='"+name+"']/following::small[1]")).getText().contains(numberOfRooms)) {
+			LogManager.info("Test Passed");
+			return true;
+		}
+		LogManager.warning("Test Failed");
+		return false;
+	}
 }
