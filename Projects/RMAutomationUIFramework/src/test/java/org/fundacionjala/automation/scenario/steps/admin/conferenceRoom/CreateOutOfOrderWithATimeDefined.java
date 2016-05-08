@@ -7,7 +7,6 @@ import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.OutOfOrder;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -20,6 +19,7 @@ import cucumber.api.java.en.When;
 public class CreateOutOfOrderWithATimeDefined {
 	AdminPage home;
 	ConferenceRoomsPage room;
+	String roomName = "Room08";
 	
 	@Given("^I logged to Admin Room Manager$")
 	public void i_logged_to_Admin_Room_Manager() throws Throwable {
@@ -34,7 +34,7 @@ public class CreateOutOfOrderWithATimeDefined {
 	@When("^I create an Out of Order$")
 	public void i_create_an_Out_of_Order() throws Throwable {
 		room = home.leftMenu.clickOnConferenceRoomsButton()
-	   						.openConfigurationPage("Room01")
+	   						.openConfigurationPage(roomName)
 	   						.clickOnOutOfOrder()
 	   						.storeFromTime()
 	   						.storeToTime()
@@ -53,7 +53,7 @@ public class CreateOutOfOrderWithATimeDefined {
 	    	
 	    HomePage home =	navigation
 				    	.clickOnRoomToggleButton()
-				    	.selectConferenceRoom("Room01")
+				    	.selectConferenceRoom(roomName)
 				    	.clickOnSaveButton()
 				    	.topMenu
 				    	.clickOnHomeButton();

@@ -55,8 +55,8 @@ public class DisabledAnOufOfOrder {
 				.clickOnSave();
 	}
 
-	@Then("^I validate if the Out Of Order has been disabled corretly$")
-	public void i_validate_if_the_Out_Of_Order_has_been_disabled_corretly() throws Throwable {
+	@Then("^I validate if the Out Of Order has been disabled correctly$")
+	public void i_validate_if_the_Out_Of_Order_has_been_disabled_correctly() throws Throwable {
 		boolean verification = true;
 		ConnectionPage connection = new ConnectionPage();
 		NavigationPage navigation = connection
@@ -77,4 +77,5 @@ public class DisabledAnOufOfOrder {
 	    }
 	    Assert.assertTrue(verification);
 	}
+
 }

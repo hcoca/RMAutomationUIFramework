@@ -15,6 +15,7 @@ import cucumber.api.java.en.When;
 public class CreateOutOfOrderWithPastDate {
 	AdminPage home;
 	ConferenceRoomsPage room;
+	String roomName = "Room05";
 	
 	@Given("^I logged on RoomManager Admin$")
 	public void i_logged_on_RoomManager_Admin() throws Throwable {
@@ -30,7 +31,7 @@ public class CreateOutOfOrderWithPastDate {
 	@When("^I create an OuOfOrder with a date in the past$")
 	public void i_create_an_OuOfOrder_with_a_date_in_the_past() throws Throwable {
 		room = home.leftMenu.clickOnConferenceRoomsButton()
-				.openConfigurationPage("Room01")
+				.openConfigurationPage(roomName)
 				.clickOnOutOfOrder()
 				.setTimeBeginDown()
 				.setTimeEndDown()

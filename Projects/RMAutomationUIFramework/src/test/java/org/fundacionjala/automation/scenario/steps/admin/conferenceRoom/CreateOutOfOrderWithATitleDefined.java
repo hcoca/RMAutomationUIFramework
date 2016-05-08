@@ -18,6 +18,7 @@ import cucumber.api.java.en.When;
 public class CreateOutOfOrderWithATitleDefined {
 	AdminPage home;
 	ConferenceRoomsPage room;
+	String roomName = "Room04";
 	
 	@Given("^I logged to RoomManagerAdmin$")
 	public void i_logged_to_RoomManagerAdmin() throws Throwable {
@@ -32,7 +33,7 @@ public class CreateOutOfOrderWithATitleDefined {
 	@When("^I create an Out of Order with a title defined$")
 	public void i_create_an_Out_of_Order_with_a_title_defined() throws Throwable {
 		room = home.leftMenu.clickOnConferenceRoomsButton()
-					.openConfigurationPage("Room02")
+					.openConfigurationPage(roomName)
 					.clickOnOutOfOrder()
 					.clickOnBoxButon()
 					.ClickOnClosedForMaintenanceLink()
@@ -51,7 +52,7 @@ public class CreateOutOfOrderWithATitleDefined {
 	    	
 	    HomePage home =	navigation
 				    	.clickOnRoomToggleButton()
-				    	.selectConferenceRoom("Room02")
+				    	.selectConferenceRoom(roomName)
 				    	.clickOnSaveButton()
 				    	.topMenu
 				    	.clickOnHomeButton();

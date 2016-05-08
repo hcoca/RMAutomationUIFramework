@@ -10,6 +10,7 @@ import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPa
 import org.fundacionjala.automation.framework.utils.api.managers.OutOfOrderAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.OutOfOrder;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -21,7 +22,7 @@ import cucumber.api.java.en.When;
 public class AvailableOutOfOrderSteps {
 	AdminPage home;
 	ConferenceRoomsPage room;
-	String roomName = "Room09";
+	String roomName = "Room02";
 	
 	@Given("^I logged to Room Manager Admin$")
 	public void i_logged_to_Room_Manager_Admin() throws Throwable {
