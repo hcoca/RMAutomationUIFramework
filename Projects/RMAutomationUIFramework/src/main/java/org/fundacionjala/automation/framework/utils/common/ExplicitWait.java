@@ -49,7 +49,7 @@ public class ExplicitWait {
 		try {
 			element = wait.until(ExpectedConditions
 					.visibilityOfElementLocated(locator));
-		} catch (NoSuchElementException e) {
+		} catch (TimeoutException e) {
 			LogManager.error("Error when get an element" + e.getMessage());
 		}
 		return element;
@@ -63,7 +63,7 @@ public class ExplicitWait {
 		try {
 			elements = wait.until(ExpectedConditions
 					.visibilityOfAllElementsLocatedBy(locator));
-		} catch (NoSuchElementException e) {
+		} catch (TimeoutException e) {
 			LogManager.error("Elements could not be found " + e.getMessage());
 		}
 
