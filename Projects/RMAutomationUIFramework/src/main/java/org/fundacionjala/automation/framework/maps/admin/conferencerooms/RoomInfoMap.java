@@ -4,7 +4,7 @@ public class RoomInfoMap {
 
 	public static final String RESOURCES_ASSOCIATIONS_LINK = "Resource Associations";
 	public static final String OUT_OF_ORDER_PLANNING_LINK = "Out of Order Planning";
-	
+	public static final String OUT_OF_ORDER_LINK = "//a[text()='" + OUT_OF_ORDER_PLANNING_LINK + "']";
 	public static final String DISPLAY_NAME_TEXTBOX = "//input[@ng-model='selectedRoom.customDisplayName']";
 	public static final String CODE_TEXTBOX = "//input[@ng-model='selectedRoom.code']";
 	public static final String CAPACITY_TEXTBOX = "//input[@ng-model='selectedRoom.capacity']";

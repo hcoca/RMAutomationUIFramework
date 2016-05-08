@@ -1,10 +1,12 @@
 package org.fundacionjala.automation.framework.pages.admin.emailserver;
 
 import java.util.List;
+
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.maps.admin.emailserver.DeleteEmailServerMap;
 import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Service;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
@@ -13,9 +15,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -149,6 +148,22 @@ public class EmailServerPage extends AdminPage {
 		else
 			LogManager.error("[FAILED] - Error message is not displayed.");
 		return (error);
+	}
+	public boolean verifyDetailsDeleted(List<Service> listServices) {
+		boolean state = listServices.size() == 0;
+		if (state)
+			LogManager.info("[PASSED]");
+		else
+			LogManager.error("[FAILED] - The information is still saved.");
+		return state;
+	}
+	public boolean verifyDetailsExist(List<Service> listServices) {
+		boolean state = listServices.size() > 0;
+		if (state)
+			LogManager.info("[PASSED]");
+		else
+			LogManager.error("[FAILED] - The information is not saved.");
+		return state;
 	}
 
 }

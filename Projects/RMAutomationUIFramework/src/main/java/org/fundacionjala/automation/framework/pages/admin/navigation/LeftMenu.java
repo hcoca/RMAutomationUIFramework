@@ -50,24 +50,22 @@ public class LeftMenu {
 	}
 
 	public LeftMenu clickOnIssuesButton() {
-		UIActions.waitFor(LeftMenuMap.ISSUES_BUTTON);
-		UIActions.clickAt(issuesButton);
+		UIActions.waitFor(LeftMenuMap.ISSUES_BUTTON,60);
+		issuesButton.click();
 		return this;
 	}
 	
 	public ImpersonationPage clickOnImpersonationButton() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(impersonationButton));
 		impersonationButton.click();
-		
 		LogManager.info("Impersonation Button has been clicked");
-		
 		return new ImpersonationPage();
 	}
 	
 	public EmailServerPage clickOnEmailServerButton() {
 		LogManager.info("Click on Email Server menu");
 		UIActions.waitFor(LeftMenuMap.EMAILSERVER_BUTTON);
-		UIActions.clickAt(emailServerButton);
+		emailServerButton.click();
 		return new EmailServerPage();
 	}
 }

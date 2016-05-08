@@ -67,7 +67,7 @@ public class OutOfOrderPage {
 	
 	@FindBy (xpath = OutOfOrderMap.SAVE_BUTTON) WebElement saveButton;
 	public ConferenceRoomsPage clickOnSave() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(saveButton));
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(saveButton));
 		saveButton.click();
 		return new ConferenceRoomsPage();
 	}
