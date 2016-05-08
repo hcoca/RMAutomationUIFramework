@@ -39,7 +39,7 @@ public class AssociateManyResources {
 		 * Before
 		 * */
 			resourcesToAssociate = new ArrayList<Resource>();
-			numResources = 3; 
+			numResources = 1; 
 					
 			for (int i = 0; i < numResources; i++) {
 				Resource resource = ResourceAPIManager

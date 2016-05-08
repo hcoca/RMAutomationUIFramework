@@ -37,8 +37,8 @@ public class AssociatedAResouceWithRoomEnabledSteps {
 	@Given("^I am on the Conferences Rooms page of Room Manager$")
 	public void i_am_on_the_Conferences_Rooms_page_of_Room_Manager() throws Throwable {
 		resourceToAssociate = ResourceAPIManager.postRequest(
-				"http://172.20.208.84:4040/resources", new Resource("Key",
-						"keys", "fa fa-key", "", "Key"));
+				"http://172.20.208.84:4040/resources", new Resource("Key02",
+						"keys02", "fa fa-key", "", "Key"));
 	
 		resourceName = resourceToAssociate.customName;
 		roomToModify = "Room02";

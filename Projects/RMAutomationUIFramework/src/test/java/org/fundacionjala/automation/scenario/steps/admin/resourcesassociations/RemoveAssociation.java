@@ -29,7 +29,7 @@ public class RemoveAssociation {
 		**/
 		resourceToAssociate = ResourceAPIManager
                 .postRequest("http://172.20.208.84:4040/resources"
-                 , new Resource("Key", "keys", "fa fa-key", "", "Key"));
+                 , new Resource("Key05", "keys05", "fa fa-key", "", "Key"));
 
        resourceName = resourceToAssociate.customName;
 		

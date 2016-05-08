@@ -33,7 +33,7 @@ public class OneResourceAssociateToRooms {
 		
 		resourceToAssociate = ResourceAPIManager
                 .postRequest("http://172.20.208.84:4040/resources"
-                 , new Resource("Key", "keys", "fa fa-key", "", "Key"));
+                 , new Resource("Key03", "keys03", "fa fa-key", "", "Key"));
 
        resourceName = resourceToAssociate.customName;
 	   result = false;
