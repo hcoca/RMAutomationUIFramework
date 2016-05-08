@@ -20,9 +20,12 @@ public class ServiceAPIManager {
 		LogManager.info("GET " + endPoint + " - Response:" + jsonResponse.getStatusText());
 		JSONArray a = jsonResponse.getBody().getArray();
 		List<Service> serviceList = new ArrayList<Service>();
-		for (int i = 0; i < a.length() ; i++) {
-			JSONObject obj = (JSONObject) a.get(i);
-			serviceList.add(new Service(obj));
+		if (jsonResponse.getStatusText().equals("OK"))
+		{
+			for (int i = 0; i < a.length() ; i++) {
+				JSONObject obj = (JSONObject) a.get(i);
+				serviceList.add(new Service(obj));
+			}
 		}
 		return serviceList;
 	}
