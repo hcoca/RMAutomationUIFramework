@@ -60,8 +60,7 @@ public class ErrorMessageWhenAccountIncorrect{
 		.clickOnEditCredentialButton()
 		.setUserName("RoomManagerX")
 		.setPassword("Control*123")
-		.clickOnAcceptButton()
-		.waitProcessing();
+		.clickOnAcceptButton();
 	}
 	
 	@Then("^An error message is displayed$")
