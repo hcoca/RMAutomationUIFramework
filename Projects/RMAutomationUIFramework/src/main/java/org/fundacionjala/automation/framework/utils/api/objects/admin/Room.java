@@ -1,5 +1,7 @@
 package org.fundacionjala.automation.framework.utils.api.objects.admin;
 
+import java.util.ArrayList;
+
 import org.fundacionjala.automation.framework.utils.api.objects.RequestObject;
 import org.json.JSONObject;
 
@@ -34,6 +36,20 @@ public class Room extends RequestObject{
 	}
 	
 	public Room(){
+	}
+
+	public JSONObject getJsonObjectForPut(boolean enabled) {
+		ArrayList<String> resources = new ArrayList<String>();		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("customDisplayName", this.customDisplayName);
+		jsonObject.put("serviceId", this.serviceId);
+		jsonObject.put("enabled", enabled);
+		jsonObject.put("emailAddress", this.emailAddress);
+		jsonObject.put("displayName", this.displayName);
+		jsonObject.put("code", "");
+		jsonObject.put("resources", resources);
+		jsonObject.put("__v", "");
+		return jsonObject;
 	}
 
 }
