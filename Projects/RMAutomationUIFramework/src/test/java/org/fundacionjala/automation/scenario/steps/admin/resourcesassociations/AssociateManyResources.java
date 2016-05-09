@@ -35,11 +35,9 @@ public class AssociateManyResources {
 	@Given("^I am on the Conferences Rooms page of the Room Mananager$")
 	public void i_am_on_the_Conferences_Rooms_page_of_the_Room_Mananager() throws Throwable {
 		
-		/*
-		 * Before
-		 * */
+	
 			resourcesToAssociate = new ArrayList<Resource>();
-			numResources = 1; 
+			numResources = 5; 
 					
 			for (int i = 0; i < numResources; i++) {
 				Resource resource = ResourceAPIManager
@@ -49,8 +47,6 @@ public class AssociateManyResources {
 			}
 		   
 			   roomToModify = "Room01";
-		/*
-		 */
 		
 		 home = LoginActions.ExecuteLogin();
 		 
@@ -90,5 +86,6 @@ public class AssociateManyResources {
 			 ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourcesToAssociate.get(i)._id);
 		}
 		
+		BrowserManager.getDriver().navigate().refresh();
 	}
 }
