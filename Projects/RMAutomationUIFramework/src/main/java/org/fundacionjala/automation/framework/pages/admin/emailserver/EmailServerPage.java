@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class EmailServerPage extends AdminPage {
+	
 	@FindBy (xpath = EmailServerMap.ADD_BUTTON) WebElement addButton;
 	@FindBy (xpath = EmailServerMap.REMOVE_BUTTON) WebElement removeButton;
 	@FindBy (xpath = EmailServerMap.EMAIL_SERVER_BUTTON) WebElement emailServerButton;
