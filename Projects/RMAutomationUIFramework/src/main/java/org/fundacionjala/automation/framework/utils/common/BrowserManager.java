@@ -99,7 +99,7 @@ public class BrowserManager extends EventFiringWebDriver {
    @Override
     public void close() {
         if (Thread.currentThread() != CLOSE_THREAD) {
-            throw new UnsupportedOperationException("You shouldn't close this WebDriver. It's shared and will close when the JVM exits.");
+            throw new UnsupportedOperationException("You shouldn't close this WebDriver. It's shared and will close after all scenarios.");
         }
    }
 	
