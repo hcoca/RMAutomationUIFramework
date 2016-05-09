@@ -82,11 +82,10 @@ public class AssociateManyResources {
 					           .isInAssociatedColumn(resourcesToAssociate.get(i).customName));
 		}
 		
-		
 		for (int i = 0; i < resourcesToAssociate.size(); i++) {
 			 ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourcesToAssociate.get(i)._id);
 		}
-		BrowserManager.getDriver().navigate().refresh();
 		
+		BrowserManager.getDriver().navigate().refresh();
 	}
 }
