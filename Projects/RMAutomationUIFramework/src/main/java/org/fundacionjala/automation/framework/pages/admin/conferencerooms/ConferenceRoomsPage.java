@@ -5,7 +5,6 @@ import java.util.List;
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
-import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -46,7 +45,6 @@ public class ConferenceRoomsPage {
 	
     public RoomInfoPage openConfigurationPage(String roomToModify) {
 	    UIActions.doubleClick(getRoom(roomToModify));
-    	LogManager.info("Open pop-up configuration of the room: " + roomToModify);
 		return new RoomInfoPage();
 	}
     
@@ -54,8 +52,6 @@ public class ConferenceRoomsPage {
     	WebElement roomElement = getRoom(roomToModify);
     	roomElement.click();
     	UIActions.doubleClickJS(roomElement);
-
-    	LogManager.info("Double click on the room " + roomToModify);
 		return new RoomInfoPage();
 	}
     
@@ -72,14 +68,11 @@ public class ConferenceRoomsPage {
 		return true;
 	}
 	
-	public boolean VerifyIfRoomExist(String room) {
-		if(getRoom(room) != null)
+	public boolean VerifyIfRoomExist(String expectedResult) {
+		if(getRoom(expectedResult) != null)
 		{
-	    	LogManager.info("Verified the existence of the room: " + room);
 			return true;
 		}else{
-
-	    	LogManager.info("The room was not found " + room);
 			return false;
 		}
 	}
@@ -88,18 +81,15 @@ public class ConferenceRoomsPage {
 	private WebElement getResource(String resourceName){
 		for (WebElement resource : resourceButtons) {
 			if(resource.getText().trim().equalsIgnoreCase(resourceName)){
-
-		    	LogManager.info("Resource found" + resourceName);
 				return resource;
 			}
 		}
-
-    	LogManager.info("Resource was not found " + resourceName);
 		return null;
 	}
 	
 	
-	public boolean verifyIfResourceCreatedIsInConferenceRoomPage(String expectedResult) {
+	public boolean verifyIfResourceCreatedIsInConferenceRoomPage(
+			String expectedResult) {
 		if(getResource(expectedResult) != null){
 			return true;
 		}
@@ -107,7 +97,14 @@ public class ConferenceRoomsPage {
 		
 	}
 
-	public ConferenceRoomsPage clickOnResource(String resourceName) {
+	public ConferenceRoomsPage clickOnTurnOnOffButton(String roomName) {
+		WebElement turnOnOffButton = BrowserManager.getDriver()
+				.findElement(By.xpath(ConferenceRoomsMap.TURN_ON_OFF_BUTTON.replace("roomName", roomName)));
+		UIActions.clickAt(turnOnOffButton);
+		return this;
+	}
+	
+public ConferenceRoomsPage clickOnResource(String resourceName) {
 		
 		String stringXpath = ConferenceRoomsMap.RESOURCES.replace("resource", resourceName);
 		ExplicitWait.clickWhenReady(By.xpath(stringXpath), 10);
@@ -130,9 +127,3 @@ public class ConferenceRoomsPage {
 		}	
 	}
 }
-
-
-
-
-
-
