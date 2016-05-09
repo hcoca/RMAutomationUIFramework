@@ -50,7 +50,7 @@ public class RoomsAreAddedWhenServiceAdded{
 			.clickOnIssuesButton()
 			.clickOnEmailServerButton()
 			.clickOnAddButton()
-			.setHostName(PropertiesReader.getExchangeHostname())
+			.setDomainServer(PropertiesReader.getExchangeHostname())
 			.setUserName(PropertiesReader.getExchangeConnectUserName())
 			.setPassword(PropertiesReader.getExchangeConnectPassword())
 			.clickSaveButton()
