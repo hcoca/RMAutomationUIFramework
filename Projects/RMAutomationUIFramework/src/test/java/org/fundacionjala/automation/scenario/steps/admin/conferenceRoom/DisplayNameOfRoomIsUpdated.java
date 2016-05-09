@@ -14,6 +14,7 @@ public class DisplayNameOfRoomIsUpdated {
 	String roomOriginalName;
 	
 	ConferenceRoomsPage ConferenceRoom = new ConferenceRoomsPage();
+	AdminPage Home = new AdminPage();
 	
 	@When("^I edit \"([^\"]*)\" room with a new display name \"([^\"]*)\"$")
 	public void i_edit_room_with_a_new_display_name(String roomName, String newDisplayName) throws Throwable {
@@ -36,6 +37,11 @@ public class DisplayNameOfRoomIsUpdated {
 				ConferenceRoom
 				.VerifyIfRoomExist(expectedResult)
 				);
-		
+		Home
+	   	.leftMenu
+	   	.clickOnConferenceRoomsButton()
+	   	.openConfigurationPage(expectedResult)
+	   	.typeOnDisplayName(roomOriginalName)
+	   	.clickOnSave();
 	}
 }

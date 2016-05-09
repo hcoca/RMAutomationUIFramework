@@ -9,92 +9,95 @@ import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Service;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
-import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class EmailServerPage extends AdminPage {
 	@FindBy (xpath = EmailServerMap.ADD_BUTTON) WebElement addButton;
 	@FindBy (xpath = EmailServerMap.REMOVE_BUTTON) WebElement removeButton;
-	@FindBy (xpath = EmailServerMap.EMAILSERVER_ITEM) WebElement emailserver_item;
-	@FindBy (xpath = EmailServerMap.EDIT_BUTTON) WebElement edit_button;
-	@FindBy (xpath = EmailServerMap.USERNAME_CRED_INPUT) WebElement username_cred_input;
-	@FindBy (xpath = EmailServerMap.PASSWORD_CRED_INPUT) WebElement pwd_cred_input;
-	@FindBy (xpath = EmailServerMap.ACCEPT_BUTTON) WebElement accept_button;
+	@FindBy (xpath = EmailServerMap.EMAIL_SERVER_BUTTON) WebElement emailServerButton;
+	@FindBy (xpath = EmailServerMap.EDIT_BUTTON) WebElement editButton;
+	@FindBy (xpath = EmailServerMap.USERNAME_TEXT_FIELD) WebElement userNameTextField;
+	@FindBy (xpath = EmailServerMap.PASSWORD_TEXT_FIELD) WebElement passwordTextField;
+	@FindBy (xpath = EmailServerMap.ACCEPT_BUTTON) WebElement acceptButton;
+	@FindBy (xpath = EmailServerMap.DESCRIPTION_TEXT_FIELD) WebElement descriptionTextField;
 	
 	public EmailServerPage()
 	{
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
+	
 	public AddEmailServerPage clickOnAddButton() {
-		UIActions.waitFor(EmailServerMap.ADD_BUTTON);
-		UIActions.clickAt(addButton);
-		LogManager.info("Click on Add button");
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(addButton));
+		addButton.click();
+		
+		LogManager.info("Add Email Server Button has been clicked");
+		
 		return new AddEmailServerPage();
 	}
 
-	public void waitAddWindowInvisible()
-	{
-		try{
-		By locator = By.xpath(EmailServerMap.EMAILSERVER_ITEM);
-		(new WebDriverWait(BrowserManager.getDriver(), 120))
-		.until(ExpectedConditions.presenceOfElementLocated(locator));
-		}
-		catch(Exception e)
-		{AddEmailServerPage addPage = new AddEmailServerPage();
-			addPage.clickSaveButton();
-			By locator = By.xpath(EmailServerMap.EMAILSERVER_ITEM);
-			(new WebDriverWait(BrowserManager.getDriver(), 120))
-			.until(ExpectedConditions.presenceOfElementLocated(locator));
-		}
-	}
+	
+	public DeleteEmailServerPage clickOnRemoveButton() {
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(removeButton));
+		removeButton.click();
 		
+		LogManager.info("Remove Email Server Button has been clicked");
+		
+		return new DeleteEmailServerPage();
+	}
 	
 	public EmailServerPage clickOnServerItemButton() {
-		UIActions.waitFor(EmailServerMap.EMAILSERVER_ITEM);
-		UIActions.clickAt(emailserver_item);
-		LogManager.info("Click on Email Server item");
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(emailServerButton));
+		emailServerButton.click();
+		
+		LogManager.info("Email Server Button has been clicked");
+		
 		return this;
 	}
+	
 	public EmailServerPage clickOnEditCredentialButton() {
-		UIActions.waitFor(EmailServerMap.EDIT_BUTTON);
-		UIActions.clickAt(edit_button);
-		LogManager.info("Click on Edit Credential button");
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(EmailServerMap.EDIT_BUTTON)));
+		editButton.click();
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(EmailServerMap.EDIT_BUTTON)));
+		
+		LogManager.info("Edit Email Server Credential Button has been clicked");
+		
 		return this;
 	}
-	public EmailServerPage setUserName(String username) {
-		UIActions.waitFor(EmailServerMap.USERNAME_CRED_INPUT);
-		UIActions.typeOn(username_cred_input, username);
+	
+	public EmailServerPage setUserName(String userName) {
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(userNameTextField));
+		userNameTextField.clear();
+		userNameTextField.sendKeys(userName);
+		
+		LogManager.info("Domain User Name " + userName +  " has been set up");
+		
 		return this;
 	}
+	
 	public EmailServerPage setPassword(String password) {
-		UIActions.waitFor(EmailServerMap.PASSWORD_CRED_INPUT);
-		UIActions.typeOn(pwd_cred_input, password);
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(passwordTextField));
+		passwordTextField.clear();
+		passwordTextField.sendKeys(password);
+		
+		LogManager.info("Domain Password " + password + " has been set up");
+		
 		return this;
 	}
+	
 	public EmailServerPage clickOnAcceptButton() {
-		UIActions.waitFor(EmailServerMap.ACCEPT_BUTTON);
-		accept_button.click();
-		LogManager.info("Click on Accept button");
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(EmailServerMap.ACCEPT_BUTTON)));
+		acceptButton.click();
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(EmailServerMap.ACCEPT_BUTTON)));
+		
+		LogManager.info("Edit Email Server Credential Accept Button has been clicked");
+		
 		return this;
-	}
-	public void waitProcessing() {
-		LogManager.info("Waiting up to save...");
-		(new WebDriverWait(BrowserManager.getDriver(), 120))
-		.until(new ExpectedCondition() {
-			@Override
-			public Boolean apply(Object obj) {
-				WebDriver driver = (WebDriver)obj;
-				List<WebElement> elementsHide = (List<WebElement>)driver.findElements(By.xpath(EmailServerMap.END_PROCESSING));
-				return (elementsHide.size()>0);
-			}
-		});
 	}
 
 	public boolean verifyCredential(String current_credential, String expected_credential) {
@@ -118,24 +121,50 @@ public class EmailServerPage extends AdminPage {
 		}
 	}
 
-	public DeleteEmailServerPage clickOnRemoveButton() {
-		UIActions.waitFor(EmailServerMap.REMOVE_BUTTON);
-		removeButton.click();
-		LogManager.info("Click on Remove button");
-		return new DeleteEmailServerPage();
-	}
-	
 	public void waitItemDeleted() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(DeleteEmailServerMap.YES_BUTTON)));
 		
 	}
 	
+	public void waitAddWindowInvisible()
+	{
+		try{
+		By locator = By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON);
+		(new WebDriverWait(BrowserManager.getDriver(), 120))
+		.until(ExpectedConditions.presenceOfElementLocated(locator));
+		}
+		catch(Exception e)
+		{AddEmailServerPage addPage = new AddEmailServerPage();
+			addPage.clickSaveButton();
+			By locator = By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON);
+			(new WebDriverWait(BrowserManager.getDriver(), 120))
+			.until(ExpectedConditions.presenceOfElementLocated(locator));
+		}
+	}
+	
 	public boolean verifyIfThereAreRooms() {
 		List<WebElement> roomsList = BrowserManager.getDriver().findElements(By.xpath(ConferenceRoomsMap.ROOMS_COLUMN));
 		return (roomsList.size() > 0);
-
 	}
+	
+	public String getUserName() {
+		
+		String userName = userNameTextField.getAttribute("value");
+		
+		LogManager.info("User Name " + userName + " has been obtained");
+		
+		return userName;
+	}
+	
+	public String getEmailServerDescription() {
+		String description = descriptionTextField.getAttribute("value");
+		
+		LogManager.info("Email Server Description " + description + " has been obtained");
+		
+		return description;
+	}
+
 	public boolean verifyErrorMessageInCredential() {
 		By locator = By.xpath(EmailServerMap.ERROR_MSG_CREDENTIAL);
 		(new WebDriverWait(BrowserManager.getDriver(), 120))
@@ -149,6 +178,7 @@ public class EmailServerPage extends AdminPage {
 			LogManager.error("[FAILED] - Error message is not displayed.");
 		return (error);
 	}
+	
 	public boolean verifyDetailsDeleted(List<Service> listServices) {
 		boolean state = listServices.size() == 0;
 		if (state)
@@ -157,6 +187,7 @@ public class EmailServerPage extends AdminPage {
 			LogManager.error("[FAILED] - The information is still saved.");
 		return state;
 	}
+	
 	public boolean verifyDetailsExist(List<Service> listServices) {
 		boolean state = listServices.size() > 0;
 		if (state)
@@ -165,5 +196,4 @@ public class EmailServerPage extends AdminPage {
 			LogManager.error("[FAILED] - The information is not saved.");
 		return state;
 	}
-
 }

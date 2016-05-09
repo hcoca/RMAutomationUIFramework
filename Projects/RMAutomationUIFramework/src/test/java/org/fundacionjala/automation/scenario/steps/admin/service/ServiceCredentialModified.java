@@ -59,8 +59,7 @@ public class ServiceCredentialModified {
 			.clickOnEditCredentialButton()
 			.setUserName("RoomManager1")
 			.setPassword("Control*123")
-			.clickOnAcceptButton()
-			.waitProcessing();
+			.clickOnAcceptButton();
 	}
 
 	@Then("^The changes are saved$")

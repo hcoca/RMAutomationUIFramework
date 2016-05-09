@@ -80,8 +80,9 @@ Examples:
 
 Scenario Outline: "Location" of a room is updated when it is edited in "Room Info" form.
 Given I logged to Room Manager Admin
+And I have a new Location "<location>"
 When I edit "<RoomName>" room with a new Location "<location>"
-Then I validate if the Capacity has been updated in the Room Info page.
+Then I validate if the Location has been updated in the Room Info page.
 
 Examples:
     | RoomName  |     location    | 
