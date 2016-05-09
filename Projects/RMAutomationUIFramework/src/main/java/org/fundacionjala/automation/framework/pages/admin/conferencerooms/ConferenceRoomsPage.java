@@ -33,16 +33,6 @@ public class ConferenceRoomsPage {
 	   return ExplicitWait.getElementsWhenVisible(By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 15);
 	}
 	
-	@FindBy (xpath = ConferenceRoomsMap.ENABLED_ROOMS_ROWS) List<WebElement> enabledButtons;
-	private List<WebElement> getEnableRooms() {
-       return enabledButtons;
-	}
-	
-	@FindBy (xpath = ConferenceRoomsMap.DISABLED_ROOMS_ROWS) List<WebElement> disabledButtons;
-	private List<WebElement> getDisabledRooms() {
-       return disabledButtons;
-	}
-	
 	private WebElement getRoom(String roomName)
 	{
 		for(WebElement room : getRooms()){

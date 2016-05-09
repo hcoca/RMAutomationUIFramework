@@ -3,6 +3,7 @@ package org.fundacionjala.automation.framework.pages.admin.resource;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -57,6 +58,8 @@ public class ResourcePage extends AdminPage {
 		return this;
 	}
 	
+	
+	
 	public boolean verifyResourceExist(String resourceName){
 		if (verifyExist(resourceName)) {
 				LogManager.info("[TRUE] Resource " + resourceName + " exists");
@@ -86,8 +89,10 @@ public class ResourcePage extends AdminPage {
 		return false;
 	}
 	
-	public ResourceInfoPage doubleClickOnResource(String name)
+	public ResourceInfoPage doubleClickOnResource(String name) throws InterruptedException
 	{
+		Thread.sleep(2000);
+		
 		for (WebElement element : resourceNames) {
 			if (element.getText().equalsIgnoreCase(name)) {
 				element.click();
@@ -236,6 +241,12 @@ public class ResourcePage extends AdminPage {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public ResourceAssociationsPage clickOnAssociations()
+	{
+		
+		return new ResourceAssociationsPage();
 	}
 
 }

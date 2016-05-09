@@ -37,8 +37,7 @@ public class AssociateAresourceAndVerifyInTable {
 				.clickOnResourceAssociations()
 				.addResource(resourceName)
 				.editQuantityOfResourceAssociated(resourceName, qty)
-				.clickOnSave();
-				
+				.clickOnSave();		
 	}
 
 	@When("^I click on the resource$")
@@ -49,8 +48,9 @@ public class AssociateAresourceAndVerifyInTable {
 
 	@Then("^I see the resource associate on the conference room page$")
 	public void i_see_the_resource_associate_on_the_conference_room_page() throws Throwable {
-
+		
 	    Assert.assertTrue(conferenceRoom.isQuantityDisplayed(qty), "The quantity should be displayed");
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
+		
 	}
 }

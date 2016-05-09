@@ -6,7 +6,6 @@ import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomInf
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -20,9 +19,9 @@ public class RoomInfoPage {
 	}
 
 	@FindBy (linkText = RoomInfoMap.RESOURCES_ASSOCIATIONS_LINK) WebElement resourcesAssociations;
-	public ResourceAssociationsPage clickOnResourceAssociations() {
+	public RoomsResourceAssociationsPage clickOnResourceAssociations() {
 		resourcesAssociations.click();
-		return new ResourceAssociationsPage();
+		return new RoomsResourceAssociationsPage();
 	}
 	
 	@FindBy (linkText = RoomInfoMap.OUT_OF_ORDER_PLANNING_LINK) WebElement outOfOrder;

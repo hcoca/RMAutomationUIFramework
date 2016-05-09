@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
-import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ResourceAssociationsPage;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
@@ -26,7 +26,7 @@ public class AssociateManyResources {
 	
 	private AdminPage home;
 	private ConferenceRoomsPage conferenceRoom;
-	private ResourceAssociationsPage resourceAssociations;
+	private RoomsResourceAssociationsPage resourceAssociations;
 	private String roomToModify;
 	private ArrayList<Resource> resourcesToAssociate;
     private int numResources;
