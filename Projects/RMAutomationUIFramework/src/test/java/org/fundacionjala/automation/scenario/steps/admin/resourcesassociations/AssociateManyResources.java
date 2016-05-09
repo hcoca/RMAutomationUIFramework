@@ -46,7 +46,7 @@ public class AssociateManyResources {
 				resourcesToAssociate.add(resource);
 			}
 		   
-			   roomToModify = "Room01";
+			   roomToModify = "Room06";
 		
 		 home = LoginActions.ExecuteLogin();
 		 
