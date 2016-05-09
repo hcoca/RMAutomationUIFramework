@@ -3,7 +3,6 @@ package org.fundacionjala.automation.framework.pages.admin.emailserver;
 import org.fundacionjala.automation.framework.maps.admin.emailserver.AddEmailServerMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
-import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,47 +12,65 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class AddEmailServerPage {
-	@FindBy (xpath = AddEmailServerMap.TITLE) WebElement title;
-	@FindBy (xpath = AddEmailServerMap.HOSTNAME_INPUT) WebElement hostname_input;
-	@FindBy (xpath = AddEmailServerMap.USERNAME_INPUT) WebElement username_input;
-	@FindBy (xpath = AddEmailServerMap.PASSWORD_INPUT) WebElement password_input;
-	@FindBy (xpath = AddEmailServerMap.DESCRIPTION_INPUT) WebElement description_txt;
-	@FindBy (xpath = AddEmailServerMap.SAVE_BUTTON) WebElement save_button;
 	
-	public AddEmailServerPage()
-	{
+	@FindBy (xpath = AddEmailServerMap.DOMAIN_SERVER_TEXT_FIELD) WebElement domainServerTextField;
+	@FindBy (xpath = AddEmailServerMap.USERNAME_TEXT_FIELD) WebElement userNameTextField;
+	@FindBy (xpath = AddEmailServerMap.PASSWORD_TEXT_FIELD) WebElement passwordTextField;
+	@FindBy (xpath = AddEmailServerMap.DESCRIPTION_TEXT_FIELD) WebElement descriptionTextField;
+	@FindBy (xpath = AddEmailServerMap.SAVE_BUTTON) WebElement saveButton;
+	
+	public AddEmailServerPage()	{
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 
-	public AddEmailServerPage setHostName(String hostname) {
-		By locator = By.xpath(AddEmailServerMap.HOSTNAME_INPUT);
-		(new WebDriverWait(BrowserManager.getDriver(), 10))
-		.until(ExpectedConditions.presenceOfElementLocated(locator));
-		hostname_input.clear();
-		hostname_input.sendKeys(hostname);
-		LogManager.info("'" + hostname + " has been set up");
+	public AddEmailServerPage setDomainServer(String domainServer) {
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(domainServerTextField));
+		domainServerTextField.clear();
+		domainServerTextField.sendKeys(domainServer);
+		
+		LogManager.info("Domain Server " + domainServer + " has been set up");
+		
 		return this;
 	}
 
-	public AddEmailServerPage setUserName(String username) {
-		By locator = By.xpath(AddEmailServerMap.USERNAME_INPUT);
-		(new WebDriverWait(BrowserManager.getDriver(), 10))
-		.until(ExpectedConditions.presenceOfElementLocated(locator));
-		username_input.clear();
-		username_input.sendKeys(username);
-		LogManager.info("'" + username + " has been set up");
+	public AddEmailServerPage setUserName(String userName) {
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(userNameTextField));
+		userNameTextField.clear();
+		userNameTextField.sendKeys(userName);
+		
+		LogManager.info("Domain User Name " + userName + " has been set up");
+		
 		return this;
 	}
 
 	public AddEmailServerPage setPassword(String password) {
-		UIActions.waitFor(AddEmailServerMap.PASSWORD_INPUT);
-		UIActions.typeOn(password_input, password);
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(passwordTextField));
+		passwordTextField.clear();
+		passwordTextField.sendKeys(password);
+		
+		LogManager.info("Domain Password " + password + "has been set up");
+		
+		return this;
+	}
+	
+	public AddEmailServerPage setDescription(String description) {
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(descriptionTextField));
+		descriptionTextField.clear();
+		descriptionTextField.sendKeys(description);
+		
+		LogManager.info("Email Server Description " + description + "has been set up");
+		
 		return this;
 	}
 
 	public EmailServerPage clickSaveButton() {
-		UIActions.waitFor(AddEmailServerMap.SAVE_BUTTON);
-		UIActions.clickAt(save_button);
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(AddEmailServerMap.SAVE_BUTTON)));
+		saveButton.click();
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(AddEmailServerMap.SAVE_BUTTON)));
+		BrowserManager.getDriver().navigate().refresh();
+		
+		LogManager.info("Add Email Server Save Button has been clicked");
+		
 		return new EmailServerPage();
 	}
 }
