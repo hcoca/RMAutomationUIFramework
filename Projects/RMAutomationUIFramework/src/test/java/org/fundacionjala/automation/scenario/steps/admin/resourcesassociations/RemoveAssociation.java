@@ -33,7 +33,7 @@ public class RemoveAssociation {
 
        resourceName = resourceToAssociate.customName;
 		
-	   roomToModify = "Room04";
+	   roomToModify = "Room06";
 	  
 	   home = LoginActions.ExecuteLogin();
 	}

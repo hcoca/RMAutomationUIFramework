@@ -29,7 +29,7 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 					                 , new Resource("Key07", "keys07", "fa fa-key", "", "Key"));
 
        resourceName = resourceToAssociate.customName;
-	   roomToModify = "Room04";
+	   roomToModify = "Room01";
 	   quantity = "10";
 	   
 	   home = LoginActions.ExecuteLogin();

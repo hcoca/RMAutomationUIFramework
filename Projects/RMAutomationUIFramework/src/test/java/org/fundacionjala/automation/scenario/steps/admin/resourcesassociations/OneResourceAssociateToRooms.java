@@ -38,9 +38,9 @@ public class OneResourceAssociateToRooms {
        resourceName = resourceToAssociate.customName;
 	   result = false;
 	   
-	   String roomToModify01 = "Room04";
+	   String roomToModify01 = "Room01";
 	   String roomToModify02 = "Room05";
-	   String roomToModify03 = "Room10";
+	   String roomToModify03 = "Room06";
 	   String roomToModify04 = "RoomX03";
 	   rooms = new ArrayList<String>();
 	   rooms.add(roomToModify01);

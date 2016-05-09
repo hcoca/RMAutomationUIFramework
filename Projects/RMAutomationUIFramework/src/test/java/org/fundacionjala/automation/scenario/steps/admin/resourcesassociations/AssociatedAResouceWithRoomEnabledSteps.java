@@ -41,7 +41,7 @@ public class AssociatedAResouceWithRoomEnabledSteps {
 						"keys02", "fa fa-key", "", "Key"));
 	
 		resourceName = resourceToAssociate.customName;
-		roomToModify = "Room02";
+		roomToModify = "Room05";
 		home = LoginActions.ExecuteLogin();
 		conferenceRoom = home.leftMenu.clickOnConferenceRoomsButton();
 	
