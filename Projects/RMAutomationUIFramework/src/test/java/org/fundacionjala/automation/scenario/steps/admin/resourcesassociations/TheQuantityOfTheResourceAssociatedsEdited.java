@@ -21,9 +21,7 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 	
 	@Given("^I am on the Conferences Rooms page$")
 	public void i_am_on_the_Conferences_Rooms_page() throws Throwable {		
-		/*
-		 *@Before
-		 * */
+	
 	   resourceToAssociate = ResourceAPIManager
 					                .postRequest("http://172.20.208.84:4040/resources"
 					                 , new Resource("Key07", "keys07", "fa fa-key", "", "Key"));
@@ -66,8 +64,7 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 		              .clickOnResourceAssociations()
 		              .hasTheQuantity(resourceName, quantity));
 		
-		/*
-		 *@After*/
+		
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	}
 	

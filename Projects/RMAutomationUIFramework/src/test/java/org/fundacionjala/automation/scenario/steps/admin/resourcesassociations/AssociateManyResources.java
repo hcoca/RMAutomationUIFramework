@@ -2,22 +2,16 @@ package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
-import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
-import org.fundacionjala.automation.framework.pages.admin.navigation.LeftMenu;
-import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
-import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
 
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

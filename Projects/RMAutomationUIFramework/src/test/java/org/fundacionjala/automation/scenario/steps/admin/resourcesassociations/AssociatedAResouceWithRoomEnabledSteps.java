@@ -71,9 +71,6 @@ public class AssociatedAResouceWithRoomEnabledSteps {
 		Assert.assertTrue(
 				resourceAssociations.isInAssociatedColumn(resourceName),
 				"The resource should be in resource column");
-		/*
-		 * @After()
-		 */
 
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources",
 				resourceToAssociate._id);
