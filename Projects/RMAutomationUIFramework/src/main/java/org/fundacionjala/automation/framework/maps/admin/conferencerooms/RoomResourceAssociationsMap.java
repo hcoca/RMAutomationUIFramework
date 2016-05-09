@@ -1,6 +1,6 @@
 package org.fundacionjala.automation.framework.maps.admin.conferencerooms;
 
-public class ResourceAssociationsMap {
+public class RoomResourceAssociationsMap {
 
 	public static final String RESOURCES_AVAILABLES 
 	                     = "//div[@class='list-group']/div[@ng-repeat='availableResource in availableResources']/div[2]/span";

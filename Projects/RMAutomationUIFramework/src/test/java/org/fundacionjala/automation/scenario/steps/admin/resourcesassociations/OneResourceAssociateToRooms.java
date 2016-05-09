@@ -3,7 +3,7 @@ package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 import java.util.ArrayList;
 
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
-import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ResourceAssociationsPage;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
@@ -17,7 +17,7 @@ public class OneResourceAssociateToRooms {
 
 	private AdminPage home;
 	private ConferenceRoomsPage conferenceRoom;
-	private ResourceAssociationsPage resourceAssociations;
+	private RoomsResourceAssociationsPage resourceAssociations;
 	private String resourceName;
 	private Resource resourceToAssociate;
 	private ArrayList<String> rooms;
@@ -27,10 +27,7 @@ public class OneResourceAssociateToRooms {
 	
 	@Given("^I am on the Conference Rooms page of the Room Mnanager$")
 	public void i_am_on_the_Conference_Rooms_page_of_the_Room_Mnanager() throws Throwable {
-		/**
-		 * @Before
-		 * */
-		
+	
 		resourceToAssociate = ResourceAPIManager
                 .postRequest("http://172.20.208.84:4040/resources"
                  , new Resource("Key03", "keys03", "fa fa-key", "", "Key"));
@@ -85,10 +82,6 @@ public class OneResourceAssociateToRooms {
 	public void i_see_the_resource_associate_in_each_room_that_was_modified() throws Throwable {
 		
 		Assert.assertTrue(result, "All roooms have the resource associated");
-		
-		/*
-		 *@After 
-		 * */
 		
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 		

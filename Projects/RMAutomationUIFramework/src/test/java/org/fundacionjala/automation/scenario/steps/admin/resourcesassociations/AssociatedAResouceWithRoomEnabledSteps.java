@@ -1,7 +1,7 @@
 package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
-import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ResourceAssociationsPage;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
@@ -28,7 +28,7 @@ import cucumber.api.java.en.When;
 public class AssociatedAResouceWithRoomEnabledSteps {
 	private AdminPage home;
 	private ConferenceRoomsPage conferenceRoom;
-	private ResourceAssociationsPage resourceAssociations;
+	private RoomsResourceAssociationsPage resourceAssociations;
 	private String roomToModify;
 	private String resourceName;
 	private Resource resourceToAssociate;
@@ -71,9 +71,6 @@ public class AssociatedAResouceWithRoomEnabledSteps {
 		Assert.assertTrue(
 				resourceAssociations.isInAssociatedColumn(resourceName),
 				"The resource should be in resource column");
-		/*
-		 * @After()
-		 */
 
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources",
 				resourceToAssociate._id);
