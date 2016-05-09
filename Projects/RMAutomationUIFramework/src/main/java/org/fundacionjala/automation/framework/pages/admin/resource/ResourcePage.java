@@ -23,6 +23,7 @@ public class ResourcePage extends AdminPage {
 	@FindBy (xpath = ResourceMap.RESOURCE_FILTER) WebElement resourceFilter;
 	@FindBy (xpath = ResourceMap.FIRST_PAGE_BUTTON) WebElement firstPageButton;
 	@FindBy (xpath = ResourceMap.INPUT_NUMBER_PAGE) WebElement inputNumberPage;
+	@FindBy (xpath = ResourceMap.LAST_PAGE_BUTTON) WebElement lastPageButton;
 	
 	public ResourcePage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
@@ -211,11 +212,30 @@ public class ResourcePage extends AdminPage {
 
 	public boolean verifyTheFirstPage(String firstPage) {
 		UIActions.waitFor(ResourceMap.INPUT_NUMBER_PAGE);
-		System.out.println("Numbero de paginaaa"+inputNumberPage.getAttribute("value"));
 		if(inputNumberPage.getAttribute("value").equalsIgnoreCase(firstPage))
 			return true;
 		else
 			return false;
+	}
+
+	public ResourcePage clickOnLastPageButton() {
+		UIActions.waitFor(ResourceMap.LAST_PAGE_BUTTON);
+		UIActions.clickAt(firstPageButton);
+		return new ResourcePage();
+	}
+
+	public boolean verifyTheLastPage() {
+		UIActions.waitFor(ResourceMap.INPUT_NUMBER_PAGE);
+		String lastPage = inputNumberPage.getAttribute("value").trim();
+		String xpath = ResourceMap.TOTAL_NUMBER_PAGE.replace("totalPages", lastPage);
+		try {
+			if(BrowserManager.getDriver().findElement(By.xpath(xpath))!= null)
+				return true;
+			else
+				return false;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

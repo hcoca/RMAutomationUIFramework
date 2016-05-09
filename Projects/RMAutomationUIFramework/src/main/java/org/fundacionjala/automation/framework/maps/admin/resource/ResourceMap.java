@@ -10,5 +10,7 @@ public class ResourceMap {
 	public static final String DROPDOWN_PAGE_SIZE = "//div[@id='resourcesGrid']/div[3]/div/div[2]/div[1]/select//option[text()='number']";
 	public static final String FIRST_PAGE_BUTTON = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//button[@title='First Page']";
 	public static final String INPUT_NUMBER_PAGE = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//input[@ng-model='pagingOptions.currentPage']";
+	public static final String LAST_PAGE_BUTTON = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//button[@title='Last Page']";
+	public static final String TOTAL_NUMBER_PAGE = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//div[@class='ngPagerControl']//span[contains(text(), 'totalPages')]";
 	
 }
