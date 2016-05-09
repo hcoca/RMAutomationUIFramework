@@ -42,7 +42,7 @@ public class AssociateManyResources {
 			for (int i = 0; i < numResources; i++) {
 				Resource resource = ResourceAPIManager
 		                                  .postRequest("http://172.20.208.84:4040/resources"
-		                                                ,new Resource("Key_"+i, "key_"+i, "fa fa-key", "", "Key"));
+		                                                ,new Resource("Key"+i, "key"+i, "fa fa-key", "", "Key"));
 				resourcesToAssociate.add(resource);
 			}
 		   
