@@ -7,6 +7,7 @@ import java.util.List;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.navigation.LeftMenu;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
@@ -23,12 +24,9 @@ import cucumber.api.java.en.When;
 
 public class AssociateManyResources {
 	
-	AdminPage home;
-	ResourcePage resource;
-	ConferenceRoomsPage conferenceRoom;
-	LeftMenu leftMenu;
-	ResourceAssociationsPage resourceAssociations;
-	
+	private AdminPage home;
+	private ConferenceRoomsPage conferenceRoom;
+	private ResourceAssociationsPage resourceAssociations;
 	private String roomToModify;
 	private ArrayList<Resource> resourcesToAssociate;
     private int numResources;
@@ -41,7 +39,7 @@ public class AssociateManyResources {
 		 * Before
 		 * */
 			resourcesToAssociate = new ArrayList<Resource>();
-			numResources = 3; 
+			numResources = 1; 
 					
 			for (int i = 0; i < numResources; i++) {
 				Resource resource = ResourceAPIManager
@@ -51,16 +49,11 @@ public class AssociateManyResources {
 			}
 		   
 			   roomToModify = "Room01";
-			   BrowserManager.openBrowser();
 		/*
 		 */
 		
-		LoginPage login = new LoginPage();
-		home = login
-					.setUserName(PropertiesReader.getUserName())
-					.setPassword(PropertiesReader.getPassword())
-					.clickOnSigInButton()
-					.refreshPage();	
+		 home = LoginActions.ExecuteLogin();
+		 
 	}
 
 	@Given("^I associate many resources to one room$")
@@ -92,7 +85,10 @@ public class AssociateManyResources {
 			Assert.assertTrue(resourceAssociations
 					           .isInAssociatedColumn(resourcesToAssociate.get(i).customName));
 		}
+		
+		for (int i = 0; i < resourcesToAssociate.size(); i++) {
+			 ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourcesToAssociate.get(i)._id);
+		}
+		
 	}
-
-
 }

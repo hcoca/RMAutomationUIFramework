@@ -7,8 +7,6 @@ import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
-import org.fundacionjala.automation.framework.utils.api.managers.OutOfOrderAPIManager;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.OutOfOrder;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -21,7 +19,7 @@ import cucumber.api.java.en.When;
 public class AvailableOutOfOrderSteps {
 	AdminPage home;
 	ConferenceRoomsPage room;
-	String roomName = "Room09";
+	HomePage homeTablet;
 	
 	@Given("^I logged to Room Manager Admin$")
 	public void i_logged_to_Room_Manager_Admin() throws Throwable {
@@ -36,17 +34,19 @@ public class AvailableOutOfOrderSteps {
 	@Given("^I create an Out of Order on a specific \"([^\"]*)\" room$")
 	public void i_create_an_Out_of_Order_on_a_specific_room(String arg1) throws Throwable {
 		room = home.leftMenu.clickOnConferenceRoomsButton()
-					.openConfigurationPage(roomName)
+					.openConfigurationPage(arg1)
 					.clickOnOutOfOrder()
+					.setTimeBeginUp()
+					.setTimeEndUp()
 					.clickOnBoxButon()
 					.ClickOnClosedForMaintenanceLink()
 					.clickOnSave();
 	} 
-
-	@When("^I did click on the icon of Out of Order$")
-	public void i_did_click_on_the_icon_of_Out_of_Order() throws Throwable {
+	
+	@When("^I did click on the icon of Out of Order on the \"([^\"]*)\" room$")
+	public void i_did_click_on_the_icon_of_Out_of_Order_on_the_room(String arg1) throws Throwable {
 		room = home.leftMenu.clickOnConferenceRoomsButton()
-				   			.selectOutOfOrderIcon(roomName);
+   			                .selectOutOfOrderIcon(arg1);
 	}
 	
 	@When("^I sign in to Tablet page using the \"([^\"]*)\" room$")
@@ -57,9 +57,9 @@ public class AvailableOutOfOrderSteps {
 				    	.clickOnSaveButton()
 				    	.clickOnNavigationButton();
 		
-	    HomePage home =	navigation
+		homeTablet =	navigation
 				    	.clickOnRoomToggleButton()
-				    	.selectConferenceRoom(roomName)
+				    	.selectConferenceRoom(arg1)
 				    	.clickOnSaveButton()
 				    	.topMenu
 				    	.clickOnHomeButton();
@@ -73,6 +73,18 @@ public class AvailableOutOfOrderSteps {
 	    	verification = true;
 	    }
 	    Assert.assertTrue(verification);
+	    //PostCondition
+	    BrowserManager.openBrowser();
+		LoginPage login = new LoginPage();
+		home = login.setUserName("Administrator")
+					.setPassword("Control*123")
+					.clickOnSigInButton()
+					.refreshPage();
+		room = home.leftMenu.clickOnConferenceRoomsButton()
+							.openConfigurationPage(arg1)
+							.clickOnOutOfOrder()
+							.activeOutOfOrder()
+							.clickOnSave();
 	}
 	
 }

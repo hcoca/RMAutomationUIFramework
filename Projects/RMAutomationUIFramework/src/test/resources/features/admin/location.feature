@@ -93,5 +93,38 @@ When I add a new location with name: "<name>" and display name"<displayName>" wi
 Then The room is displayed on Location Association page as associated
 
 Examples:
+    | name       | displayName   | roomName |
+    | Cochabamba | Cbba-Location | Room01   |
+
+Scenario Outline: A room is displayed on Location Association page when it is associated with an existent location
+Given I have a location added with name: "<name>" and display name"<displayName>" to update its associations
+	And I am on location page
+When I associate the location with a room"<roomName>"
+Then The room is displayed on Location Association page as location association
+
+Examples:
+    | name       | displayName   | roomName |
+    | Cochabamba | Cbba-Location | Room01   |
+
+
+Scenario Outline: A room is not displayed on ‘Location Association’ page  when the association with a location is removed
+Given I have a location added with name: "<name>" and display name"<displayName>" to delete its associations
+	And I am on location page
+	And I associate this location with a room"<roomName>"
+When I delete the association
+Then The room is not displayed on Location Association page as associated
+
+Examples:
+    | name       | displayName   | roomName |
+    | Cochabamba | Cbba-Location | Room01   |  
+
+Scenario Outline: The number of rooms associated displayed on Locations page increases when a room is associated
+Given I have a location added with name: "<name>" and display name"<displayName>" to add an associations
+	And I am on location page
+When I add a location association with a room"<roomName>"
+Then The number of assciation on Location page has been increased
+
+Examples:
     | name       | displayName       | roomName |
-    | Cochabamba | Cbba-Location     | Room01   |
+    | Cochabamba | Cbba-Location     | Room01   | 
+ 

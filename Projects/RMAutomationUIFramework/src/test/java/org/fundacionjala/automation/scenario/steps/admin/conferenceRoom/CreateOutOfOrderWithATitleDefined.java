@@ -18,6 +18,7 @@ import cucumber.api.java.en.When;
 public class CreateOutOfOrderWithATitleDefined {
 	AdminPage home;
 	ConferenceRoomsPage room;
+	HomePage homeTablet;
 	
 	@Given("^I logged to RoomManagerAdmin$")
 	public void i_logged_to_RoomManagerAdmin() throws Throwable {
@@ -29,29 +30,31 @@ public class CreateOutOfOrderWithATitleDefined {
 					.refreshPage();
 	}
 
-	@When("^I create an Out of Order with a title defined$")
-	public void i_create_an_Out_of_Order_with_a_title_defined() throws Throwable {
+	@When("^I create an Out of Order on \"([^\"]*)\" room with a title defined$")
+	public void i_create_an_Out_of_Order_on_room_with_a_title_defined(String arg1) throws Throwable {
 		room = home.leftMenu.clickOnConferenceRoomsButton()
-					.openConfigurationPage("Room02")
-					.clickOnOutOfOrder()
-					.clickOnBoxButon()
-					.ClickOnClosedForMaintenanceLink()
-					.activeOutOfOrder()
-					.clickOnSave();
+							.openConfigurationPage(arg1)
+							.clickOnOutOfOrder()
+							.setTimeBeginUp()
+							.setTimeEndUp()
+							.clickOnBoxButon()
+							.ClickOnClosedForMaintenanceLink()
+							.activeOutOfOrder()
+							.clickOnSave();
 	}
-	
-	@Then("^I validate if the Out Of Order has been created with the title defined$")
-	public void i_validate_if_the_Out_Of_Order_has_been_created_with_the_title_defined() throws Throwable {
+
+	@Then("^I validate if the Out Of Order on \"([^\"]*)\" room has been created with the title defined$")
+	public void i_validate_if_the_Out_Of_Order_on_room_has_been_created_with_the_title_defined(String arg1) throws Throwable {
 		boolean verification = false;
 		ConnectionPage connection = new ConnectionPage();
 		NavigationPage navigation = connection
-				    	.setUpServiceURL("http://172.20.208.84:4040/")
-				    	.clickOnSaveButton()
-				    	.clickOnNavigationButton();
+							    	.setUpServiceURL("http://172.20.208.84:4040/")
+							    	.clickOnSaveButton()
+							    	.clickOnNavigationButton();
 	    	
-	    HomePage home =	navigation
+	    homeTablet =	navigation
 				    	.clickOnRoomToggleButton()
-				    	.selectConferenceRoom("Room02")
+				    	.selectConferenceRoom(arg1)
 				    	.clickOnSaveButton()
 				    	.topMenu
 				    	.clickOnHomeButton();
@@ -61,5 +64,18 @@ public class CreateOutOfOrderWithATitleDefined {
 	    	verification = true;
 	    }
 	    Assert.assertTrue(verification);
+	    //PostCondition
+	    BrowserManager.openBrowser();
+		LoginPage login = new LoginPage();
+		home = login.setUserName("Administrator")
+					.setPassword("Control*123")
+					.clickOnSigInButton()
+					.refreshPage();
+		room = home.leftMenu.clickOnConferenceRoomsButton()
+							.openConfigurationPage(arg1)
+							.clickOnOutOfOrder()
+							.activeOutOfOrder()
+							.clickOnSave();
 	}
+	
 }

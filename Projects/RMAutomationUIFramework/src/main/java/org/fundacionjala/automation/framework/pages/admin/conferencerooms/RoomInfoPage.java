@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomInfoMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RoomInfoPage {
 
@@ -23,9 +27,20 @@ public class RoomInfoPage {
 	
 	@FindBy (linkText = RoomInfoMap.OUT_OF_ORDER_PLANNING_LINK) WebElement outOfOrder;
 	public OutOfOrderPage clickOnOutOfOrder() {
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(outOfOrder));
 		outOfOrder.click();
+		LogManager.info("OutOfOrder-ConferenceRooms Button has been clicked");
 		return new OutOfOrderPage();
 	}
+	
+	@FindBy (xpath = RoomInfoMap.OUT_OF_ORDER_LINK) WebElement outOfOrderOption;
+	public OutOfOrderPage SelectOutOfOrder()
+	 {
+		UIActions.waitFor(RoomInfoMap.OUT_OF_ORDER_LINK);
+		UIActions.clickAt(outOfOrderOption);
+		LogManager.info("Click on Out of order Planning");
+		 return new OutOfOrderPage();
+	 }
 	
 	@FindBy (xpath = RoomInfoMap.DISPLAY_NAME_TEXTBOX) WebElement displayNameTextbox;
 	public RoomInfoPage typeOnDisplayName(String displayName) {

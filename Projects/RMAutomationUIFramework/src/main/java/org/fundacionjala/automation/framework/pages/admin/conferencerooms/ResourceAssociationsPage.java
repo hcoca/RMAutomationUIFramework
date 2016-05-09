@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ResourceAssociationsMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -23,35 +24,28 @@ public class ResourceAssociationsPage {
 	
 	
 	
-	@FindBy (xpath = ResourceAssociationsMap.RESOURCES_AVAILABLES) 
-	private List<WebElement> resourcesAvailables;
 	private List<WebElement> getResourcesAvailabes()
 	{
-		
-	   return resourcesAvailables;
+	   return ExplicitWait.getElementsWhenVisible(By.xpath(ResourceAssociationsMap.RESOURCES_AVAILABLES), 2);
 	}
 	
-	@FindBy (xpath = ResourceAssociationsMap.PLUSICONS_BUTTON) 
-	private List<WebElement> plusIcons;
 	private List<WebElement> getPlusIcons()
 	{
-		   return plusIcons;
+		return ExplicitWait.getElementsWhenVisible(By.xpath(ResourceAssociationsMap.PLUSICONS_BUTTON), 5);
 	} 
 	
-	@FindBy (xpath = ResourceAssociationsMap.ASSOCIATEDRESOURCES_ROWS) 
-	private List<WebElement> resourcesAssociated;
 	public List<WebElement> getAssociatedResources()
 	{
-		   return resourcesAssociated;
+	
+	  return ExplicitWait.getElementsWhenVisible(By.xpath(ResourceAssociationsMap.ASSOCIATEDRESOURCES_ROWS), 2);
+		
 	} 
 	
-	@FindBy (xpath = ResourceAssociationsMap.MINUSICONS_BUTTON) 
-	private List<WebElement> minusIcons;
 	private List<WebElement> getMinusIcons()
 	{
-		   return minusIcons;
-		   
+		return ExplicitWait.getElementsWhenVisible(By.xpath(ResourceAssociationsMap.MINUSICONS_BUTTON), 2);
 	} 
+	
 	public ResourceAssociationsPage addResource(String resourceName)
 	{
 		List<WebElement> resourceList = getResourcesAvailabes();
@@ -75,7 +69,7 @@ public class ResourceAssociationsPage {
 	    	if (resText.contains(resourceName)) {
 				removeResourceByPos(i);
 				UIActions.clickWhenReady(By.xpath(ResourceAssociationsMap.SAVE_BUTTON), 1);
-				
+				return this;		
 			}
 		}
 		return this;
@@ -103,11 +97,23 @@ public class ResourceAssociationsPage {
 	}
 	
 	
-	
 	public WebElement getResourceAssociated(String resourceName) 
 	{
 		
 		 for(WebElement resource : getAssociatedResources()){
+		    	String resText = resource.getText();
+		    	resText = resText.replaceAll("\\s+","");
+		    	if (resText.equals(resourceName)) {
+					return resource;
+				}
+		    }
+			return null;
+	}
+	
+	public WebElement getResourceAvailable(String resourceName) 
+	{
+		
+		 for(WebElement resource : getResourcesAvailabes()){
 		    	String resText = resource.getText();
 		    	resText = resText.replaceAll("\\s+","");
 		    	if (resText.equals(resourceName)) {
@@ -128,6 +134,16 @@ public class ResourceAssociationsPage {
 		return false;
 	}
 	
+    public boolean isInAvailableList(String resourceName) {
+    	
+    	if(getResourceAvailable(resourceName) != null)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+    
 	
 	
 	public ResourceAssociationsPage editQuantityOfResourceAssociated(String resource, String quantity) 
@@ -170,6 +186,7 @@ public class ResourceAssociationsPage {
 		}
 		return -1;
 	}
-    
+
+	
 	
 }

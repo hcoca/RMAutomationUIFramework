@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,14 +19,14 @@ public class ConferenceRoomsPage {
 	
 	public ConferenceRoomsPage selectOutOfOrderIcon(String roomName){
 		String iconOutOfOrder =ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace("roomName", roomName);
+		ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
 		BrowserManager.getDriver().findElement(By.xpath(iconOutOfOrder)).click();
 		return this;
 	}
 				
-   @FindBy (xpath = ConferenceRoomsMap.ROOMS_COLUMN) List<WebElement> rooms;
 	public List<WebElement> getRooms()
 	{
-	   return rooms;
+	   return ExplicitWait.getElementsWhenVisible(By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 15);
 	}
 	
 	@FindBy (xpath = ConferenceRoomsMap.ENABLED_ROOMS_ROWS) List<WebElement> enabledButtons;
@@ -53,7 +54,14 @@ public class ConferenceRoomsPage {
 	    UIActions.doubleClick(getRoom(roomToModify));
 		return new RoomInfoPage();
 	}
-
+    
+    public RoomInfoPage doubleClickOnRoom(String roomToModify) {
+    	WebElement roomElement = getRoom(roomToModify);
+    	roomElement.click();
+    	UIActions.doubleClickJS(roomElement);
+		return new RoomInfoPage();
+	}
+    
 	public ConferenceRoomsPage enableRoom() {
 		
 		return this;

@@ -5,16 +5,11 @@ import org.fundacionjala.automation.framework.pages.admin.conferencerooms.Resour
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
-import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
-import org.fundacionjala.automation.framework.pages.admin.navigation.LeftMenu;
-import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
-import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
-
-import com.mashape.unirest.http.exceptions.UnirestException;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -25,11 +20,8 @@ import cucumber.api.java.en.When;
 
 public class AssociateAResourceWithRoomDisabledSteps {
 	private AdminPage home;
-	private ResourcePage resource;
 	private ConferenceRoomsPage conferenceRoom;
-	private LeftMenu leftMenu;
 	private ResourceAssociationsPage resourceAssociations;
-	
 	private String roomToModify;
 	private Resource resourceToAssociate;
 	private String resourceName;
@@ -37,27 +29,15 @@ public class AssociateAResourceWithRoomDisabledSteps {
 	
 	@Given("^I am on the Conference Rooms page$")
 	public void i_am_on_the_Conference_Rooms_page() throws Throwable {
-		
-		/*
-		 * Before
-		 * */
+	
 			resourceToAssociate = ResourceAPIManager
 	                .postRequest("http://172.20.208.84:4040/resources"
-	                 , new Resource("Key", "keys", "fa fa-key", "", "Key"));
+	                 , new Resource("Key01", "keys01", "fa fa-key", "", "Key"));
 	
 			resourceName = resourceToAssociate.customName;
 			roomToModify = "Room01";
-			BrowserManager.openBrowser();		
-		/*
-		 * */
 		
-		
-		LoginPage login = new LoginPage();
-		home = login
-					.setUserName(PropertiesReader.getUserName())
-					.setPassword(PropertiesReader.getPassword())
-					.clickOnSigInButton()
-					.refreshPage();	
+		    home = LoginActions.ExecuteLogin();	
 	}
 
 	@Given("^I have a resource associated$")
