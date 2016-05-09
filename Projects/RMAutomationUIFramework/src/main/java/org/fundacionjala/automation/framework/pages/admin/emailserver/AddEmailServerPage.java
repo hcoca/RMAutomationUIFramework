@@ -1,7 +1,6 @@
 package org.fundacionjala.automation.framework.pages.admin.emailserver;
 
 import org.fundacionjala.automation.framework.maps.admin.emailserver.AddEmailServerMap;
-import org.fundacionjala.automation.framework.maps.admin.resource.AddResourceMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
@@ -57,5 +56,4 @@ public class AddEmailServerPage {
 		UIActions.clickAt(save_button);
 		return new EmailServerPage();
 	}
-
 }
