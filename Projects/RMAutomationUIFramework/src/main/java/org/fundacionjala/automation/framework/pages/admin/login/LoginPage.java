@@ -42,7 +42,7 @@ public class LoginPage {
 	public AdminPage clickOnSigInButton()	{
 		
 		UIActions.clickAt(sigInButton);
-		ExplicitWait.waitForUrl("http://172.20.208.84:4040/admin/#/admin", 3);
+		ExplicitWait.waitForUrl("http://172.20.208.84:4040/admin/#/admin", 120);
 		
 		return new AdminPage();
 	}

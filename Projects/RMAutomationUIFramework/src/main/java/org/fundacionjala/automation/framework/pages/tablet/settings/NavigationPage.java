@@ -48,7 +48,7 @@ public class NavigationPage extends SettingsPage {
 	}
 	
 	private WebElement getConferenceRoom(String name){
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(roomsList));
+		(new WebDriverWait(BrowserManager.getDriver(), 60)).until(ExpectedConditions.visibilityOf(roomsList));
 		
 		List<WebElement> rooms = roomsList.findElements(By.xpath(NavigationMap.ROOMS_LIST_ELEMENT));
 		
