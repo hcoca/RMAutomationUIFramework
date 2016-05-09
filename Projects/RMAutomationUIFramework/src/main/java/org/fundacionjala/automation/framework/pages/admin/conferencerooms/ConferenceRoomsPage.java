@@ -7,9 +7,12 @@ import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ConferenceRoomsPage {
    
@@ -99,5 +102,28 @@ public class ConferenceRoomsPage {
 				.findElement(By.xpath(ConferenceRoomsMap.TURN_ON_OFF_BUTTON.replace("roomName", roomName)));
 		UIActions.clickAt(turnOnOffButton);
 		return this;
+	}
+	
+public ConferenceRoomsPage clickOnResource(String resourceName) {
+		
+		String stringXpath = ConferenceRoomsMap.RESOURCES.replace("resource", resourceName);
+		ExplicitWait.clickWhenReady(By.xpath(stringXpath), 10);
+		return this;
+	}
+
+	public boolean isQuantityDisplayed(String quantity) {
+		
+		String stringXpath = ConferenceRoomsMap.RESOURCES_QUANTITY.replace("qty", quantity);
+
+		WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),5);
+
+		try {
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(stringXpath)));
+			return true;
+			
+		} catch (TimeoutException te) {
+			
+			return false;
+		}	
 	}
 }
