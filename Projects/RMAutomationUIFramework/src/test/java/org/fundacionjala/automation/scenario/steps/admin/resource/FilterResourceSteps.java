@@ -5,12 +5,7 @@ import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
-
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -45,14 +40,5 @@ public class FilterResourceSteps {
 	@Then("^then the resource is deleted$")
 	public void then_the_resource_is_deleted() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resource._id);
-	}
-	
-	@After()
-	public void tearDown(Scenario scenario) {
-	    if (scenario.isFailed()) {
-	            final byte[] screenshot = ((TakesScreenshot) BrowserManager.getDriver())
-	                        .getScreenshotAs(OutputType.BYTES);
-	            scenario.embed(screenshot, "image/png"); 
-	    }
 	}
 }

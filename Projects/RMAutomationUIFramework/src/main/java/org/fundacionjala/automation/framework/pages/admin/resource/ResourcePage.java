@@ -21,7 +21,9 @@ public class ResourcePage extends AdminPage {
 	@FindBy (xpath = ResourceMap.RESOURCE_TABLE) WebElement resourceTable;
 	@FindBy (xpath = ResourceMap.RESOURCE_NAMES) List<WebElement> resourceNames;
 	@FindBy (xpath = ResourceMap.RESOURCE_FILTER) WebElement resourceFilter;
-	
+	@FindBy (xpath = ResourceMap.FIRST_PAGE_BUTTON) WebElement firstPageButton;
+	@FindBy (xpath = ResourceMap.INPUT_NUMBER_PAGE) WebElement inputNumberPage;
+	@FindBy (xpath = ResourceMap.LAST_PAGE_BUTTON) WebElement lastPageButton;
 	
 	public ResourcePage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
@@ -46,6 +48,7 @@ public class ResourcePage extends AdminPage {
 	}
 	
 	public ResourcePage selectResource(String resourceName){
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
 				UIActions.clickAt(name);
@@ -55,27 +58,31 @@ public class ResourcePage extends AdminPage {
 	}
 	
 	public boolean verifyResourceExist(String resourceName){
-		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
-		for (WebElement name : resourceNames) {
-			
-			if (name.getText().equalsIgnoreCase(resourceName)) {
+		if (verifyExist(resourceName)) {
 				LogManager.info("[TRUE] Resource " + resourceName + " exists");
 				return true;
 			}
-		}
 		LogManager.error("[FALSE] Resource " + resourceName + " doesn't exist");
 		return false;
 	}
 	
 	public boolean verifyResourceNotExist(String resourceName)
 	{
+			if (verifyExist(resourceName)) {
+				LogManager.error("[FALSE] Resource " + resourceName + " exists");
+				return false;
+			}
+		LogManager.info("[TRUE] Resource " + resourceName + " doesn't exist");
+		return true;
+	}
+	private boolean verifyExist(String resourceName)
+	{
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
-				LogManager.info("[FALSE] Resource " + resourceName + " exists");
 				return true;
 			}
 		}
-		LogManager.error("[TRUE] Resource " + resourceName + " doesn't exist");
 		return false;
 	}
 	
@@ -85,7 +92,7 @@ public class ResourcePage extends AdminPage {
 			if (element.getText().equalsIgnoreCase(name)) {
 				element.click();
 				UIActions.doubleClick(element);
-				LogManager.error("Double click on Resource " + name);
+				LogManager.info("Double click on Resource " + name);
 				return new ResourceInfoPage();
 			}
 		}
@@ -168,5 +175,67 @@ public class ResourcePage extends AdminPage {
 		return false;
 	}
 
+	public boolean verifyTotalItems(int totalItems) {
+		UIActions.waitFor(ResourceMap.RESOURCE_TABLE);
+		String xpath = ResourceMap.TOTAL_ITEMS.replace("number", String.valueOf(totalItems));
+		try {
+			if(resourceTable.findElement(By.xpath(xpath))!= null)
+				return true;
+			else return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	
+	public ResourcePage selectPageSizeOnDropDown(String quantity)
+	{
+		UIActions.waitFor(ResourceMap.RESOURCE_TABLE);
+		String xpath = ResourceMap.DROPDOWN_PAGE_SIZE.replace("number", quantity);
+		BrowserManager.getDriver().findElement(By.xpath(xpath)).click();
+		return new ResourcePage();
+	}
+
+	public boolean verifyNumberOfResources(int pageSize) {
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+		if(resourceNames.size()== pageSize )
+			return true;
+		else
+			return false;
+		
+	}
+
+	public ResourcePage clickOnFirstPageButton() {
+		UIActions.waitFor(ResourceMap.FIRST_PAGE_BUTTON);
+		UIActions.clickAt(firstPageButton);
+		return new ResourcePage();
+	}
+
+	public boolean verifyTheFirstPage(String firstPage) {
+		UIActions.waitFor(ResourceMap.INPUT_NUMBER_PAGE);
+		if(inputNumberPage.getAttribute("value").equalsIgnoreCase(firstPage))
+			return true;
+		else
+			return false;
+	}
+
+	public ResourcePage clickOnLastPageButton() {
+		UIActions.waitFor(ResourceMap.LAST_PAGE_BUTTON);
+		UIActions.clickAt(firstPageButton);
+		return new ResourcePage();
+	}
+
+	public boolean verifyTheLastPage() {
+		UIActions.waitFor(ResourceMap.INPUT_NUMBER_PAGE);
+		String lastPage = inputNumberPage.getAttribute("value").trim();
+		String xpath = ResourceMap.TOTAL_NUMBER_PAGE.replace("totalPages", lastPage);
+		try {
+			if(BrowserManager.getDriver().findElement(By.xpath(xpath))!= null)
+				return true;
+			else
+				return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 }

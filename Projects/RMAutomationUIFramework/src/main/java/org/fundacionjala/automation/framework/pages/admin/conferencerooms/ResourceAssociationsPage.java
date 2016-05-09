@@ -4,14 +4,18 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ResourceAssociationsMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
 public class ResourceAssociationsPage {
   
-	public ResourceAssociationsPage() {
+	public ResourceAssociationsPage() 
+	{
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
@@ -20,64 +24,81 @@ public class ResourceAssociationsPage {
 	
 	
 	
-	@FindBy (xpath = ResourceAssociationsMap.RESOURCES_AVAILABLES) 
-	private List<WebElement> resourcesAvailables;
 	private List<WebElement> getResourcesAvailabes()
 	{
-	   return resourcesAvailables;
+	   return ExplicitWait.getElementsWhenVisible(By.xpath(ResourceAssociationsMap.RESOURCES_AVAILABLES), 2);
 	}
 	
-	@FindBy (xpath = ResourceAssociationsMap.PLUSICONS_BUTTON) 
-	private List<WebElement> plusIcons;
 	private List<WebElement> getPlusIcons()
 	{
-		   return plusIcons;
+		return ExplicitWait.getElementsWhenVisible(By.xpath(ResourceAssociationsMap.PLUSICONS_BUTTON), 5);
 	} 
 	
-	@FindBy (xpath = ResourceAssociationsMap.ASSOCIATEDRESOURCES_ROWS) 
-	private List<WebElement> resourcesAssociated;
 	public List<WebElement> getAssociatedResources()
 	{
-		   return resourcesAssociated;
+	
+	  return ExplicitWait.getElementsWhenVisible(By.xpath(ResourceAssociationsMap.ASSOCIATEDRESOURCES_ROWS), 2);
+		
 	} 
 	
-	@FindBy (xpath = ResourceAssociationsMap.MINUSICONS_BUTTON) 
-	private List<WebElement> minusIcons;
 	private List<WebElement> getMinusIcons()
 	{
-		   return minusIcons;
-		   
+		return ExplicitWait.getElementsWhenVisible(By.xpath(ResourceAssociationsMap.MINUSICONS_BUTTON), 2);
 	} 
-	public ResourceAssociationsPage addResource(String resourceName) throws InterruptedException
+	
+	public ResourceAssociationsPage addResource(String resourceName)
 	{
-
 		List<WebElement> resourceList = getResourcesAvailabes();
-		System.out.println(resourceList);
 		for (int i = 0; i < resourceList.size(); i++) {
 			
 			String resText = resourceList.get(i).getText();
-			resText = resText.replaceAll("\\s+","");
 	    	if (resText.contains(resourceName)) {
 				addResourceByPos(i);
 			}
 		}
 		return this;
 	}
+	
+	public ResourceAssociationsPage removeResource(String resourceName)
+	{
+		List<WebElement> associatedResourceList = getAssociatedResources();
+		
+		for (int i = 0; i < associatedResourceList.size(); i++) {
+			
+			String resText = associatedResourceList.get(i).getText();
+	    	if (resText.contains(resourceName)) {
+				removeResourceByPos(i);
+				UIActions.clickWhenReady(By.xpath(ResourceAssociationsMap.SAVE_BUTTON), 1);
+				return this;		
+			}
+		}
+		return this;
+	}
+	
+	
+	private void removeResourceByPos(int pos) {
+		WebElement btnMinusOfResource = getMinusIcons().get(pos);
+		btnMinusOfResource.click();
+	}
 	private void addResourceByPos(int pos)
 	{
+		UIActions.waitFor(ResourceAssociationsMap.PLUSICONS_BUTTON );
 		WebElement btnPlusOfResource = getPlusIcons().get(pos);
+		
 		btnPlusOfResource.click();
 	}
 
 	@FindBy (xpath = ResourceAssociationsMap.SAVE_BUTTON)
 	private WebElement saveButton;
-	public ConferenceRoomsPage clickOnSave()
+	public ConferenceRoomsPage clickOnSave() throws InterruptedException
 	{
 		saveButton.click();
 		return new ConferenceRoomsPage();
 	}
 	
-	public WebElement getResourceAssociated(String resourceName) {
+	
+	public WebElement getResourceAssociated(String resourceName) 
+	{
 		
 		 for(WebElement resource : getAssociatedResources()){
 		    	String resText = resource.getText();
@@ -89,7 +110,21 @@ public class ResourceAssociationsPage {
 			return null;
 	}
 	
-	public boolean isInAssociatedColumn(String resource) {
+	public WebElement getResourceAvailable(String resourceName) 
+	{
+		
+		 for(WebElement resource : getResourcesAvailabes()){
+		    	String resText = resource.getText();
+		    	resText = resText.replaceAll("\\s+","");
+		    	if (resText.equals(resourceName)) {
+					return resource;
+				}
+		    }
+			return null;
+	}
+	
+	public boolean isInAssociatedColumn(String resource) 
+	{
 		
 		if(getResourceAssociated(resource)!= null)
 		{
@@ -98,7 +133,21 @@ public class ResourceAssociationsPage {
 		
 		return false;
 	}
-	public ResourceAssociationsPage editQuantityOfResourceAssociated(String resource, String quantity) {
+	
+    public boolean isInAvailableList(String resourceName) {
+    	
+    	if(getResourceAvailable(resourceName) != null)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+    
+	
+	
+	public ResourceAssociationsPage editQuantityOfResourceAssociated(String resource, String quantity) 
+	{
 		
 		int posOfResourceAssociated = getResourcePos(resource,getAssociatedResources());
 		if(posOfResourceAssociated != -1)
@@ -113,10 +162,18 @@ public class ResourceAssociationsPage {
 		
 	}
 	
+	
+	public boolean hasTheQuantity(String resource, String quantity)
+	{
+		int posResourceAssociated = getResourcePos(resource, getAssociatedResources());
+		return quantityFields.get(posResourceAssociated).getAttribute("value").equals(quantity);
+	}
+	
 	/**
-	 * resources types can be: associated and availables
+	 * resources types can be: associated or availables
 	 */
-	private int getResourcePos(String resource, List<WebElement> resourcesType) {
+	private int getResourcePos(String resource, List<WebElement> resourcesType)
+	{
 		
 		for (int i = 0; i < resourcesType.size(); i++) {
 			
@@ -129,6 +186,7 @@ public class ResourceAssociationsPage {
 		}
 		return -1;
 	}
-    
+
+	
 	
 }

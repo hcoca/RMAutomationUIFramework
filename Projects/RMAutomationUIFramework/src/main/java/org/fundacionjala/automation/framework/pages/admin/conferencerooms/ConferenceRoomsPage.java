@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -15,17 +17,16 @@ public class ConferenceRoomsPage {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
-	@FindBy (xpath = ConferenceRoomsMap.OUT_OF_ORDER_ICONS) WebElement outOfOrdersIcons;
-	public ConferenceRoomsPage selectOutOfOrderIcon(){
-		UIActions.waitFor(ConferenceRoomsMap.OUT_OF_ORDER_ICONS);
-		outOfOrdersIcons.click();
+	public ConferenceRoomsPage selectOutOfOrderIcon(String roomName){
+		String iconOutOfOrder =ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace("roomName", roomName);
+		ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
+		BrowserManager.getDriver().findElement(By.xpath(iconOutOfOrder)).click();
 		return this;
 	}
 				
-   @FindBy (xpath = ConferenceRoomsMap.ROOMS_ROWS) List<WebElement> rooms;
 	public List<WebElement> getRooms()
 	{
-	   return rooms;
+	   return ExplicitWait.getElementsWhenVisible(By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 15);
 	}
 	
 	@FindBy (xpath = ConferenceRoomsMap.ENABLED_ROOMS_ROWS) List<WebElement> enabledButtons;
@@ -42,8 +43,7 @@ public class ConferenceRoomsPage {
 	{
 		for(WebElement room : getRooms()){
 	    	String roomText = room.getText();
-	    	roomText = roomText.replaceAll("\\s+","");
-	    	if (roomText.equals(roomName)){
+	    	if (roomText.trim().equals(roomName)){
 				return room;
 			}
 	    }
@@ -51,11 +51,17 @@ public class ConferenceRoomsPage {
 	}
 	
     public RoomInfoPage openConfigurationPage(String roomToModify) {
-		
 	    UIActions.doubleClick(getRoom(roomToModify));
 		return new RoomInfoPage();
 	}
-
+    
+    public RoomInfoPage doubleClickOnRoom(String roomToModify) {
+    	WebElement roomElement = getRoom(roomToModify);
+    	roomElement.click();
+    	UIActions.doubleClickJS(roomElement);
+		return new RoomInfoPage();
+	}
+    
 	public ConferenceRoomsPage enableRoom() {
 		
 		return this;
@@ -77,6 +83,24 @@ public class ConferenceRoomsPage {
 			return false;
 		}
 	}
-	
 
+	@FindBy (xpath = ConferenceRoomsMap.RESOURCE_BUTTONS) List<WebElement> resourceButtons;
+	private WebElement getResource(String resourceName){
+		for (WebElement resource : resourceButtons) {
+			if(resource.getText().trim().equalsIgnoreCase(resourceName)){
+				return resource;
+			}
+		}
+		return null;
+	}
+	
+	
+	public boolean verifyIfResourceCreatedIsInConferenceRoomPage(
+			String expectedResult) {
+		if(getResource(expectedResult) != null){
+			return true;
+		}
+		return false;
+		
+	}
 }

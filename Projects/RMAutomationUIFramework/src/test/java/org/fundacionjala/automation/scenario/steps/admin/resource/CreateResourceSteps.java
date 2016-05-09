@@ -9,14 +9,7 @@ import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIMana
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
-
-import com.mashape.unirest.http.exceptions.UnirestException;
-
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -69,15 +62,4 @@ public class CreateResourceSteps {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
 
 	}
-	@After()
-	public void tearDown(Scenario scenario) throws UnirestException {
-
-	    if (scenario.isFailed()) {
-	            final byte[] screenshot = ((TakesScreenshot) BrowserManager.getDriver())
-	                        .getScreenshotAs(OutputType.BYTES);
-	            scenario.embed(screenshot, "image/png"); 
-	    }
-	}
-
-	
 }

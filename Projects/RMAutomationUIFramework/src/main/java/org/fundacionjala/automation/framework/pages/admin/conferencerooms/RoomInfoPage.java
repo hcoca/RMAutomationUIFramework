@@ -1,11 +1,17 @@
 package org.fundacionjala.automation.framework.pages.admin.conferencerooms;
 
+import java.util.List;
+
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomInfoMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RoomInfoPage {
 
@@ -13,12 +19,28 @@ public class RoomInfoPage {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 
-	
 	@FindBy (linkText = RoomInfoMap.RESOURCES_ASSOCIATIONS_LINK) WebElement resourcesAssociations;
 	public ResourceAssociationsPage clickOnResourceAssociations() {
 		resourcesAssociations.click();
 		return new ResourceAssociationsPage();
 	}
+	
+	@FindBy (linkText = RoomInfoMap.OUT_OF_ORDER_PLANNING_LINK) WebElement outOfOrder;
+	public OutOfOrderPage clickOnOutOfOrder() {
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(outOfOrder));
+		outOfOrder.click();
+		LogManager.info("OutOfOrder-ConferenceRooms Button has been clicked");
+		return new OutOfOrderPage();
+	}
+	
+	@FindBy (xpath = RoomInfoMap.OUT_OF_ORDER_LINK) WebElement outOfOrderOption;
+	public OutOfOrderPage SelectOutOfOrder()
+	 {
+		UIActions.waitFor(RoomInfoMap.OUT_OF_ORDER_LINK);
+		UIActions.clickAt(outOfOrderOption);
+		LogManager.info("Click on Out of order Planning");
+		 return new OutOfOrderPage();
+	 }
 	
 	@FindBy (xpath = RoomInfoMap.DISPLAY_NAME_TEXTBOX) WebElement displayNameTextbox;
 	public RoomInfoPage typeOnDisplayName(String displayName) {
@@ -29,13 +51,13 @@ public class RoomInfoPage {
 	
 	@FindBy (xpath = RoomInfoMap.CODE_TEXTBOX) WebElement codeTextbox;
 	public RoomInfoPage typeOnCode(String code) {
-		codeTextbox.sendKeys(code);
+		UIActions.typeOn(codeTextbox, code);
 		return this;
 	}
 
 	@FindBy (xpath = RoomInfoMap.CAPACITY_TEXTBOX) WebElement capacityTextbox;
 	public RoomInfoPage typeOnCapacity(String capacity) {
-		capacityTextbox.sendKeys(capacity);
+		UIActions.typeOn(capacityTextbox, capacity);
 		return this;
 	}
 	
@@ -43,6 +65,56 @@ public class RoomInfoPage {
 	public ConferenceRoomsPage clickOnSave() {
 		UIActions.clickAt(saveButton);
 		return new ConferenceRoomsPage();
+	}
+
+	public boolean VerifyIfCodeUpdate(String expectedResult) {
+		String code = codeTextbox.getAttribute("value");
+		if(expectedResult.equalsIgnoreCase(code)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public boolean VerifyIfCapacityUpdate(String expectedResult) {
+		String code = capacityTextbox.getAttribute("value");
+		if(expectedResult.equalsIgnoreCase(code)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	@FindBy (xpath = RoomInfoMap.OPEN_LOCATION_LIST_BUTTON) WebElement locationListButton;
+	public RoomInfoPage clickOnLocationIconPlus() {
+		UIActions.clickAt(locationListButton);
+		return this;
+	}
+	
+	@FindBy (xpath = RoomInfoMap.LOCATION_NAME_LIST) List<WebElement> locationList;
+	private WebElement getLocation(String findLocation){
+		for (WebElement location : locationList) {
+			if(findLocation.equalsIgnoreCase(location.getText().trim())){
+				return location;
+			}	
+		}
+		return null;
+	}
+	
+	@FindBy (xpath = RoomInfoMap.DISPLAY_LOCATIONS_BUTTON) WebElement displayLocationsButton;	
+	public RoomInfoPage selectLocation(String locationName) {
+		UIActions.waitFor(RoomInfoMap.DISPLAY_LOCATIONS_BUTTON);
+		UIActions.clickAt(displayLocationsButton);
+		UIActions.clickAt(getLocation(locationName));
+		return this;
+	}
+
+	@FindBy (xpath = RoomInfoMap.LOCATION_TEXTBOX) WebElement locationTextbox;	
+	public boolean VerifyIfLocationUpdate(String expectedResult) {
+		if(locationTextbox.getText().trim().equalsIgnoreCase("Organization/"+expectedResult)){
+			return true;
+		}
+		return false;
 	}
 
 }
