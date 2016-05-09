@@ -60,4 +60,38 @@ Examples:
     | RoomName  |
     | Room10    |
 
-  
+Scenario Outline: "Display Name" of room is updated in the "Conference Room" table when it is edited in "Room Info" form.
+Given I logged to Room Manager Admin
+When I edit "<RoomName>" room with a new display name "<displayName>"
+Then I validate if the display name has been updated in the Conference Room table
+
+Examples:
+    | RoomName  | displayName | 
+    | Room06    |  Room006    | 
+     
+Scenario Outline: "Code" of a room is updated when it is edited in "Room Info" form.
+Given I logged to Room Manager Admin
+When I edit "<RoomName>" room with a new code "<code>"
+Then I validate if the Code has been updated in the Room Info page.
+
+Examples:
+    | RoomName  |     code    | 
+    | Room06    |  code006    | 
+
+Scenario Outline: "Location" of a room is updated when it is edited in "Room Info" form.
+Given I logged to Room Manager Admin
+When I edit "<RoomName>" room with a new Location "<location>"
+Then I validate if the Capacity has been updated in the Room Info page.
+
+Examples:
+    | RoomName  |     location    | 
+    | Room04    |  locationNew    |
+
+Scenario Outline: Resource buttons created are displayed on conference room page.
+Given I logged to Room Manager Admin
+When I create a new "<resource>" Resource
+Then I validate if the resource is in Conference Room page.
+
+Examples:
+    |     resource    | 
+    |  resource123    |  
