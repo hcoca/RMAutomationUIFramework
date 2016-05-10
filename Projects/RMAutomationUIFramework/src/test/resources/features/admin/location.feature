@@ -1,130 +1,75 @@
 Feature: Location Page
 
-Scenario Outline: All locations are displayed on Locations page when it is opened
-Given I have at least one location added with name: "<name>", display name"<displayName>" and description"<description>"
-	And I have the list of added locations 
+Scenario: All locations are displayed on Locations page when it is opened
+Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
 When I open locations page
-Then All locations added are displayed
-
-Examples:
-    | name       | displayName     | description                 |
-    | Cochabamba | Cbba-Location   | This is Cochabamba Location |
-
+Then All locations added are displayed even "Cochabamba" location
+   
+Scenario: A location is displayed on Location page when it is added
+Given I am logged as "Administrator" with password "Control*123"
+When I add a new location with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
+Then The location "Cochabamba" is displayed on location page
     
-Scenario Outline: A location is displayed on Location page when it is added
-Given I am on location page 
-When I add a new location with name: "<name>", display name"<displayName>" and description"<description>"
-Then The new location added is displayed on location page
-
-Examples:
-    | name       | displayName     | description                 |
-    | Cochabamba | Cbba-Location   | This is Cochabamba Location |
+Scenario: A location’s  name changes are displayed on Location page when it is updated
+Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I update location "Cbba-Location" with name: "CochabambaNameUpdated", display name "Cbba-Location" and description "This is Cochabamba Location"
+Then The location "CochabambaNameUpdated" is displayed on location page    
     
-
-Scenario Outline: A location’s  name changes are displayed on Location page when it is updated
-Given I have a location added with name: "<name>", display name"<displayName>" and description"<description>" to update its name
-	And I am on location page
-When I update a location name with: "<updateName>"
-Then The updated location name is displayed on location page
-
-Examples:
-    | name       | displayName     | description                 | updateName   |
-    | Cochabamba | Cbba-Location   | This is Cochabamba Location | Name Updated |
+Scenario: A location’s display  name changes are displayed on Locations page when it is updated
+Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I update location "Cbba-Location" with name: "Cochabamba", display name "Cbba-Location-Updated" and description "This is Cochabamba Location"
+Then The location display name "Cbba-Location-Updated" is displayed on location page
     
+Scenario: A location’s description changes are displayed on Update Location page when it is updated
+Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I update location "Cbba-Location" with name: "Cochabamba", display name "Cbba-Location" and description "This is Updated Location"
+Then The description "This is Updated Location" of location "Cbba-Location" is displayed on update location page
     
-Scenario Outline: A location’s display  name changes are displayed on Locations page when it is updated
-Given I have a location added with name: "<name>", display name"<displayName>" and description"<description>" to update its display name
-	And I am on location page
-When I update a location display name with: "<updateDisplayName>"
-Then The updated location display name is displayed on location page
-
-Examples:
-    | name       | displayName     | description                 | updateDisplayName    |
-    | Cochabamba | Cbba-Location   | This is Cochabamba Location | Display Name Updated |
+Scenario: A location’s parent  changes are displayed on Update Location page when it is updated
+Given I have a location added with name: "ParentCbba", display name "Cbba-Parent" and description "This is Parent Location"
+	And I have a location added with name: "ChildPunata", display name "Cbba-Child" and description "This is Child Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I update "Cbba-Child" location parent to "ParentCbba"
+Then The parent name "ParentCbba" of location "Cbba-Child" is displayed on update location page 
     
-Scenario Outline: A location’s description changes are displayed on Update Location page when it is updated
-Given I have a location added with name: "<name>", display name"<displayName>" and description"<description>" to update its description
-	And I am on location page
-When I update a location description with: "<updateDescription>"
-Then The updated location description is displayed on update location page
+Scenario: A location is not  displayed on Locations page when it is deleted
+Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I delete the location "Cbba-Location"
+Then The location "Cochabamba" is not displayed on location page
 
-Examples:
-    | name       | displayName     | description                 | updateDescription   |
-    | Cochabamba | Cbba-Location   | This is Cochabamba Location | Description Updated |
-    
-    
-Scenario Outline: A location’s parent  changes are displayed on Update Location page when it is updated
-Given I have a parent location added with name: "<nameParent>" and display name"<displayNameParent>"
-	And I have a location added with name: "<nameChild>" and display name"<displa-yNameChild>" to update its parent
-	And I am on location page
-When I update a location parent
-Then The updated location parent is displayed on update location page
+Scenario: A locations is displayed on Location page when it is added as a child of another location
+Given I have a location added with name: "ParentCbba", display name "Cbba-Parent" and description "This is Parent Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I add a new location with name: "ChildPunata", display name "Cbba-Child" and parent "ParentCbba"
+Then The location "ChildPunata" child of "ParentCbba" is displayed on location page
 
-Examples:
-    | nameParent | displayNameParent  | nameChild   | displayNameChild    |
-    | Cochabamba | Cbba-Location      | Cbba-child  | Cbba-Location-Child |
-    
-    
-Scenario Outline: A location is not  displayed on Locations page when it is deleted
-Given I have a location added with name: "<name>" and display name"<displayName>" to delete
-	And I am on location page
-When I delete the location 
-Then The location updated is not displayed on location page
+Scenario: A room is displayed on Location Association page  when it is associated with a new location
+Given I am logged as "Administrator" with password "Control*123"
+When I add a new location with name: "Cochabamba", display name "Cbba-Location" and associated room "Room01"
+Then The room "Room01" is displayed on Location Association page as associated with "Cbba-Location" location
 
-Examples:
-    | name       | displayName   | 
-    | Cochabamba | Cbba-Location |
+Scenario: A room is displayed on Location Association page when it is associated with an existent location
+Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I associate the location "Cbba-Location" with a room "Room01"
+Then The room "Room01" is displayed on Location Association page as associated with "Cbba-Location" location
 
+Scenario: A room is not displayed on ‘Location Association’ page  when the association with a location is removed
+Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+	And I associate the location "Cbba-Location" with a room "Room01"
+When I delete the association between location "Cbba-Location" and "Room01"
+Then The room "Room01" is not displayed on Location Association page as associated with "Cbba-Location" location 
 
-Scenario Outline: A locations is displayed on Location page when it is added as a child of another location
-Given I have one parent location added with name: "<nameParent>" and display name"<displayNameParent>"
-	And I am on location page 
-When I add a new location with name: "<name>" and display name"<displayName>" as child
-Then The new child location added is displayed on location page
+Scenario: The number of rooms associated displayed on Locations page increases when a room is associated
+Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I associate the location "Cbba-Location" with a room "Room01"
+Then The number of assciations on Location page has been increased by "Cochabamba" location association
 
-Examples:
-    | nameParent | displayNameParent | name             | displayName           |
-    | Cochabamba | Cbba-Location     | Cochabamba-Child | Cbba-Location-Child   |
-    
-    
-Scenario Outline: A room is displayed on Location Association page  when it is associated with a new location
-Given I am on location page
-When I add a new location with name: "<name>" and display name"<displayName>" with an associated room"<roomName>"
-Then The room is displayed on Location Association page as associated
-
-Examples:
-    | name       | displayName   | roomName |
-    | Cochabamba | Cbba-Location | Room01   |
-
-Scenario Outline: A room is displayed on Location Association page when it is associated with an existent location
-Given I have a location added with name: "<name>" and display name"<displayName>" to update its associations
-	And I am on location page
-When I associate the location with a room"<roomName>"
-Then The room is displayed on Location Association page as location association
-
-Examples:
-    | name       | displayName   | roomName |
-    | Cochabamba | Cbba-Location | Room01   |
-
-
-Scenario Outline: A room is not displayed on ‘Location Association’ page  when the association with a location is removed
-Given I have a location added with name: "<name>" and display name"<displayName>" to delete its associations
-	And I am on location page
-	And I associate this location with a room"<roomName>"
-When I delete the association
-Then The room is not displayed on Location Association page as associated
-
-Examples:
-    | name       | displayName   | roomName |
-    | Cochabamba | Cbba-Location | Room01   |  
-
-Scenario Outline: The number of rooms associated displayed on Locations page increases when a room is associated
-Given I have a location added with name: "<name>" and display name"<displayName>" to add an associations
-	And I am on location page
-When I add a location association with a room"<roomName>"
-Then The number of assciation on Location page has been increased
-
-Examples:
-    | name       | displayName       | roomName |
-    | Cochabamba | Cbba-Location     | Room01   | 
  
