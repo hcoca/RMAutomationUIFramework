@@ -2,6 +2,7 @@ package org.fundacionjala.automation.scenario.steps.admin.impersonation;
 
 import java.util.List;
 
+import org.fundacionjala.automation.framework.pages.admin.emailserver.AddEmailServerPage;
 import org.fundacionjala.automation.framework.pages.admin.emailserver.EmailServerPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.impersonation.ImpersonationPage;
@@ -19,22 +20,29 @@ public class ImpersonationOptionIsDisabledWhenThereIsNoEmailServerSteps {
 	
 	@Given("^a user \"([^\"]*)\" has logged into Room Manager$")
 	public void a_user_has_logged_into_Room_Manager(String arg1) throws Throwable {
-		String idService = null;
-		List<Service> listServices;
-		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
-		
-		for(Service service : listServices) {
-				idService = service._id;
-		}
-		if(idService != null)
-		{
-			ServiceAPIManager.deleteRequest("http://172.20.208.84:4040/services", idService);
-		}
-		
 		BrowserManager.openBrowser();
 		LoginPage login = new LoginPage();
 		
-		login
+		EmailServerPage emailServer = login
+				.setUserName("SamuelSahonero")
+				.setPassword("Control*123")
+				.clickOnSigInButton()
+				.refreshPage()
+				.leftMenu
+				.clickOnEmailServerButton();
+		
+		boolean isAddButtonPresent = emailServer.findAddButton();
+		
+		if(isAddButtonPresent == false) {
+			
+			emailServer
+				.clickOnRemoveButton()
+				.clickOnYesButton();
+		}
+		
+		LoginPage loginPage = new LoginPage();
+		
+		loginPage
 			.setUserName(arg1)
 			.setPassword("Control*123")
 			.clickOnSigInButton()
@@ -59,7 +67,6 @@ public class ImpersonationOptionIsDisabledWhenThereIsNoEmailServerSteps {
 		EmailServerPage emailServer = new EmailServerPage();
 		boolean impersonate = false;
 		List<Service> listServices;
-		String idService = null;
 		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
 		
 		for (Service service : listServices) {
@@ -75,15 +82,28 @@ public class ImpersonationOptionIsDisabledWhenThereIsNoEmailServerSteps {
 		Assert.assertFalse(isSaveButtonPresent);
 		Assert.assertFalse(impersonate);
 		
-		List<Service> servicesList;
-		servicesList = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
-		for(Service service : servicesList) {
-			idService = service._id;
-		}
-		if(idService == null)
-		{
-			Service service = new Service("roommanager.local", "Administrator", "Control*123");
-			ServiceAPIManager.postRequest("http://172.20.208.84:4040/services?type=exchange", service);
+		LoginPage login = new LoginPage();
+		
+		EmailServerPage server = login
+				.setUserName("SamuelSahonero")
+				.setPassword("Control*123")
+				.clickOnSigInButton()
+				.refreshPage()
+				.leftMenu
+				.clickOnEmailServerButton();
+		
+		boolean isAddButtonPresent = server.findAddButton();
+		
+		if(isAddButtonPresent == true) {
+			
+			AddEmailServerPage addEmailServer = server
+					.clickOnAddButton();
+			
+			server = addEmailServer
+					.setDomainServer("roommanager.local")
+					.setUserName("Administrator")
+					.setPassword("Control*123")
+					.clickSaveButton();
 		}
 	}
 }
