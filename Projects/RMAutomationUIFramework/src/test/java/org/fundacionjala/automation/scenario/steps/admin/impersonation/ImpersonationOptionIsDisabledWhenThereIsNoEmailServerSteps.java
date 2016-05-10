@@ -31,9 +31,9 @@ public class ImpersonationOptionIsDisabledWhenThereIsNoEmailServerSteps {
 				.leftMenu
 				.clickOnEmailServerButton();
 		
-		boolean isAddButtonPresent = emailServer.findAddButton();
+		boolean isEmailServerPresent = emailServer.findEmailServer();
 		
-		if(isAddButtonPresent == false) {
+		if(isEmailServerPresent == true) {
 			
 			emailServer
 				.clickOnRemoveButton()
@@ -57,9 +57,9 @@ public class ImpersonationOptionIsDisabledWhenThereIsNoEmailServerSteps {
 		    	.leftMenu
 		    	.clickOnEmailServerButton();
 		
-		boolean isAddButtonPresent = emailServer.findAddButton();
+		boolean isEmailServerPresent = emailServer.findEmailServer();
 		
-		Assert.assertTrue(isAddButtonPresent);
+		Assert.assertTrue(isEmailServerPresent);
 	}
 	
 	@Then("^Impersonation Option is disabled$")
@@ -92,9 +92,9 @@ public class ImpersonationOptionIsDisabledWhenThereIsNoEmailServerSteps {
 				.leftMenu
 				.clickOnEmailServerButton();
 		
-		boolean isAddButtonPresent = server.findAddButton();
+		boolean isEmailServerPresent = server.findEmailServer();
 		
-		if(isAddButtonPresent == true) {
+		if(isEmailServerPresent == false) {
 			
 			AddEmailServerPage addEmailServer = server
 					.clickOnAddButton();

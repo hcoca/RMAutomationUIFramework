@@ -29,9 +29,9 @@ public class RoomsAreAddedWhenServiceAdded {
 				.leftMenu
 				.clickOnEmailServerButton();
 		
-		boolean isAddButtonPresent = emailServer.findAddButton();
+		boolean isEmailServerPresent = emailServer.findEmailServer();
 		
-		if(isAddButtonPresent == false) {
+		if(isEmailServerPresent == true) {
 			
 			emailServer
 				.clickOnRemoveButton()
@@ -70,6 +70,6 @@ public class RoomsAreAddedWhenServiceAdded {
 				.clickOnConferenceRoomsButton()
 				.getRooms();
 		
-		Assert.assertEquals(roomsList.size(), 10);
+		Assert.assertEquals(roomsList.size(), 210);
 	}
 }
