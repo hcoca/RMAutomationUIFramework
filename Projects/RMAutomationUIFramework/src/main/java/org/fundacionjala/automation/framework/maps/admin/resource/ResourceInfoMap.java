@@ -1,6 +1,7 @@
 package org.fundacionjala.automation.framework.maps.admin.resource;
 
 public class ResourceInfoMap {
+	public static final String RESOURCES_ASSOCIATIONS_LINK = "Resource Associations";
 	public static final String NAME_TEXT_FIELD= "//resource-card//form//input[@ng-model='resource.name']";
 	public static final String DISPLAY_NAME_TEXT_FIELD = "//resource-card//form//input[@ng-model='resource.customName']";
 	public static final String DESCRIPTION_TEXT_FIELD = "//resource-card//form//textarea";

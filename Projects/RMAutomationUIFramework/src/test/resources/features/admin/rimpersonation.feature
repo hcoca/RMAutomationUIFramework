@@ -1,56 +1,37 @@
 Feature: Impersonation
 
-Scenario Outline: Enable Impersonation
-Given the user "<name>" has logged in
-When he enables Impersonation
+Scenario: Enable Impersonation
+Given impersonation is disabled
+	And I am logged as "SamuelSahonero" with password "Control*123"
+When I enable Impersonation
 Then the Impersonation Option is enabled
 
-Examples:
-    | name  |
-    | SamuelSahonero  |
-
-Scenario Outline: Disable Impersonation
-Given the user "<name>" has logged into Room Manager
-When he disables Impersonation
+Scenario: Disable Impersonation
+Given impersonation is enabled
+	And I am logged as "SamuelSahonero" with password "Control*123"
+When I disable Impersonation
 Then the Impersonation Option is disabled
-
-Examples:
-    | name  |
-    | SamuelSahonero  |
     
-Scenario Outline: Change Authentication Type to Credentials
-Given a user has logged in
-When he changes Authentication to User and Password
-Then the Authentication Type is changed to Credentials
+Scenario: Change Authentication Type to Credentials
+Given authentication type configured as "rfid"
+	And I am logged as "SamuelSahonero" with password "Control*123"	
+When I change Authentication to User and Password
+Then the Authentication Type is changed to "credentials" 
 
-Examples:
-    | name  |
-    | SamuelSahonero  |
-
-Scenario Outline: Change Authentication Type to RFID
-Given a user has logged into Room Manager
-When he changes Authentication to RFID
-Then the Authentication Type is changed to RFID
-
-Examples:
-    | name  |
-    | SamuelSahonero  |
+Scenario: Change Authentication Type to RFID
+Given authentication type configured as "credentials"
+	And I am logged as "SamuelSahonero" with password "Control*123"	
+When I change Authentication to RFID
+Then the Authentication Type is changed to "rfid"
     
-Scenario Outline: Impersonation Options are displayed in the Credentials Page
-Given a user "<name>" that has logged in
-And he enables Impersonation Option
-When he tries to create a new meeting
+Scenario: Impersonation Options are displayed in the Credentials Page
+Given impersonation is disabled
+	And I am logged as "SamuelSahonero" with password "Control*123"
+	And I enable Impersonation
+When I create a new meeting on room "Room005"
 Then the Impersonation Options displayed in the Credentials Page
-
-Examples:
-    | name  |
-    | SamuelSahonero  |
     
-Scenario Outline: Impersonation Option is disabled when there is no Email Server Added
-Given a user "<name>" has logged into Room Manager
-When there is no Email Server Added
+Scenario: Impersonation Option is disabled when there is no Email Server Added
+Given a user "SamuelSahonero" has logged into Room Manager with an email server added
+When there is no Email Server Added to do impersonation
 Then Impersonation Option is disabled
-
-Examples:
-    | name  |
-    | SamuelSahonero  |

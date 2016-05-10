@@ -62,4 +62,12 @@ public class NavigationPage extends SettingsPage {
 		
 		return null;
 	}
+
+	public boolean verifyIfExistRoomInList(String roomName) {
+		if(getConferenceRoom(roomName) != null){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

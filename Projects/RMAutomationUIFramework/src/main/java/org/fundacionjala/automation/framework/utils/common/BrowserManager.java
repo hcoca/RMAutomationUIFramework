@@ -8,8 +8,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 
-public class BrowserManager {
+public class BrowserManager extends EventFiringWebDriver {
+
+	public BrowserManager(WebDriver driverInput) {
+			super(driver);
+	}
 
 	private static WebDriver driver;
 	
@@ -79,5 +84,23 @@ public class BrowserManager {
 	public static WebDriver getDriver() {
 		return driver;
 	} 
+	 
+    private static final Thread CLOSE_THREAD = new Thread() {
+        @Override
+        public void run() {
+            driver.close();
+        }
+    };
+    
+    static{
+    Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
+    }
+    
+   @Override
+    public void close() {
+        if (Thread.currentThread() != CLOSE_THREAD) {
+            throw new UnsupportedOperationException("You shouldn't close this WebDriver. It's shared and will close after all scenarios.");
+        }
+   }
 	
 }

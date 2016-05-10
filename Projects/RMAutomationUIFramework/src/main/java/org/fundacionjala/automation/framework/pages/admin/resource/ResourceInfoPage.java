@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceInfoMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
@@ -110,4 +111,22 @@ public class ResourceInfoPage {
 		return null;
 		
 	}
+	
+	public ResourceAssociationsPage clickOnResourcesAssociation()
+	{
+	   ExplicitWait.clickWhenReady(By.linkText(ResourceInfoMap.RESOURCES_ASSOCIATIONS_LINK), 5);
+	   return new ResourceAssociationsPage();	
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+

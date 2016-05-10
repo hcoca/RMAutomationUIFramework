@@ -1,47 +1,40 @@
 package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
-import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ResourceAssociationsPage;
-import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
-import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class RemoveAssociation {
 	
-	    private AdminPage home;
 		private ConferenceRoomsPage conferenceRoom;
-		private ResourceAssociationsPage resourceAssociations;
+		private RoomsResourceAssociationsPage resourceAssociations;
 		private String resourceName;
 		private Resource resourceToAssociate;
 		private String roomToModify;
 	
-			
-	@Given("^I am on the Conference Room page of Room Mnanager$")
-	public void i_am_on_the_Conference_Room_page_of_Room_Mnanager() throws Throwable {
-
-	    /*
-	     *@Before 
-		**/
-		resourceToAssociate = ResourceAPIManager
-                .postRequest("http://172.20.208.84:4040/resources"
-                 , new Resource("Key05", "keys05", "fa fa-key", "", "Key"));
-
-       resourceName = resourceToAssociate.customName;
 		
-	   roomToModify = "Room06";
-	  
-	   home = LoginActions.ExecuteLogin();
-	}
+	@Before("@num#4")
+	public void beforeScenario() throws Throwable {
 
+		conferenceRoom = new ConferenceRoomsPage();
+		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
+                , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
+
+        resourceName = resourceToAssociate.customName;
+        roomToModify = "Room003";
+	
+	}
+	
 	@Given("^I associate a resource on resources association page$")
 	public void i_associate_a_resource_on_resources_association_page() throws Throwable {
-		conferenceRoom = home.leftMenu
-				.clickOnConferenceRoomsButton()
+		conferenceRoom
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations()
 				.addResource(resourceName)
@@ -65,13 +58,12 @@ public class RemoveAssociation {
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations();
 		
-		Assert.assertTrue(resourceAssociations.isInAvailableList(resourceName),
-                "The resource should not be in resource column");
-		
-		/*
-		 * @After
-		 * */
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
+		Assert.assertTrue(resourceAssociations.isInAvailableList(resourceName)
+				                            ,"The resource should not be in resource column");
 	}
 	
+	@After("@num#4")
+	public void afterScenario() throws Throwable {
+		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
+	}
 }
