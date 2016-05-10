@@ -31,11 +31,7 @@ Given impersonation is disabled
 When I create a new meeting on room "Room005"
 Then the Impersonation Options displayed in the Credentials Page
     
-#Scenario Outline: Impersonation Option is disabled when there is no Email Server Added
-#Given a user "<name>" has logged into Room Manager
-#When there is no Email Server Added
-#Then Impersonation Option is disabled
-
-#Examples:
-#    | name  |
-#    | SamuelSahonero  |
+Scenario: Impersonation Option is disabled when there is no Email Server Added
+Given a user "SamuelSahonero" has logged into Room Manager with an email server added
+When there is no Email Server Added to do impersonation
+Then Impersonation Option is disabled

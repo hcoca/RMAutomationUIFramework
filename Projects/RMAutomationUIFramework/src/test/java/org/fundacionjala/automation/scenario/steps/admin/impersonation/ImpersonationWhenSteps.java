@@ -1,10 +1,12 @@
 package org.fundacionjala.automation.scenario.steps.admin.impersonation;
 
+import org.fundacionjala.automation.framework.pages.admin.emailserver.EmailServerPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
+import org.testng.Assert;
 
 import cucumber.api.java.en.When;
 
@@ -80,5 +82,18 @@ public class ImpersonationWhenSteps {
 	    
 	    			scheduler
 	    			.clickOnCreateButton();
+	}
+	
+	@When("^there is no Email Server Added to do impersonation$")
+	public void there_is_no_Email_Server_Added() throws Throwable {
+		AdminPage admin = new AdminPage();
+		
+		EmailServerPage emailServer = admin 
+		    	.leftMenu
+		    	.clickOnEmailServerButton();
+		
+		boolean isEmailServerPresent = emailServer.findEmailServer();
+		
+		Assert.assertTrue(isEmailServerPresent);
 	}
 }
