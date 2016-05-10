@@ -3,6 +3,7 @@ package org.fundacionjala.automation.framework.pages.admin.conferencerooms;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
+import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
@@ -11,7 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ConferenceRoomsPage {
+public class ConferenceRoomsPage extends AdminPage {
    
 	public ConferenceRoomsPage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
