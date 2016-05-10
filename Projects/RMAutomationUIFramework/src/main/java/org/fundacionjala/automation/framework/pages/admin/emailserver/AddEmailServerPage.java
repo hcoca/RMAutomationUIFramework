@@ -67,7 +67,6 @@ public class AddEmailServerPage {
 		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(AddEmailServerMap.SAVE_BUTTON)));
 		saveButton.click();
 		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(AddEmailServerMap.SAVE_BUTTON)));
-		BrowserManager.getDriver().navigate().refresh();
 		
 		LogManager.info("Add Email Server Save Button has been clicked");
 		

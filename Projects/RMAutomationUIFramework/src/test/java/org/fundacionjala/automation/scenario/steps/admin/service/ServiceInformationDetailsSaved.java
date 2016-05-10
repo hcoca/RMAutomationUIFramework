@@ -26,9 +26,9 @@ public class ServiceInformationDetailsSaved {
 				.leftMenu
 				.clickOnEmailServerButton();
 		
-		boolean isAddButtonPresent = emailServer.findAddButton();
+		boolean isEmailServerPresent = emailServer.findEmailServer();
 		
-		if(isAddButtonPresent == false) {
+		if(isEmailServerPresent == true) {
 			
 			emailServer
 				.clickOnRemoveButton()

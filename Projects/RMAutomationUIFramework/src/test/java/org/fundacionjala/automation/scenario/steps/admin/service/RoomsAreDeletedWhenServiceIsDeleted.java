@@ -25,9 +25,9 @@ public class RoomsAreDeletedWhenServiceIsDeleted {
 				.leftMenu
 				.clickOnEmailServerButton();
 		
-		boolean isAddButtonPresent = emailServer.findAddButton();
+		boolean isEmailServerPresent = emailServer.findEmailServer();
 		
-		if(isAddButtonPresent == true) {
+		if(isEmailServerPresent == false) {
 			
 			AddEmailServerPage addEmailServer = emailServer
 					.clickOnAddButton();
@@ -76,9 +76,9 @@ public class RoomsAreDeletedWhenServiceIsDeleted {
 				.leftMenu
 				.clickOnEmailServerButton();
 		
-		boolean isAddButtonPresent = server.findAddButton();
+		boolean isEmailServerPresent = server.findEmailServer();
 		
-		if(isAddButtonPresent == true) {
+		if(isEmailServerPresent == false) {
 			
 			AddEmailServerPage addEmailServer = server
 					.clickOnAddButton();

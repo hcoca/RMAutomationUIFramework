@@ -27,9 +27,9 @@ public class ServiceCredentialModified {
 				.leftMenu
 				.clickOnEmailServerButton();
 		
-		boolean isAddButtonPresent = emailServer.findAddButton();
+		boolean isEmailServerPresent = emailServer.findEmailServer();
 		
-		if(isAddButtonPresent == true) {
+		if(isEmailServerPresent == false) {
 			
 			AddEmailServerPage addEmailServer = emailServer
 					.clickOnAddButton();
@@ -71,7 +71,17 @@ public class ServiceCredentialModified {
 		
 		Assert.assertEquals(myActualUserName, newUserName);
 		
-		emailServer
+		LoginPage login = new LoginPage();
+		
+		EmailServerPage server = login
+				.setUserName("SamuelSahonero")
+				.setPassword("Control*123")
+				.clickOnSigInButton()
+				.refreshPage()
+				.leftMenu
+				.clickOnEmailServerButton();
+		
+		server
 			.clickOnServerButton()
 			.clickOnEditCredentialButton()
 			.setUserName("Administrator")

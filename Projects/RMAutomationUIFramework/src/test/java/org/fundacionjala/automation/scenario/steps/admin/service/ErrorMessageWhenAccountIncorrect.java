@@ -25,9 +25,9 @@ public class ErrorMessageWhenAccountIncorrect {
 				.leftMenu
 				.clickOnEmailServerButton();
 		
-		boolean isAddButtonPresent = emailServer.findAddButton();
+		boolean isEmailServerPresent = emailServer.findEmailServer();
 		
-		if(isAddButtonPresent == true) {
+		if(isEmailServerPresent == false) {
 			
 			AddEmailServerPage addEmailServer = emailServer
 					.clickOnAddButton();
