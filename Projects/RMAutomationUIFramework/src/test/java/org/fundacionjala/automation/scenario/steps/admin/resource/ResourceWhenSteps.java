@@ -3,13 +3,13 @@ package org.fundacionjala.automation.scenario.steps.admin.resource;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
-import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourceInfoPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 
 import cucumber.api.java.en.When;
 
@@ -82,18 +82,17 @@ public class ResourceWhenSteps {
 		ResourceInfoPage info = new ResourceInfoPage();
 		info.clickOnSaveButton();
 	}
-	////onyl for me
-
+	//only for me to delete resources
 	@When("^I delete the resource \"([^\"]*)\"$")
 	public void i_delete_the_resource(String arg1) throws Throwable {
 		String idResource = "";
-		List<Resource> listResources = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+		List<Resource> listResources = ResourceAPIManager.getRequest(PropertiesReader.getServiceURL()+"/resources");
 		for (int i = 0; i < 50; i++) {
 			for (Resource resource : listResources) {
 				if(resource.name.equalsIgnoreCase(arg1 + i))
 				{
 					idResource = resource._id;
-					ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
+					ResourceAPIManager.deleteRequest(PropertiesReader.getServiceURL()+"/resources", idResource);
 				}
 				
 			}

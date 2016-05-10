@@ -236,7 +236,6 @@ public class ResourcePage extends AdminPage {
 		String lastPage = inputNumberPage.getAttribute("value").trim();
 		String xpath = ResourceMap.TOTAL_NUMBER_PAGE.replace("totalPages", lastPage);
 		try {
-			//UIActions.waitFor(xpath);
 			if(BrowserManager.getDriver().findElement(By.xpath(xpath))!= null)
 				return true;
 			else

@@ -81,6 +81,6 @@ public class ResourceThenSteps {
 				idResource = resource._id;
 			}
 		}
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
+		ResourceAPIManager.deleteRequest(PropertiesReader.getServiceURL() + "/resources", idResource);
 	}
 }
