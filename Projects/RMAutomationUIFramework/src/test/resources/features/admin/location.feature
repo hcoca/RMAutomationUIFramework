@@ -50,26 +50,26 @@ Then The location "ChildPunata" child of "ParentCbba" is displayed on location p
 
 Scenario: A room is displayed on Location Association page  when it is associated with a new location
 Given I am logged as "Administrator" with password "Control*123"
-When I add a new location with name: "Cochabamba", display name "Cbba-Location" and associated room "Room01"
-Then The room "Room01" is displayed on Location Association page as associated with "Cbba-Location" location
+When I add a new location with name: "Cochabamba", display name "Cbba-Location" and associated room "Room001"
+Then The room "Room001" is displayed on Location Association page as associated with "Cbba-Location" location
 
 Scenario: A room is displayed on Location Association page when it is associated with an existent location
 Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
 	And I am logged as "Administrator" with password "Control*123"
-When I associate the location "Cbba-Location" with a room "Room01"
-Then The room "Room01" is displayed on Location Association page as associated with "Cbba-Location" location
+When I associate the location "Cbba-Location" with a room "Room001"
+Then The room "Room001" is displayed on Location Association page as associated with "Cbba-Location" location
 
 Scenario: A room is not displayed on ‘Location Association’ page  when the association with a location is removed
 Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
 	And I am logged as "Administrator" with password "Control*123"
-	And I associate the location "Cbba-Location" with a room "Room01"
-When I delete the association between location "Cbba-Location" and "Room01"
-Then The room "Room01" is not displayed on Location Association page as associated with "Cbba-Location" location 
+	And I associate the location "Cbba-Location" with a room "Room001"
+When I delete the association between location "Cbba-Location" and "Room001"
+Then The room "Room001" is not displayed on Location Association page as associated with "Cbba-Location" location 
 
 Scenario: The number of rooms associated displayed on Locations page increases when a room is associated
 Given I have a location added with name: "Cochabamba", display name "Cbba-Location" and description "This is Cochabamba Location"
 	And I am logged as "Administrator" with password "Control*123"
-When I associate the location "Cbba-Location" with a room "Room01"
+When I associate the location "Cbba-Location" with a room "Room001"
 Then The number of assciations on Location page has been increased by "Cochabamba" location association
 
  

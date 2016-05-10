@@ -1,13 +1,17 @@
 package org.fundacionjala.automation.scenario.steps.admin.location;
 
 import java.util.List;
+
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationAssociationPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.UpdateLocationPage;
 import org.fundacionjala.automation.framework.utils.api.managers.LocationAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Location;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
+
 import com.mashape.unirest.http.exceptions.UnirestException;
+
 import cucumber.api.java.en.Then;
 
 public class LocationThenSteps {
@@ -127,27 +131,27 @@ public class LocationThenSteps {
 		removeLocationByName(name);
 	}
 	
-	public void removeLocationByName(String name) throws UnirestException{
+	private void removeLocationByName(String name) throws UnirestException{
 		String idLocation = "";
-		List<Location> listLocation = LocationAPIManager.getRequest("http://172.20.208.84:4040/locations");
+		List<Location> listLocation = LocationAPIManager.getRequest(PropertiesReader.getServiceURL() +"/locations");
 		for (Location location : listLocation) {
 			if(location.name.equalsIgnoreCase(name))
 			{
 				idLocation = location._id;
 			}
 		}
-		LocationAPIManager.deleteRequest("http://172.20.208.84:4040/locations", idLocation);
+		LocationAPIManager.deleteRequest(PropertiesReader.getServiceURL() +"/locations", idLocation);
 	}
 	
-	public void removeLocationByDisplayName(String displayName) throws UnirestException{
+	private void removeLocationByDisplayName(String displayName) throws UnirestException{
 		String idLocation = "";
-		List<Location> listLocation = LocationAPIManager.getRequest("http://172.20.208.84:4040/locations");
+		List<Location> listLocation = LocationAPIManager.getRequest(PropertiesReader.getServiceURL() +"/locations");
 		for (Location location : listLocation) {
 			if(location.customName.equalsIgnoreCase(displayName))
 			{
 				idLocation = location._id;
 			}
 		}
-		LocationAPIManager.deleteRequest("http://172.20.208.84:4040/locations", idLocation);
+		LocationAPIManager.deleteRequest(PropertiesReader.getServiceURL() +"/locations", idLocation);
 	}
 }
