@@ -9,6 +9,10 @@ import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIMana
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -25,26 +29,23 @@ public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 	private ConferenceRoomsPage conferenceRoom;
 	
 	
-	
-	@Given("^I am logged to room Manager with user administrator account$")
-	public void i_am_logged_to_room_Manager_with_user_administrator_account() throws Throwable {
-	 
-		 resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
-                 , new Resource("key169", "key169", "fa fa-key", "", "Key"));
+	@Before("@num#1")
+	public void beforeScenario() throws Throwable {
 
-		resourceName = resourceToAssociate.customName;
-		
-		roomToModify = "Room01";
+		conferenceRoom = new ConferenceRoomsPage();
+		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
+                , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
+
+        resourceName = resourceToAssociate.customName;
+        roomToModify = "Room003";
 		qty = "123";
-		home = LoginActions.ExecuteLogin();
-		
 	}
+
 
 	@Given("^I associate a resource$")
 	public void i_associate_a_resource() throws Throwable {
-		conferenceRoom = 
-				home.leftMenu
-				.clickOnConferenceRoomsButton()
+		
+		conferenceRoom
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations()
 				.addResource(resourceName)
@@ -54,7 +55,10 @@ public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 
 	@When("^I go to resources page$")
 	public void i_go_to_resources_page() throws Throwable {
-		resourcePage = home
+		home = new AdminPage();
+		
+		resourcePage = 
+				 home
 				.leftMenu
 				.clickOnResourcesButton();
 	}
@@ -73,6 +77,11 @@ public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 		Assert.assertTrue(resourceAssociationsPage.isQtyDisplayed(qty)
 				                      , "The correct quantity should be displayed");
 	  
+	}
+	
+	@After("@num#1")
+	public void afterScenario() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	}
+	
 }

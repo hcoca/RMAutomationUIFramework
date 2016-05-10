@@ -22,7 +22,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	}
 	
 	public ConferenceRoomsPage selectOutOfOrderIcon(String roomName){
-		String iconOutOfOrder =ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace("roomName", roomName);
+		String iconOutOfOrder = ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace("roomName", roomName);
 		ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
 		BrowserManager.getDriver().findElement(By.xpath(iconOutOfOrder)).click();
 		return this;
@@ -35,19 +35,15 @@ public class ConferenceRoomsPage extends AdminPage {
 	
 	private WebElement getRoom(String roomName)
 	{
-		for(WebElement room : getRooms()){
-	    	String roomText = room.getText();
-	    	if (roomText.trim().equals(roomName)){
-				return room;
-			}
-	    }
-		return null;
+	    String xpathRoom = ConferenceRoomsMap.ROOM.replace("roomName", roomName);
+		return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
 	}
 	
     public RoomInfoPage openConfigurationPage(String roomToModify) {
 	    UIActions.doubleClick(getRoom(roomToModify));
 		return new RoomInfoPage();
 	}
+    
     
     public RoomInfoPage doubleClickOnRoom(String roomToModify) {
     	WebElement roomElement = getRoom(roomToModify);
