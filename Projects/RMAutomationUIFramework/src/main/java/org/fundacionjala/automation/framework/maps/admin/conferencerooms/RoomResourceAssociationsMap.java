@@ -18,8 +18,6 @@ public class RoomResourceAssociationsMap {
 	                     = "//div[@class='list-group']/div[@ng-repeat='associatedResource in roomResources']/div[4]/button/*";
 
 	public static final String SAVE_BUTTON = "//button[contains(.,'Save')]";
-	                     //= "//button[@class='info']";
-	//css=button.info
 	
 	public static final String CANCEL_BUTTON = "//button[contains(.,'Cancel')]";
    
