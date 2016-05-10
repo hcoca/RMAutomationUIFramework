@@ -9,13 +9,15 @@ import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
+
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class OneResourceAssociateToRooms {
 
-	private AdminPage home;
 	private ConferenceRoomsPage conferenceRoom;
 	private RoomsResourceAssociationsPage resourceAssociations;
 	private String resourceName;
@@ -24,38 +26,34 @@ public class OneResourceAssociateToRooms {
 	private boolean result;
 	
 	
-	
-	@Given("^I am on the Conference Rooms page of the Room Mnanager$")
-	public void i_am_on_the_Conference_Rooms_page_of_the_Room_Mnanager() throws Throwable {
-	
-		resourceToAssociate = ResourceAPIManager
-                .postRequest("http://172.20.208.84:4040/resources"
-                 , new Resource("Key03", "keys03", "fa fa-key", "", "Key"));
+	@Before("@num#8")
+	public void beforeScenario() throws Throwable {
 
-       resourceName = resourceToAssociate.customName;
-	   result = false;
-	   
-	   String roomToModify01 = "Room01";
-	   String roomToModify02 = "Room05";
-	   String roomToModify03 = "Room06";
-	   String roomToModify04 = "RoomX03";
-	   rooms = new ArrayList<String>();
-	   rooms.add(roomToModify01);
-	   rooms.add(roomToModify02);
-	   rooms.add(roomToModify03);
-	   rooms.add(roomToModify04);
-	   
-	  
-		home = LoginActions.ExecuteLogin();
+		conferenceRoom = new ConferenceRoomsPage();
 		
+		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
+	                                       , new Resource("Key09", "keys09", "fa fa-key", "", "Key"));
+	    resourceName = resourceToAssociate.customName;
+	    result = false;
+	   
+ 	   String roomToModify01 = "Room001";
+ 	   String roomToModify02 = "Room005";
+ 	   String roomToModify03 = "Room006";
+ 	   String roomToModify04 = "Room007";
+ 	   rooms = new ArrayList<String>();
+ 	   rooms.add(roomToModify01);
+ 	   rooms.add(roomToModify02);
+ 	   rooms.add(roomToModify03);
+ 	   rooms.add(roomToModify04);
+ 	    
+        
 	}
 
 	@Given("^I associate one resource to many rooms$")
 	public void i_associate_one_resource_to_many_rooms() throws Throwable {
 		
 		for (int i = 0; i < 4; i++) {
-			conferenceRoom = home.leftMenu
-					.clickOnConferenceRoomsButton()
+			conferenceRoom
 					.openConfigurationPage(rooms.get(i))
 					.clickOnResourceAssociations()
 					.addResource(resourceName)
@@ -83,9 +81,11 @@ public class OneResourceAssociateToRooms {
 		
 		Assert.assertTrue(result, "All roooms have the resource associated");
 		
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
-		
 	}
-    
+
+	@After("@num#8")
+	public void afterScenario() throws Throwable {
+		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	
+	}
 }

@@ -6,12 +6,14 @@ import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
+
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class TheQuantityOfTheResourceAssociatedsEdited {
-	private AdminPage home;
 	private ConferenceRoomsPage conferenceRoom;
 	private String resourceName;
 	private Resource resourceToAssociate;
@@ -19,20 +21,17 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 	private String quantity;
 	
 	
-	@Given("^I am on the Conferences Rooms page$")
-	public void i_am_on_the_Conferences_Rooms_page() throws Throwable {		
-	
-	   resourceToAssociate = ResourceAPIManager
-					                .postRequest("http://172.20.208.84:4040/resources"
-					                 , new Resource("Key07", "keys07", "fa fa-key", "", "Key"));
+	@Before("@num#3")
+	public void beforeScenario() throws Throwable {
+		
+		conferenceRoom = new ConferenceRoomsPage();
+		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
+                , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
 
-       resourceName = resourceToAssociate.customName;
-	   roomToModify = "Room01";
-	   quantity = "10";
-	   
-	   home = LoginActions.ExecuteLogin();
-	   conferenceRoom = home.leftMenu
-				.clickOnConferenceRoomsButton();
+        resourceName = resourceToAssociate.customName;
+        roomToModify = "Room001";
+ 	    quantity = "10";
+ 	   
 	}
 	
 	@Given("^I associate a resource on resources associattion page$")
@@ -63,8 +62,10 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 		              .openConfigurationPage(roomToModify)
 		              .clickOnResourceAssociations()
 		              .hasTheQuantity(resourceName, quantity));
-		
-		
+	}
+	
+	@After("@num#3")
+	public void afterScenario() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	}
 	
