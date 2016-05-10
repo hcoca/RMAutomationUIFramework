@@ -27,4 +27,8 @@ public class RoomAPIManager {
 		}
 		return roomsList;
 	}
+
+	public static void putRequest(String endPoint, JSONObject body) throws UnirestException{
+		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, body, "put");
+	}
 }

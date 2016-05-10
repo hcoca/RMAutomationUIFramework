@@ -96,3 +96,15 @@ Then I validate if the resource is in Conference Room page.
 Examples:
     |     resource    | 
     |  resource123    |  
+    
+Scenario: A room is enabled when its button is clicked.
+Given I logged to Room Manager Admin
+And I have "Room05" room disabled
+When I enabled "Room05" room
+Then I validate if the room "Room05" is enabled in tablet page
+
+Scenario: A room is disabled when its button is clicked.
+Given I logged to Room Manager Admin
+And I have "Room06" room enabled
+When I disabled "Room06" room
+Then I validate if the room "Room06" is disabled in tablet page

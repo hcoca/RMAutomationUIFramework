@@ -11,4 +11,5 @@ public class EmailServerMap {
 	public static final String ACCEPT_BUTTON = "//span[text()='Accept']/parent::button[@class='btn btn-primary'][@ng-click='save()']";
 	public static final String DESCRIPTION_TEXT_FIELD = "//textarea[@id='mailserver-description'][@ng-model='currentSelected.description']";
 	public static final String ERROR_MSG_CREDENTIAL = "//small[contains(text(),'please try with another')]";
+	public static final String ERROR_MESSAGE = "//small[@ng-repeat='errorMessage in credentialErrors'][contains(text(),'please try with another')]";
 }

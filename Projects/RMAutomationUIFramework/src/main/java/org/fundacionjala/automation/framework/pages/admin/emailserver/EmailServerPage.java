@@ -13,7 +13,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -27,9 +26,9 @@ public class EmailServerPage extends AdminPage {
 	@FindBy (xpath = EmailServerMap.PASSWORD_TEXT_FIELD) WebElement passwordTextField;
 	@FindBy (xpath = EmailServerMap.ACCEPT_BUTTON) WebElement acceptButton;
 	@FindBy (xpath = EmailServerMap.DESCRIPTION_TEXT_FIELD) WebElement descriptionTextField;
+	@FindBy (xpath = EmailServerMap.ERROR_MESSAGE) WebElement errorMessage;
 	
-	public EmailServerPage()
-	{
+	public EmailServerPage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
@@ -52,7 +51,7 @@ public class EmailServerPage extends AdminPage {
 		return new DeleteEmailServerPage();
 	}
 	
-	public EmailServerPage clickOnServerItemButton() {
+	public EmailServerPage clickOnServerButton() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(emailServerButton));
 		emailServerButton.click();
 		
@@ -113,7 +112,7 @@ public class EmailServerPage extends AdminPage {
 	
 	public boolean findAddButton() {
 		try{
-			(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(addButton));
+			(new WebDriverWait(BrowserManager.getDriver(), 20)).until(ExpectedConditions.visibilityOf(addButton));
 			LogManager.info("Add Button has been found");
 			return true;
 		}catch(Exception e){
@@ -125,7 +124,6 @@ public class EmailServerPage extends AdminPage {
 	public void waitItemDeleted() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(DeleteEmailServerMap.YES_BUTTON)));
-		
 	}
 	
 	public void waitAddWindowInvisible()
@@ -150,7 +148,7 @@ public class EmailServerPage extends AdminPage {
 	}
 	
 	public String getUserName() {
-		
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(userNameTextField));
 		String userName = userNameTextField.getAttribute("value");
 		
 		LogManager.info("User Name " + userName + " has been obtained");
@@ -159,6 +157,7 @@ public class EmailServerPage extends AdminPage {
 	}
 	
 	public String getEmailServerDescription() {
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(descriptionTextField));
 		String description = descriptionTextField.getAttribute("value");
 		
 		LogManager.info("Email Server Description " + description + " has been obtained");
@@ -196,5 +195,25 @@ public class EmailServerPage extends AdminPage {
 		else
 			LogManager.error("[FAILED] - The information is not saved.");
 		return state;
+	}
+	
+	public EmailServerPage waitForErrorMessage() {
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(EmailServerMap.ACCEPT_BUTTON)));
+		acceptButton.click();
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(errorMessage));
+		String myErrorMessage = errorMessage.getText();
+		
+		LogManager.info("Error Message " + myErrorMessage + " has been found");
+		
+		return this;
+	}
+	
+	public String getErrorMessage() {
+		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(errorMessage));
+		String myErrorMessage = errorMessage.getText();
+		
+		LogManager.info("Error Message " + myErrorMessage + " has been obtained");
+		
+		return myErrorMessage;
 	}
 }
