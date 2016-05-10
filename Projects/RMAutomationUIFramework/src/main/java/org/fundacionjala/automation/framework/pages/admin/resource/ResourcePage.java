@@ -61,6 +61,8 @@ public class ResourcePage extends AdminPage {
 	
 	
 	public boolean verifyResourceExist(String resourceName){
+
+		
 		if (verifyExist(resourceName)) {
 				LogManager.info("[TRUE] Resource " + resourceName + " exists");
 				return true;
@@ -225,7 +227,7 @@ public class ResourcePage extends AdminPage {
 
 	public ResourcePage clickOnLastPageButton() {
 		UIActions.waitFor(ResourceMap.LAST_PAGE_BUTTON);
-		UIActions.clickAt(firstPageButton);
+		UIActions.clickAt(lastPageButton);
 		return new ResourcePage();
 	}
 

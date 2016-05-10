@@ -16,6 +16,7 @@ public class AssociationIsDisplayedWhenRemoveButtonIsClickedSteps {
 	
 	AdminPage home;
 	RemoveResourcePage removeResource;
+	String RoomName = "";
 	@Given("^I have a \"([^\"]*)\" resource created$")
 	public void i_have_a_resource_created(String arg1) throws Throwable {
 		Resource resource = new Resource(arg1, arg1, "fa fa-dashboard", "", arg1);
@@ -35,6 +36,7 @@ public class AssociationIsDisplayedWhenRemoveButtonIsClickedSteps {
 
 	@When("^I associate the resource \"([^\"]*)\" to a room \"([^\"]*)\"$")
 	public void i_associate_the_resource_to_a_room(String arg1, String arg2) throws Throwable {
+		RoomName = arg2;
 		home
 	    	.leftMenu
 	    	.clickOnConferenceRoomsButton()
@@ -52,6 +54,7 @@ public class AssociationIsDisplayedWhenRemoveButtonIsClickedSteps {
 							.clickOnLocationsButton()
 							.refreshPage()
 							.leftMenu
+							.clickOnIssuesButton()
 							.clickOnResourcesButton()
 							.selectResource(arg1)
 							.clickOnRemoveButton();
@@ -60,7 +63,7 @@ public class AssociationIsDisplayedWhenRemoveButtonIsClickedSteps {
 	@Then("^I validate that the association is displayed$")
 	public void i_validate_that_the_association_is_displayed() throws Throwable {
 		Assert.assertTrue(
-				removeResource.verifyAssociatedRoomExist("Room01"));
+				removeResource.verifyAssociatedRoomExist(RoomName));
 		
 		//Post condition
 		removeResource.clickOnRemoveButton();
