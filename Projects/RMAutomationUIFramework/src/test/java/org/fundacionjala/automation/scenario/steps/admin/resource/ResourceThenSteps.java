@@ -83,4 +83,18 @@ public class ResourceThenSteps {
 		}
 		ResourceAPIManager.deleteRequest(PropertiesReader.getServiceURL() + "/resources", idResource);
 	}
+	
+	@Then("^Validate that the 'next' page is displayed on resource table$")
+	public void validate_that_the_next_page_is_displayed_on_resource_table() throws Throwable {
+		ResourcePage resources = new ResourcePage();
+		System.out.println(
+		resources.verifyNextPage("2"));
+		List<Resource> listResource = ResourceAPIManager.getRequest(PropertiesReader.getServiceURL()+"/resources");
+		for (Resource resource : listResource) {
+			if(resource.name.contains("Gift"))
+			{
+				ResourceAPIManager.deleteRequest(PropertiesReader.getServiceURL() + "/resources", resource._id);
+			}
+		}
+	}
 }

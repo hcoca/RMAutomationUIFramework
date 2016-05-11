@@ -34,8 +34,8 @@ public class QuantitySelectedInPageSizeIsDisplayedInResourceTableSteps {
 				.selectPageSizeOnDropDown(arg1);
 	}
 
-	@Then("^I validate that the resource table size is same than the option \"([^\"]*)\" selected$")
-	public void i_validate_that_the_resource_table_size_is_same_than_the_option_selected(String arg1) throws Throwable {
+	@Then("^Validate that the resource table size is same than the option \"([^\"]*)\" selected$")
+	public void validate_that_the_resource_table_size_is_same_than_the_option_selected(String arg1) throws Throwable {
 		Assert.assertTrue(
 				resource.verifyNumberOfResources(Integer.parseInt(arg1))
 				);

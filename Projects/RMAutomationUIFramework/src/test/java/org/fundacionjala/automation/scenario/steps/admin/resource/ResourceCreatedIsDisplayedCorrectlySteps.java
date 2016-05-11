@@ -44,10 +44,9 @@ public class ResourceCreatedIsDisplayedCorrectlySteps {
 				.selectIcon(arg4)
 				.clickOnSaveButton();
 	}
-
-	@Then("^I validate that resource with \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\" is displayed$")
-	public void i_validate_that_resource_with_and_is_displayed(String arg1, String arg2, String arg3) throws Throwable {
-	    Assert.assertTrue(resource.verifyResourceDisplayed(arg1, arg2, arg3));
+	@Then("^Validate that resource with \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\" is displayed$")
+	public void validate_that_resource_with_and_is_displayed(String arg1, String arg2, String arg3) throws Throwable {
+		Assert.assertTrue(resource.verifyResourceDisplayed(arg1, arg2, arg3));
 		 //Post condition
 		 String idResource = "";
 			List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");

@@ -35,7 +35,7 @@ Scenario Outline: All resources are displayed in resource table
 Given I Login to Room Manager application
 	And I add "<number>" resources
  When I click on resource option
- Then I validate that all resources are displayed in resource table
+ Then Validate that all resources are displayed in resource table
 
 Examples:
 		|number|
@@ -45,7 +45,7 @@ Examples:
 Scenario Outline: The correct information is displayed when a resource is created
 Given I log in to Room Manager app
  When I create a resource with name "<name>", display name "<displayName>", description "<description>" and icon "<icon>"
- Then I validate that resource with "<name>", "<displayName>" and "<icon>" is displayed
+ Then Validate that resource with "<name>", "<displayName>" and "<icon>" is displayed
 
  Examples:
 	|name		 |displayName	|description					 |icon			|
@@ -54,7 +54,7 @@ Given I log in to Room Manager app
 Scenario Outline: The number of total items is displayed in the resource table
 Given I Login to RoomManager APP
  When I create "<number>" resources
- Then I validate that total resources created are displayed in resource table 
+ Then Validate that total resources created are displayed in resource table 
  Examples:
   	|number|
 		|		1	 | 
@@ -65,7 +65,7 @@ Given I have a "<name>" resource created
   And I Login to Room Manager web app
  When I associate the resource "<name>" to a room "<room>"
   And I want to remove the resource "<name>"
- Then I validate that the association is displayed
+ Then Validate that the association is displayed
  Examples:
 	 	|name		 	 |room	|
 		|dashboard |Room001|
@@ -75,7 +75,7 @@ Scenario Outline: The quantity selected in page size is displayed in resource ta
 Given I have atleast "<numberResources>" resources created
   And I as Administrator Login to Room Manager
  When I select a option "<number>" on page size option
- Then I validate that the resource table size is same than the option "<number>" selected
+ Then Validate that the resource table size is same than the option "<number>" selected
  Examples:
  		|numberResources|number|
  		|				52	 		|	50	|
@@ -85,7 +85,7 @@ Scenario Outline: When First button is clicked the first page is displayed in re
 Given I have atleast "<numberResources>" created resources
   And I as Administrator Login to Room Manager
  When I Clicked on First button on resource table
- Then I validate that the first page is displayed on resource table
+ Then Validate that the first page is displayed on resource table
 Examples:  
 		|numberResources|
  		|				53	 	|	
@@ -95,9 +95,17 @@ Examples:
 Scenario Outline: When 'Last' button is clicked the last page is displayed in resource table
 Given There are atleast "<numberResources>" created resources
  When I Clicked on Last button on resource table
- Then I validate that the last page is displayed on resource table 
+ Then Validate that the last page is displayed on resource table 
  Examples:  
 		|numberResources|
  		|				15	 	|
 
 #scenario 12
+Scenario: When 'Next' button is clicked the next page is displayed in resource table
+Given I have atleast "100" created resources 
+  And I as Administrator Login to Room Manager
+  And I am in the first page
+ When I cliked on 'Next' button on resource table
+ Then Validate that the 'next' page is displayed on resource table 
+
+
