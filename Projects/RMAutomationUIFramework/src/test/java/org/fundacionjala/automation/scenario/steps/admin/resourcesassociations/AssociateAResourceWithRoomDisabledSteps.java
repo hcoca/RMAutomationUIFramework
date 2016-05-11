@@ -27,7 +27,7 @@ public class AssociateAResourceWithRoomDisabledSteps {
                 , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
 
         resourceName = resourceToAssociate.customName;
-        roomToModify = "Room003";
+        roomToModify = conferenceRoom.getRandomRoom();
 	}
 
 	@Given("^I have a resource associated$")

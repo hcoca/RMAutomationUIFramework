@@ -29,7 +29,7 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
                 , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
 
         resourceName = resourceToAssociate.customName;
-        roomToModify = "Room001";
+        roomToModify = conferenceRoom.getRandomRoom();
  	    quantity = "10";
  	   
 	}
