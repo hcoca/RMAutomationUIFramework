@@ -47,7 +47,8 @@ public class LocationThenSteps {
 	}
 	
 	@Then("^The description \"([^\"]*)\" of location \"([^\"]*)\" is displayed on update location page$")
-	public void verifyLocationDescription(String description, 																		 String displayName) throws Throwable {
+	public void verifyLocationDescription(String description,
+					      String displayName) throws Throwable {
 		LocationPage locationPage = new LocationPage();
 		UpdateLocationPage updateLocationPage = new UpdateLocationPage();
 		
@@ -61,7 +62,8 @@ public class LocationThenSteps {
 	}
 	
 	@Then("^The parent name \"([^\"]*)\" of location \"([^\"]*)\" is displayed on update location page$")
-	public void verifyLocationParent(String parentName, 																	 String displayName) throws Throwable {
+	public void verifyLocationParent(String parentName, 
+					 String displayName) throws Throwable {
 		LocationPage locationPage = new LocationPage();
 		UpdateLocationPage updateLocationPage = new UpdateLocationPage();
 		
@@ -83,7 +85,8 @@ public class LocationThenSteps {
 	}
 	
 	@Then("^The location \"([^\"]*)\" child of \"([^\"]*)\" is displayed on location page$")
-	public void the_location_child_of_is_displayed_on_location_page(String name, 														String parentName) throws Throwable {
+	public void verifyChildLocation(String name, 
+					String parentName) throws Throwable {
 		LocationPage locationPage = new LocationPage();
 		
 		Assert.assertTrue(
