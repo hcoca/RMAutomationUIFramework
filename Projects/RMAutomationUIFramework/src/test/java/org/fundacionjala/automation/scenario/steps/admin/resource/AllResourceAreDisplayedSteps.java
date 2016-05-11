@@ -54,10 +54,9 @@ public class AllResourceAreDisplayedSteps {
 		 	.clickOnIssuesButton()
 		 	.clickOnResourcesButton();
 	}
-
-	@Then("^I validate that all resources are displayed in resource table$")
-	public void i_validate_that_all_resources_are_displayed_in_resource_table() throws Throwable {
-		 List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+	@Then("^Validate that all resources are displayed in resource table$")
+	public void validate_that_all_resources_are_displayed_in_resource_table() throws Throwable {
+		List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
 		 ResourcePage resources = new ResourcePage();
 		 Assert.assertTrue(
 				 resources.verifyResourcesOnResourceTable(listResource));

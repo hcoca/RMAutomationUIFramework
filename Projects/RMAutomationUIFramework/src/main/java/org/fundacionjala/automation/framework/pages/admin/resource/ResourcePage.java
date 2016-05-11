@@ -3,7 +3,6 @@ package org.fundacionjala.automation.framework.pages.admin.resource;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
-import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -25,6 +24,8 @@ public class ResourcePage extends AdminPage {
 	@FindBy (xpath = ResourceMap.FIRST_PAGE_BUTTON) WebElement firstPageButton;
 	@FindBy (xpath = ResourceMap.INPUT_NUMBER_PAGE) WebElement inputNumberPage;
 	@FindBy (xpath = ResourceMap.LAST_PAGE_BUTTON) WebElement lastPageButton;
+	@FindBy (xpath = ResourceMap.NEXT_PAGE_BUTTON) WebElement nextPageButton;
+	@FindBy (xpath = ResourceMap.PREVIOUS_PAGE_BUTTON) WebElement previousPageButton;
 	
 	public ResourcePage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
@@ -61,6 +62,8 @@ public class ResourcePage extends AdminPage {
 	
 	
 	public boolean verifyResourceExist(String resourceName){
+
+		
 		if (verifyExist(resourceName)) {
 				LogManager.info("[TRUE] Resource " + resourceName + " exists");
 				return true;
@@ -225,7 +228,7 @@ public class ResourcePage extends AdminPage {
 
 	public ResourcePage clickOnLastPageButton() {
 		UIActions.waitFor(ResourceMap.LAST_PAGE_BUTTON);
-		UIActions.clickAt(firstPageButton);
+		UIActions.clickAt(lastPageButton);
 		return new ResourcePage();
 	}
 
@@ -247,6 +250,22 @@ public class ResourcePage extends AdminPage {
 	{
 		
 		return new ResourceAssociationsPage();
+	}
+
+	public ResourcePage clickOnNextButton() {
+		UIActions.waitFor(ResourceMap.NEXT_PAGE_BUTTON);
+		UIActions.clickAt(nextPageButton);
+		return new ResourcePage();
+		
+	}
+
+	public boolean verifyNextPage(String numberPage) {
+		UIActions.waitFor(ResourceMap.INPUT_NUMBER_PAGE);
+		if(inputNumberPage.getAttribute("value").equalsIgnoreCase(numberPage))
+			return true;
+		else 
+			return false;
+		
 	}
 
 }

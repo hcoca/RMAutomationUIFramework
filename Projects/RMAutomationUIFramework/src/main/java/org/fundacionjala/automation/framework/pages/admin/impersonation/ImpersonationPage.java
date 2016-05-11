@@ -5,6 +5,7 @@ import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,7 +26,8 @@ public class ImpersonationPage {
 	
 	public ImpersonationPage clickOnUseImpersonationCheckBox() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(useImpersonationCheckBox));
-		useImpersonationCheckBox.click();
+		Actions action = new Actions(BrowserManager.getDriver());
+		action.click(useImpersonationCheckBox).perform();
 		
 		LogManager.info("Impersonation CheckBox has been clicked");
 		
@@ -34,7 +36,8 @@ public class ImpersonationPage {
 	
 	public ImpersonationPage clickOnUserAndPasswordRadioButton() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(userAndPasswordRadioButton));
-		userAndPasswordRadioButton.click();
+		Actions action = new Actions(BrowserManager.getDriver());
+		action.click(userAndPasswordRadioButton).perform();
 		
 		LogManager.info("User and Password Radio Button has been clicked");
 		
@@ -43,7 +46,8 @@ public class ImpersonationPage {
 	
 	public ImpersonationPage clickOnRFIDRadioButton() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(RFIDRadioButton));
-		RFIDRadioButton.click();
+		Actions action = new Actions(BrowserManager.getDriver());
+		action.click(RFIDRadioButton).perform();
 		
 		LogManager.info("RFID Radio Button has been clicked");
 		
@@ -60,7 +64,6 @@ public class ImpersonationPage {
 	}
 	
 	public String getAccountUserName() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(accountTextField));
 		String userName = accountTextField.getAttribute("value");
 		
 		LogManager.info("User Name " + userName + " has been obtained");
@@ -71,7 +74,6 @@ public class ImpersonationPage {
 	public ImpersonationPage waitForImpersonationMessageDisappear() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(ImpersonationMap.IMPERSONATION_MESSAGE)));
 		String message = impersonationMessage.getText();
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(ImpersonationMap.IMPERSONATION_MESSAGE)));
 		
 		LogManager.info("<Impersonation Message:> " + message + " <has disappeared>");
 		
@@ -80,13 +82,11 @@ public class ImpersonationPage {
 	
 	public boolean findSaveButton() {
 		try{
-			(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(saveButton));
+			(new WebDriverWait(BrowserManager.getDriver(), 15)).until(ExpectedConditions.visibilityOf(saveButton));
 			LogManager.info("Save Button has been found");
-			
 			return true;
 			
 		}catch(Exception e){
-			
 			LogManager.info("Save Button has not been found");
 			return false;
 		}

@@ -34,24 +34,23 @@ public class FirstPageIsDisplayedWhenFirstButtonIsClicked {
 						.clickOnResourcesButton()
 						.clickOnFirstPageButton();
 	}
-
-	@Then("^I validate that the first page is displayed on resource table$")
-	public void i_validate_that_the_first_page_is_displayed_on_resource_table() throws Throwable {
-	    Assert.assertTrue(
-			resource
-		    	.verifyTheFirstPage(firstPage));
-	    //Post condition
-	    String idResource = "";
-		List<Resource> listResources = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
-		for (int i = 0; i < quantity; i++) {
-			for (Resource resource : listResources) {
-				if(resource.name.equalsIgnoreCase(resourceName + i))
-				{
-					idResource = resource._id;
-					ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
+	@Then("^Validate that the first page is displayed on resource table$")
+	public void validate_that_the_first_page_is_displayed_on_resource_table() throws Throwable {
+		Assert.assertTrue(
+				resource
+			    	.verifyTheFirstPage(firstPage));
+		    //Post condition
+		    String idResource = "";
+			List<Resource> listResources = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+			for (int i = 0; i < quantity; i++) {
+				for (Resource resource : listResources) {
+					if(resource.name.equalsIgnoreCase(resourceName + i))
+					{
+						idResource = resource._id;
+						ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
+					}
+					
 				}
-				
 			}
-		}
 	}
 }

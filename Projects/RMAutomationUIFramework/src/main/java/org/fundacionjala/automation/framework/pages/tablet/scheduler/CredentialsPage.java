@@ -23,7 +23,7 @@ public class CredentialsPage {
 	
 	public boolean isCreateInBehalfOfTextFieldPresent() {
 		try{
-			(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(createInBehalfOfTextField));
+			(new WebDriverWait(BrowserManager.getDriver(), 15)).until(ExpectedConditions.visibilityOf(createInBehalfOfTextField));
 			LogManager.info("Create in Behalf of Text Field has been found");
 			return true;
 			
@@ -35,7 +35,7 @@ public class CredentialsPage {
 	
 	public boolean isCreateAsCheckBoxPresent() {
 		try{
-			(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(createAsCheckBox));
+			(new WebDriverWait(BrowserManager.getDriver(), 15)).until(ExpectedConditions.visibilityOf(createAsCheckBox));
 			LogManager.info("Create As CheckBox has been found");
 			return true;
 			
