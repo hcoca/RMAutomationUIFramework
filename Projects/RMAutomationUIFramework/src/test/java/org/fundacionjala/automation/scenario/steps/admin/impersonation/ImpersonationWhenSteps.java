@@ -94,6 +94,6 @@ public class ImpersonationWhenSteps {
 		
 		boolean isEmailServerPresent = emailServer.findEmailServer();
 		
-		Assert.assertTrue(isEmailServerPresent);
+		Assert.assertFalse(isEmailServerPresent);
 	}
 }
