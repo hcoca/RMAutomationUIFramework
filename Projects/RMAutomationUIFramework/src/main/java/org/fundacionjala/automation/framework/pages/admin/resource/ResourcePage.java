@@ -204,8 +204,11 @@ public class ResourcePage extends AdminPage {
 		return new ResourcePage();
 	}
 
-	public boolean verifyNumberOfResources(int pageSize) {
-		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+	public boolean verifyNumberOfResources(Integer pageSize) {
+	    	String xpath = ResourceMap.DROPDOWN_PAGE_SIZE
+	    				  .replace("number", pageSize.toString());
+		UIActions.waitFor(xpath);
+		System.out.println("tamanio "+resourceNames.size());
 		if(resourceNames.size()== pageSize )
 			return true;
 		else
