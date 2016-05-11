@@ -75,7 +75,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	}
 	
 	public boolean VerifyIfRoomExist(String expectedResult) {
-		if (getRoom(expectedResult) != null){
+		if (getRoom(expectedResult) != null) {
 			return true;
 		} else {
 			return false;
@@ -85,7 +85,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	@FindBy (xpath = ConferenceRoomsMap.RESOURCE_BUTTONS) List<WebElement> resourceButtons;
 	private WebElement getResource(String resourceName){
 		for (WebElement resource : resourceButtons) {
-			if (resource.getText().trim().equalsIgnoreCase(resourceName)){
+			if (resource.getText().trim().equalsIgnoreCase(resourceName)) {
 				return resource;
 			}
 		}
@@ -95,7 +95,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	
 	public boolean verifyIfResourceCreatedIsInConferenceRoomPage(
 			String expectedResult) {
-		if (getResource(expectedResult) != null){
+		if (getResource(expectedResult) != null) {
 			return true;
 		}
 		return false;
@@ -109,7 +109,7 @@ public class ConferenceRoomsPage extends AdminPage {
 		return this;
 	}
 	
-public ConferenceRoomsPage clickOnResource(String resourceName) {
+    public ConferenceRoomsPage clickOnResource(String resourceName) {
 		
 		String stringXpath = ConferenceRoomsMap.RESOURCES.replace("resource", resourceName);
 		ExplicitWait.clickWhenReady(By.xpath(stringXpath), 10);
