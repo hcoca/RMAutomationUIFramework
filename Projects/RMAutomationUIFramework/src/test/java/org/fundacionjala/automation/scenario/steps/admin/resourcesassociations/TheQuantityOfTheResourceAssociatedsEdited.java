@@ -21,7 +21,7 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 	private String quantity;
 	
 	
-	@Before("@num#3")
+	@Before("@scenario#3")
 	public void beforeScenario() throws Throwable {
 		
 		conferenceRoom = new ConferenceRoomsPage();
@@ -29,7 +29,7 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
                 , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
 
         resourceName = resourceToAssociate.customName;
-        roomToModify = "Room001";
+        roomToModify = conferenceRoom.getRandomRoom();
  	    quantity = "10";
  	   
 	}
@@ -64,7 +64,7 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 		              .hasTheQuantity(resourceName, quantity));
 	}
 	
-	@After("@num#3")
+	@After("@scenario#3")
 	public void afterScenario() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	}

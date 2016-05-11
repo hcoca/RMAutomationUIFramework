@@ -26,7 +26,7 @@ public class OneResourceAssociateToRooms {
 	private boolean result;
 	
 	
-	@Before("@num#8")
+	@Before("@scenario#7")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
@@ -37,9 +37,9 @@ public class OneResourceAssociateToRooms {
 	    result = false;
 	   
  	   String roomToModify01 = "Room001";
- 	   String roomToModify02 = "Room005";
- 	   String roomToModify03 = "Room006";
- 	   String roomToModify04 = "Room007";
+ 	   String roomToModify02 = "Room002";
+ 	   String roomToModify03 = "Room003";
+ 	   String roomToModify04 = "Room005";
  	   rooms = new ArrayList<String>();
  	   rooms.add(roomToModify01);
  	   rooms.add(roomToModify02);
@@ -83,7 +83,7 @@ public class OneResourceAssociateToRooms {
 		
 	}
 
-	@After("@num#8")
+	@After("@scenario#7")
 	public void afterScenario() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	
