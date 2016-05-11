@@ -23,164 +23,169 @@ import cucumber.api.java.en.Then;
 
 public class ImpersonationThenSteps {
 
-    @Then("^the Impersonation Option is enabled$")
-    public void the_Impersonation_Option_is_enabled() throws Throwable {
-	boolean impersonate = false;
-	List<Service> listServices;
-	listServices = ServiceAPIManager.getRequest(PropertiesReader
-		.getServiceURL() + "/services");
-
-	for (Service service : listServices) {
-	    impersonate = service.impersonate;
+	@Then("^the Impersonation Option is enabled$")
+	public void verifyIfImpersonationIsEnabled() throws Throwable {
+		boolean impersonate = false;
+		List<Service> listServices;
+		listServices = ServiceAPIManager.getRequest(PropertiesReader
+				.getServiceURL() + "/services");
+		
+		for (Service service : listServices) {
+			impersonate = service.impersonate;
+		}
+		
+		Assert.assertTrue(impersonate);
+		
+		MongoClient mongoClient = new MongoClient(
+				PropertiesReader.getHostIPAddress(),
+				PropertiesReader.getMongoDBConnectionPort());
+		
+		DB db = mongoClient.getDB(PropertiesReader.getDBName());
+		DBCollection table = db.getCollection(PropertiesReader
+				.getServicesTableName());
+		
+		BasicDBObject query = new BasicDBObject();
+		query.put(PropertiesReader.getImpersonateFieldName(), true);
+		
+		BasicDBObject newDocument = new BasicDBObject();
+		newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
+		
+		BasicDBObject updateObj = new BasicDBObject();
+		updateObj.put("$set", newDocument);
+		
+		table.update(query, updateObj);
 	}
 
-	Assert.assertTrue(impersonate);
+	@Then("^the Impersonation Option is disabled$")
+	public void verifyIfImpersonationIsDisabled() throws Throwable {
+		boolean impersonate = false;
+		List<Service> listServices;
+		listServices = ServiceAPIManager.getRequest(PropertiesReader
+				.getServiceURL() + "/services");
 
-	MongoClient mongoClient = new MongoClient(
-		PropertiesReader.getHostIPAddress(),
-		PropertiesReader.getMongoDBConnectionPort());
-	
-	DB db = mongoClient.getDB(PropertiesReader.getDBName());
-	DBCollection table = db.getCollection(PropertiesReader
-		.getServicesTableName());
+		for (Service service : listServices) {
+			impersonate = service.impersonate;
+		}
 
-	BasicDBObject query = new BasicDBObject();
-	query.put(PropertiesReader.getImpersonateFieldName(), true);
+		Assert.assertFalse(impersonate);
 
-	BasicDBObject newDocument = new BasicDBObject();
-	newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
+		MongoClient mongoClient = new MongoClient(
+				PropertiesReader.getHostIPAddress(),
+				PropertiesReader.getMongoDBConnectionPort());
 
-	BasicDBObject updateObj = new BasicDBObject();
-	updateObj.put("$set", newDocument);
+		DB db = mongoClient.getDB(PropertiesReader.getDBName());
+		DBCollection table = db.getCollection(PropertiesReader
+				.getServicesTableName());
 
-	table.update(query, updateObj);
-    }
+		BasicDBObject query = new BasicDBObject();
+		query.put(PropertiesReader.getImpersonateFieldName(), true);
 
-    @Then("^the Impersonation Option is disabled$")
-    public void the_Impersonation_Option_is_disabled() throws Throwable {
-	boolean impersonate = false;
-	List<Service> listServices;
-	listServices = ServiceAPIManager.getRequest(PropertiesReader
-		.getServiceURL() + "/services");
+		BasicDBObject newDocument = new BasicDBObject();
+		newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
 
-	for (Service service : listServices) {
-	    impersonate = service.impersonate;
+		BasicDBObject updateObj = new BasicDBObject();
+		updateObj.put("$set", newDocument);
+
+		table.update(query, updateObj);
 	}
 
-	Assert.assertFalse(impersonate);
+	@Then("^the Authentication Type is changed to \"([^\"]*)\"$")
+	public void verifyIfAthenticationTypeHasChanged(String type)
+			throws Throwable {
+		String actualAuthenticationType = SettingsAPIManager
+				.getRequest(PropertiesReader.getServiceURL() + "/settings")
+				.authentication;
+		String expectedAuthenticationType = type;
 
-	MongoClient mongoClient = new MongoClient(
-		PropertiesReader.getHostIPAddress(),
-		PropertiesReader.getMongoDBConnectionPort());
-	
-	DB db = mongoClient.getDB(PropertiesReader.getDBName());
-	DBCollection table = db.getCollection(PropertiesReader
-		.getServicesTableName());
+		Assert.assertEquals(actualAuthenticationType,
+				expectedAuthenticationType);
 
-	BasicDBObject query = new BasicDBObject();
-	query.put(PropertiesReader.getImpersonateFieldName(), true);
-
-	BasicDBObject newDocument = new BasicDBObject();
-	newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
-
-	BasicDBObject updateObj = new BasicDBObject();
-	updateObj.put("$set", newDocument);
-
-	table.update(query, updateObj);
-    }
-
-    @Then("^the Authentication Type is changed to \"([^\"]*)\"$")
-    public void the_Athentication_Type_is_changed_to(String type)
-	    throws Throwable {
-	String actualAuthenticationType = SettingsAPIManager
-		.getRequest(PropertiesReader.getServiceURL() + "/settings")
-		.authentication;
-	String expectedAuthenticationType = type;
-
-	Assert.assertEquals(actualAuthenticationType,
-		expectedAuthenticationType);
-
-	if (actualAuthenticationType.equals(PropertiesReader
-		.getRFIDAuthenticationType())) {
-	    Settings settings = new Settings(
-		    PropertiesReader.getCredentialsAuthenticationType(), 5,
-		    "blue");
-	    SettingsAPIManager.putRequest(PropertiesReader.getServiceURL()
-		    + "/settings", settings);
-	}
-    }
-
-    @Then("^the Impersonation Options displayed in the Credentials Page$")
-    public void the_Impersonation_Options_displayed_in_the_Credentials_Page()
-	    throws Throwable {
-	CredentialsPage credentials = new CredentialsPage();
-	boolean impersonationOptionsArePresent = false;
-
-	if ((credentials.isCreateAsCheckBoxPresent())
-		&& (credentials.isCreateInBehalfOfTextFieldPresent())) {
-	    impersonationOptionsArePresent = true;
+		if (actualAuthenticationType.equals(PropertiesReader
+				.getRFIDAuthenticationType())) {
+			Settings settings = new Settings(
+					PropertiesReader.getCredentialsAuthenticationType(), 5,
+					"blue");
+			SettingsAPIManager.putRequest(PropertiesReader.getServiceURL()
+					+ "/settings", settings);
+		}
 	}
 
-	Assert.assertTrue(impersonationOptionsArePresent);
+	@Then("^the Impersonation Options displayed in the Credentials Page$")
+	public void verifyIfImpersonationOptionsAreDisplayedInCredentialsPage()
+			throws Throwable {
+		CredentialsPage credentials = new CredentialsPage();
+		boolean impersonationOptionsArePresent = false;
 
-	MongoClient mongoClient = new MongoClient(
-		PropertiesReader.getHostIPAddress(),
-		PropertiesReader.getMongoDBConnectionPort());
-	
-	DB db = mongoClient.getDB(PropertiesReader.getDBName());
-	DBCollection table = db.getCollection(PropertiesReader.getServiceURL());
+		if ((credentials.isCreateAsCheckBoxPresent())
+				&& (credentials.isCreateInBehalfOfTextFieldPresent())) {
+			impersonationOptionsArePresent = true;
+		}
 
-	BasicDBObject query = new BasicDBObject();
-	query.put(PropertiesReader.getImpersonateFieldName(), true);
+		Assert.assertTrue(impersonationOptionsArePresent);
 
-	BasicDBObject newDocument = new BasicDBObject();
-	newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
+		MongoClient mongoClient = new MongoClient(
+				PropertiesReader.getHostIPAddress(),
+				PropertiesReader.getMongoDBConnectionPort());
 
-	BasicDBObject updateObj = new BasicDBObject();
-	updateObj.put("$set", newDocument);
+		DB db = mongoClient.getDB(PropertiesReader.getDBName());
+		DBCollection table = db.getCollection(PropertiesReader.getServiceURL());
 
-	table.update(query, updateObj);
-    }
+		BasicDBObject query = new BasicDBObject();
+		query.put(PropertiesReader.getImpersonateFieldName(), true);
 
-    @Then("^Impersonation Option is disabled$")
-    public void Impersonation_Option_is_disabled() throws Throwable {
-	EmailServerPage emailServer = new EmailServerPage();
-	boolean impersonate = false;
-	List<Service> listServices;
-	listServices = ServiceAPIManager.getRequest(PropertiesReader
-		.getServiceURL() + "/services");
+		BasicDBObject newDocument = new BasicDBObject();
+		newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
 
-	for (Service service : listServices) {
-	    impersonate = service.impersonate;
+		BasicDBObject updateObj = new BasicDBObject();
+		updateObj.put("$set", newDocument);
+
+		table.update(query, updateObj);
 	}
 
-	ImpersonationPage impersonation = emailServer.leftMenu
-		.clickOnImpersonationButton();
+	@Then("^Impersonation Option is disabled$")
+	public void verifyIfImpersonationOptionsAreDisabled() throws Throwable {
+		EmailServerPage emailServer = new EmailServerPage();
+		boolean impersonate = false;
+		List<Service> listServices;
+		listServices = ServiceAPIManager.getRequest(PropertiesReader
+				.getServiceURL() + "/services");
 
-	boolean isSaveButtonPresent = impersonation.findSaveButton();
+		for (Service service : listServices) {
+			impersonate = service.impersonate;
+		}
 
-	Assert.assertFalse(isSaveButtonPresent);
-	Assert.assertFalse(impersonate);
+		ImpersonationPage impersonation = emailServer
+				.leftMenu
+				.clickOnImpersonationButton();
 
-	LoginPage login = new LoginPage();
+		boolean isSaveButtonPresent = impersonation
+				.findSaveButton();
 
-	EmailServerPage server = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
-		.clickOnEmailServerButton();
+		Assert.assertFalse(isSaveButtonPresent);
+		Assert.assertFalse(impersonate);
 
-	boolean isEmailServerPresent = server.findEmailServer();
+		LoginPage login = new LoginPage();
 
-	if (isEmailServerPresent == false) {
+		EmailServerPage server = login
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnSigInButton()
+				.refreshPage()
+				.leftMenu
+				.clickOnEmailServerButton();
 
-	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
+		boolean isEmailServerPresent = server.findEmailServer();
 
-	    server = addEmailServer
-		    .setDomainServer(PropertiesReader.getExchangeDomain())
-		    .setUserName(PropertiesReader.getExchangeConnectUserName())
-		    .setPassword(PropertiesReader.getExchangeConnectPassword())
-		    .clickSaveButton();
+		if (isEmailServerPresent == false) {
+
+			AddEmailServerPage addEmailServer = server
+					.clickOnAddButton();
+
+			server = addEmailServer
+					.setDomainServer(PropertiesReader.getExchangeDomain())
+					.setUserName(PropertiesReader.getExchangeConnectUserName())
+					.setPassword(PropertiesReader.getExchangeConnectPassword())
+					.clickSaveButton();
+		}
 	}
-    }
 }
