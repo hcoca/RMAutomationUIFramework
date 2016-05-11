@@ -170,4 +170,38 @@ public class PropertiesReader {
 	{
 		return getReader().getProperty("EXCHANGE_PASSWORD");
 	}
+	
+	public static String getHostIPAddress() {
+	    
+	    return getReader().getProperty("SERVICE_URL");
+	}
+	
+	public static int getMongoDBConnectionPort() {
+	    return Integer.parseInt(getReader().getProperty("MONGO_CONNECTION_PORT"));
+	}
+	
+	public static String getDBName() {
+	    
+	    return getReader().getProperty("DB_NAME");
+	}
+	
+	public static String getServicesTableName() {
+	    
+	    return getReader().getProperty("SERVICES_TABLE_NAME");
+	}
+	
+	public static String getImpersonateFieldName() {
+	    
+	    return getReader().getProperty("IMPERSONATE_FIELD_NAME");
+	}
+	
+	public static String getCredentialsAuthenticationType() {
+	    
+	    return getReader().getProperty("CREDENTIALS");
+	}
+	
+	public static String getRFIDAuthenticationType() {
+	    
+	    return getReader().getProperty("RFID");
+	} 
 }
