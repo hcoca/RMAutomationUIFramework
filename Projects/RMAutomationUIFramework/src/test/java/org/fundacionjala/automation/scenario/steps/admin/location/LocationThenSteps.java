@@ -28,7 +28,8 @@ public class LocationThenSteps {
 	@Then("^All locations added are displayed even \"([^\"]*)\" location$")
 	public void all_locations_added_are_displayed_even_location(String name) throws Throwable {
 		LocationPage locationPage = new LocationPage();
-		List<Location> locations = LocationAPIManager.getRequest("http://172.20.208.84:4040/locations");
+		List<Location> locations = 
+				LocationAPIManager.getRequest(PropertiesReader.getServiceURL() +"/locations");
 		
 		for (Location location : locations) {
 			Assert.assertTrue(locationPage.verifyLocationIsDisplayed(location.name));
@@ -47,7 +48,8 @@ public class LocationThenSteps {
 	}
 	
 	@Then("^The description \"([^\"]*)\" of location \"([^\"]*)\" is displayed on update location page$")
-	public void the_description_of_location_is_displayed_on_update_location_page(String description, String displayName) throws Throwable {
+	public void the_description_of_location_is_displayed_on_update_location_page(String description, 
+																				 String displayName) throws Throwable {
 		LocationPage locationPage = new LocationPage();
 		UpdateLocationPage updateLocationPage = new UpdateLocationPage();
 		
@@ -61,7 +63,8 @@ public class LocationThenSteps {
 	}
 	
 	@Then("^The parent name \"([^\"]*)\" of location \"([^\"]*)\" is displayed on update location page$")
-	public void the_parent_name_of_location_is_displayed_on_update_location_page(String parentName, String displayName) throws Throwable {
+	public void the_parent_name_of_location_is_displayed_on_update_location_page(String parentName, 
+																				 String displayName) throws Throwable {
 		LocationPage locationPage = new LocationPage();
 		UpdateLocationPage updateLocationPage = new UpdateLocationPage();
 		
@@ -83,7 +86,8 @@ public class LocationThenSteps {
 	}
 	
 	@Then("^The location \"([^\"]*)\" child of \"([^\"]*)\" is displayed on location page$")
-	public void the_location_child_of_is_displayed_on_location_page(String name, String parentName) throws Throwable {
+	public void the_location_child_of_is_displayed_on_location_page(String name, 
+																	String parentName) throws Throwable {
 		LocationPage locationPage = new LocationPage();
 		
 		Assert.assertTrue(locationPage.verifyLocationIsDisplayed(name));
@@ -93,7 +97,8 @@ public class LocationThenSteps {
 	}
 	
 	@Then("^The room \"([^\"]*)\" is displayed on Location Association page as associated with \"([^\"]*)\" location$")
-	public void the_room_is_displayed_on_Location_Association_page_as_associated_with_location(String roomName, String displayName) throws Throwable {
+	public void the_room_is_displayed_on_Location_Association_page_as_associated_with_location(String roomName, 
+																							   String displayName) throws Throwable {
 		LocationPage locationPage = new LocationPage();
 		LocationAssociationPage associationPage = new LocationAssociationPage();
 		
@@ -108,7 +113,8 @@ public class LocationThenSteps {
 	}
 	
 	@Then("^The room \"([^\"]*)\" is not displayed on Location Association page as associated with \"([^\"]*)\" location$")
-	public void the_room_is_not_displayed_on_Location_Association_page_as_associated_with_location(String roomName, String displayName) throws Throwable {
+	public void the_room_is_not_displayed_on_Location_Association_page_as_associated_with_location(String roomName, 
+																								   String displayName) throws Throwable {
 		LocationPage locationPage = new LocationPage();
 		LocationAssociationPage associationPage = new LocationAssociationPage();
 		
@@ -133,7 +139,8 @@ public class LocationThenSteps {
 	
 	private void removeLocationByName(String name) throws UnirestException{
 		String idLocation = "";
-		List<Location> listLocation = LocationAPIManager.getRequest(PropertiesReader.getServiceURL() +"/locations");
+		List<Location> listLocation = 
+				LocationAPIManager.getRequest(PropertiesReader.getServiceURL() +"/locations");
 		for (Location location : listLocation) {
 			if(location.name.equalsIgnoreCase(name))
 			{
@@ -145,7 +152,8 @@ public class LocationThenSteps {
 	
 	private void removeLocationByDisplayName(String displayName) throws UnirestException{
 		String idLocation = "";
-		List<Location> listLocation = LocationAPIManager.getRequest(PropertiesReader.getServiceURL() +"/locations");
+		List<Location> listLocation = 
+				LocationAPIManager.getRequest(PropertiesReader.getServiceURL() +"/locations");
 		for (Location location : listLocation) {
 			if(location.customName.equalsIgnoreCase(displayName))
 			{

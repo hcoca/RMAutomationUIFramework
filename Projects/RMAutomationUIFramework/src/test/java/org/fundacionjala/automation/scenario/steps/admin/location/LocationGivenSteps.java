@@ -11,7 +11,9 @@ import cucumber.api.java.en.Given;
 public class LocationGivenSteps {
 	
 	@Given("^I am logged as \"([^\"]*)\" with password \"([^\"]*)\"$")
-	public void i_am_logged_as_with_password(String userName, String password) throws Throwable {
+	public void i_am_logged_as_with_password(String userName, 
+											 String password) throws Throwable {
+		
 		BrowserManager.openBrowser();
 	    LoginPage loginPage = new LoginPage();
 	    
@@ -23,7 +25,11 @@ public class LocationGivenSteps {
 	}
 	
 	@Given("^I have a location added with name: \"([^\"]*)\", display name \"([^\"]*)\" and description \"([^\"]*)\"$")
-	public void i_have_a_location_added_with_name_display_name_and_description(String name, String displayName, String description) throws Throwable {
-		LocationAPIManager.postRequest(PropertiesReader.getServiceURL() +"/locations", new Location(name, displayName, "", "", description));
+	public void i_have_a_location_added_with_name_display_name_and_description(String name, 
+																			   String displayName, 
+																			   String description) throws Throwable {
+		
+		LocationAPIManager.postRequest(PropertiesReader.getServiceURL() +"/locations", 
+									   new Location(name, displayName, "", "", description));
 	}
 }
