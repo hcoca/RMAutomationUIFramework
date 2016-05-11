@@ -1,5 +1,7 @@
 Feature: Conference Room
 
+Feature: Conference Room
+
 Scenario: "Capacity" of a room is updated when it is edited in "Room Info" form.
 Given I logged to Room Manager Admin
 When I edit "Room001" room with a new capacity "50"
@@ -88,3 +90,13 @@ Given I logged to Room Manager Admin
 And I have "Room006" room enabled
 When I disabled "Room006" room
 Then I validate if the room "Room006" is disabled in tablet page
+
+Scenario: "Total Items" label displays number of rooms that there are in "Conference Room" table.
+Given I logged to Room Manager Admin
+When I go to conference room page
+Then validate if the quantity of rooms in server is the same displayed in conference room page
+
+Scenario: Rooms that match with filter criteria are displayed on "Conference Room" table..
+Given I logged to Room Manager Admin
+When I search rooms with this criteria "13"
+Then validate if the table have all rooms that have this criteria "13" in their names

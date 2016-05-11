@@ -163,4 +163,17 @@ public ConferenceRoomsPage clickOnResource(String resourceName) {
 		return rooms.get(getRandomNum(0, rooms.size()-1));
 	}
 	
+	@FindBy (xpath = ConferenceRoomsMap.TOTAL_ITEMS_LABEL) WebElement totalItemsLabel;
+	public String getTotalItems() {
+		return totalItemsLabel.getText().trim().replace("Total Items: ", "");
+	}
+	
+	@FindBy (xpath = ConferenceRoomsMap.FILTER_TEXTBOX) WebElement filterTextbox;
+	public ConferenceRoomsPage typeOnFilterTextbox(String roomCriteria) {
+		UIActions.clickAt(totalItemsLabel);
+		UIActions.typeOn(filterTextbox, roomCriteria);
+		UIActions.clickAt(totalItemsLabel);
+		return this;		
+	}
+	
 }
