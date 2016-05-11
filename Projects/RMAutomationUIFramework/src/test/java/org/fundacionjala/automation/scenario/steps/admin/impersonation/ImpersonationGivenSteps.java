@@ -1,14 +1,15 @@
 package org.fundacionjala.automation.scenario.steps.admin.impersonation;
 
-import java.util.List;
-
 import org.fundacionjala.automation.framework.pages.admin.emailserver.EmailServerPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
-import org.fundacionjala.automation.framework.utils.api.managers.ServiceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.managers.SettingsAPIManager;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.Service;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Settings;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoClient;
 
 import cucumber.api.java.en.Given;
 
@@ -16,48 +17,38 @@ public class ImpersonationGivenSteps {
 	
 	@Given("^impersonation is disabled$")
 	public void impersonation_is_disabled() throws Throwable {
-		boolean impersonate = false;
-		String id = null;
-		List<Service> listServices;
-		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
+		MongoClient mongoClient = new MongoClient("172.20.208.84" , 27017);
+		DB db = mongoClient.getDB("roommanager");
+		DBCollection table = db.getCollection("services");
 		
-		for(Service service : listServices) {
-			id = service._id;
-		}
+		BasicDBObject query = new BasicDBObject();
+		query.put("impersonate", true);
 		
-		if(id != null)
-		{
-			for(Service service : listServices) {
-				impersonate = service.impersonate;
-			}
-			
-			if(impersonate == true) {	
-				ServiceAPIManager.putImpersonationRequest("http://172.20.208.84:4040/services", id, false);
-			}
-		}
+		BasicDBObject newDocument = new BasicDBObject();
+		newDocument.put("impersonate", false);
+		
+		BasicDBObject updateObj = new BasicDBObject();
+		updateObj.put("$set", newDocument);
+		
+		table.update(query, updateObj);
 	}
 	
 	@Given("^impersonation is enabled$")
 	public void impersonation_is_enabled() throws Throwable {
-		boolean impersonate = false;
-		String id = null;
-		List<Service> listServices;
-		listServices = ServiceAPIManager.getRequest("http://172.20.208.84:4040/services");
+		MongoClient mongoClient = new MongoClient("172.20.208.84" , 27017);
+		DB db = mongoClient.getDB("roommanager");
+		DBCollection table = db.getCollection("services");
 		
-		for(Service service : listServices) {
-			id = service._id;
-		}
+		BasicDBObject query = new BasicDBObject();
+		query.put("impersonate", false);
 		
-		if(id != null)
-		{
-			for(Service service : listServices) {
-				impersonate = service.impersonate;
-			}
-			
-			if(impersonate == false) {	
-				ServiceAPIManager.putImpersonationRequest("http://172.20.208.84:4040/services", id, true);
-			}
-		}
+		BasicDBObject newDocument = new BasicDBObject();
+		newDocument.put("impersonate", true);
+		
+		BasicDBObject updateObj = new BasicDBObject();
+		updateObj.put("$set", newDocument);
+		
+		table.update(query, updateObj);
 	}
 	
 	@Given("^authentication type configured as \"([^\"]*)\"$")
