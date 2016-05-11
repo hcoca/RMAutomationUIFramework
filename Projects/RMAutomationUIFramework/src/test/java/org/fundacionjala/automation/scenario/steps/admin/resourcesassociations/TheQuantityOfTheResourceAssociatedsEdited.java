@@ -3,6 +3,8 @@ package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
+import org.fundacionjala.automation.framework.pages.admin.resource.IconResources;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
@@ -24,9 +26,9 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 	public void beforeScenario() throws Throwable {
 		
 		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
-                , new Resource("keyff", "keyff", "fa fa-key", "", "Key"));
-
+		resourceToAssociate = ResourcesActions.createResourceByAPI("New_Key", 
+				                                              IconResources.KEY,
+				                                              "this key is in the room");
         resourceName = resourceToAssociate.customName;
         roomToModify = conferenceRoom.getRandomRoom();
  	    quantity = "10";
@@ -64,7 +66,7 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 	
 	@After("@scenario#3")
 	public void afterScenario() throws Throwable {
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
+		ResourcesActions.deleteResourceByAPI(resourceToAssociate);
 	}
 	
 	
