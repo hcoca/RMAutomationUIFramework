@@ -7,6 +7,8 @@ import org.fundacionjala.automation.framework.pages.admin.conferencerooms.Confer
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
+import org.fundacionjala.automation.framework.pages.admin.resource.IconResources;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -38,9 +40,8 @@ public class AssociateManyResources {
 		numResources = 2; 
 				
 		for (int i = 0; i < numResources; i++) {
-			Resource resource = ResourceAPIManager
-	                                  .postRequest("http://172.20.208.84:4040/resources",
-	                                               new Resource("Key"+i, "key"+i, "fa fa-key", "", "Key"));
+			
+			Resource resource = ResourcesActions.createResourceByAPI("Key" + i, IconResources.KEY, "key");
 			resourcesToAssociate.add(resource);
 		}
 	   
@@ -88,8 +89,7 @@ public class AssociateManyResources {
 	public void afterScenario() throws Throwable {
 		
 		for (int i = 0; i < resourcesToAssociate.size(); i++) {
-			 ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", 
-					                          resourcesToAssociate.get(i)._id);
+			 ResourcesActions.deleteResourceByAPI(resourcesToAssociate.get(i));
 		}
 		
 	}

@@ -2,9 +2,12 @@ package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
+import org.fundacionjala.automation.framework.pages.admin.resource.IconResources;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -23,10 +26,7 @@ public class RemoveAssociation {
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", 
-				                                             new Resource("keyf", "keyf", 
-				                                            		      "fa fa-key", "", "Key"));
-
+		resourceToAssociate = ResourcesActions.createResourceByAPI("key05", IconResources.KEY, "key");
         resourceName = resourceToAssociate.customName;
         roomToModify = conferenceRoom.getRandomRoom();
 	
@@ -64,7 +64,6 @@ public class RemoveAssociation {
 	
 	@After("@scenario#4")
 	public void afterScenario() throws Throwable {
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", 
-				                         resourceToAssociate._id);
+		ResourcesActions.deleteResourceByAPI(resourceToAssociate);
 	}
 }
