@@ -61,10 +61,6 @@ public class BrowserManager extends EventFiringWebDriver {
 	    driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	    
 	}
-	public static void deletCookies()
-	{
-		driver.manage().deleteAllCookies();
-	}
 
 	public static void setUrl(String URL){
 		driver.get(URL);
