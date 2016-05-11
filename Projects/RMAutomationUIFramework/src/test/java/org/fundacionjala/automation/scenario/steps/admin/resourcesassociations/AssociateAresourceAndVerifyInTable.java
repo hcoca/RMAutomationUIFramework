@@ -26,7 +26,7 @@ public class AssociateAresourceAndVerifyInTable {
 	private String qty;
 
 
-	@Before("@num#2")
+	@Before("@scenario#2")
 	public void beforeScenario() throws Throwable {
 		
 		conferenceRoom = new ConferenceRoomsPage();
@@ -63,7 +63,7 @@ public class AssociateAresourceAndVerifyInTable {
 			
 	}
 	
-	@After("@num#2")
+	@After("@scenario#2")
 	public void afterScenario() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	}

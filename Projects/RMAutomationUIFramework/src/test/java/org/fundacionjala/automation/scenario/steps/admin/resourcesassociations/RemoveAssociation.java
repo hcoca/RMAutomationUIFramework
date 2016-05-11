@@ -20,7 +20,7 @@ public class RemoveAssociation {
 		private String roomToModify;
 	
 		
-	@Before("@num#4")
+	@Before("@scenario#4")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
@@ -62,7 +62,7 @@ public class RemoveAssociation {
 				                            ,"The resource should not be in resource column");
 	}
 	
-	@After("@num#4")
+	@After("@scenario#4")
 	public void afterScenario() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	}
