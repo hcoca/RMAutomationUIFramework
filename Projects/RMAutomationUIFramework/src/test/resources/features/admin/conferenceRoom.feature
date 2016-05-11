@@ -1,7 +1,5 @@
 Feature: Conference Room
 
-Feature: Conference Room
-
 Scenario: "Capacity" of a room is updated when it is edited in "Room Info" form.
 Given I logged to Room Manager Admin
 When I edit "Room001" room with a new capacity "50"
@@ -100,3 +98,14 @@ Scenario: Rooms that match with filter criteria are displayed on "Conference Roo
 Given I logged to Room Manager Admin
 When I search rooms with this criteria "13"
 Then validate if the table have all rooms that have this criteria "13" in their names
+
+Scenario Outline: "Page Size" displays in the "Conference Room" table the quantity of rooms that specifies its dropdown list.
+Given I logged to Room Manager Admin
+When I specify size "<size>" of rooms quantity on conference room page.
+Then validate if there are "<size>" or less rooms on table.
+
+Examples:
+    | size  |
+    |  200  |
+    |  100  |
+    |  35   |
