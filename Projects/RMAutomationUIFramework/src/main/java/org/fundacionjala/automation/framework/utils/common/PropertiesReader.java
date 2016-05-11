@@ -225,6 +225,11 @@ public class PropertiesReader {
 	return getReader().getProperty("IMPERSONATE_FIELD_NAME");
     }
 
+    public static String getRoomsFieldName() {
+
+	return getReader().getProperty("ROOMS_FIELD_NAME");
+    }
+
     public static String getCredentialsAuthenticationType() {
 
 	return getReader().getProperty("CREDENTIALS");
@@ -234,4 +239,5 @@ public class PropertiesReader {
 
 	return getReader().getProperty("RFID");
     }
+
 }

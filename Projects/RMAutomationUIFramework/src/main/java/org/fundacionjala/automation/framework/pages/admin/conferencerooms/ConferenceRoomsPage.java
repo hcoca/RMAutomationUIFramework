@@ -9,6 +9,7 @@ import org.fundacionjala.automation.framework.maps.admin.conferencerooms.Confere
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -63,7 +64,6 @@ public class ConferenceRoomsPage extends AdminPage {
     }
 
     public ConferenceRoomsPage enableRoom() {
-
 	return this;
     }
 
@@ -76,11 +76,7 @@ public class ConferenceRoomsPage extends AdminPage {
     }
 
     public boolean VerifyIfRoomExist(String expectedResult) {
-	if (getRoom(expectedResult) != null) {
-	    return true;
-	} else {
-	    return false;
-	}
+	return ((getRoom(expectedResult) != null) ? true : false);
     }
 
     @FindBy(xpath = ConferenceRoomsMap.RESOURCE_BUTTONS)
@@ -136,6 +132,7 @@ public class ConferenceRoomsPage extends AdminPage {
 
 	    return false;
 	}
+
     }
 
     private int getRandomNum(int min, int max) {
