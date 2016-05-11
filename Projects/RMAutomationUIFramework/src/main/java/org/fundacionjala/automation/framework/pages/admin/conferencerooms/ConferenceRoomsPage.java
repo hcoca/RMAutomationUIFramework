@@ -30,20 +30,18 @@ public class ConferenceRoomsPage extends AdminPage {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
-	public ConferenceRoomsPage selectOutOfOrderIcon(String roomName){
+	public ConferenceRoomsPage selectOutOfOrderIcon(String roomName) {
 		String iconOutOfOrder = ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace("roomName", roomName);
 		ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
 		BrowserManager.getDriver().findElement(By.xpath(iconOutOfOrder)).click();
 		return this;
 	}
 				
-	public List<WebElement> getRooms()
-	{
+	public List<WebElement> getRooms() {
 	   return ExplicitWait.getElementsWhenVisible(By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 15);
 	}
 	
-	private WebElement getRoom(String roomName)
-	{
+	private WebElement getRoom(String roomName) {
 	    String xpathRoom = ConferenceRoomsMap.ROOM.replace("roomName", roomName);
 		return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
 	}
@@ -69,21 +67,12 @@ public class ConferenceRoomsPage extends AdminPage {
 		return this;
 	}
 	
-	public boolean roomIsEnabled(String roomName)
-	{
-		return true;
-	}
-	
 	public boolean VerifyIfRoomExist(String expectedResult) {
-		if (getRoom(expectedResult) != null) {
-			return true;
-		} else {
-			return false;
-		}
+		return ((getRoom(expectedResult) != null) ? true : false);
 	}
 
 	@FindBy (xpath = ConferenceRoomsMap.RESOURCE_BUTTONS) List<WebElement> resourceButtons;
-	private WebElement getResource(String resourceName){
+	private WebElement getResource(String resourceName) {
 		for (WebElement resource : resourceButtons) {
 			if (resource.getText().trim().equalsIgnoreCase(resourceName)) {
 				return resource;
@@ -93,13 +82,9 @@ public class ConferenceRoomsPage extends AdminPage {
 	}
 	
 	
-	public boolean verifyIfResourceCreatedIsInConferenceRoomPage(
-			String expectedResult) {
-		if (getResource(expectedResult) != null) {
-			return true;
-		}
-		return false;
+	public boolean verifyIfResourceCreatedIsInConferenceRoomPage(String expectedResult) {
 		
+		return ((getResource(expectedResult) != null)? true : false);
 	}
 
 	public ConferenceRoomsPage clickOnTurnOnOffButton(String roomName) {
@@ -119,7 +104,6 @@ public class ConferenceRoomsPage extends AdminPage {
 	public boolean isQuantityDisplayed(String quantity) {
 		
 		String stringXpath = ConferenceRoomsMap.RESOURCES_QUANTITY.replace("qty", quantity);
-
 		WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),5);
 
 		try {
