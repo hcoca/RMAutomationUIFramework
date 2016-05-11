@@ -16,6 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.mongodb.BasicDBObject;
@@ -35,6 +36,24 @@ public class ConferenceRoomsPage extends AdminPage {
 		ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
 		BrowserManager.getDriver().findElement(By.xpath(iconOutOfOrder)).click();
 		return this;
+	}
+	
+	public ConferenceRoomsPage selectPageSize(String pageSize){
+		new Select(BrowserManager.getDriver().findElement(By.xpath(ConferenceRoomsMap.PAGE_SIZE_BOX_SELECTOR))).selectByVisibleText(pageSize);
+		String sizeOption = ConferenceRoomsMap.PAGE_SIZE_OPTION.replace("sizePage",pageSize);
+		BrowserManager.getDriver().findElement(By.xpath(sizeOption)).click();
+		return this;
+	}
+	@FindBy (xpath = ConferenceRoomsMap.NEXT_PAGE_FIELD) WebElement pageField;
+	public ConferenceRoomsPage setPage(String page){
+		pageField.clear();
+		pageField.sendKeys(page);
+		return this;
+	}
+	
+	@FindBy (xpath = ConferenceRoomsMap.FIRST_ROW) WebElement firstRow;
+	public String getFirstRow(){
+		return firstRow.getText();
 	}
 				
 	public List<WebElement> getRooms()
