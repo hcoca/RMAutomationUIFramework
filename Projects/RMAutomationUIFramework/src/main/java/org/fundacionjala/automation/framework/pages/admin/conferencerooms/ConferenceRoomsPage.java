@@ -50,7 +50,7 @@ public class ConferenceRoomsPage extends AdminPage {
 		.replace("roomName", roomName);
 	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
     }
-
+    
     public RoomInfoPage openConfigurationPage(String roomToModify) {
 	UIActions.doubleClick(getRoom(roomToModify));
 	return new RoomInfoPage();
@@ -62,31 +62,21 @@ public class ConferenceRoomsPage extends AdminPage {
 	UIActions.doubleClickJS(roomElement);
 	return new RoomInfoPage();
     }
-
-    public ConferenceRoomsPage enableRoom() {
-
-	return this;
-    }
-
-    public ConferenceRoomsPage disableRoom(String roomToModify) {
-	return this;
-    }
+    
+	public ConferenceRoomsPage disableRoom(String roomToModify) {
+		return this;
+	}
+	
+	public boolean VerifyIfRoomExist(String expectedResult) {
+		return ((getRoom(expectedResult) != null) ? true : false);
+	}
 
     public boolean roomIsEnabled(String roomName) {
 	return true;
     }
 
-    public boolean VerifyIfRoomExist(String expectedResult) {
-	if (getRoom(expectedResult) != null) {
-	    return true;
-	} else {
-	    return false;
-	}
-    }
-
     @FindBy(xpath = ConferenceRoomsMap.RESOURCE_BUTTONS)
     List<WebElement> resourceButtons;
-
     private WebElement getResource(String resourceName) {
 	for (WebElement resource : resourceButtons) {
 	    if (resource.getText().trim().equalsIgnoreCase(resourceName)) {
@@ -99,7 +89,7 @@ public class ConferenceRoomsPage extends AdminPage {
     public boolean verifyIfResourceCreatedIsInConferenceRoomPage(
 	    String expectedResult) {
 	if (getResource(expectedResult) != null) {
-	    return true;
+	    return true;	
 	}
 	return false;
 
@@ -125,9 +115,7 @@ public class ConferenceRoomsPage extends AdminPage {
 
 	String stringXpath = ConferenceRoomsMap.RESOURCES_QUANTITY.replace(
 		"qty", quantity);
-
 	WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(), 5);
-
 	try {
 	    wait.until(ExpectedConditions.visibilityOfElementLocated(By
 		    .xpath(stringXpath)));
@@ -214,5 +202,10 @@ public class ConferenceRoomsPage extends AdminPage {
 		    "arguments[0].scrollIntoView(true);", lastRow);
 	}
 	return list.size();
+    }
+
+    public ConferenceRoomsPage enableRoom() {
+	
+	return this;
     }
 }

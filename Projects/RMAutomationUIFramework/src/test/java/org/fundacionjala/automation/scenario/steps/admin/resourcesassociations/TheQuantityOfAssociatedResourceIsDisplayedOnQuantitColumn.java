@@ -3,8 +3,10 @@ package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
+import org.fundacionjala.automation.framework.pages.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
@@ -19,23 +21,21 @@ import cucumber.api.java.en.When;
 
 public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 
-    private AdminPage home;
-	private String resourceName;
-	private Resource resourceToAssociate;
-	private String roomToModify;
-	private ResourcePage resourcePage;
-	private ResourceAssociationsPage resourceAssociationsPage; 
-	private String qty;
-	private ConferenceRoomsPage conferenceRoom;
+	private String                   resourceName, roomToModify, qty;
+	private Resource                 resourceToAssociate;
+    private AdminPage                home;
+    private ResourcePage             resourcePage;
+    private ConferenceRoomsPage      conferenceRoom;
+	private ResourceAssociationsPage resourceAssociationsPage;
+	
+	
 	
 	
 	@Before("@scenario#1")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
-                , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
-
+		resourceToAssociate = ResourcesActions.createResourceByAPI("folder", IconResources.FOLDER, "folder");
         resourceName = resourceToAssociate.customName;
         roomToModify = conferenceRoom.getRandomRoom();
 		qty = "123";
@@ -81,7 +81,7 @@ public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 	
 	@After("@scenario#1")
 	public void afterScenario() throws Throwable {
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
+		ResourcesActions.deleteResourceByAPI(resourceToAssociate);
 	}
 	
 }

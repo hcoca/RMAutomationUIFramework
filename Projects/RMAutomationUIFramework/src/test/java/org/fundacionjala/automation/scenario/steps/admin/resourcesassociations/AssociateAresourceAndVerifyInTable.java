@@ -2,6 +2,8 @@ package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
+import org.fundacionjala.automation.framework.pages.admin.resource.IconResources;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
@@ -19,20 +21,18 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class AssociateAresourceAndVerifyInTable {
+	
+	private String              qty, resourceName, roomToModify;
+	private Resource            resourceToAssociate;
 	private ConferenceRoomsPage conferenceRoom;
-	private String resourceName;
-	private Resource resourceToAssociate;
-	private String roomToModify;
-	private String qty;
-
+	
+	
 
 	@Before("@scenario#2")
 	public void beforeScenario() throws Throwable {
 		
 		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
-                                                     , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
-
+		resourceToAssociate = ResourcesActions.createResourceByAPI("key02", IconResources.KEY, "key02");
         resourceName = resourceToAssociate.customName;
         qty = "123";
         roomToModify = conferenceRoom.getRandomRoom();
@@ -59,13 +59,14 @@ public class AssociateAresourceAndVerifyInTable {
 	@Then("^I see the resource associate on the conference room page$")
 	public void i_see_the_resource_associate_on_the_conference_room_page() throws Throwable {
 		
-	   Assert.assertTrue(conferenceRoom.isQuantityDisplayed(qty), "The quantity should be displayed");
+	   Assert.assertTrue(conferenceRoom.isQuantityDisplayed(qty), 
+			             "The quantity should be displayed");
 			
 	}
 	
 	@After("@scenario#2")
 	public void afterScenario() throws Throwable {
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
+		ResourcesActions.deleteResourceByAPI(resourceToAssociate);
 	}
 	
 	
