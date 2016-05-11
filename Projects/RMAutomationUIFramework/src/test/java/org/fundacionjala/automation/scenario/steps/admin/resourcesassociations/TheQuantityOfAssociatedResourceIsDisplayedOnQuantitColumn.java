@@ -21,36 +21,33 @@ import cucumber.api.java.en.When;
 
 public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 
-	private String                   resourceName, roomToModify, qty;
-	private Resource                 resourceToAssociate;
-    private AdminPage                home;
-    private ResourcePage             resourcePage;
-    private ConferenceRoomsPage      conferenceRoom;
+	private String resourceName, roomToModify;
+	private Resource resourceToAssociate;
+        private AdminPage home;
+        private ResourcePage resourcePage;
+        private ConferenceRoomsPage conferenceRoom;
 	private ResourceAssociationsPage resourceAssociationsPage;
-	
-	
 	
 	
 	@Before("@scenario#1")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourcesActions.createResourceByAPI("folder", IconResources.FOLDER, "folder");
-        resourceName = resourceToAssociate.customName;
-        roomToModify = conferenceRoom.getRandomRoom();
-		qty = "123";
+		resourceToAssociate = ResourcesActions.createResourceByAPI("folder1", IconResources.FOLDER, "folder1");
+                resourceName = resourceToAssociate.customName;
+                roomToModify = conferenceRoom.getRandomRoom();
+	
 	}
-
-
-	@Given("^I associate a resource$")
-	public void i_associate_a_resource() throws Throwable {
+   
+	@Given("^I associate a resource with quantity \"([^\"]*)\"$")
+	public void i_associate_a_resource_with_quantity(String qty) throws Throwable {
 		
 		conferenceRoom
-				.openConfigurationPage(roomToModify)
-				.clickOnResourceAssociations()
-				.addResource(resourceName)
-				.editQuantityOfResourceAssociated(resourceName, qty)
-				.clickOnSave();	
+		.openConfigurationPage(roomToModify)
+		.clickOnResourceAssociations()
+		.addResource(resourceName)
+		.editQuantityOfResourceAssociated(resourceName, qty)
+		.clickOnSave();
 	}
 
 	@When("^I go to resources page$")
@@ -71,12 +68,11 @@ public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 			    .clickOnResourcesAssociation();
 	}
 
-	@Then("^I see the correct quantity that was associated$")
-	public void i_see_the_correct_quantity_that_was_associated() throws Throwable {
-		
+	@Then("^I see the quantity \"([^\"]*)\" with the room associated$")
+	public void i_see_the_quantity_with_the_room_associated(String qty) throws Throwable {
 		Assert.assertTrue(resourceAssociationsPage.isQtyDisplayed(qty)
-				                      , "The correct quantity should be displayed");
-	  
+                          , "The correct quantity should be displayed");
+
 	}
 	
 	@After("@scenario#1")
