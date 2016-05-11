@@ -31,4 +31,15 @@ public class RoomAPIManager {
 	public static void putRequest(String endPoint, JSONObject body) throws UnirestException{
 		HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint, body, "put");
 	}
+
+	public static List<String> getRoomsByCriteria(String criteriaFilter) throws UnirestException {
+		List<Room> list = getRequest("http://172.20.208.84:4040/rooms");
+		List<String> listString = new ArrayList<String>();
+		for (Room room : list) {
+			if(room.displayName.contains(criteriaFilter)){
+				listString.add(room.displayName);
+			}
+		}
+		return listString;
+	}
 }

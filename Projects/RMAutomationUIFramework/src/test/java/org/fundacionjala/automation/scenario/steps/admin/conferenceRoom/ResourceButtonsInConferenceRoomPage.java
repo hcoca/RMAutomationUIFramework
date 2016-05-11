@@ -39,5 +39,12 @@ public class ResourceButtonsInConferenceRoomPage {
 	    	.clickOnConferenceRoomsButton()
 	    	.verifyIfResourceCreatedIsInConferenceRoomPage(expectedResult)
 	    );
+	    
+	    Home
+		.leftMenu
+		.clickOnResourcesButton()
+		.selectResource(expectedResult)
+		.clickOnRemoveButton()
+		.clickOnRemoveButton();
 	}
 }
