@@ -2,6 +2,8 @@ package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 
 import java.util.List;
 
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
+import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
 import org.fundacionjala.automation.framework.utils.api.managers.ServiceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Room;
@@ -48,6 +50,14 @@ public class ConferenceRoomGivenSteps {
 		}
 		String putEndPoint = PropertiesReader.getServiceURL() + "/services/" + serviceId + "/rooms/" + roomSelected._id;
 		RoomAPIManager.putRequest(putEndPoint, roomSelected.getJsonObjectForPut(true));
+	}
+	
+	@Given("^I select a \"([^\"]*)\" that has a previous page$")
+	public void i_select_a_that_has_a_previous_page(String page) throws Throwable {
+		AdminPage home = new AdminPage();
+		ConferenceRoomsPage room = home.leftMenu
+					       .clickOnConferenceRoomsButton()
+					       .setPage(page);
 	}
 
 }
