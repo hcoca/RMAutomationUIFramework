@@ -40,4 +40,20 @@ public class ConferenceRoomWhenSteps {
 	goToConferenceRoomPage().selectPageSize(sizePage);
 	
     }
+    
+    @When("^I select a page size \"([^\"]*)\"$")
+    public void i_select_a_page_size(String pageSize) throws Throwable {
+		 AdminPage home = new AdminPage();
+		 ConferenceRoomsPage room = home.leftMenu
+				 		.clickOnConferenceRoomsButton()
+				 		.selectPageSize(pageSize);
+    }
+
+    @When("^I set the page \"([^\"]*)\"$")
+    public void i_set_the_page(String page) throws Throwable {
+		AdminPage home = new AdminPage();
+		ConferenceRoomsPage room = home.leftMenu
+					       .clickOnConferenceRoomsButton()
+					       .setPage(page);
+    }
 }

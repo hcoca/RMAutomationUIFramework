@@ -10,4 +10,5 @@ public class OutOfOrderMap {
 	public static final String BOX_BUTTON = "span.fa.fa-caret-down";
 	public static final String CLOSED_FOR_MAINTENANCE_LINK = "Closed for maintenance";
 	public static final String SAVE_BUTTON = "//button[@class='info']";
+	public static final String ERROR_MESSAGE= "//small[@class='inline-error ng-binding']";
 }
