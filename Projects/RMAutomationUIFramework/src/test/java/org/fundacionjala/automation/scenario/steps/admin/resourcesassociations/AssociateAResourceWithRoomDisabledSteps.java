@@ -19,8 +19,6 @@ public class AssociateAResourceWithRoomDisabledSteps {
 	private RoomsResourceAssociationsPage resourceAssociations;
 	
 	
-
-	
 	@Before("@scenario#5")
 	public void beforeScenario() throws Throwable {
 

@@ -19,22 +19,23 @@ import cucumber.api.java.en.When;
 
 public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 
-    private AdminPage home;
-	private String resourceName;
-	private Resource resourceToAssociate;
-	private String roomToModify;
-	private ResourcePage resourcePage;
-	private ResourceAssociationsPage resourceAssociationsPage; 
-	private String qty;
-	private ConferenceRoomsPage conferenceRoom;
+	private String                   resourceName, roomToModify, qty;
+	private Resource                 resourceToAssociate;
+    private AdminPage                home;
+    private ResourcePage             resourcePage;
+    private ConferenceRoomsPage      conferenceRoom;
+	private ResourceAssociationsPage resourceAssociationsPage;
+	
+	
 	
 	
 	@Before("@scenario#1")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
-                , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
+		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", 
+				                                              new Resource("keyf", "keyf", 
+				                                            		       "fa fa-key", "", "Key"));
 
         resourceName = resourceToAssociate.customName;
         roomToModify = conferenceRoom.getRandomRoom();

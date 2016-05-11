@@ -20,10 +20,12 @@ import cucumber.api.java.en.When;
 
 public class AssociateManyResources {
 	
-	private ConferenceRoomsPage conferenceRoom;
+	private String                        roomToModify;
+	private ArrayList<Resource> 		  resourcesToAssociate;
+	private ConferenceRoomsPage 		  conferenceRoom;
 	private RoomsResourceAssociationsPage resourceAssociations;
-	private String roomToModify;
-	private ArrayList<Resource> resourcesToAssociate;
+	
+	
     private int numResources;
 
     
@@ -37,8 +39,8 @@ public class AssociateManyResources {
 				
 		for (int i = 0; i < numResources; i++) {
 			Resource resource = ResourceAPIManager
-	                                  .postRequest("http://172.20.208.84:4040/resources"
-	                                   ,new Resource("Key"+i, "key"+i, "fa fa-key", "", "Key"));
+	                                  .postRequest("http://172.20.208.84:4040/resources",
+	                                               new Resource("Key"+i, "key"+i, "fa fa-key", "", "Key"));
 			resourcesToAssociate.add(resource);
 		}
 	   
@@ -86,8 +88,8 @@ public class AssociateManyResources {
 	public void afterScenario() throws Throwable {
 		
 		for (int i = 0; i < resourcesToAssociate.size(); i++) {
-			 ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources"
-					                                  , resourcesToAssociate.get(i)._id);
+			 ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", 
+					                          resourcesToAssociate.get(i)._id);
 		}
 		
 	}
