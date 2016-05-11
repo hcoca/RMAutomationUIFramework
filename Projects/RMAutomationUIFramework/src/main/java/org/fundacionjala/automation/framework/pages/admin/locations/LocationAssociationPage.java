@@ -36,7 +36,7 @@ public class LocationAssociationPage {
 		return new LocationPage();
 	}
 	
-	public boolean verifyAnAvailableRoomDisplayed(String roomName){
+	public boolean verifyAvailableRoomDisplayed(String roomName){
 		try {
 			availableRoomsGrid.findElement(By.xpath("//div[text()='"+roomName+"']"));
 			LogManager.info("Test Passed");
@@ -48,7 +48,7 @@ public class LocationAssociationPage {
 	    }
 	}
 	
-	public boolean verifyAnAssociatedRoomDisplayed(String roomName){
+	public boolean verifyAssociatedRoomDisplayed(String roomName){
 		try {
 			associatedRoomsGrid.findElement(By.xpath("//div[text()='"+roomName+"']"));
 			LogManager.info("Test Passed");
