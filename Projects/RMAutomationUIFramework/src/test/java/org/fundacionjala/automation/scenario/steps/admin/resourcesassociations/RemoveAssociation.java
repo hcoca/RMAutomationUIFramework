@@ -13,19 +13,19 @@ import cucumber.api.java.en.When;
 
 public class RemoveAssociation {
 	
-		private ConferenceRoomsPage conferenceRoom;
+	    private String                        resourceName, roomToModify;
+	    private Resource                      resourceToAssociate;
+		private ConferenceRoomsPage           conferenceRoom;
 		private RoomsResourceAssociationsPage resourceAssociations;
-		private String resourceName;
-		private Resource resourceToAssociate;
-		private String roomToModify;
-	
 		
+	
 	@Before("@scenario#4")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
-                , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
+		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", 
+				                                             new Resource("keyf", "keyf", 
+				                                            		      "fa fa-key", "", "Key"));
 
         resourceName = resourceToAssociate.customName;
         roomToModify = conferenceRoom.getRandomRoom();
@@ -58,12 +58,13 @@ public class RemoveAssociation {
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations();
 		
-		Assert.assertTrue(resourceAssociations.isInAvailableList(resourceName)
-				                            ,"The resource should not be in resource column");
+		Assert.assertTrue(resourceAssociations.isInAvailableList(resourceName),
+				          "The resource should not be in resource column");
 	}
 	
 	@After("@scenario#4")
 	public void afterScenario() throws Throwable {
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
+		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", 
+				                         resourceToAssociate._id);
 	}
 }

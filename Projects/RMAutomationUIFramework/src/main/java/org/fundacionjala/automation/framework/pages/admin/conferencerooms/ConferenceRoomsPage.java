@@ -9,6 +9,7 @@ import org.fundacionjala.automation.framework.maps.admin.conferencerooms.Confere
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -30,20 +31,18 @@ public class ConferenceRoomsPage extends AdminPage {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
-	public ConferenceRoomsPage selectOutOfOrderIcon(String roomName){
+	public ConferenceRoomsPage selectOutOfOrderIcon(String roomName) {
 		String iconOutOfOrder = ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace("roomName", roomName);
 		ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
 		BrowserManager.getDriver().findElement(By.xpath(iconOutOfOrder)).click();
 		return this;
 	}
 				
-	public List<WebElement> getRooms()
-	{
+	public List<WebElement> getRooms() {
 	   return ExplicitWait.getElementsWhenVisible(By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 15);
 	}
 	
-	private WebElement getRoom(String roomName)
-	{
+	private WebElement getRoom(String roomName) {
 	    String xpathRoom = ConferenceRoomsMap.ROOM.replace("roomName", roomName);
 		return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
 	}
@@ -69,24 +68,14 @@ public class ConferenceRoomsPage extends AdminPage {
 		return this;
 	}
 	
-	public boolean roomIsEnabled(String roomName)
-	{
-		return true;
-	}
-	
 	public boolean VerifyIfRoomExist(String expectedResult) {
-		if(getRoom(expectedResult) != null)
-		{
-			return true;
-		}else{
-			return false;
-		}
+		return ((getRoom(expectedResult) != null) ? true : false);
 	}
 
 	@FindBy (xpath = ConferenceRoomsMap.RESOURCE_BUTTONS) List<WebElement> resourceButtons;
-	private WebElement getResource(String resourceName){
+	private WebElement getResource(String resourceName) {
 		for (WebElement resource : resourceButtons) {
-			if(resource.getText().trim().equalsIgnoreCase(resourceName)){
+			if (resource.getText().trim().equalsIgnoreCase(resourceName)) {
 				return resource;
 			}
 		}
@@ -94,13 +83,9 @@ public class ConferenceRoomsPage extends AdminPage {
 	}
 	
 	
-	public boolean verifyIfResourceCreatedIsInConferenceRoomPage(
-			String expectedResult) {
-		if(getResource(expectedResult) != null){
-			return true;
-		}
-		return false;
+	public boolean verifyIfResourceCreatedIsInConferenceRoomPage(String expectedResult) {
 		
+		return ((getResource(expectedResult) != null)? true : false);
 	}
 
 	public ConferenceRoomsPage clickOnTurnOnOffButton(String roomName) {
@@ -110,7 +95,7 @@ public class ConferenceRoomsPage extends AdminPage {
 		return this;
 	}
 	
-public ConferenceRoomsPage clickOnResource(String resourceName) {
+    public ConferenceRoomsPage clickOnResource(String resourceName) {
 		
 		String stringXpath = ConferenceRoomsMap.RESOURCES.replace("resource", resourceName);
 		ExplicitWait.clickWhenReady(By.xpath(stringXpath), 10);
@@ -120,7 +105,6 @@ public ConferenceRoomsPage clickOnResource(String resourceName) {
 	public boolean isQuantityDisplayed(String quantity) {
 		
 		String stringXpath = ConferenceRoomsMap.RESOURCES_QUANTITY.replace("qty", quantity);
-
 		WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),5);
 
 		try {
@@ -139,24 +123,27 @@ public ConferenceRoomsPage clickOnResource(String resourceName) {
 	
 	public String getRandomRoom() throws UnknownHostException
 	{
+		String fieldName = "displayName";
+		String regex = "\\ARoom00\\d";
 		
-		MongoClient mongoClient = new MongoClient("172.20.208.84" , 27017);
-		DB db = mongoClient.getDB("roommanager");
-		DBCollection collection = db.getCollection("rooms");
+		MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), 27017);
+		
+		DB db = mongoClient.getDB(PropertiesReader.getDBName());
+		DBCollection collection = db.getCollection(PropertiesReader.getRoomsFieldName());
 		
 		BasicDBObject query = new BasicDBObject();
-		String regex = "\\ARoom00\\d";
-		query.put("displayName", new BasicDBObject("$regex", regex).append("$options", "i"));
+		
+		query.put(fieldName, new BasicDBObject("$regex", regex).append("$options", "i"));
 		
 		BasicDBObject fields = new BasicDBObject();
-		fields.put("displayName", 1);
+		fields.put(fieldName, 1);
 		fields.put("_id", 0);
 		
 		ArrayList<String> rooms = new ArrayList<String>();
 		DBCursor cursor = collection.find(query, fields);
 		while (cursor.hasNext()) {
 			cursor.next();
-			rooms.add(cursor.curr().get("displayName").toString());
+			rooms.add(cursor.curr().get(fieldName).toString());
 		}
 		cursor.close();
 		

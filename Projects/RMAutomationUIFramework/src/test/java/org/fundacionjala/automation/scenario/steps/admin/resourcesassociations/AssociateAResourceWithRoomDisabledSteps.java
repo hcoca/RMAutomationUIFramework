@@ -12,19 +12,19 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class AssociateAResourceWithRoomDisabledSteps {
-	private ConferenceRoomsPage conferenceRoom;
+	
+	private String                        resourceName, roomToModify;
+	private Resource 					  resourceToAssociate;
+	private ConferenceRoomsPage 	      conferenceRoom;
 	private RoomsResourceAssociationsPage resourceAssociations;
-	private String roomToModify;
-	private Resource resourceToAssociate;
-	private String resourceName;
-
+	
 	
 	@Before("@scenario#5")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
-                , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
+		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", 
+				                                              new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
 
         resourceName = resourceToAssociate.customName;
         roomToModify = conferenceRoom.getRandomRoom();
@@ -56,12 +56,13 @@ public class AssociateAResourceWithRoomDisabledSteps {
 	public void i_see_the_resource_associated_in_Associated_column() throws Throwable {
 		
 	   Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceName),
-			                                  "the resource should be in resource column");
+			             "the resource should be in resource column");
 	   
 	}
 	@After("@scenario#5")
 	public void afterScenario() throws Throwable {
-		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
+		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", 
+				                         resourceToAssociate._id);
 	}
 	
 }

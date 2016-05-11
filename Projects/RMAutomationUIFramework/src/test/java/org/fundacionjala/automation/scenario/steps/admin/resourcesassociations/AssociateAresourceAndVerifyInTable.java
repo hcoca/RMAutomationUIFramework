@@ -19,19 +19,19 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class AssociateAresourceAndVerifyInTable {
+	
+	private String              qty, resourceName, roomToModify;
+	private Resource            resourceToAssociate;
 	private ConferenceRoomsPage conferenceRoom;
-	private String resourceName;
-	private Resource resourceToAssociate;
-	private String roomToModify;
-	private String qty;
-
+	
+	
 
 	@Before("@scenario#2")
 	public void beforeScenario() throws Throwable {
 		
 		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources"
-                                                     , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
+		resourceToAssociate = ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", 
+				                                              new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
 
         resourceName = resourceToAssociate.customName;
         qty = "123";
@@ -59,7 +59,8 @@ public class AssociateAresourceAndVerifyInTable {
 	@Then("^I see the resource associate on the conference room page$")
 	public void i_see_the_resource_associate_on_the_conference_room_page() throws Throwable {
 		
-	   Assert.assertTrue(conferenceRoom.isQuantityDisplayed(qty), "The quantity should be displayed");
+	   Assert.assertTrue(conferenceRoom.isQuantityDisplayed(qty), 
+			             "The quantity should be displayed");
 			
 	}
 	
