@@ -15,54 +15,55 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class AssociatedAResouceWithRoomEnabledSteps {
-	
-	private String                        roomToModify, resourceName;
-	private Resource 					  resourceToAssociate;
-	private ConferenceRoomsPage 		  conferenceRoom;
-	private RoomsResourceAssociationsPage resourceAssociations;
 
-	
-	@Before("@scenario#6")
-	public void beforeScenario() throws Throwable {
+    private String roomToModify, resourceName;
+    private Resource resourceToAssociate;
+    private ConferenceRoomsPage conferenceRoom;
+    private RoomsResourceAssociationsPage resourceAssociations;
 
-		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourcesActions.createResourceByAPI("resource", IconResources.ERASER, "eraser for the room");
-        resourceName = resourceToAssociate.customName;
-        roomToModify = conferenceRoom.getRandomRoom();
-	}
-	
-	
-	@Given("^I associate a resource on resources associations page$")
-	public void i_associate_a_resource_on_resources_associations_page() throws Throwable {
-		conferenceRoom
-		        .openConfigurationPage(roomToModify)
-				.clickOnResourceAssociations().addResource(resourceName)
-				.clickOnSave();
-	}
-	     
-	@When("^I make sure the room edited is enabled$")
-	public void i_make_sure_the_room_edited_is_enabled() throws Throwable {
-		conferenceRoom.enableRoom();
-	}
+    @Before("@scenario#6")
+    public void beforeScenario() throws Throwable {
 
-	@When("^when I open the pop-up configuration of the room enabled$")
-	public void when_I_open_the_pop_up_configuration_of_the_room_enabled() throws Throwable {
-		resourceAssociations = conferenceRoom
-				 .openConfigurationPage(roomToModify)
-				 .clickOnResourceAssociations();
-	}
+	conferenceRoom = new ConferenceRoomsPage();
+	resourceToAssociate = ResourcesActions.createResourceByAPI("resource",
+		                                                   IconResources.ERASER, "eraser for the room");
+	resourceName = resourceToAssociate.customName;
+	roomToModify = conferenceRoom.getRandomRoom();
+    }
+
+    @Given("^I associate a resource on resources associations page$")
+    public void i_associate_a_resource_on_resources_associations_page() throws Throwable {
 	
-	@Then("^I see the resource associated in Associate column$")
-	public void i_see_the_resource_associated_in_Associated_column()throws Throwable {
-		
-		Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceName),
-				          "The resource should be in resource column");
-	}
+	conferenceRoom.openConfigurationPage(roomToModify)
+		      .clickOnResourceAssociations()
+		      .addResource(resourceName)
+		      .clickOnSave();
+    }
+
+    @When("^I make sure the room edited is enabled$")
+    public void i_make_sure_the_room_edited_is_enabled() throws Throwable {
 	
-	@After("@scenario#6")
-	public void afterScenario() throws Throwable {
-		ResourcesActions.deleteResourceByAPI(resourceToAssociate);
-	}
+	conferenceRoom.enableRoom();
+    }
+
+    @When("^when I open the pop-up configuration of the room enabled$")
+    public void when_I_open_the_pop_up_configuration_of_the_room_enabled() throws Throwable {
 	
+	resourceAssociations = conferenceRoom
+		                             .openConfigurationPage(roomToModify)
+		                             .clickOnResourceAssociations();
+    }
+
+    @Then("^I see the resource associated in Associate column$")
+    public void i_see_the_resource_associated_in_Associated_column() throws Throwable {
+
+	Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceName),
+        		  "The resource should be in resource column");
+    }
+
+    @After("@scenario#6")
+    public void afterScenario() throws Throwable {
+	ResourcesActions.deleteResourceByAPI(resourceToAssociate);
+    }
 
 }

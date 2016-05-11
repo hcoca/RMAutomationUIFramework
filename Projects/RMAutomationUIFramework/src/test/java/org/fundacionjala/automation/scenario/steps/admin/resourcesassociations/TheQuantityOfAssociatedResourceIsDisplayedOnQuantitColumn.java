@@ -21,11 +21,11 @@ import cucumber.api.java.en.When;
 
 public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 
-	private String                   resourceName, roomToModify;
-	private Resource                 resourceToAssociate;
-    private AdminPage                home;
-    private ResourcePage             resourcePage;
-    private ConferenceRoomsPage      conferenceRoom;
+	private String resourceName, roomToModify;
+	private Resource resourceToAssociate;
+        private AdminPage home;
+        private ResourcePage resourcePage;
+        private ConferenceRoomsPage conferenceRoom;
 	private ResourceAssociationsPage resourceAssociationsPage;
 	
 	
@@ -34,8 +34,8 @@ public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 
 		conferenceRoom = new ConferenceRoomsPage();
 		resourceToAssociate = ResourcesActions.createResourceByAPI("folder1", IconResources.FOLDER, "folder1");
-        resourceName = resourceToAssociate.customName;
-        roomToModify = conferenceRoom.getRandomRoom();
+                resourceName = resourceToAssociate.customName;
+                roomToModify = conferenceRoom.getRandomRoom();
 	
 	}
    

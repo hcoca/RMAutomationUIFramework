@@ -27,10 +27,10 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 		
 		conferenceRoom = new ConferenceRoomsPage();
 		resourceToAssociate = ResourcesActions.createResourceByAPI("New_Key", 
-				                                                   IconResources.KEY,
-				                                                   "this key is in the room");
-        resourceName = resourceToAssociate.customName;
-        roomToModify = conferenceRoom.getRandomRoom();
+				                                           IconResources.KEY,
+				                                           "this key is in the room");
+                resourceName = resourceToAssociate.customName;
+                roomToModify = conferenceRoom.getRandomRoom();
  	   
 	}
 	
@@ -57,15 +57,15 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 	@Then("^I can see that the quantity \"([^\"]*)\" is displayed$")
 	public void i_can_see_that_the_quantity_is_displayed(String quantity) throws Throwable {
 		Assert.assertTrue(conferenceRoom
-                .openConfigurationPage(roomToModify)
-                .clickOnResourceAssociations()
-                .hasTheQuantity(resourceName, quantity));
+				  .openConfigurationPage(roomToModify)
+				  .clickOnResourceAssociations()
+				  .hasTheQuantity(resourceName, quantity));
 		
 	}
 	
 	@After("@scenario#3")
 	public void afterScenario() throws Throwable {
-		   ResourcesActions.deleteResourceByAPI(resourceToAssociate);
+	       ResourcesActions.deleteResourceByAPI(resourceToAssociate);
 	}
 	
 	
