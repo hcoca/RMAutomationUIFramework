@@ -98,4 +98,12 @@ public class ResourceWhenSteps {
 			}
 		}
 	}
+	@When("^I cliked on 'Next' button on resource table$")
+	public void i_cliked_on_Next_button_on_resource_table() throws Throwable {
+		AdminPage home = new AdminPage();
+		home
+			.leftMenu
+			.clickOnResourcesButton()
+			.clickOnNextButton();
+	}
 }

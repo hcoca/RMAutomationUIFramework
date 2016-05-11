@@ -46,8 +46,8 @@ public class TotalItemsIsDisplayedSteps {
 		}
 	}
 
-	@Then("^I validate that total resources created are displayed in resource table$")
-	public void i_validate_that_total_resources_created_are_displayed_in_resource_table() throws Throwable {
+	@Then("^Validate that total resources created are displayed in resource table$")
+	public void validate_that_total_resources_created_are_displayed_in_resource_table() throws Throwable {
 		 List<Resource> listResource = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
 		 int totalItems = listResource.size();
 		 Assert.assertTrue(
@@ -56,13 +56,13 @@ public class TotalItemsIsDisplayedSteps {
 		 
 		 //Post condition
 		 String idResource = "";
-			List<Resource> listResources = ResourceAPIManager.getRequest("http://172.20.208.84:4040/resources");
+			List<Resource> listResources = ResourceAPIManager.getRequest(PropertiesReader.getServiceURL()+"/resources");
 			for (Resource resource : listResources) {
 				if(resource.name.equalsIgnoreCase("resource0"))
 				{
 					idResource = resource._id;
 				}
 			}
-			ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", idResource);
+			ResourceAPIManager.deleteRequest(PropertiesReader.getServiceURL()+"/resources", idResource);
 	}
 }

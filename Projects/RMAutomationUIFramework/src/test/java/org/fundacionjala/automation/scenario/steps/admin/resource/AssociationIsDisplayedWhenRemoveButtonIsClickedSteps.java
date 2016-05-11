@@ -60,14 +60,12 @@ public class AssociationIsDisplayedWhenRemoveButtonIsClickedSteps {
 							.clickOnRemoveButton();
 	}
 
-	@Then("^I validate that the association is displayed$")
-	public void i_validate_that_the_association_is_displayed() throws Throwable {
+	@Then("^Validate that the association is displayed$")
+	public void validate_that_the_association_is_displayed() throws Throwable {
 		Assert.assertTrue(
 				removeResource.verifyAssociatedRoomExist(RoomName));
 		
 		//Post condition
 		removeResource.clickOnRemoveButton();
-		
-
 	}
 }

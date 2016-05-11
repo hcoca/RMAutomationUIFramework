@@ -12,5 +12,7 @@ public class ResourceMap {
 	public static final String INPUT_NUMBER_PAGE = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//input[@ng-model='pagingOptions.currentPage']";
 	public static final String LAST_PAGE_BUTTON = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//button[@title='Last Page']";
 	public static final String TOTAL_NUMBER_PAGE = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//div[@class='ngPagerControl']//span[contains(text(), 'totalPages')]";
+	public static final String NEXT_PAGE_BUTTON = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//button[@title='Next Page']";
+	public static final String PREVIOUS_PAGE_BUTTON = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//button[@title='Previous Page']";
 	
 }
