@@ -42,7 +42,7 @@ public class AssociateManyResources {
 			resourcesToAssociate.add(resource);
 		}
 	   
-		   roomToModify = "Room006";
+		   roomToModify = conferenceRoom.getRandomRoom();
 	
 	}
     

@@ -28,7 +28,7 @@ public class RemoveAssociation {
                 , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
 
         resourceName = resourceToAssociate.customName;
-        roomToModify = "Room003";
+        roomToModify = conferenceRoom.getRandomRoom();
 	
 	}
 	
