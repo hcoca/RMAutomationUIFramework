@@ -27,7 +27,7 @@ public class AssociateManyResources {
     private int numResources;
 
     
-    @Before("@num#7")
+    @Before("@scenario#8")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
@@ -82,7 +82,7 @@ public class AssociateManyResources {
 		
 	}
 	
-	@After("@num#7")
+	@After("@scenario#8")
 	public void afterScenario() throws Throwable {
 		
 		for (int i = 0; i < resourcesToAssociate.size(); i++) {

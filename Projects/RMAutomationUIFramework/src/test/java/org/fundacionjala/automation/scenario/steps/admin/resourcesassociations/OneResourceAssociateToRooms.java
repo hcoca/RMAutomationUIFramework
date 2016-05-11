@@ -26,7 +26,7 @@ public class OneResourceAssociateToRooms {
 	private boolean result;
 	
 	
-	@Before("@num#8")
+	@Before("@scenario#7")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
@@ -83,7 +83,7 @@ public class OneResourceAssociateToRooms {
 		
 	}
 
-	@After("@num#8")
+	@After("@scenario#7")
 	public void afterScenario() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	
