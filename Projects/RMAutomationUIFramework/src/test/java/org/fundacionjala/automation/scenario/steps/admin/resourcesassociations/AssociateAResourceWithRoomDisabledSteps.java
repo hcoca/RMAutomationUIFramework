@@ -19,7 +19,7 @@ public class AssociateAResourceWithRoomDisabledSteps {
 	private String resourceName;
 
 	
-	@Before("@num#5")
+	@Before("@scenario#5")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
@@ -27,7 +27,7 @@ public class AssociateAResourceWithRoomDisabledSteps {
                 , new Resource("keyf", "keyf", "fa fa-key", "", "Key"));
 
         resourceName = resourceToAssociate.customName;
-        roomToModify = "Room003";
+        roomToModify = conferenceRoom.getRandomRoom();
 	}
 
 	@Given("^I have a resource associated$")
@@ -59,7 +59,7 @@ public class AssociateAResourceWithRoomDisabledSteps {
 			                                  "the resource should be in resource column");
 	   
 	}
-	@After("@num#5")
+	@After("@scenario#5")
 	public void afterScenario() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	}

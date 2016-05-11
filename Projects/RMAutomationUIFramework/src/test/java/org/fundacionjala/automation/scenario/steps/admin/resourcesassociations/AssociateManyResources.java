@@ -27,13 +27,13 @@ public class AssociateManyResources {
     private int numResources;
 
     
-    @Before("@num#7")
+    @Before("@scenario#8")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
 
 		resourcesToAssociate = new ArrayList<Resource>();
-		numResources = 5; 
+		numResources = 2; 
 				
 		for (int i = 0; i < numResources; i++) {
 			Resource resource = ResourceAPIManager
@@ -42,7 +42,7 @@ public class AssociateManyResources {
 			resourcesToAssociate.add(resource);
 		}
 	   
-		   roomToModify = "Room006";
+		   roomToModify = conferenceRoom.getRandomRoom();
 	
 	}
     
@@ -78,14 +78,12 @@ public class AssociateManyResources {
 			Assert.assertTrue(resourceAssociations
 					           .isInAssociatedColumn(resourcesToAssociate.get(i).customName));
 		}
-		
+		BrowserManager.getDriver().navigate().refresh();
 		
 	}
 	
-	@After("@num#7")
+	@After("@scenario#8")
 	public void afterScenario() throws Throwable {
-		
-		resourceAssociations.clickOnSave();
 		
 		for (int i = 0; i < resourcesToAssociate.size(); i++) {
 			 ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources"

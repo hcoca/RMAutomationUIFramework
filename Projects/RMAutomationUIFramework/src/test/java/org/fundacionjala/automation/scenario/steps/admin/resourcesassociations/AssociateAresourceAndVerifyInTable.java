@@ -6,6 +6,12 @@ import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIMana
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.MongoClient;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -20,7 +26,7 @@ public class AssociateAresourceAndVerifyInTable {
 	private String qty;
 
 
-	@Before("@num#2")
+	@Before("@scenario#2")
 	public void beforeScenario() throws Throwable {
 		
 		conferenceRoom = new ConferenceRoomsPage();
@@ -29,7 +35,7 @@ public class AssociateAresourceAndVerifyInTable {
 
         resourceName = resourceToAssociate.customName;
         qty = "123";
-		roomToModify = "Room001";
+        roomToModify = conferenceRoom.getRandomRoom();
 	}
 
 
@@ -41,7 +47,7 @@ public class AssociateAresourceAndVerifyInTable {
 				.clickOnResourceAssociations()
 				.addResource(resourceName)
 				.editQuantityOfResourceAssociated(resourceName, qty)
-				.clickOnSave();		
+				.clickOnSave();	
 	}
 
 	@When("^I click on the resource$")
@@ -53,11 +59,11 @@ public class AssociateAresourceAndVerifyInTable {
 	@Then("^I see the resource associate on the conference room page$")
 	public void i_see_the_resource_associate_on_the_conference_room_page() throws Throwable {
 		
-	    Assert.assertTrue(conferenceRoom.isQuantityDisplayed(qty), "The quantity should be displayed");
+	   Assert.assertTrue(conferenceRoom.isQuantityDisplayed(qty), "The quantity should be displayed");
 			
 	}
 	
-	@After("@num#2")
+	@After("@scenario#2")
 	public void afterScenario() throws Throwable {
 		ResourceAPIManager.deleteRequest("http://172.20.208.84:4040/resources", resourceToAssociate._id);
 	}
