@@ -9,6 +9,7 @@ import org.fundacionjala.automation.framework.maps.admin.conferencerooms.Confere
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -122,24 +123,27 @@ public class ConferenceRoomsPage extends AdminPage {
 	
 	public String getRandomRoom() throws UnknownHostException
 	{
+		String fieldName = "displayName";
+		String regex = "\\ARoom00\\d";
 		
-		MongoClient mongoClient = new MongoClient("172.20.208.84" , 27017);
-		DB db = mongoClient.getDB("roommanager");
-		DBCollection collection = db.getCollection("rooms");
+		MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), 27017);
+		
+		DB db = mongoClient.getDB(PropertiesReader.getDBName());
+		DBCollection collection = db.getCollection(PropertiesReader.getRoomsFieldName());
 		
 		BasicDBObject query = new BasicDBObject();
-		String regex = "\\ARoom00\\d";
-		query.put("displayName", new BasicDBObject("$regex", regex).append("$options", "i"));
+		
+		query.put(fieldName, new BasicDBObject("$regex", regex).append("$options", "i"));
 		
 		BasicDBObject fields = new BasicDBObject();
-		fields.put("displayName", 1);
+		fields.put(fieldName, 1);
 		fields.put("_id", 0);
 		
 		ArrayList<String> rooms = new ArrayList<String>();
 		DBCursor cursor = collection.find(query, fields);
 		while (cursor.hasNext()) {
 			cursor.next();
-			rooms.add(cursor.curr().get("displayName").toString());
+			rooms.add(cursor.curr().get(fieldName).toString());
 		}
 		cursor.close();
 		
