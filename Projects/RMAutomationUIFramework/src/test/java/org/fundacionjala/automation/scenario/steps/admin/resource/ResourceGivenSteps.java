@@ -27,7 +27,7 @@ public class ResourceGivenSteps {
 	@Given("^I have a resource created with the name \"([^\"]*)\", display name \"([^\"]*)\", description \"([^\"]*)\" and icon \"([^\"]*)\"$")
 	public void i_have_a_resource_created_with_the_name_display_name_description_and_icon(String arg1, String arg2, String arg3, String arg4) throws Throwable {
 		Resource resource = new Resource(arg1, arg2, "fa " + arg4, "", arg3);
-		ResourceAPIManager.postRequest("http://172.20.208.84:4040/resources", resource);
+		ResourceAPIManager.postRequest(PropertiesReader.getServiceURL()+"/resources", resource);
 	}
 	@Given("^I am in the first page$")
 	public void i_am_in_the_first_page() throws Throwable {
