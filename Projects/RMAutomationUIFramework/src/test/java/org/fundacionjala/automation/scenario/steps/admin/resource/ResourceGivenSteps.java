@@ -37,4 +37,12 @@ public class ResourceGivenSteps {
 			.clickOnResourcesButton()
 			.clickOnFirstPageButton();
 	}
+	@Given("^I am in the last page$")
+	public void i_am_in_the_last_page() throws Throwable {
+		AdminPage home = new AdminPage();
+		home
+			.leftMenu
+			.clickOnResourcesButton()
+			.clickOnLastPageButton();
+	}
 }

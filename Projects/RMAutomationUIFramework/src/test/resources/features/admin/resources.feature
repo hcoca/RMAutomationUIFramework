@@ -108,4 +108,17 @@ Given I have atleast "100" created resources
  When I cliked on 'Next' button on resource table
  Then Validate that the 'next' page is displayed on resource table 
 
+#scenario 13
+Scenario: When 'Previous' button is clicked the before page is displayed in resource table
+Given I have atleast "100" created resources
+  And I as Administrator Login to Room Manager
+  And I am in the last page
+ When I clicked on 'Previous' button on resource table
+ Then I validate that the 'previous' page is displayed on resource table 
 
+ #scenario 14
+ Scenario: The 'current page' field displays the number of the current page
+ Given I have atleast "200" created resources
+   And I as Administrator Login to Room Manager
+  When Go to the "3" page on resource page
+  Then I validate that thw "3" page is displayed

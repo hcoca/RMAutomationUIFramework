@@ -87,9 +87,42 @@ public class ResourceThenSteps {
 	@Then("^Validate that the 'next' page is displayed on resource table$")
 	public void validate_that_the_next_page_is_displayed_on_resource_table() throws Throwable {
 		ResourcePage resources = new ResourcePage();
-		System.out.println(
-		resources.verifyNextPage("2"));
+		Assert.assertTrue(
+				resources.verifyNextPage("2"));
+		//Post condition
 		List<Resource> listResource = ResourceAPIManager.getRequest(PropertiesReader.getServiceURL()+"/resources");
+		listResource.get(1);
+		for (Resource resource : listResource) {
+			if(resource.name.contains("Gift"))
+			{
+				ResourceAPIManager.deleteRequest(PropertiesReader.getServiceURL() + "/resources", resource._id);
+			}
+		}
+	}
+	@Then("^I validate that the 'previous' page is displayed on resource table$")
+	public void i_validate_that_the_previous_page_is_displayed_on_resource_table() throws Throwable {
+		ResourcePage resources = new ResourcePage();
+		int previousPage = resources.getTheTotalNumberPage();
+		Assert.assertTrue(
+				resources.verifyPreviousPage(previousPage));
+		//Post condition
+				List<Resource> listResource = ResourceAPIManager.getRequest(PropertiesReader.getServiceURL()+"/resources");
+				for (Resource resource : listResource) {
+					if(resource.name.contains("Gift"))
+					{
+						ResourceAPIManager.deleteRequest(PropertiesReader.getServiceURL() + "/resources", resource._id);
+					}
+				}
+	}
+	@Then("^I validate that thw \"([^\"]*)\" page is displayed$")
+	public void i_validate_that_thw_page_is_displayed(String NumberPage) throws Throwable {
+		List<Resource> listResource = ResourceAPIManager.getRequest(PropertiesReader.getServiceURL()+"/resources");
+		int resourceIndex = ((Integer.parseInt(NumberPage) - 1) * 50) + 1;
+		ResourcePage resources = new ResourcePage();
+		String firstElement = listResource.get(resourceIndex - 1).name;
+		Assert.assertTrue(
+				resources.verifyTheFirstElementOnThePage(firstElement));
+		//Post condition
 		for (Resource resource : listResource) {
 			if(resource.name.contains("Gift"))
 			{

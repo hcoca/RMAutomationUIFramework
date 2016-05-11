@@ -82,12 +82,30 @@ public class ResourceWhenSteps {
 		ResourceInfoPage info = new ResourceInfoPage();
 		info.clickOnSaveButton();
 	}
+
+	@When("^I cliked on 'Next' button on resource table$")
+	public void i_cliked_on_Next_button_on_resource_table() throws Throwable {
+		AdminPage home = new AdminPage();
+		home
+			.leftMenu
+			.clickOnResourcesButton()
+			.clickOnNextButton();
+	}
+	
+	@When("^I clicked on 'Previous' button on resource table$")
+	public void i_clicked_on_Previous_button_on_resource_table() throws Throwable {
+		AdminPage home = new AdminPage();
+		home
+			.leftMenu
+			.clickOnResourcesButton()
+			.clickOnPreviousButton();
+	}
 	//only for me to delete resources
 	@When("^I delete the resource \"([^\"]*)\"$")
 	public void i_delete_the_resource(String arg1) throws Throwable {
 		String idResource = "";
 		List<Resource> listResources = ResourceAPIManager.getRequest(PropertiesReader.getServiceURL()+"/resources");
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 200; i++) {
 			for (Resource resource : listResources) {
 				if(resource.name.equalsIgnoreCase(arg1 + i))
 				{
@@ -98,12 +116,13 @@ public class ResourceWhenSteps {
 			}
 		}
 	}
-	@When("^I cliked on 'Next' button on resource table$")
-	public void i_cliked_on_Next_button_on_resource_table() throws Throwable {
+	
+	@When("^Go to the \"([^\"]*)\" page on resource page$")
+	public void go_to_the_page_on_resource_page(String numberPage) throws Throwable {
 		AdminPage home = new AdminPage();
 		home
 			.leftMenu
 			.clickOnResourcesButton()
-			.clickOnNextButton();
+			.typeNumberPage(numberPage);
 	}
 }
