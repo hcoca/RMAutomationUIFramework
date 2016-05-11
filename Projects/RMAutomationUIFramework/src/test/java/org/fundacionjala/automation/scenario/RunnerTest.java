@@ -9,10 +9,14 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features ="src/test/resources/features/admin/",
-				 format = { "pretty", "html:reports/cucumber" , "json:./cucumber.json"})
+@CucumberOptions(features ="src/test/resources/features/admin",
+	   	 format = { "pretty", "html:reports/cucumber" ,
+			    "json:./cucumber.json"})
 
-
+/**
+ * This class run all cucumber scenarios by TestNG
+ *
+ */
 public class RunnerTest extends AbstractTestNGCucumberTests {
 	              
 }
