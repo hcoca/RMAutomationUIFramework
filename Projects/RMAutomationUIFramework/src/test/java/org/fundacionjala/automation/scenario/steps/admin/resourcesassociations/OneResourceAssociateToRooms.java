@@ -20,11 +20,11 @@ import cucumber.api.java.en.When;
 
 public class OneResourceAssociateToRooms {
 
-	private String 						  resourceName;
-	private boolean                       result;
-	private Resource 					  resourceToAssociate;
-	private ArrayList<String> 			  rooms;
-	private ConferenceRoomsPage			  conferenceRoom;
+	private String resourceName;
+	private boolean result;
+	private Resource resourceToAssociate;
+	private ArrayList<String> rooms;
+	private ConferenceRoomsPage conferenceRoom;
 	private RoomsResourceAssociationsPage resourceAssociations;
 	
 
@@ -32,7 +32,9 @@ public class OneResourceAssociateToRooms {
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourcesActions.createResourceByAPI("GAMEPAD", IconResources.GAMEPAD, "GAMEPAD");
+		resourceToAssociate = ResourcesActions.createResourceByAPI("GAMEPAD", 
+			                                                    IconResources.GAMEPAD, 
+			                                                    "GAMEPAD");
 		
 		resourceName = resourceToAssociate.customName;
 		result = false;
@@ -61,8 +63,7 @@ public class OneResourceAssociateToRooms {
 	}
 
 	@When("^I open the pop-up configuration of the each room$")
-	public void i_open_the_pop_up_configuration_of_the_each_room()
-			throws Throwable {
+	public void i_open_the_pop_up_configuration_of_the_each_room() throws Throwable {
 
 		for (int i = 0; i < 4; i++) {
 			resourceAssociations = conferenceRoom.openConfigurationPage(
@@ -74,8 +75,7 @@ public class OneResourceAssociateToRooms {
 	}
 
 	@Then("^I see the resource associate in each room that was modified$")
-	public void i_see_the_resource_associate_in_each_room_that_was_modified()
-			throws Throwable {
+	public void i_see_the_resource_associate_in_each_room_that_was_modified() throws Throwable {
 
 		Assert.assertTrue(result, "All roooms have the resource associated");
 
@@ -83,7 +83,7 @@ public class OneResourceAssociateToRooms {
 
 	@After("@scenario#7")
 	public void afterScenario() throws Throwable {
+	    
 		ResourcesActions.deleteResourceByAPI(resourceToAssociate);
-
 	}
 }

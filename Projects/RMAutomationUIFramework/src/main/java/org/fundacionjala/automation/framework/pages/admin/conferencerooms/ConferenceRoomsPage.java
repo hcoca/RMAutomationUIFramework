@@ -9,14 +9,15 @@ import org.fundacionjala.automation.framework.maps.admin.conferencerooms.Confere
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
-import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.mongodb.BasicDBObject;
@@ -28,10 +29,38 @@ import com.mongodb.MongoClient;
 public class ConferenceRoomsPage extends AdminPage {
 
     public ConferenceRoomsPage() {
+
 	PageFactory.initElements(BrowserManager.getDriver(), this);
     }
 
+    public ConferenceRoomsPage selectPageSize(String pageSize) {
+	new Select(BrowserManager.getDriver().findElement(
+		By.xpath(ConferenceRoomsMap.PAGE_SIZE_BOX_SELECTOR)))
+		.selectByVisibleText(pageSize);
+	String sizeOption = ConferenceRoomsMap.PAGE_SIZE_OPTION.replace(
+		"sizePage", pageSize);
+	BrowserManager.getDriver().findElement(By.xpath(sizeOption)).click();
+	return this;
+    }
+
+    @FindBy(xpath = ConferenceRoomsMap.NEXT_PAGE_FIELD)
+    WebElement pageField;
+
+    public ConferenceRoomsPage setPage(String page) {
+	pageField.clear();
+	pageField.sendKeys(page);
+	return this;
+    }
+
+    @FindBy(xpath = ConferenceRoomsMap.FIRST_ROW)
+    WebElement firstRow;
+
+    public String getFirstRow() {
+	return firstRow.getText();
+    }
+
     public ConferenceRoomsPage selectOutOfOrderIcon(String roomName) {
+
 	String iconOutOfOrder = ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace(
 		"roomName", roomName);
 	ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
@@ -41,22 +70,27 @@ public class ConferenceRoomsPage extends AdminPage {
     }
 
     public List<WebElement> getRooms() {
+
 	return ExplicitWait.getElementsWhenVisible(
 		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 60);
     }
 
     private WebElement getRoom(String roomName) {
+
 	String xpathRoom = ConferenceRoomsMap.ROOM
 		.replace("roomName", roomName);
+
 	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 60);
     }
 
     public RoomInfoPage openConfigurationPage(String roomToModify) {
+
 	UIActions.doubleClick(getRoom(roomToModify));
 	return new RoomInfoPage();
     }
 
     public RoomInfoPage doubleClickOnRoom(String roomToModify) {
+
 	WebElement roomElement = getRoom(roomToModify);
 	roomElement.click();
 	UIActions.doubleClickJS(roomElement);
@@ -131,6 +165,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	} catch (TimeoutException te) {
 
 	    return false;
+
 	}
 
     }
@@ -163,6 +198,53 @@ public class ConferenceRoomsPage extends AdminPage {
 	cursor.close();
 
 	return rooms.get(getRandomNum(0, rooms.size() - 1));
+    }
+
+    @FindBy(xpath = ConferenceRoomsMap.TOTAL_ITEMS_LABEL)
+    WebElement totalItemsLabel;
+
+    public String getTotalItems() {
+	return totalItemsLabel.getText().trim().replace("Total Items: ", "");
+    }
+
+    @FindBy(xpath = ConferenceRoomsMap.FILTER_TEXTBOX)
+    WebElement filterTextbox;
+
+    public ConferenceRoomsPage typeOnFilterTextbox(String roomCriteria) {
+	UIActions.clickAt(totalItemsLabel);
+	UIActions.typeOn(filterTextbox, roomCriteria);
+	UIActions.clickAt(totalItemsLabel);
+	return this;
+    }
+
+    public ConferenceRoomsPage selectPageSize(Integer sizePage) {
+	String sizePageString = sizePage.toString();
+	WebElement dropDown = BrowserManager.getDriver().findElement(
+		By.xpath(ConferenceRoomsMap.PAGE_SIZE.replace("sizePage",
+			sizePageString)));
+	UIActions.clickAt(dropDown);
+	return this;
+    }
+
+    public boolean verifySizePage(int sizePage) {
+	return getRoomsWithScrollBar(sizePage) <= sizePage ? true : false;
+    }
+
+    private int getRoomsWithScrollBar(int sizePage) {
+	int roomRead = sizePage / 15;
+	List<String> list = new ArrayList<String>();
+	WebElement lastRow = null;
+	for (int i = 0; i < roomRead; i++) {
+	    for (WebElement room : getRooms()) {
+		if (!list.contains(room.getText().trim())) {
+		    list.add(room.getText().trim());
+		}
+		lastRow = room;
+	    }
+	    ((JavascriptExecutor) BrowserManager.getDriver()).executeScript(
+		    "arguments[0].scrollIntoView(true);", lastRow);
+	}
+	return list.size();
     }
 
 }

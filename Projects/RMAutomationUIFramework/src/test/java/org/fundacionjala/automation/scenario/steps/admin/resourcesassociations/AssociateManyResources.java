@@ -22,25 +22,22 @@ import cucumber.api.java.en.When;
 
 public class AssociateManyResources {
 	
-	private String                        roomToModify;
-	private ArrayList<Resource> 		  resourcesToAssociate;
-	private ConferenceRoomsPage 		  conferenceRoom;
+        private int numResources;
+	private String roomToModify;
+	private ArrayList<Resource> resourcesToAssociate;
+	private ConferenceRoomsPage conferenceRoom;
 	private RoomsResourceAssociationsPage resourceAssociations;
-	
-	
-    private int numResources;
+        
 
     
     @Before("@scenario#8")
 	public void beforeScenario() throws Throwable {
 
 		conferenceRoom = new ConferenceRoomsPage();
-
 		resourcesToAssociate = new ArrayList<Resource>();
-		numResources = 2; 
+		numResources = 10; 
 				
 		for (int i = 0; i < numResources; i++) {
-			
 			Resource resource = ResourcesActions.createResourceByAPI("Key" + i, IconResources.KEY, "key");
 			resourcesToAssociate.add(resource);
 		}
@@ -54,8 +51,8 @@ public class AssociateManyResources {
 	public void i_associate_many_resources_to_one_room() throws Throwable {
 		
 		resourceAssociations = conferenceRoom	
-				.openConfigurationPage(roomToModify)
-				.clickOnResourceAssociations();
+				                      .openConfigurationPage(roomToModify)
+				                      .clickOnResourceAssociations();
 		
 		for (int i = 0; i < resourcesToAssociate.size(); i++) {
 			resourceAssociations.addResource(resourcesToAssociate.get(i).customName);
@@ -69,8 +66,8 @@ public class AssociateManyResources {
 	public void i_open_the_pop_up_configuration_of_the_room() throws Throwable {
 		
 		conferenceRoom
-		         .openConfigurationPage(roomToModify)
-		         .clickOnResourceAssociations();
+		              .openConfigurationPage(roomToModify)
+		              .clickOnResourceAssociations();
 		
 	}
 
@@ -81,6 +78,7 @@ public class AssociateManyResources {
 			Assert.assertTrue(resourceAssociations
 					           .isInAssociatedColumn(resourcesToAssociate.get(i).customName));
 		}
+		
 		BrowserManager.getDriver().navigate().refresh();
 		
 	}

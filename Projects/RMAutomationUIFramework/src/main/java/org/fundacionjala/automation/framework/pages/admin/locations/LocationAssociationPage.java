@@ -9,54 +9,98 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/**
+ * This class represents an "Location Association" page.
+ * @author ArielYanarico
+ *
+ */
 public class LocationAssociationPage {
-	
-	@FindBy (xpath = LocationAssociationMap.AVAILABLE_ROOMS_GRID) WebElement availableRoomsGrid;
-	@FindBy (xpath = LocationAssociationMap.ASSOCIATED_ROOMS_GRID) WebElement associatedRoomsGrid;
-	@FindBy (xpath = LocationAssociationMap.SAVE_BUTTON) WebElement saveButton;
-	public LocationAssociationPage(){
-		PageFactory.initElements(BrowserManager.getDriver(), this);
+
+    @FindBy(xpath = LocationAssociationMap.AVAILABLE_ROOMS_GRID)
+    WebElement availableRoomsGrid;
+    @FindBy(xpath = LocationAssociationMap.ASSOCIATED_ROOMS_GRID)
+    WebElement associatedRoomsGrid;
+    @FindBy(xpath = LocationAssociationMap.SAVE_BUTTON)
+    WebElement saveButton;
+
+    /**
+     * The constructor initializes web factory.
+     */
+    public LocationAssociationPage() {
+	PageFactory.initElements(BrowserManager.getDriver(), this);
+    }
+
+    /**
+     * Clicks on "(+)Add" button of a room which is available.
+     * @param roomName name of the available room.
+     * @return this "Location Association" page.
+     */
+    public LocationAssociationPage clickOnAddAvailableRoom(String roomName) {
+	availableRoomsGrid.findElement(
+		By.xpath("//div[text()='" + roomName
+			+ "']/following::button[1]")).click();
+	LogManager.info("An available room has been added");
+	return this;
+    }
+
+    /**
+     * Clicks on "(-)Add" button of a room which is associated.
+     * @param roomName name of the associated room.
+     * @return this "Location Association" page.
+     */
+    public LocationAssociationPage clickOnRemoveAssociatedRoom(String roomName) {
+	associatedRoomsGrid.findElement(
+		By.xpath("//div[text()='" + roomName
+			+ "']/following::button[1]")).click();
+	LogManager.info("An available room has been removed");
+	return this;
+    }
+
+    /**
+     * Clicks on "Save" Button.
+     * @return a new "Locations" page.
+     */
+    public LocationPage clickOnSaveButton() {
+	saveButton.click();
+	LogManager.info("Save button has been clicked");
+	return new LocationPage();
+    }
+
+    /**
+     * Verifies if an available room is displayed on "Location Associations"
+     * page.
+     * @param roomName name of the room which is under verification.
+     * @return true if is displayed else false
+     */
+    public boolean verifyAvailableRoomDisplayed(String roomName) {
+	try {
+	    availableRoomsGrid.findElement(By.xpath("//div[text()='" + roomName
+		    + "']"));
+	    LogManager.info("Test Passed");
+	    return true;
+	} catch (NoSuchElementException e) {
+	    LogManager.warning("Test Failed");
+	    LogManager.error("Element not found (Exception)");
+	    return false;
 	}
-	
-	public LocationAssociationPage clickOnAddAvailableRoom(String roomName){
-		availableRoomsGrid.findElement(By.xpath("//div[text()='"+roomName+"']/following::button[1]")).click();
-		LogManager.info("An available room has been added");
-		return this;
+    }
+
+    /**
+     * Verifies if an associated room is displayed. on "Location Associations"
+     * page.
+     * @param roomName name of the room which is under verification.
+     * @return true if is displayed else false
+     */
+    public boolean verifyAssociatedRoomDisplayed(String roomName) {
+	try {
+	    associatedRoomsGrid.findElement(By.xpath("//div[text()='"
+		    + roomName + "']"));
+	    LogManager.info("Test Passed");
+	    return true;
+	} catch (NoSuchElementException e) {
+	    LogManager.warning("Test Failed");
+	    LogManager.error("Element not found (Exception)");
+	    return false;
 	}
-	
-	public LocationAssociationPage clickOnRemoveAssociatedRoom(String roomName) {
-		associatedRoomsGrid.findElement(By.xpath("//div[text()='"+roomName+"']/following::button[1]")).click();
-		LogManager.info("An available room has been removed");
-		return this;
-	}
-	
-	public LocationPage clickOnSaveButton(){
-		saveButton.click();
-		LogManager.info("Save button has been clicked");
-		return new LocationPage();
-	}
-	
-	public boolean verifyAnAvailableRoomDisplayed(String roomName){
-		try {
-			availableRoomsGrid.findElement(By.xpath("//div[text()='"+roomName+"']"));
-			LogManager.info("Test Passed");
-			return true;
-	    } catch (NoSuchElementException e) {
-	    	LogManager.warning("Test Failed");
-	    	LogManager.error("Element not found (Exception)");
-			return false;
-	    }
-	}
-	
-	public boolean verifyAnAssociatedRoomDisplayed(String roomName){
-		try {
-			associatedRoomsGrid.findElement(By.xpath("//div[text()='"+roomName+"']"));
-			LogManager.info("Test Passed");
-			return true;
-	    } catch (NoSuchElementException e) {
-	    	LogManager.warning("Test Failed");
-	    	LogManager.error("Element not found (Exception)");
-			return false;
-	    }
-	}
+    }
 }

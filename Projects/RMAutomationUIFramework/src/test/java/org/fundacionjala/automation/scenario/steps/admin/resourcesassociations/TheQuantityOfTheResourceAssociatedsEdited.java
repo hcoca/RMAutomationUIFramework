@@ -17,7 +17,7 @@ import cucumber.api.java.en.When;
 
 public class TheQuantityOfTheResourceAssociatedsEdited {
 	
-	private String              roomToModify, quantity, resourceName;
+	private String              roomToModify, resourceName;
 	private Resource            resourceToAssociate;
 	private ConferenceRoomsPage conferenceRoom;
 	
@@ -27,11 +27,10 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 		
 		conferenceRoom = new ConferenceRoomsPage();
 		resourceToAssociate = ResourcesActions.createResourceByAPI("New_Key", 
-				                                              IconResources.KEY,
-				                                              "this key is in the room");
-        resourceName = resourceToAssociate.customName;
-        roomToModify = conferenceRoom.getRandomRoom();
- 	    quantity = "10";
+				                                           IconResources.KEY,
+				                                           "this key is in the room");
+                resourceName = resourceToAssociate.customName;
+                roomToModify = conferenceRoom.getRandomRoom();
  	   
 	}
 	
@@ -44,29 +43,29 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 				.addResource(resourceName)
 				.clickOnSave();
 	}
-
-	@When("^I modify the quantity of the of the associated resource$")
-	public void i_modify_the_quantity_of_the_of_the_associated_resource() throws Throwable {
-		
+	
+	
+	@When("^I modify the quantity of the associated resource to \"([^\"]*)\"$")
+	public void i_modify_the_quantity_of_the_associated_resource_to(String quantity) throws Throwable {
 		conferenceRoom
 				.openConfigurationPage(roomToModify)
 				.clickOnResourceAssociations()
-				.editQuantityOfResourceAssociated(resourceName,quantity)
+				.editQuantityOfResourceAssociated(resourceName, quantity)
 				.clickOnSave();
 	}
 
-	@Then("^I can see that the quantity modified is displayed$")
-	public void i_can_see_that_the_quantity_modified_is_displayed() throws Throwable {
-		
+	@Then("^I can see that the quantity \"([^\"]*)\" is displayed$")
+	public void i_can_see_that_the_quantity_is_displayed(String quantity) throws Throwable {
 		Assert.assertTrue(conferenceRoom
-		                  .openConfigurationPage(roomToModify)
-		                  .clickOnResourceAssociations()
-		                  .hasTheQuantity(resourceName, quantity));
+				  .openConfigurationPage(roomToModify)
+				  .clickOnResourceAssociations()
+				  .hasTheQuantity(resourceName, quantity));
+		
 	}
 	
 	@After("@scenario#3")
 	public void afterScenario() throws Throwable {
-		ResourcesActions.deleteResourceByAPI(resourceToAssociate);
+	       ResourcesActions.deleteResourceByAPI(resourceToAssociate);
 	}
 	
 	

@@ -10,14 +10,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ResourceAssociationsPage {
   
-	public ResourceAssociationsPage()
-	{
+	public ResourceAssociationsPage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 
 	public boolean isQtyDisplayed(String quantity) {
-		String xpathText = ResourceAssociationsMap.QUANTITY.replace("qty", quantity);
 		
+		String xpathText = ResourceAssociationsMap.QUANTITY.replace("qty", quantity);
 		WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),5);
 
 		try {
