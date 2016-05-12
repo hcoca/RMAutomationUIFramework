@@ -95,7 +95,7 @@ Then validate if the table have all rooms that have this criteria "13" in their 
 
 Scenario Outline: "Page Size" displays in the "Conference Room" table the quantity of rooms that specifies its dropdown list.
 Given I am logged as "Administrator" with password "Control*123"
-When I specify size "<size>" of rooms quantity on conference room page.
+When I select a page size "<size>" 
 Then validate if there are "<size>" or less rooms on table.
 
 Examples:

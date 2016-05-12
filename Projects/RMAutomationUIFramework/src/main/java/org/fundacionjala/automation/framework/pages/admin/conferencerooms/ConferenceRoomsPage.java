@@ -166,6 +166,11 @@ public class ConferenceRoomsPage extends AdminPage {
 
     }
 
+    /**
+     * This function is for clicking on enabled button of a room.
+     * @param roomName name of specific room
+     * @return ConferenceRoomsPage
+     */
     public ConferenceRoomsPage clickOnTurnOnOffButton(String roomName) {
 	WebElement turnOnOffButton = BrowserManager.getDriver().findElement(
 		By.xpath(ConferenceRoomsMap.TURN_ON_OFF_BUTTON.replace(
