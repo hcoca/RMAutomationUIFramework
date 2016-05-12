@@ -10,12 +10,13 @@ public class CreateOutOfOrderWithPastTime {
 
     @When("^I create an OuOfOrder on \"([^\"]*)\" room with a time in the past$")
     public void createOuOfOrderWithPastTime(String roomName) throws Throwable {
-	room = home.leftMenu.clickOnConferenceRoomsButton()
-		.openConfigurationPage(roomName)
-		.clickOnOutOfOrder()
-		.setTimeBeginDown()
-		.setTimeEndDown()
-		.activeOutOfOrder()
-		.clickOnSave();
+	AdminPage adminPage = new AdminPage();
+	room = adminPage.leftMenu.clickOnConferenceRoomsButton()
+                    		 .openConfigurationPage(roomName)
+                    		 .clickOnOutOfOrder()
+                    		 .setTimeBeginDown()
+                    		 .setTimeEndDown()
+                    		 .activeOutOfOrder()
+                    		 .clickOnSave();
     }
 }

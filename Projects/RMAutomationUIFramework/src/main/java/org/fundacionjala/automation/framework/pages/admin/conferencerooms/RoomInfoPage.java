@@ -18,7 +18,12 @@ public class RoomInfoPage {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 
+	
 	@FindBy (linkText = RoomInfoMap.RESOURCES_ASSOCIATIONS_LINK) WebElement resourcesAssociations;
+	/**
+	 * This method perform a click on the resource association tab
+	 * @return a new instance of RoomsResourceAssociationsPage
+	 */
 	public RoomsResourceAssociationsPage clickOnResourceAssociations() {
 		resourcesAssociations.click();
 		return new RoomsResourceAssociationsPage();

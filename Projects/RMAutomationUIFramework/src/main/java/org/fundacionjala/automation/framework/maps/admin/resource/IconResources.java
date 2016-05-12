@@ -1,4 +1,4 @@
-package org.fundacionjala.automation.framework.pages.admin.resource;
+package org.fundacionjala.automation.framework.maps.admin.resource;
 
 public class IconResources {
 	

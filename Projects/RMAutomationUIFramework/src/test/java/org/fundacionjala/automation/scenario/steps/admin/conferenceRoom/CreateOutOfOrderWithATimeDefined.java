@@ -21,12 +21,17 @@ public class CreateOutOfOrderWithATimeDefined {
 
     @When("^I create an Out of Order on \"([^\"]*)\" room with a time by default$")
     public void createOutOfOrderTimeDefault(String roomName) throws Throwable {
-	AdminPage home = new AdminPage();
+	AdminPage adminPage = new AdminPage();
 	ConferenceRoomsPage room = new ConferenceRoomsPage();
-	room = home.leftMenu.clickOnConferenceRoomsButton()
-		.openConfigurationPage(roomName).clickOnOutOfOrder()
-		.setTimeBeginUp().setTimeEndUp().storeFromTime().storeToTime()
-		.activeOutOfOrder().clickOnSave();
+	room = adminPage.leftMenu.clickOnConferenceRoomsButton()
+                        	 .openConfigurationPage(roomName)
+                        	 .clickOnOutOfOrder()
+                        	 .setTimeBeginUp()
+                        	 .setTimeEndUp()
+                        	 .storeFromTime()
+                        	 .storeToTime()
+                        	 .activeOutOfOrder()
+                        	 .clickOnSave();
     }
 
     @Then("^The Out Of Order on \"([^\"]*)\" room should be created with the time interval defined$")

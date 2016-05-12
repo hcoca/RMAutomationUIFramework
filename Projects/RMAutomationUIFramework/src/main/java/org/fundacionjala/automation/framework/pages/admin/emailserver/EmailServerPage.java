@@ -6,6 +6,7 @@ import org.fundacionjala.automation.framework.maps.admin.conferencerooms.Confere
 import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,136 +15,238 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * This class manage actions in a Email Server Page
+ * @author Samuel Sahonero
+ */
 public class EmailServerPage extends AdminPage {
-	
-	@FindBy (xpath = EmailServerMap.ADD_BUTTON) WebElement addButton;
-	@FindBy (xpath = EmailServerMap.REMOVE_BUTTON) WebElement removeButton;
-	@FindBy (xpath = EmailServerMap.EMAIL_SERVER_BUTTON) WebElement emailServerButton;
-	@FindBy (xpath = EmailServerMap.EDIT_BUTTON) WebElement editButton;
-	@FindBy (xpath = EmailServerMap.USERNAME_TEXT_FIELD) WebElement userNameTextField;
-	@FindBy (xpath = EmailServerMap.PASSWORD_TEXT_FIELD) WebElement passwordTextField;
-	@FindBy (xpath = EmailServerMap.ACCEPT_BUTTON) WebElement acceptButton;
-	@FindBy (xpath = EmailServerMap.DESCRIPTION_TEXT_FIELD) WebElement descriptionTextField;
-	@FindBy (xpath = EmailServerMap.ERROR_MESSAGE) WebElement errorMessage;
-	
-	public EmailServerPage() {
-		PageFactory.initElements(BrowserManager.getDriver(), this);
-	}
-	
-	public AddEmailServerPage clickOnAddButton() {
-		(new WebDriverWait(BrowserManager.getDriver(), 20)).until(ExpectedConditions.visibilityOf(addButton));
-		addButton.click();
-		
-		LogManager.info("Add Email Server Button has been clicked");
-		
-		return new AddEmailServerPage();
-	}
 
-	public DeleteEmailServerPage clickOnRemoveButton() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(removeButton));
-		removeButton.click();
-		
-		LogManager.info("Remove Email Server Button has been clicked");
-		
-		return new DeleteEmailServerPage();
-	}
+    @FindBy(xpath = EmailServerMap.ADD_BUTTON)
+    WebElement addButton;
+    @FindBy(xpath = EmailServerMap.REMOVE_BUTTON)
+    WebElement removeButton;
+    @FindBy(xpath = EmailServerMap.EMAIL_SERVER_BUTTON)
+    WebElement emailServerButton;
+    @FindBy(xpath = EmailServerMap.EDIT_BUTTON)
+    WebElement editButton;
+    @FindBy(xpath = EmailServerMap.USERNAME_TEXT_FIELD)
+    WebElement userNameTextField;
+    @FindBy(xpath = EmailServerMap.PASSWORD_TEXT_FIELD)
+    WebElement passwordTextField;
+    @FindBy(xpath = EmailServerMap.ACCEPT_BUTTON)
+    WebElement acceptButton;
+    @FindBy(xpath = EmailServerMap.DESCRIPTION_TEXT_FIELD)
+    WebElement descriptionTextField;
+    @FindBy(xpath = EmailServerMap.ERROR_MESSAGE)
+    WebElement errorMessage;
+    /**
+     * Initialize elements of EmailServerPage with the current driver
+     */
+    public EmailServerPage() {
 	
-	public EmailServerPage clickOnServerButton() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(emailServerButton));
-		emailServerButton.click();
-		
-		LogManager.info("Email Server Button has been clicked");
-		
-		return this;
-	}
+	PageFactory.initElements(BrowserManager.getDriver(), this);
+    }
+    /**
+     * Click on Add button
+     * @return new "AddLocationPage" instance
+     */
+    public AddEmailServerPage clickOnAddButton() {
 	
-	public EmailServerPage clickOnEditCredentialButton() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(EmailServerMap.EDIT_BUTTON)));
-		editButton.click();
-		
-		LogManager.info("Edit Email Server Credential Button has been clicked");
-		
-		return this;
-	}
-	
-	public EmailServerPage setUserName(String userName) {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(EmailServerMap.USERNAME_TEXT_FIELD)));
-		userNameTextField.clear();
-		userNameTextField.sendKeys(userName);
-		
-		LogManager.info("Domain User Name " + userName +  " has been set up");
-		
-		return this;
-	}
-	
-	public EmailServerPage setPassword(String password) {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(passwordTextField));
-		passwordTextField.clear();
-		passwordTextField.sendKeys(password);
-		
-		LogManager.info("Domain Password " + password + " has been set up");
-		
-		return this;
-	}
-	
-	public EmailServerPage clickOnAcceptButton() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(EmailServerMap.ACCEPT_BUTTON)));
-		acceptButton.click();
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(EmailServerMap.EDIT_BUTTON)));
-		
-		LogManager.info("Edit Email Server Credential Accept Button has been clicked");
-		
-		return this;
-	}
+	(new WebDriverWait(BrowserManager.getDriver(), 20))
+		.until(ExpectedConditions.visibilityOf(addButton));
+	addButton.click();
 
-	public boolean findEmailServer() {
-		try{
-			WebElement hostName = BrowserManager.getDriver().findElement(By.xpath(EmailServerMap.HOST_NAME));
-			LogManager.info("Email Server Host Name " + hostName.getText() + " has been found");
-			return true;
-		}catch (Exception e) {
-			LogManager.info("Email Server Host Name has not been found");
-			return false;
-		}
-	}
+	LogManager.info("Add Email Server Button has been clicked");
+
+	return new AddEmailServerPage();
+    }
+
+    /**
+     * Click on Remove button
+     * @return new "DeleteEmailServerPage" instance
+     */
+    public DeleteEmailServerPage clickOnRemoveButton() {
 	
-	public boolean verifyIfThereAreRooms() {
-		List<WebElement> roomsList = BrowserManager.getDriver().findElements(By.xpath(ConferenceRoomsMap.ROOMS_COLUMN));
-		return (roomsList.size() > 0);
-	}
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.elementToBeClickable(removeButton));
+	removeButton.click();
+
+	LogManager.info("Remove Email Server Button has been clicked");
+
+	return new DeleteEmailServerPage();
+    }
+    
+    /**
+     * Click on Email Server item button
+     * @return this "EmailServerPage" instance
+     */
+    public EmailServerPage clickOnServerButton() {
 	
-	public String getUserName() {
-		String userName = userNameTextField.getAttribute("value");
-		
-		LogManager.info("User Name " + userName + " has been obtained");
-		
-		return userName;
-	}
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions
+			.elementToBeClickable(emailServerButton));
+	emailServerButton.click();
+
+	LogManager.info("Email Server Button has been clicked");
+
+	return this;
+    }
+    
+    /**
+     * Click on Edit button in order to change the credential
+     * @return this "EmailServerPage" instance
+     */
+    public EmailServerPage clickOnEditCredentialButton() {
 	
-	public String getEmailServerDescription() {
-		String description = descriptionTextField.getAttribute("value");
-		
-		LogManager.info("Email Server Description " + description + " has been obtained");
-		
-		return description;
-	}
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.presenceOfElementLocated(By
+			.xpath(EmailServerMap.EDIT_BUTTON)));
+	editButton.click();
+
+	LogManager.info("Edit Email Server Credential Button has been clicked");
+
+	return this;
+    }
+
+    /**
+     * Set the username of the account belongs to Exchange server
+     * @param userName
+     *            - Account username to change (e.g. Administrator)
+     * @return this "EmailServerPage" instance
+     */
+    public EmailServerPage setUserName(String userName) {
 	
-	public EmailServerPage waitForErrorMessage() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(EmailServerMap.ACCEPT_BUTTON)));
-		acceptButton.click();
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.visibilityOf(errorMessage));
-		String myErrorMessage = errorMessage.getText();
-		
-		LogManager.info("Error Message " + myErrorMessage + " has been found");
-		
-		return this;
-	}
+	ExplicitWait.getWhenVisible(By
+			.xpath(EmailServerMap.USERNAME_TEXT_FIELD), 30);
 	
-	public String getErrorMessage() {
-		String myErrorMessage = errorMessage.getText();
-		
-		LogManager.info("Error Message " + myErrorMessage + " has been obtained");
-		
-		return myErrorMessage;
+	userNameTextField.clear();
+	userNameTextField.sendKeys(userName);
+
+	LogManager.info("Domain User Name " + userName + " has been set up");
+
+	return this;
+    }
+    
+    /**
+     * Set the password of the account belongs to Exchange server
+     * @param password
+     *            - Account password to change
+     * @return this "EmailServerPage" instance
+     */
+    public EmailServerPage setPassword(String password) {
+	
+	ExplicitWait.getWhenVisible(By
+		.xpath(EmailServerMap.PASSWORD_TEXT_FIELD), 30);
+	passwordTextField.clear();
+	passwordTextField.sendKeys(password);
+
+	LogManager.info("Domain Password " + password + " has been set up");
+
+	return this;
+    }
+    
+    /**
+     * Click on Accept button in order to confirm the changes and wait until
+     * Edit button get visibility
+     * @return this "EmailServerPage" instance
+     */
+    public EmailServerPage clickOnAcceptButton() {
+	
+	ExplicitWait.getWhenVisible(By
+		.xpath(EmailServerMap.ACCEPT_BUTTON), 60);
+	acceptButton.click();
+	ExplicitWait.getWhenVisible(By
+		.xpath(EmailServerMap.EDIT_BUTTON), 60);
+
+	LogManager
+		.info("Edit Email Server Credential Accept Button has been clicked");
+
+	return this;
+    }
+
+    /**
+     * Find if Email server exist in the Email Server Page
+     * @return boolean True - Email Server exist. 
+     *                 False - There is no Email Server
+     */
+    public boolean findEmailServer() {
+	
+	try {
+	    WebElement hostName = BrowserManager.getDriver().findElement(
+		    By.xpath(EmailServerMap.HOST_NAME));
+	    LogManager.info("Email Server Host Name " + hostName.getText()
+		    + " has been found");
+	    return true;
+	} catch (Exception e) {
+	    LogManager.info("Email Server Host Name has not been found");
+	    return false;
 	}
+    }
+    
+    /**
+     * Verify if exist Rooms in Conference Room Page
+     * @return boolean True - There is rooms
+     *                 False - There is no rooms
+     */
+    public boolean verifyIfThereAreRooms() {
+	
+	List<WebElement> roomsList = BrowserManager.getDriver().findElements(
+		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN));
+	return (roomsList.size() > 0);
+    }
+    
+    /**
+     * @return String Username of Service Credential
+     */
+    public String getUserName() {
+	
+	String userName = userNameTextField.getAttribute("value");
+
+	LogManager.info("User Name " + userName + " has been obtained");
+
+	return userName;
+    }
+    
+    /**
+     * @return String Email Server Description
+     */
+    public String getEmailServerDescription() {
+	
+	String description = descriptionTextField.getAttribute("value");
+
+	LogManager.info("Email Server Description " + description
+		+ " has been obtained");
+
+	return description;
+    }
+    
+    /**
+     * Wait for Error message in Credential edit
+     */
+    public EmailServerPage waitForErrorMessage() {
+	
+	ExplicitWait.getWhenVisible(By
+		.xpath(EmailServerMap.ACCEPT_BUTTON), 60);
+	acceptButton.click();
+	ExplicitWait.getWhenVisible(By
+		.xpath(EmailServerMap.ERROR_MESSAGE), 60);
+	String myErrorMessage = errorMessage.getText();
+
+	LogManager.info("Error Message " + myErrorMessage + " has been found");
+
+	return this;
+    }
+    
+    /**
+     * @return String Error message in Credential edit
+     */
+    public String getErrorMessage() {
+	
+	String myErrorMessage = errorMessage.getText();
+
+	LogManager.info("Error Message " + myErrorMessage
+		+ " has been obtained");
+
+	return myErrorMessage;
+    }
 }

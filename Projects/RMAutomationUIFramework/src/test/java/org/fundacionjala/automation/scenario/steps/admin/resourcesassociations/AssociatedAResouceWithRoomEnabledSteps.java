@@ -1,10 +1,9 @@
 package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 
+import org.fundacionjala.automation.framework.maps.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
-import org.fundacionjala.automation.framework.pages.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
-import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
 
@@ -43,7 +42,7 @@ public class AssociatedAResouceWithRoomEnabledSteps {
     @When("^I make sure the room edited is enabled$")
     public void i_make_sure_the_room_edited_is_enabled() throws Throwable {
 	
-	conferenceRoom.enableRoom();
+	conferenceRoom.enableRoom(roomToModify);
     }
 
     @When("^when I open the pop-up configuration of the room enabled$")
