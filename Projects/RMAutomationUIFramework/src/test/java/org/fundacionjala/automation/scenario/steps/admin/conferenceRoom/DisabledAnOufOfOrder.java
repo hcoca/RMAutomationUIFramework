@@ -13,7 +13,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -25,16 +24,17 @@ public class DisabledAnOufOfOrder {
 	@When("^I disable this OutOfOrder on \"([^\"]*)\" room$")
 	public void i_disable_this_OutOfOrder_on_room(String roomName) throws Throwable {
 		LoginPage login = new LoginPage();
+		AdminPage adminPage = new AdminPage();
 		home = login.setUserName(PropertiesReader.getUserName())
 			    .setPassword(PropertiesReader.getPassword())
 		            .clickOnSigInButton()
 			    .refreshPage();
 		
-		room = home.leftMenu.clickOnConferenceRoomsButton()
-				    .openConfigurationPage(roomName)
-				    .clickOnOutOfOrder()
-				    .activeOutOfOrder()
-				    .clickOnSave();
+		room = adminPage.leftMenu.clickOnConferenceRoomsButton()
+        				 .openConfigurationPage(roomName)
+        				 .clickOnOutOfOrder()
+        				 .activeOutOfOrder()
+        				 .clickOnSave();
 	}
 
 	@Then("^The Out Of Order on \"([^\"]*)\" room should has been disabled correctly with the \"([^\"]*)\" title corresponding$")
