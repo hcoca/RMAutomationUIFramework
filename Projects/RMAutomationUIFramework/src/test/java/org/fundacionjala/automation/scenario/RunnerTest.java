@@ -10,15 +10,12 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features ="src/test/resources/features/admin",
-	   	 format = { "pretty", "html:reports/cucumber" ,
-			    "json:./cucumber.json"})
+	   	 format = { "pretty", "html:reports/cucumber" ,"json:./cucumber.json"})
 
 /**
  * This class run all cucumber scenarios by TestNG
  *
  */
-public class RunnerTest extends AbstractTestNGCucumberTests {
-	              
-}
+public class RunnerTest extends AbstractTestNGCucumberTests {}
 
 

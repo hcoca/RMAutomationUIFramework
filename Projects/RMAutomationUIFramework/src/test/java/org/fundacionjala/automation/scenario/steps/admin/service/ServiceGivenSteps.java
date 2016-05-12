@@ -65,8 +65,8 @@ public class ServiceGivenSteps {
 		.clickOnSigInButton().refreshPage().leftMenu
 		.clickOnIssuesButton().clickOnConferenceRoomsButton();
 
-	conferenceRooms.doubleClickOnRoom("Room04").SelectOutOfOrder()
-		.activeOutOfOrder().clickOnSave();
+	conferenceRooms.doubleClickOnRoom(PropertiesReader.getConferenceRoom())
+		.SelectOutOfOrder().activeOutOfOrder().clickOnSave();
     }
 
     @Given("^At least an out of order$")

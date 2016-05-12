@@ -1,12 +1,10 @@
 package org.fundacionjala.automation.scenario.steps.admin.service;
 
-import java.util.List;
-
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.emailserver.AddEmailServerPage;
 import org.fundacionjala.automation.framework.pages.admin.emailserver.EmailServerPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.mongodb.DB;
@@ -53,7 +51,8 @@ public class ServiceThenSteps {
 
     @Then("^An error message is displayed$")
     public void an_error_message_is_displayed() throws Throwable {
-	String expectedErrorMessage = "Credentials don't have authorization, please try with another";
+	String expectedErrorMessage = "Credentials don't have authorization, "
+		+ "please try with another";
 	EmailServerPage emailServer = new EmailServerPage();
 
 	String myActualErrorMessage = emailServer.getErrorMessage();
@@ -65,11 +64,12 @@ public class ServiceThenSteps {
     public void all_Conference_rooms_are_added_from_Exchange_service()
 	    throws Throwable {
 	EmailServerPage emailServer = new EmailServerPage();
+	ConferenceRoomsPage rooms;
+	rooms = emailServer
+			.leftMenu
+			.clickOnConferenceRoomsButton();
 
-	List<WebElement> roomsList = emailServer.leftMenu
-		.clickOnConferenceRoomsButton().getRooms();
-
-	Assert.assertEquals(roomsList.size(), 210);
+	Assert.assertEquals(Integer.parseInt(rooms.getTotalItems()), 210);
     }
 
     @Then("^There is no rooms$")
