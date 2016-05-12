@@ -1,11 +1,8 @@
 package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 
+import org.fundacionjala.automation.framework.maps.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
-import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
-import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
-import org.fundacionjala.automation.framework.pages.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
-import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
 
