@@ -86,13 +86,21 @@ public class ConferenceRoomsPage extends AdminPage {
 		.click();
 	return this;
     }
-
+   /**
+    * Return a list of web elements - rooms 
+    * @return List<WebElement>
+    */
     public List<WebElement> getRooms() {
 
 	return ExplicitWait.getElementsWhenVisible(
 		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 60);
     }
 
+    /**
+     * Return one webelement
+     * @param roomName - string that represent the displayname of the room
+     * @return WebElement
+     */
     private WebElement getRoom(String roomName) {
 
 	String xpathRoom = ConferenceRoomsMap.ROOM
@@ -101,23 +109,39 @@ public class ConferenceRoomsPage extends AdminPage {
 	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 60);
     }
     
+    /**
+     * Return one room disabled
+     * @param ro that represent the displayname of the room
+     * @return
+     */
     private WebElement getRoomDisabled(String roomName) {
 	String xpathRoom = ConferenceRoomsMap.ROOM_DISABLED
 		.replace("roomName", roomName);
 	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
     }
-
+   
+    /**
+     * This method open the pop-up configuration of one room	
+     * @param roomToModify - represent the displayname of the room
+     * @return RoomInfoPage
+     */
     public RoomInfoPage openConfigurationPage(String roomToModify) {
 
 	UIActions.doubleClick(getRoom(roomToModify));
 	return new RoomInfoPage();
     }
     
+    /**
+     * This method open the pop-up configuration of one room disabled	
+     * @param roomToModify - represent the displayname of the room
+     * @return RoomInfoPage
+     */
     public RoomInfoPage openRoomDisabled(String roomToModify) {
 	UIActions.doubleClick(getRoomDisabled(roomToModify));
 	return new RoomInfoPage();
     }
 
+    
     public RoomInfoPage doubleClickOnRoom(String roomToModify) {
 
 	WebElement roomElement = getRoom(roomToModify);
@@ -126,11 +150,11 @@ public class ConferenceRoomsPage extends AdminPage {
 	return new RoomInfoPage();
     }
 
-
-    public ConferenceRoomsPage enableRoom() {
-	return this;
-    }
-    
+    /**
+     * This method disable a room by mongoDB	
+     * @param roomToModify - represent the displayname of the room
+     * @return ConferenceRoomsPage
+     */
     public ConferenceRoomsPage disableRoom(String roomToModify) throws UnknownHostException {
 	    
 	MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), 
@@ -145,10 +169,16 @@ public class ConferenceRoomsPage extends AdminPage {
 	BasicDBObject searchQuery = new BasicDBObject().append("displayName", roomToModify);
 
 	collection.update(searchQuery, newDocument);
-		
-           return this;
+	
+	return this;
     }
     
+    /**
+     * This method enable a room by mongoDB	
+     * @param roomToModify - represent the displayName of the room
+     * @return ConferenceRoomsPage
+     */
+   
     public ConferenceRoomsPage enableRoom(String roomToModify) throws UnknownHostException {
 	
 	MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), 
@@ -165,15 +195,25 @@ public class ConferenceRoomsPage extends AdminPage {
         collection.update(searchQuery, newDocument);
         
         return this;
-}
-
-    public boolean VerifyIfRoomExist(String expectedResult) {
-	return ((getRoom(expectedResult) != null) ? true : false);
     }
-
+    
+    /**
+     * This method is to verify if one room exists in ConferenceRooms page
+     * @param expectedResult
+     * @return a boolean expression
+     */
+    public boolean VerifyIfRoomExist(String roomName) {
+	return ((getRoom(roomName) != null) ? true : false);
+    }
+    
+    
     @FindBy(xpath = ConferenceRoomsMap.RESOURCE_BUTTONS)
     List<WebElement> resourceButtons;
-
+    
+    /**
+     * @param resourceName - represent the name of the resource
+     * @return one Web element that represent the resource
+     */
     private WebElement getResource(String resourceName) {
 	for (WebElement resource : resourceButtons) {
 	    if (resource.getText().trim().equalsIgnoreCase(resourceName)) {
@@ -183,9 +223,14 @@ public class ConferenceRoomsPage extends AdminPage {
 	return null;
     }
 
+    /**
+     * Verofy if one room is created in the conference Rooms page
+     * @param resourceName - represent the name of the resource
+     * @return one Web element that represent the resource
+     */
     public boolean verifyIfResourceCreatedIsInConferenceRoomPage(
-	    String expectedResult) {
-	if (getResource(expectedResult) != null) {
+	    String resourceName) {
+	if (getResource(resourceName) != null) {
 	    return true;
 	}
 	return false;
@@ -205,6 +250,11 @@ public class ConferenceRoomsPage extends AdminPage {
 	return this;
     }
 
+    /**
+     * This method is to do a click on the resource that is on the top of the rooms page
+     * @param resourceName - represent the name of the resource
+     * @return ConferenceRoomsPage
+     */
     public ConferenceRoomsPage clickOnResource(String resourceName) {
 
 	String stringXpath = ConferenceRoomsMap.RESOURCES.replace("resource",
@@ -213,6 +263,11 @@ public class ConferenceRoomsPage extends AdminPage {
 	return this;
     }
 
+    /**
+     * This method is to verify if the quantity is displayed on the conference rooms page
+     * @param quantity - represent the quantity searched
+     * @return boolean expression
+     */
     public boolean isQuantityDisplayed(String quantity) {
 
 	String stringXpath = ConferenceRoomsMap.RESOURCES_QUANTITY.replace(
@@ -228,15 +283,24 @@ public class ConferenceRoomsPage extends AdminPage {
 	} catch (TimeoutException te) {
 
 	    return false;
-
 	}
-
     }
 
+    /**
+     * This method is to generate a random number	
+     * @param min - minimum value to generate e.g. 0 
+     * @param max - maximum value o generate e.g. 10
+     * @return int - random number that is in the interval of min and max
+     */
     private int getRandomNum(int min, int max) {
 	return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
+    /**
+     * This method is to generate a random string name of room by mongo DB
+     * @return String name of the room
+     * @throws UnknownHostException - throws the exception if the database is not reached
+     */
     public String getRandomRoom() throws UnknownHostException {
 
 	MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), PropertiesReader.getMongoDBConnectionPort());
