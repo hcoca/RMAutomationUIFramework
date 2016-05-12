@@ -62,7 +62,7 @@ Then I validate if the Capacity has been updated in the Room Info page.
 
 Scenario: "Location" of a room is updated when it is edited in "Room Info" form.
 Given I am logged as "Administrator" with password "Control*123"
-And I have a new Location "<location>"
+And I have a new Location "locationNew"
 When I edit "Room004" room with a new Location "locationNew"
 Then I validate if the Location has been updated in the Room Info page.
 
