@@ -9,6 +9,7 @@ import org.fundacionjala.automation.framework.maps.admin.conferencerooms.Confere
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -122,7 +123,7 @@ public class ConferenceRoomsPage extends AdminPage {
     
     public ConferenceRoomsPage disableRoom(String roomToModify) throws UnknownHostException {
 	    
-	MongoClient mongoClient = new MongoClient("172.20.208.84", 27017);
+	MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), 27017);
         DB db = mongoClient.getDB("roommanager");
 	DBCollection collection = db.getCollection("rooms");
 	    
@@ -203,7 +204,7 @@ public class ConferenceRoomsPage extends AdminPage {
 
     public String getRandomRoom() throws UnknownHostException {
 
-	MongoClient mongoClient = new MongoClient("172.20.208.84", 27017);
+	MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), 27017);
 	DB db = mongoClient.getDB("roommanager");
 	DBCollection collection = db.getCollection("rooms");
 
