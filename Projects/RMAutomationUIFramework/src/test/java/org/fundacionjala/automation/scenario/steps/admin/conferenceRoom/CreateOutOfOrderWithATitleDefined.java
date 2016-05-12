@@ -13,23 +13,26 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class CreateOutOfOrderWithATitleDefined {
     AdminPage home;
-    ConferenceRoomsPage room;
+    ConferenceRoomsPage room = new ConferenceRoomsPage();
     HomePage homeTablet;
-
-    @When("^I create an Out of Order on \"([^\"]*)\" room with a title defined$")
-    public void createOutOfOrderWithTitleDefined(String roomName)
-	    throws Throwable {
-	room = home.leftMenu.clickOnConferenceRoomsButton()
-		.openConfigurationPage(roomName).clickOnOutOfOrder()
-		.setTimeBeginUp().setTimeEndUp().clickOnBoxButon()
-		.ClickOnClosedForMaintenanceLink().activeOutOfOrder()
-		.clickOnSave();
+    
+    @When("^I create an Out Of Order on \"([^\"]*)\" room with a title defined$")
+    public void i_create_an_Out_Of_Order_on_room_with_a_title_defined(String roomName) throws Throwable {
+	AdminPage adminPage = new AdminPage();
+	adminPage.leftMenu.clickOnConferenceRoomsButton()
+        	 .openConfigurationPage(roomName)
+        	 .clickOnOutOfOrder()
+        	 .setTimeBeginUp()
+        	 .setTimeEndUp()
+        	 .clickOnBoxButon()
+        	 .ClickOnClosedForMaintenanceLink()
+        	 .activeOutOfOrder()
+        	 .clickOnSave();
     }
 
     @Then("^The Out Of Order on \"([^\"]*)\" room should have been created an OutOfOrder with the \"([^\"]*)\" title corresponding$")
