@@ -51,8 +51,19 @@ public class ConferenceRoomsPage extends AdminPage {
 	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
     }
     
+    private WebElement getRoomDisabled(String roomName) {
+	String xpathRoom = ConferenceRoomsMap.ROOM_DISABLED
+		.replace("roomName", roomName);
+	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
+    }
+    
     public RoomInfoPage openConfigurationPage(String roomToModify) {
 	UIActions.doubleClick(getRoom(roomToModify));
+	return new RoomInfoPage();
+    }
+    
+    public RoomInfoPage openRoomDisabled(String roomToModify) {
+	UIActions.doubleClick(getRoomDisabled(roomToModify));
 	return new RoomInfoPage();
     }
 
@@ -63,7 +74,20 @@ public class ConferenceRoomsPage extends AdminPage {
 	return new RoomInfoPage();
     }
     
-	public ConferenceRoomsPage disableRoom(String roomToModify) {
+	public ConferenceRoomsPage disableRoom(String roomToModify) throws UnknownHostException {
+	    
+	        MongoClient mongoClient = new MongoClient("172.20.208.84", 27017);
+		DB db = mongoClient.getDB("roommanager");
+		DBCollection collection = db.getCollection("rooms");
+	    
+        	BasicDBObject newDocument = new BasicDBObject();
+		newDocument.append("$set", new BasicDBObject().append("enabled", false));
+				
+		BasicDBObject searchQuery = new BasicDBObject().append("displayName", roomToModify);
+
+		collection.update(searchQuery, newDocument);
+		
+
 		return this;
 	}
 	
