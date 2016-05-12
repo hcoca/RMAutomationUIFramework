@@ -15,6 +15,7 @@ public class ResourcesActions {
 	 * @return one Resource object
 	 */
 	public static Resource createResourceByAPI(String name, String icon, String description) {
+	    
 		Resource resource;
 		
 		try {
@@ -25,7 +26,7 @@ public class ResourcesActions {
 		} catch (Exception e) {
 			
 			LogManager.info("The resource could not be created " + e);
-		   resource = null;	
+		        resource = null;	
 		}
 		return resource;
 	}
@@ -35,6 +36,7 @@ public class ResourcesActions {
 	 * @param resource - Resource object to delete
 	 */
 	public static void deleteResourceByAPI(Resource resource) {
+	    
 		try {
 			ResourceAPIManager.deleteRequest(PropertiesReader.getServiceURL() + "/resources", resource._id);
 			LogManager.info("The resource: " + resource.customName + "  was deleted");

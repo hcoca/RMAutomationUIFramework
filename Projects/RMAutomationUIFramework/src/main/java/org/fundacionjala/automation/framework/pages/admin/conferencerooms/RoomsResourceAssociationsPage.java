@@ -31,7 +31,7 @@ public class RoomsResourceAssociationsPage {
     }
 
     /**
-     * This method return all the plus icons of the resources available
+     * This method is to return all the plus icons of the resources available
      * @return one list of web elements
      */
     private List<WebElement> getPlusIcons() {
@@ -80,7 +80,6 @@ public class RoomsResourceAssociationsPage {
 	return this;
     }
 
-
     /**
      * This method is to move one resource from associated column to available resource
      * @param resourceName - represent the displayname of the resource
@@ -112,7 +111,6 @@ public class RoomsResourceAssociationsPage {
 	WebElement btnMinusOfResource = getMinusIcons().get(pos);
 	btnMinusOfResource.click();
     }
-    
 
     /**
      * This method is to perform a click on the plus icon of the resource available
@@ -139,8 +137,9 @@ public class RoomsResourceAssociationsPage {
 	LogManager.info("Click on save");
 	return new ConferenceRoomsPage();
     }
+    
     /**
-     * This method get one associated resource
+     * This method is to get one associated resource
      * @param resourceName - represent the name of the associated resource 
      * @return one Web element
      */
@@ -174,7 +173,7 @@ public class RoomsResourceAssociationsPage {
     }
 
     /**
-     * Return true if the resource is associated
+     * This method return true if the resource is associated
      * @param resource - name of the resource associated
      * @return a boolean expression
      */
@@ -184,7 +183,7 @@ public class RoomsResourceAssociationsPage {
     }
 
     /**
-     * Return true if the resource is available
+     * This method return true if the resource is available
      * @param resource - name of the resource available
      * @return a boolean expression
      */
@@ -194,7 +193,7 @@ public class RoomsResourceAssociationsPage {
     }
 
     /**
-     * This methods is to edit the quantity of the resource associated
+     * This method is to edit the quantity of the resource associated
      * @param resource - String name of the resource
      * @param quantity - integer 
      * @return RoomsResourceAssociationsPage
