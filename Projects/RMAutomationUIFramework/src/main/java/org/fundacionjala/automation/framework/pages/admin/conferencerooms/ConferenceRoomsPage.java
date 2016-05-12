@@ -4,7 +4,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -20,7 +19,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -30,6 +28,7 @@ import com.mongodb.MongoClient;
 public class ConferenceRoomsPage extends AdminPage {
 
     public ConferenceRoomsPage() {
+
 	PageFactory.initElements(BrowserManager.getDriver(), this);
     }
 
@@ -79,6 +78,7 @@ public class ConferenceRoomsPage extends AdminPage {
      * @return this "ConferenceRoomsPage".
      */
     public ConferenceRoomsPage selectOutOfOrderIcon(String roomName) {
+
 	String iconOutOfOrder = ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace(
 		"roomName", roomName);
 	ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
@@ -88,14 +88,17 @@ public class ConferenceRoomsPage extends AdminPage {
     }
 
     public List<WebElement> getRooms() {
+
 	return ExplicitWait.getElementsWhenVisible(
-		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 15);
+		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 60);
     }
 
     private WebElement getRoom(String roomName) {
+
 	String xpathRoom = ConferenceRoomsMap.ROOM
 		.replace("roomName", roomName);
-	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
+
+	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 60);
     }
     
     private WebElement getRoomDisabled(String roomName) {
@@ -105,6 +108,7 @@ public class ConferenceRoomsPage extends AdminPage {
     }
 
     public RoomInfoPage openConfigurationPage(String roomToModify) {
+
 	UIActions.doubleClick(getRoom(roomToModify));
 	return new RoomInfoPage();
     }
@@ -115,10 +119,16 @@ public class ConferenceRoomsPage extends AdminPage {
     }
 
     public RoomInfoPage doubleClickOnRoom(String roomToModify) {
+
 	WebElement roomElement = getRoom(roomToModify);
 	roomElement.click();
 	UIActions.doubleClickJS(roomElement);
 	return new RoomInfoPage();
+    }
+
+
+    public ConferenceRoomsPage enableRoom() {
+	return this;
     }
     
     public ConferenceRoomsPage disableRoom(String roomToModify) throws UnknownHostException {
@@ -161,7 +171,6 @@ public class ConferenceRoomsPage extends AdminPage {
 	return ((getRoom(expectedResult) != null) ? true : false);
     }
 
-    
     @FindBy(xpath = ConferenceRoomsMap.RESOURCE_BUTTONS)
     List<WebElement> resourceButtons;
 
@@ -208,7 +217,9 @@ public class ConferenceRoomsPage extends AdminPage {
 
 	String stringXpath = ConferenceRoomsMap.RESOURCES_QUANTITY.replace(
 		"qty", quantity);
+
 	WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(), 5);
+
 	try {
 	    wait.until(ExpectedConditions.visibilityOfElementLocated(By
 		    .xpath(stringXpath)));
@@ -217,7 +228,9 @@ public class ConferenceRoomsPage extends AdminPage {
 	} catch (TimeoutException te) {
 
 	    return false;
+
 	}
+
     }
 
     private int getRandomNum(int min, int max) {
@@ -301,6 +314,4 @@ public class ConferenceRoomsPage extends AdminPage {
 	}
 	return list.size();
     }
-
-    
 }

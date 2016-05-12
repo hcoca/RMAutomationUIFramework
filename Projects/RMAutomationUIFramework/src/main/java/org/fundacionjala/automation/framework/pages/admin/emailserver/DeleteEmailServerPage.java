@@ -10,33 +10,58 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
+/**
+ * This class manage actions in a float window when a Email server is deleted
+ * 
+ * @author Samuel Sahonero
+ *
+ */
 public class DeleteEmailServerPage {
-	
-	@FindBy (xpath = DeleteEmailServerMap.YES_BUTTON) WebElement yesButton;
-	@FindBy (xpath = DeleteEmailServerMap.NO_BUTTON) WebElement noButton;
-	
-	public DeleteEmailServerPage() {
-		PageFactory.initElements(BrowserManager.getDriver(), this);
-	}
-	
-	public EmailServerPage clickOnYesButton() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(DeleteEmailServerMap.YES_BUTTON)));
-		yesButton.click();
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(DeleteEmailServerMap.YES_BUTTON)));
-		
-		LogManager.info("Remove Email Server Yes Button has been clicked");
-		
-		return new EmailServerPage();
-	}
-	
-	public EmailServerPage clickNoButton() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(DeleteEmailServerMap.NO_BUTTON)));
-		noButton.click();
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(DeleteEmailServerMap.NO_BUTTON)));
-		
-		LogManager.info("Remove Email Server No Button has been clicked");
-		
-		return new EmailServerPage();
-	}
+
+    @FindBy(xpath = DeleteEmailServerMap.YES_BUTTON)
+    WebElement yesButton;
+    @FindBy(xpath = DeleteEmailServerMap.NO_BUTTON)
+    WebElement noButton;
+
+    /**
+     * Initialize elements of DeleteEmailServerPage with the current driver
+     */
+    public DeleteEmailServerPage() {
+	PageFactory.initElements(BrowserManager.getDriver(), this);
+    }
+
+    /**
+     * Click on Yes button in order to confirm the remove of an Email Server
+     * @return EmailServerPage previous instance
+     */
+    public EmailServerPage clickOnYesButton() {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.presenceOfElementLocated(By
+			.xpath(DeleteEmailServerMap.YES_BUTTON)));
+	yesButton.click();
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.invisibilityOfElementLocated(By
+			.xpath(DeleteEmailServerMap.YES_BUTTON)));
+
+	LogManager.info("Remove Email Server Yes Button has been clicked");
+
+	return new EmailServerPage();
+    }
+    /**
+     * Click on No button in order to cancel the remove of an Email Server
+     * @return EmailServerPage previous instance
+     */
+    public EmailServerPage clickNoButton() {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.presenceOfElementLocated(By
+			.xpath(DeleteEmailServerMap.NO_BUTTON)));
+	noButton.click();
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.invisibilityOfElementLocated(By
+			.xpath(DeleteEmailServerMap.NO_BUTTON)));
+
+	LogManager.info("Remove Email Server No Button has been clicked");
+
+	return new EmailServerPage();
+    }
 }
