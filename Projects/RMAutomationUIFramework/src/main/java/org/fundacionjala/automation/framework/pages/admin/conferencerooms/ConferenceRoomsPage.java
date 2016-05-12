@@ -33,6 +33,11 @@ public class ConferenceRoomsPage extends AdminPage {
 	PageFactory.initElements(BrowserManager.getDriver(), this);
     }
 
+    /**
+     * Set "pageSize" text field with a new pageSize.
+     * @param pageSize: The new pageSize that the field receives.
+     * @return this "ConferenceRoomsPage".
+     */
     public ConferenceRoomsPage selectPageSize(String pageSize) {
 	new Select(BrowserManager.getDriver().findElement(
 		By.xpath(ConferenceRoomsMap.PAGE_SIZE_BOX_SELECTOR)))
@@ -43,6 +48,11 @@ public class ConferenceRoomsPage extends AdminPage {
 	return this;
     }
 
+    /**
+     * Set "page" of the ConferenceRoom's table.
+     * @param page: The new page that the field receives.
+     * @return this "ConferenceRoomsPage".
+     */
     @FindBy(xpath = ConferenceRoomsMap.NEXT_PAGE_FIELD)
     WebElement pageField;
 
@@ -52,6 +62,10 @@ public class ConferenceRoomsPage extends AdminPage {
 	return this;
     }
 
+    /**
+     * Get the first Row's name of the ConferenceRoom's table.
+     * @return a String parameter.
+     */
     @FindBy(xpath = ConferenceRoomsMap.FIRST_ROW)
     WebElement firstRow;
 
@@ -59,6 +73,11 @@ public class ConferenceRoomsPage extends AdminPage {
 	return firstRow.getText();
     }
 
+    /**
+     * Click on a room according the Room's name.
+     * @param roomName: The name of a Room.
+     * @return this "ConferenceRoomsPage".
+     */
     public ConferenceRoomsPage selectOutOfOrderIcon(String roomName) {
 
 	String iconOutOfOrder = ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace(
@@ -105,6 +124,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	return this;
     }
 
+ 
     public boolean roomIsEnabled(String roomName) {
 	return true;
     }
@@ -217,6 +237,11 @@ public class ConferenceRoomsPage extends AdminPage {
 	return this;
     }
 
+    /**
+     * Set the number of Rooms that will be displayed in the ConferenceRoomTable
+     * @param sizePage: The number of Rooms in the table by page.
+     * @return this "ConferenceRoomsPage".
+     */
     public ConferenceRoomsPage selectPageSize(Integer sizePage) {
 	String sizePageString = sizePage.toString();
 	WebElement dropDown = BrowserManager.getDriver().findElement(
@@ -246,5 +271,4 @@ public class ConferenceRoomsPage extends AdminPage {
 	}
 	return list.size();
     }
-
 }
