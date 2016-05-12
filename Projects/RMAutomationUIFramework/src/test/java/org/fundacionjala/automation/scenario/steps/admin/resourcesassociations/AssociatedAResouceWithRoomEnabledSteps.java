@@ -43,7 +43,7 @@ public class AssociatedAResouceWithRoomEnabledSteps {
     @When("^I make sure the room edited is enabled$")
     public void i_make_sure_the_room_edited_is_enabled() throws Throwable {
 	
-	conferenceRoom.enableRoom();
+	conferenceRoom.enableRoom(roomToModify);
     }
 
     @When("^when I open the pop-up configuration of the room enabled$")
