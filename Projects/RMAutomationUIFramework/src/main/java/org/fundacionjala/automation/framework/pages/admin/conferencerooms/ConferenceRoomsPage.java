@@ -9,6 +9,7 @@ import org.fundacionjala.automation.framework.maps.admin.conferencerooms.Confere
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -96,9 +97,20 @@ public class ConferenceRoomsPage extends AdminPage {
 		.replace("roomName", roomName);
 	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
     }
+    
+    private WebElement getRoomDisabled(String roomName) {
+	String xpathRoom = ConferenceRoomsMap.ROOM_DISABLED
+		.replace("roomName", roomName);
+	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
+    }
 
     public RoomInfoPage openConfigurationPage(String roomToModify) {
 	UIActions.doubleClick(getRoom(roomToModify));
+	return new RoomInfoPage();
+    }
+    
+    public RoomInfoPage openRoomDisabled(String roomToModify) {
+	UIActions.doubleClick(getRoomDisabled(roomToModify));
 	return new RoomInfoPage();
     }
 
@@ -108,9 +120,21 @@ public class ConferenceRoomsPage extends AdminPage {
 	UIActions.doubleClickJS(roomElement);
 	return new RoomInfoPage();
     }
+    
+    public ConferenceRoomsPage disableRoom(String roomToModify) throws UnknownHostException {
+	    
+	MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), 27017);
+        DB db = mongoClient.getDB("roommanager");
+	DBCollection collection = db.getCollection("rooms");
+	    
+        BasicDBObject newDocument = new BasicDBObject();
+	newDocument.append("$set", new BasicDBObject().append("enabled", false));
+				
+	BasicDBObject searchQuery = new BasicDBObject().append("displayName", roomToModify);
 
-    public ConferenceRoomsPage disableRoom(String roomToModify) {
-	return this;
+	collection.update(searchQuery, newDocument);
+		
+           return this;
     }
 
     public boolean VerifyIfRoomExist(String expectedResult) {
@@ -180,7 +204,7 @@ public class ConferenceRoomsPage extends AdminPage {
 
     public String getRandomRoom() throws UnknownHostException {
 
-	MongoClient mongoClient = new MongoClient("172.20.208.84", 27017);
+	MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), 27017);
 	DB db = mongoClient.getDB("roommanager");
 	DBCollection collection = db.getCollection("rooms");
 
