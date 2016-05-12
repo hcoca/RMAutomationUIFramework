@@ -24,13 +24,9 @@ public class AvailableOutOfOrderSteps {
 	AdminPage home = new AdminPage();
 	ConferenceRoomsPage room = new ConferenceRoomsPage();
 	room = home.leftMenu.clickOnConferenceRoomsButton()
-            		.openConfigurationPage(roomName)
-            		.clickOnOutOfOrder()
-            		.setTimeBeginUp()
-            		.setTimeEndUp()
-            		.clickOnBoxButon()
-            		.ClickOnClosedForMaintenanceLink()
-            		.clickOnSave();
+		.openConfigurationPage(roomName).clickOnOutOfOrder()
+		.setTimeBeginUp().setTimeEndUp().clickOnBoxButon()
+		.ClickOnClosedForMaintenanceLink().clickOnSave();
     }
 
     @When("^I did click on the icon of Out of Order on the \"([^\"]*)\" room$")
@@ -38,7 +34,7 @@ public class AvailableOutOfOrderSteps {
 	AdminPage home = new AdminPage();
 	ConferenceRoomsPage room = new ConferenceRoomsPage();
 	room = home.leftMenu.clickOnConferenceRoomsButton()
-			    .selectOutOfOrderIcon(roomName);
+		.selectOutOfOrderIcon(roomName);
     }
 
     @When("^I sign in to Tablet page using the \"([^\"]*)\" room$")
@@ -46,8 +42,7 @@ public class AvailableOutOfOrderSteps {
 	ConnectionPage connection = new ConnectionPage();
 	NavigationPage navigation = connection
 		.setUpServiceURL(PropertiesReader.getServiceURL())
-		.clickOnSaveButton()
-		.clickOnNavigationButton();
+		.clickOnSaveButton().clickOnNavigationButton();
 
 	HomePage homeTablet = navigation.clickOnRoomToggleButton()
 		.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
@@ -55,29 +50,29 @@ public class AvailableOutOfOrderSteps {
     }
 
     @Then("^The \"([^\"]*)\" room should changes its status to non-available with the \"([^\"]*)\" title corresponding$")
-    public void validateRoomChangesStatusNonAvailable(String roomName, String titleOutOfOrder) throws Throwable {
+    public void validateRoomChangesStatusNonAvailable(String roomName,
+	    String titleOutOfOrder) throws Throwable {
 	AdminPage home = new AdminPage();
 	ConferenceRoomsPage room = new ConferenceRoomsPage();
 	boolean verification = false;
-	
-	WebElement title = BrowserManager.getDriver().findElement(By.xpath(HomeMap.TITLE_OUT_OF_ORDER));
+
+	WebElement title = BrowserManager.getDriver().findElement(
+		By.xpath(HomeMap.TITLE_OUT_OF_ORDER));
 	if (title.getText().contains(titleOutOfOrder)) {
 	    verification = true;
 	}
 	Assert.assertTrue(verification);
-	
-	//PostCondition
+
+	// PostCondition
 	BrowserManager.openBrowser();
 	LoginPage login = new LoginPage();
 	home = login.setUserName(PropertiesReader.getUserName())
-    		    .setPassword(PropertiesReader.getPassword())
-    		    .clickOnSigInButton().refreshPage();
+		.setPassword(PropertiesReader.getPassword())
+		.clickOnSigInButton().refreshPage();
 	room = home.leftMenu.clickOnConferenceRoomsButton()
-    		            .openConfigurationPage(roomName)
-    		            .clickOnOutOfOrder()
-    		            .activeOutOfOrder()
-    		            .clickOnSave();
-    
+		.openConfigurationPage(roomName).clickOnOutOfOrder()
+		.activeOutOfOrder().clickOnSave();
+
     }
 
 }
