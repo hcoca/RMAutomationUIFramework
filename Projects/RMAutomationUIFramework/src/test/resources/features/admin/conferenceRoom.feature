@@ -2,34 +2,35 @@ Feature: Conference Room
 
 Scenario: The icon of "Out of Order" changes its color to green so the Conference Room selected changes its state to non-available.
 Given I am logged as "Administrator" with password "Control*123"
-  And I create an Out of Order on a specific "Room007" room 
-When  I did click on the icon of Out of Order on the "Room007" room
-	And I sign in to Tablet page using the "Room007" room
-Then The "Room007" room should changes its status to non-available with the "Closed for maintenance" title corresponding
+  And I create an Out of Order on a specific "Room002" room 
+When  I did click on the icon of Out of Order on the "Room002" room
+	And I sign in to Tablet page using the "Room002" room
+Then The "Room002" room should changes its status to non-available with the "Closed for maintenance" title corresponding
+
 Scenario: An "Out of Order Planning" is created with the corresponding interval of time that has been specified.
 Given I am logged as "Administrator" with password "Control*123"
-When  I create an Out of Order on "Room008" room with a time by default
-Then The Out Of Order on "Room008" room should be created with the time interval defined
+When  I create an Out of Order on "Room003" room with a time by default
+Then The Out Of Order on "Room003" room should be created with the time interval defined
 
 Scenario: An "Out of Order Planning" is created with the corresponding title that has been specified.
 Given I am logged as "Administrator" with password "Control*123"
-When  I create an Out of Order on "Room005" room with a title defined
-Then The Out Of Order on "Room005" room should have been created an OutOfOrder with the "Closed for maintenance" title corresponding
+When  I create an Out Of Order on "Room004" room with a title defined 
+Then The Out Of Order on "Room004" room should have been created an OutOfOrder with the "Closed for maintenance" title corresponding
 
 Scenario: An "Out of Order Planning" can be disabled.
 Given I am logged as "Administrator" with password "Control*123"
-When  I create an Out of Order on "Room005" room with a title defined
+When  I create an Out Of Order on "Room005" room with a title defined 
  And  I disable this OutOfOrder on "Room005" room
 Then The Out Of Order on "Room005" room should has been disabled correctly with the "Closed for maintenance" title corresponding
 
 Scenario: An "Out of Order" cannot be established when a time in the past is used.
 Given I am logged as "Administrator" with password "Control*123" 
-When  I create an OuOfOrder on "Room005" room with a time in the past
+When  I create an OuOfOrder on "Room006" room with a time in the past
 Then The Out Of Order cannot be created an error message is displayed
 
 Scenario: An "Out of Order" cannot be established when a date in the past is used.
 Given I am logged as "Administrator" with password "Control*123"
-When  I create an OuOfOrder on "Room005" with a date in the past
+When  I create an OuOfOrder on "Room007" with a date in the past
 Then The Out Of Order cannot be created an error message is displayed
 
 Scenario: Next page is displayed in "Conference Room" table when "Next Page" button is clicked.
@@ -103,5 +104,3 @@ Examples:
     |  200  |
     |  100  |
     |  35   |
-
-     
