@@ -1,18 +1,13 @@
 package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 
+import org.fundacionjala.automation.framework.maps.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
-import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
-import org.fundacionjala.automation.framework.pages.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
-import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
-
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
