@@ -1,5 +1,12 @@
 package org.fundacionjala.automation.framework.maps.admin.impersonation;
 
+/**
+ * Impersonation Map Class
+ * This class contains the xpath locators of Impersonation Page
+ * 
+ * @author SamuelSahonero
+ *
+ */
 public class ImpersonationMap {
 
 	public static final String ACCOUNT_TEXT_FIELD = "//input[@type='input'][@ng-disabled='true'][@ng-model='mailservers[0].credential.username']";

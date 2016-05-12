@@ -26,6 +26,7 @@ public class ResourcePage extends AdminPage {
 	@FindBy (xpath = ResourceMap.LAST_PAGE_BUTTON) WebElement lastPageButton;
 	@FindBy (xpath = ResourceMap.NEXT_PAGE_BUTTON) WebElement nextPageButton;
 	@FindBy (xpath = ResourceMap.PREVIOUS_PAGE_BUTTON) WebElement previousPageButton;
+	@FindBy (xpath = ResourceMap.TOTAL_PAGES_LABEL) WebElement totalPagesLabel;
 	
 	public ResourcePage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
@@ -203,8 +204,11 @@ public class ResourcePage extends AdminPage {
 		return new ResourcePage();
 	}
 
-	public boolean verifyNumberOfResources(int pageSize) {
-		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+	public boolean verifyNumberOfResources(Integer pageSize) {
+	    	String xpath = ResourceMap.DROPDOWN_PAGE_SIZE
+	    				  .replace("number", pageSize.toString());
+		UIActions.waitFor(xpath);
+		System.out.println("tamanio "+resourceNames.size());
 		if(resourceNames.size()== pageSize )
 			return true;
 		else
@@ -248,7 +252,6 @@ public class ResourcePage extends AdminPage {
 	
 	public ResourceAssociationsPage clickOnAssociations()
 	{
-		
 		return new ResourceAssociationsPage();
 	}
 
@@ -256,7 +259,6 @@ public class ResourcePage extends AdminPage {
 		UIActions.waitFor(ResourceMap.NEXT_PAGE_BUTTON);
 		UIActions.clickAt(nextPageButton);
 		return new ResourcePage();
-		
 	}
 
 	public boolean verifyNextPage(String numberPage) {
@@ -266,6 +268,47 @@ public class ResourcePage extends AdminPage {
 		else 
 			return false;
 		
+	}
+
+	public ResourcePage clickOnPreviousButton() {
+		UIActions.waitFor(ResourceMap.PREVIOUS_PAGE_BUTTON);
+		UIActions.clickAt(previousPageButton);
+		return new ResourcePage();
+		
+	}
+
+	public boolean verifyPreviousPage(int previousPage) {
+		UIActions.waitFor(ResourceMap.INPUT_NUMBER_PAGE);
+		
+		String totalNumberPage = inputNumberPage.getAttribute("value").trim();
+		System.out.println("con"+totalNumberPage);
+		if(totalNumberPage.equalsIgnoreCase(String.valueOf(previousPage)))
+			return true;
+		else
+			return false;
+	}
+
+	public int getTheTotalNumberPage() {
+		UIActions.waitFor(ResourceMap.TOTAL_PAGES_LABEL);
+		String totalNumberPage = totalPagesLabel.getText().replace("/", "").trim();
+		if(totalNumberPage.equalsIgnoreCase("1"))
+			return Integer.parseInt(totalNumberPage);
+		else 
+			return (Integer.parseInt(totalNumberPage) -1);
+	}
+
+	public void typeNumberPage(String numberPage) {
+		UIActions.waitFor(ResourceMap.INPUT_NUMBER_PAGE);
+		inputNumberPage.clear();
+		inputNumberPage.sendKeys(numberPage);
+	}
+
+	public boolean verifyTheFirstElementOnThePage(String firstElement) {
+		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+		if(firstElement.equalsIgnoreCase(resourceNames.get(0).getText()))
+			return true;
+		else
+			return false;
 	}
 
 }

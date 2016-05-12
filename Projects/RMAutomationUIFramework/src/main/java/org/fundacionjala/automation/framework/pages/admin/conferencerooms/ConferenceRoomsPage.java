@@ -17,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.mongodb.BasicDBObject;
@@ -31,6 +32,51 @@ public class ConferenceRoomsPage extends AdminPage {
 	PageFactory.initElements(BrowserManager.getDriver(), this);
     }
 
+    /**
+     * Set "pageSize" text field with a new pageSize.
+     * @param pageSize: The new pageSize that the field receives.
+     * @return this "ConferenceRoomsPage".
+     */
+    public ConferenceRoomsPage selectPageSize(String pageSize) {
+	new Select(BrowserManager.getDriver().findElement(
+		By.xpath(ConferenceRoomsMap.PAGE_SIZE_BOX_SELECTOR)))
+		.selectByVisibleText(pageSize);
+	String sizeOption = ConferenceRoomsMap.PAGE_SIZE_OPTION.replace(
+		"sizePage", pageSize);
+	BrowserManager.getDriver().findElement(By.xpath(sizeOption)).click();
+	return this;
+    }
+
+    /**
+     * Set "page" of the ConferenceRoom's table.
+     * @param page: The new page that the field receives.
+     * @return this "ConferenceRoomsPage".
+     */
+    @FindBy(xpath = ConferenceRoomsMap.NEXT_PAGE_FIELD)
+    WebElement pageField;
+
+    public ConferenceRoomsPage setPage(String page) {
+	pageField.clear();
+	pageField.sendKeys(page);
+	return this;
+    }
+
+    /**
+     * Get the first Row's name of the ConferenceRoom's table.
+     * @return a String parameter.
+     */
+    @FindBy(xpath = ConferenceRoomsMap.FIRST_ROW)
+    WebElement firstRow;
+
+    public String getFirstRow() {
+	return firstRow.getText();
+    }
+
+    /**
+     * Click on a room according the Room's name.
+     * @param roomName: The name of a Room.
+     * @return this "ConferenceRoomsPage".
+     */
     public ConferenceRoomsPage selectOutOfOrderIcon(String roomName) {
 	String iconOutOfOrder = ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace(
 		"roomName", roomName);
@@ -56,7 +102,7 @@ public class ConferenceRoomsPage extends AdminPage {
 		.replace("roomName", roomName);
 	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
     }
-    
+
     public RoomInfoPage openConfigurationPage(String roomToModify) {
 	UIActions.doubleClick(getRoom(roomToModify));
 	return new RoomInfoPage();
@@ -74,26 +120,25 @@ public class ConferenceRoomsPage extends AdminPage {
 	return new RoomInfoPage();
     }
     
-	public ConferenceRoomsPage disableRoom(String roomToModify) throws UnknownHostException {
+    public ConferenceRoomsPage disableRoom(String roomToModify) throws UnknownHostException {
 	    
-	        MongoClient mongoClient = new MongoClient("172.20.208.84", 27017);
-		DB db = mongoClient.getDB("roommanager");
-		DBCollection collection = db.getCollection("rooms");
+	MongoClient mongoClient = new MongoClient("172.20.208.84", 27017);
+        DB db = mongoClient.getDB("roommanager");
+	DBCollection collection = db.getCollection("rooms");
 	    
-        	BasicDBObject newDocument = new BasicDBObject();
-		newDocument.append("$set", new BasicDBObject().append("enabled", false));
+        BasicDBObject newDocument = new BasicDBObject();
+	newDocument.append("$set", new BasicDBObject().append("enabled", false));
 				
-		BasicDBObject searchQuery = new BasicDBObject().append("displayName", roomToModify);
+	BasicDBObject searchQuery = new BasicDBObject().append("displayName", roomToModify);
 
-		collection.update(searchQuery, newDocument);
+	collection.update(searchQuery, newDocument);
 		
+           return this;
+    }
 
-		return this;
-	}
-	
-	public boolean VerifyIfRoomExist(String expectedResult) {
-		return ((getRoom(expectedResult) != null) ? true : false);
-	}
+    public boolean VerifyIfRoomExist(String expectedResult) {
+	return ((getRoom(expectedResult) != null) ? true : false);
+    }
 
     public boolean roomIsEnabled(String roomName) {
 	return true;
@@ -101,6 +146,7 @@ public class ConferenceRoomsPage extends AdminPage {
 
     @FindBy(xpath = ConferenceRoomsMap.RESOURCE_BUTTONS)
     List<WebElement> resourceButtons;
+
     private WebElement getResource(String resourceName) {
 	for (WebElement resource : resourceButtons) {
 	    if (resource.getText().trim().equalsIgnoreCase(resourceName)) {
@@ -113,7 +159,7 @@ public class ConferenceRoomsPage extends AdminPage {
     public boolean verifyIfResourceCreatedIsInConferenceRoomPage(
 	    String expectedResult) {
 	if (getResource(expectedResult) != null) {
-	    return true;	
+	    return true;
 	}
 	return false;
 
@@ -198,10 +244,16 @@ public class ConferenceRoomsPage extends AdminPage {
 	return this;
     }
 
+    /**
+     * Set the number of Rooms that will be displayed in the ConferenceRoomTable
+     * @param sizePage: The number of Rooms in the table by page.
+     * @return this "ConferenceRoomsPage".
+     */
     public ConferenceRoomsPage selectPageSize(Integer sizePage) {
 	String sizePageString = sizePage.toString();
 	WebElement dropDown = BrowserManager.getDriver().findElement(
-		By.xpath(ConferenceRoomsMap.PAGE_SIZE.replace("sizePage", sizePageString)));
+		By.xpath(ConferenceRoomsMap.PAGE_SIZE.replace("sizePage",
+			sizePageString)));
 	UIActions.clickAt(dropDown);
 	return this;
     }
@@ -221,15 +273,14 @@ public class ConferenceRoomsPage extends AdminPage {
 		}
 		lastRow = room;
 	    }
-	    ((JavascriptExecutor) BrowserManager.getDriver())
-	    .executeScript(
+	    ((JavascriptExecutor) BrowserManager.getDriver()).executeScript(
 		    "arguments[0].scrollIntoView(true);", lastRow);
 	}
 	return list.size();
     }
 
     public ConferenceRoomsPage enableRoom() {
-	
+
 	return this;
     }
 }
