@@ -24,33 +24,29 @@ public class CreateOutOfOrderWithATimeDefined {
 	AdminPage home = new AdminPage();
 	ConferenceRoomsPage room = new ConferenceRoomsPage();
 	room = home.leftMenu.clickOnConferenceRoomsButton()
-            		    .openConfigurationPage(roomName)
-            		    .clickOnOutOfOrder()
-            		    .setTimeBeginUp()
-            		    .setTimeEndUp()
-            		    .storeFromTime()
-            		    .storeToTime()
-            		    .activeOutOfOrder()
-            		    .clickOnSave();
+		.openConfigurationPage(roomName).clickOnOutOfOrder()
+		.setTimeBeginUp().setTimeEndUp().storeFromTime().storeToTime()
+		.activeOutOfOrder().clickOnSave();
     }
 
     @Then("^The Out Of Order on \"([^\"]*)\" room should be created with the time interval defined$")
-    public void the_Out_Of_Order_on_room_should_be_created_with_the_time_interval_defined(String roomName) throws Throwable {
+    public void outOfOrderShouldBeCreatedWithIntervalTimeDefined(String roomName)
+	    throws Throwable {
 	boolean verification = false;
 	ConnectionPage connection = new ConnectionPage();
-	
-	NavigationPage navigation = connection.setUpServiceURL(PropertiesReader.getServiceURL())
-                    		              .clickOnSaveButton()
-                    		              .clickOnNavigationButton();
+
+	NavigationPage navigation = connection
+		.setUpServiceURL(PropertiesReader.getServiceURL())
+		.clickOnSaveButton().clickOnNavigationButton();
 
 	HomePage hometablet = navigation.clickOnRoomToggleButton()
-                        		.selectConferenceRoom(roomName)
-                        		.clickOnSaveButton()
-                        		.topMenu
-                        		.clickOnHomeButton();
-	
-	WebElement time = BrowserManager.getDriver().findElement(By.xpath(HomeMap.TIME_OUT_OF_ORDER));
-	if ((time.getText().contains(OutOfOrderPage.timeBegin))&&(time.getText().contains(OutOfOrderPage.timeEnd))) {
+		.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+		.clickOnHomeButton();
+
+	WebElement time = BrowserManager.getDriver().findElement(
+		By.xpath(HomeMap.TIME_OUT_OF_ORDER));
+	if ((time.getText().contains(OutOfOrderPage.timeBegin))
+		&& (time.getText().contains(OutOfOrderPage.timeEnd))) {
 	    verification = true;
 	}
 	Assert.assertTrue(verification);
@@ -58,14 +54,11 @@ public class CreateOutOfOrderWithATimeDefined {
 	BrowserManager.openBrowser();
 	LoginPage login = new LoginPage();
 	AdminPage home = login.setUserName(PropertiesReader.getUserName())
-                	      .setPassword(PropertiesReader.getPassword())
-            		      .clickOnSigInButton()
-            		      .refreshPage();
+		.setPassword(PropertiesReader.getPassword())
+		.clickOnSigInButton().refreshPage();
 	ConferenceRoomsPage room = home.leftMenu.clickOnConferenceRoomsButton()
-                                		.openConfigurationPage(roomName)
-                                		.clickOnOutOfOrder()
-                                		.activeOutOfOrder()
-                                		.clickOnSave();
+		.openConfigurationPage(roomName).clickOnOutOfOrder()
+		.activeOutOfOrder().clickOnSave();
     }
 
 }

@@ -94,46 +94,50 @@ public class ConferenceRoomThenSteps {
     public void validate_if_there_are_rooms_on_table(int sizePage)
 	    throws Throwable {
 	ConferenceRoomsPage conferenceRoom = new ConferenceRoomsPage();
-	Assert.assertTrue("There are more than " + sizePage + " rooms in this page",
-		conferenceRoom.verifySizePage(sizePage)
-		);
+	Assert.assertTrue("There are more than " + sizePage
+		+ " rooms in this page",
+		conferenceRoom.verifySizePage(sizePage));
     }
-    
+
     @Then("^I validate if the next page is displayed according the page size specified \"([^\"]*)\" and the page \"([^\"]*)\"$")
-    public void i_validate_if_the_next_page_is_displayed_according_the_page_size_specified_and_the_page(String pageSize, String page) throws Throwable {
-		ConferenceRoomsPage room = new ConferenceRoomsPage();
-		
-		boolean verification = false;
-		List<Room> listRooms = RoomAPIManager.getRequest("http://172.20.208.84:4040/rooms");
-		int index= ((Integer.parseInt(page)-1)*Integer.parseInt(pageSize))+1;
-		
-		for (int i = 0; i < listRooms.size(); i++) {
-			if(listRooms.get(i).displayName.contains(Integer.toString(index))){
-				String displayNameRoom = listRooms.get(i).displayName;
-				if(room.getFirstRow().contains(displayNameRoom)){
-					verification = true;
-				}
-			}
+    public void i_validate_if_the_next_page_is_displayed_according_the_page_size_specified_and_the_page(
+	    String pageSize, String page) throws Throwable {
+	ConferenceRoomsPage room = new ConferenceRoomsPage();
+
+	boolean verification = false;
+	List<Room> listRooms = RoomAPIManager
+		.getRequest("http://172.20.208.84:4040/rooms");
+	int index = ((Integer.parseInt(page) - 1) * Integer.parseInt(pageSize)) + 1;
+
+	for (int i = 0; i < listRooms.size(); i++) {
+	    if (listRooms.get(i).displayName.contains(Integer.toString(index))) {
+		String displayNameRoom = listRooms.get(i).displayName;
+		if (room.getFirstRow().contains(displayNameRoom)) {
+		    verification = true;
 		}
-		Assert.assertTrue(verification);
+	    }
+	}
+	Assert.assertTrue(verification);
     }
-    
+
     @Then("^I validate if the previous page is displayed according the page size specified \"([^\"]*)\" and the page \"([^\"]*)\"$")
-    public void i_validate_if_the_previous_page_is_displayed_according_the_page_size_specified_and_the_page(String pageSize, String page) throws Throwable {
-		ConferenceRoomsPage room = new ConferenceRoomsPage();
-		
-		boolean verification = false;
-		List<Room> listRooms = RoomAPIManager.getRequest("http://172.20.208.84:4040/rooms");
-		int index= ((Integer.parseInt(page)-1)*Integer.parseInt(pageSize))+1;
-		
-		for (int i = 0; i < listRooms.size(); i++) {
-			if(listRooms.get(i).displayName.contains(Integer.toString(index))){
-				String displayNameRoom = listRooms.get(i).displayName;
-				if(room.getFirstRow().contains(displayNameRoom)){
-					verification = true;
-				}
-			}
+    public void i_validate_if_the_previous_page_is_displayed_according_the_page_size_specified_and_the_page(
+	    String pageSize, String page) throws Throwable {
+	ConferenceRoomsPage room = new ConferenceRoomsPage();
+
+	boolean verification = false;
+	List<Room> listRooms = RoomAPIManager
+		.getRequest("http://172.20.208.84:4040/rooms");
+	int index = ((Integer.parseInt(page) - 1) * Integer.parseInt(pageSize)) + 1;
+
+	for (int i = 0; i < listRooms.size(); i++) {
+	    if (listRooms.get(i).displayName.contains(Integer.toString(index))) {
+		String displayNameRoom = listRooms.get(i).displayName;
+		if (room.getFirstRow().contains(displayNameRoom)) {
+		    verification = true;
 		}
-		Assert.assertTrue(verification);
+	    }
+	}
+	Assert.assertTrue(verification);
     }
 }
