@@ -158,11 +158,11 @@ public class ResourcePage extends AdminPage {
 	 */
 	public ResourceInfoPage doubleClickOnResource(String name) 
 		throws InterruptedException{
-	    
-		Thread.sleep(2000);
+	    	UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		for (WebElement element : resourceNames) {
 			if (element.getText().equalsIgnoreCase(name)) {
 				element.click();
+				
 				UIActions.doubleClick(element);
 				LogManager.info("Double click on Resource "
 						+ name);
@@ -182,7 +182,7 @@ public class ResourcePage extends AdminPage {
 	public boolean verifyResourceModifiedByField(String resourceName, 
 						     String name, 
 						     String value) {
-		switch(name.charAt(0))
+		switch (name.charAt(0))
 		{
 		case 'n':
 			return verifyResourceExist(value);

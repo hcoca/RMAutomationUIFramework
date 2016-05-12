@@ -26,6 +26,7 @@ public class RemoveResourcePage {
 	 * The constructor initialize the RemoveResourcePage
 	 */
 	public RemoveResourcePage() {
+	    
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
@@ -34,6 +35,7 @@ public class RemoveResourcePage {
 	 * @return ResourcePage
 	 */
 	public ResourcePage clickOnRemoveButton() {
+	    
 		UIActions.waitFor(RemoveResourceMap.REMOVE_BUTTON);
 		UIActions.clickAt(removeButton);
 		
@@ -45,6 +47,7 @@ public class RemoveResourcePage {
 	 * @return ResourcePage
 	 */
 	public ResourcePage clickOnCancelButton() {
+	    
 		UIActions.waitFor(RemoveResourceMap.CANCEL_BUTTON);
 		UIActions.clickAt(cancelButton);
 		
@@ -56,6 +59,7 @@ public class RemoveResourcePage {
 	 * @return ResourcePage
 	 */
 	public ResourcePage clickOnCloseButton() {
+	    
 		UIActions.waitFor(RemoveResourceMap.CLOSE_BUTTON);
 		UIActions.clickAt(closeButton);
 		
@@ -68,6 +72,7 @@ public class RemoveResourcePage {
 	 * @return true if the association id displayed else false
 	 */
 	public boolean verifyAssociatedRoomExist(String roomName) {
+	    
 		try {
 			String xpath = RemoveResourceMap.NAME_ROOM.replace(
 				"roomName", roomName);

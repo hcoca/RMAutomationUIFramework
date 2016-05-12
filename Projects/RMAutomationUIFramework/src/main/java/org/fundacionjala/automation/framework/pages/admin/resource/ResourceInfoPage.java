@@ -41,8 +41,8 @@ public class ResourceInfoPage {
 	/**
 	 * The constructor initialize the ResourceInfoPage class
 	 */
-	public ResourceInfoPage()
-	{
+	public ResourceInfoPage(){
+	    
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
@@ -51,8 +51,8 @@ public class ResourceInfoPage {
 	 * @param name
 	 * @return ResourceInfoPage
 	 */
-	public ResourceInfoPage setResourceName(String name)
-	{
+	public ResourceInfoPage setResourceName(String name){
+	    
 		UIActions.waitFor(ResourceInfoMap.NAME_TEXT_FIELD);
 		UIActions.typeOn(nameTextField, name);
 		
@@ -64,8 +64,8 @@ public class ResourceInfoPage {
 	 * @param displayName
 	 * @return ResourceInfoPage
 	 */
-	public ResourceInfoPage setDisplayName(String displayName)
-	{
+	public ResourceInfoPage setDisplayName(String displayName){
+	    
 		UIActions.waitFor(ResourceInfoMap.DISPLAY_NAME_TEXT_FIELD);
 		UIActions.typeOn(displayNameTextField, displayName);
 		
@@ -77,8 +77,8 @@ public class ResourceInfoPage {
 	 * @param description
 	 * @return ResourceInfoPage
 	 */
-	public ResourceInfoPage setDescription(String description)
-	{
+	public ResourceInfoPage setDescription(String description){
+	    
 		UIActions.waitFor(ResourceInfoMap.DESCRIPTION_TEXT_FIELD);
 		UIActions.typeOn(descriptionTextField, description);
 		
@@ -90,9 +90,8 @@ public class ResourceInfoPage {
 	 * @param icon
 	 * @return ResourceInfoPage
 	 */
-	public ResourceInfoPage selectIcon(String icon)
-	{	
-		
+	public ResourceInfoPage selectIcon(String icon){	
+	    		
 		UIActions.waitFor(ResourceInfoMap.ICON_BUTTON);
 		UIActions.clickAt(iconButton);
 		WebElement iconToChange = FindIcon(icon);
@@ -107,8 +106,8 @@ public class ResourceInfoPage {
 	 * This function is to click on SAVE button on ResourceInfoPage
 	 * @return ResourceInfoPage
 	 */
-	public ResourcePage clickOnSaveButton()
-	{
+	public ResourcePage clickOnSaveButton()	{
+	    
 		UIActions.waitFor(ResourceInfoMap.SAVE_BUTTON);
 		UIActions.clickAt(saveButton);
 		
@@ -119,8 +118,8 @@ public class ResourceInfoPage {
 	 * This function is to click on CANCEL button on ResourceInfoPage
 	 * @return ResourceInfoPage
 	 */
-	public ResourcePage clickOnCancelButton()
-	{
+	public ResourcePage clickOnCancelButton(){
+	    
 		UIActions.waitFor(ResourceInfoMap.CANCEL_BUTTON);
 		UIActions.clickAt(cancelButton);
 		
@@ -132,8 +131,8 @@ public class ResourceInfoPage {
 	 * @param iconName
 	 * @return ResourceInfoPage
 	 */
-	public WebElement FindIcon(String iconName)
-	{
+	public WebElement FindIcon(String iconName){
+	    
 		String xpath = 
 			ResourceInfoMap.ICON.replace("iconName", iconName);
 		List<WebElement> elements;
@@ -173,8 +172,8 @@ public class ResourceInfoPage {
 	 * This function is to selects on RECOURCE ASSOCIATION option
 	 * @return ResourceAssociationsPage
 	 */
-	public ResourceAssociationsPage clickOnResourcesAssociation()
-	{
+	public ResourceAssociationsPage clickOnResourcesAssociation(){
+	    
 	   ExplicitWait.clickWhenReady(By.linkText(
 		   ResourceInfoMap.RESOURCES_ASSOCIATIONS_LINK), 5);
 	   return new ResourceAssociationsPage();	

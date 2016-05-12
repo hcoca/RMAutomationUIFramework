@@ -32,8 +32,8 @@ public class AddResourcePage {
 	/**
 	 * The constructor initialize the AddResourcePage
 	 */
-	public AddResourcePage()
-	{
+	public AddResourcePage(){
+	    
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
 	
@@ -42,8 +42,8 @@ public class AddResourcePage {
 	 * @param name is the value to fill the text field
 	 * @return AddResourcePage
 	 */
-	public AddResourcePage setResourceName(String name)
-	{
+	public AddResourcePage setResourceName(String name){
+	    
 		By locator = By.xpath(AddResourceMap.NAME_TEXT_FIELD);
 		(new WebDriverWait(BrowserManager.getDriver(), 10))
 		.until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -58,8 +58,8 @@ public class AddResourcePage {
 	 * @param displayName is the value to fill the text field
 	 * @return AddResourcePage
 	 */
-	public AddResourcePage setDisplayName(String displayName)
-	{
+	public AddResourcePage setDisplayName(String displayName){
+	    
 		By locator = By.xpath(AddResourceMap.DISPLAY_NAME_TEXT_FIELD);
 		(new WebDriverWait(BrowserManager.getDriver(), 10))
 		.until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -76,8 +76,8 @@ public class AddResourcePage {
 	 * @param description is the value to fill the text field
 	 * @return AddResourcePage
 	 */
-	public AddResourcePage setDescription(String description)
-	{
+	public AddResourcePage setDescription(String description){
+	    
 		By locator = By.xpath(AddResourceMap.DESCRIPTION_TEXT_FIELD);
 		(new WebDriverWait(BrowserManager.getDriver(), 10))
 		.until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -94,8 +94,8 @@ public class AddResourcePage {
 	 * @param icon is the value to select an icon
 	 * @return AddResourcePage
 	 */
-	public AddResourcePage selectIcon(String icon)
-	{
+	public AddResourcePage selectIcon(String icon){
+	    
 		String xpath = AddResourceMap.ICON.replace("iconName", icon);
 		WebElement element;
 		(new WebDriverWait(BrowserManager.getDriver(), 10))
@@ -116,8 +116,8 @@ public class AddResourcePage {
 	 * This function is to click on SAVE button on AddResourcePage
 	 * @return ResourcePage
 	 */
-	public ResourcePage clickOnSaveButton()
-	{
+	public ResourcePage clickOnSaveButton()	{
+	    
 		(new WebDriverWait(BrowserManager.getDriver(), 10))
 		.until(ExpectedConditions.presenceOfElementLocated(
 			By.xpath(AddResourceMap.SAVE_BUTTON)));
@@ -131,8 +131,8 @@ public class AddResourcePage {
 	 * This function is to click on CANCEL button on AddResourcePage
 	 * @return
 	 */
-	public ResourcePage clickOnCancelButton()
-	{
+	public ResourcePage clickOnCancelButton(){
+	    
 		(new WebDriverWait(BrowserManager.getDriver(), 10))
 		.until(ExpectedConditions.presenceOfElementLocated(
 			By.xpath(AddResourceMap.CANCEL_BUTTON)));
