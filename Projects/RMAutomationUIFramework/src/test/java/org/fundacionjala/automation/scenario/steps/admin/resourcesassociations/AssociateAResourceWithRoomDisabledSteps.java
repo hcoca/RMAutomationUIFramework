@@ -23,44 +23,45 @@ public class AssociateAResourceWithRoomDisabledSteps {
 	
 	@Before("@scenario#5")
 	public void beforeScenario() throws Throwable {
-
+             
 		conferenceRoom = new ConferenceRoomsPage();
+                roomToModify = conferenceRoom.getRandomRoom();
+                
 		resourceToAssociate = ResourcesActions.createResourceByAPI("desktop", 
 				                                           IconResources.DESKTOP, 
 				                                           "monitorOfDesktop");
-                resourceName = resourceToAssociate.customName;
-                roomToModify = conferenceRoom.getRandomRoom();
+
+		resourceName = resourceToAssociate.customName;
+	}
+	
+	@Given("^I have one Room disabled$")
+	public void i_have_one_Room_disabled() throws Throwable {
+	    
+	    conferenceRoom.disableRoom(roomToModify);
 	}
 
 	@Given("^I have a resource associated$")
 	public void i_have_a_resource_associated() throws Throwable {
 	    
-		conferenceRoom
-			      .openConfigurationPage(roomToModify)
+		  conferenceRoom
+			      .openRoomDisabled(roomToModify)
 			      .clickOnResourceAssociations()
 			      .addResource(resourceName)
 			      .clickOnSave();
 		
 	}
-	
-	@When("^I disable the room$")
-	public void i_disable_the_room() throws Throwable {
+	@When("^I open the pop-up configuration of the room disabled$")
+	public void i_open_the_pop_up_configuration_of_the_room_disabled() throws Throwable {
 	    
-	    conferenceRoom.disableRoom(roomToModify);
-	}
-
-	@When("^when I open the pop-up configuration of the room disabled$")
-	public void when_I_open_the_pop_up_configuration_of_the_room_disabled() throws Throwable {
-	    
-		resourceAssociations = conferenceRoom
-						     .openConfigurationPage(roomToModify)
-						     .clickOnResourceAssociations();
+	    resourceAssociations = conferenceRoom
+		     .openRoomDisabled(roomToModify)
+		     .clickOnResourceAssociations();
 	}
 
 	@Then("^I see the resource associated in Associated column$")
 	public void i_see_the_resource_associated_in_Associated_column() throws Throwable {
 		
-	   Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceName),
+	     Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceName),
 			     "the resource should be in resource column");
 	   
 	}
