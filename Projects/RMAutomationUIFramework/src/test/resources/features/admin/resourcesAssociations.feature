@@ -57,3 +57,5 @@ Feature: Resources associations
     And I associate many resources to one room
     When I open the pop-up configuration of the room
     Then I see the all resources associated to this room
+
+  

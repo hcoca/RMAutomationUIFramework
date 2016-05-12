@@ -68,7 +68,8 @@ public class AssociateAResourceWithRoomDisabledSteps {
 	@After("@scenario#5")
 	public void afterScenario() throws Throwable {
 	    
-		ResourcesActions.deleteResourceByAPI(resourceToAssociate);
+	    conferenceRoom.enableRoom(roomToModify);
+	    ResourcesActions.deleteResourceByAPI(resourceToAssociate);
 	}
 	
 }
