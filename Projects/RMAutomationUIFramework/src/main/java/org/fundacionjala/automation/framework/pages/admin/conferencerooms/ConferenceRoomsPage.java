@@ -28,28 +28,35 @@ import com.mongodb.MongoClient;
 
 public class ConferenceRoomsPage extends AdminPage {
 
-   
-	public ConferenceRoomsPage() {
-		PageFactory.initElements(BrowserManager.getDriver(), this);
-	}
-	
-	public ConferenceRoomsPage selectPageSize(String pageSize){
-		new Select(BrowserManager.getDriver().findElement(By.xpath(ConferenceRoomsMap.PAGE_SIZE_BOX_SELECTOR))).selectByVisibleText(pageSize);
-		String sizeOption = ConferenceRoomsMap.PAGE_SIZE_OPTION.replace("sizePage",pageSize);
-		BrowserManager.getDriver().findElement(By.xpath(sizeOption)).click();
-		return this;
-	}
-	@FindBy (xpath = ConferenceRoomsMap.NEXT_PAGE_FIELD) WebElement pageField;
-	public ConferenceRoomsPage setPage(String page){
-		pageField.clear();
-		pageField.sendKeys(page);
-		return this;
-	}
-	
-	@FindBy (xpath = ConferenceRoomsMap.FIRST_ROW) WebElement firstRow;
-	public String getFirstRow(){
-		return firstRow.getText();
-	}
+    public ConferenceRoomsPage() {
+	PageFactory.initElements(BrowserManager.getDriver(), this);
+    }
+
+    public ConferenceRoomsPage selectPageSize(String pageSize) {
+	new Select(BrowserManager.getDriver().findElement(
+		By.xpath(ConferenceRoomsMap.PAGE_SIZE_BOX_SELECTOR)))
+		.selectByVisibleText(pageSize);
+	String sizeOption = ConferenceRoomsMap.PAGE_SIZE_OPTION.replace(
+		"sizePage", pageSize);
+	BrowserManager.getDriver().findElement(By.xpath(sizeOption)).click();
+	return this;
+    }
+
+    @FindBy(xpath = ConferenceRoomsMap.NEXT_PAGE_FIELD)
+    WebElement pageField;
+
+    public ConferenceRoomsPage setPage(String page) {
+	pageField.clear();
+	pageField.sendKeys(page);
+	return this;
+    }
+
+    @FindBy(xpath = ConferenceRoomsMap.FIRST_ROW)
+    WebElement firstRow;
+
+    public String getFirstRow() {
+	return firstRow.getText();
+    }
 
     public ConferenceRoomsPage selectOutOfOrderIcon(String roomName) {
 	String iconOutOfOrder = ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace(
@@ -115,6 +122,11 @@ public class ConferenceRoomsPage extends AdminPage {
 
     }
 
+    /**
+     * This function is for clicking on enabled button of a room.
+     * @param roomName name of specific room
+     * @return ConferenceRoomsPage
+     */
     public ConferenceRoomsPage clickOnTurnOnOffButton(String roomName) {
 	WebElement turnOnOffButton = BrowserManager.getDriver().findElement(
 		By.xpath(ConferenceRoomsMap.TURN_ON_OFF_BUTTON.replace(

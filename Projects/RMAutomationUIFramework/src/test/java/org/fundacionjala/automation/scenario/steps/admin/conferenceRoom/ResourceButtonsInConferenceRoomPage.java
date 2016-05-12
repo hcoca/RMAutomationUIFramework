@@ -8,8 +8,6 @@ import org.junit.Assert;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-
-
 public class ResourceButtonsInConferenceRoomPage {
 	String resourceEndPoint = "http://172.20.208.84:4040/resources";
 	String expectedResult;

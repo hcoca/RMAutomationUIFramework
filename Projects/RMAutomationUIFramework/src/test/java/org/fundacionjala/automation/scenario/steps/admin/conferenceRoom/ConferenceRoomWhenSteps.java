@@ -14,12 +14,12 @@ public class ConferenceRoomWhenSteps {
     }
 
     @When("^I enabled \"([^\"]*)\" room$")
-    public void i_enabled_room(String roomName) throws Throwable {
+    public void enableARoom(String roomName) throws Throwable {
 	goToConferenceRoomPage().clickOnTurnOnOffButton(roomName);
     }
 
     @When("^I disabled \"([^\"]*)\" room$")
-    public void i_disabled_room(String roomName) throws Throwable {
+    public void disableARoom(String roomName) throws Throwable {
 	goToConferenceRoomPage().clickOnTurnOnOffButton(roomName);
     }
 
@@ -34,24 +34,17 @@ public class ConferenceRoomWhenSteps {
 	goToConferenceRoomPage().typeOnFilterTextbox(roomCriteria);
     }
 
-    @When("^I specify size \"([^\"]*)\" of rooms quantity on conference room page\\.$")
-    public void i_specify_size_of_rooms_quantity_on_conference_room_page(
-	    int sizePage) throws Throwable {
-	goToConferenceRoomPage().selectPageSize(sizePage);
-
-    }
-
     @When("^I select a page size \"([^\"]*)\"$")
     public void i_select_a_page_size(String pageSize) throws Throwable {
 	AdminPage home = new AdminPage();
-	ConferenceRoomsPage room = home.leftMenu.clickOnConferenceRoomsButton()
+	home.leftMenu.clickOnConferenceRoomsButton()
 		.selectPageSize(pageSize);
     }
 
     @When("^I set the page \"([^\"]*)\"$")
     public void i_set_the_page(String page) throws Throwable {
 	AdminPage home = new AdminPage();
-	ConferenceRoomsPage room = home.leftMenu.clickOnConferenceRoomsButton()
+	home.leftMenu.clickOnConferenceRoomsButton()
 		.setPage(page);
     }
 }
