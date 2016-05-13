@@ -77,7 +77,7 @@ public class ImpersonationWhenSteps {
 		SchedulerPage scheduler = home.clickOnScheduleButton()
 				.setOrganizer(PropertiesReader.getExchangeConnectUserName())
 				.setSubject(subject)
-				.setAttende(PropertiesReader.getExchangeInviteUser());
+				.setAttende(PropertiesReader.getExchangeInviteMail());
 
 		scheduler.clickOnCreateButton();
 	}
