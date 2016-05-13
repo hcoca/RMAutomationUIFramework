@@ -16,8 +16,8 @@ Then All Conference rooms are added from Exchange service
 @service_functional
 Scenario: A credential is modified when the service credential is modified.
 Given There is an Email Server added
-When I modify credential with user name "JavierGutierrez" and password "Control123"
-Then The changes: user name "JavierGutierrez" and password "Control123" are saved 
+When I modify credential with user name "RoomManager1" and password "Control*123"
+Then The changes: user name "RoomManager1" and password "Control*123" are saved 
 
 @service_functional
 Scenario: All Conference rooms are deleted when Service is deleted.
