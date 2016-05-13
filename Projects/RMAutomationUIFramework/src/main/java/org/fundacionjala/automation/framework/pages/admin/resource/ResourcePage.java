@@ -371,6 +371,12 @@ public class ResourcePage extends AdminPage {
 		
 	}
 	
+	/**
+	 * This functions down the scroll until the end of table and return
+	 *  the size table
+	 * @param sizePage
+	 * @return size resource table
+	 */
 	public String getResourceTableSize(String sizePage)
 	{
 	    int size = Integer.parseInt(sizePage);
@@ -391,6 +397,10 @@ public class ResourcePage extends AdminPage {
 		return list.size() + "";
 	}
 	
+	/**
+	 * This functions is to get all resources in the table
+	 * @return list of resource names of the table
+	 */
 	 public List<WebElement> getResources() {
 
 		return ExplicitWait.getElementsWhenVisible(
