@@ -174,7 +174,7 @@ public class ImpersonationThenSteps {
 				.leftMenu
 				.clickOnEmailServerButton();
 
-		boolean isEmailServerPresent = server.findEmailServer();
+		boolean isEmailServerPresent = server.isEmailServerPresent();
 
 		if (isEmailServerPresent == false) {
 
