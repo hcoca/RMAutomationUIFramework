@@ -96,7 +96,7 @@ public class ConferenceRoomThenSteps {
 
 	boolean verification = false;
 	List<Room> listRooms = RoomAPIManager
-		.getRequest("http://172.20.208.84:4040/rooms");
+		.getRequest(PropertiesReader.getServiceURL() + "/rooms");
 	int index = ((Integer.parseInt(page) - 1) * Integer.parseInt(pageSize)) + 1;
 
 	for (int i = 0; i < listRooms.size(); i++) {
@@ -117,7 +117,7 @@ public class ConferenceRoomThenSteps {
 
 	boolean verification = false;
 	List<Room> listRooms = RoomAPIManager
-		.getRequest("http://172.20.208.84:4040/rooms");
+		.getRequest(PropertiesReader.getServiceURL() + "/rooms");
 	int index = ((Integer.parseInt(page) - 1) * Integer.parseInt(pageSize)) + 1;
 
 	for (int i = 0; i < listRooms.size(); i++) {

@@ -341,6 +341,11 @@ public class ConferenceRoomsPage extends AdminPage {
 
     @FindBy(xpath = ConferenceRoomsMap.TOTAL_ITEMS_LABEL)
     WebElement totalItemsLabel;
+
+    /**
+     * This function return a string of element of quantity of rooms.
+     * @return quantity of rooms in rooms table.
+     */
     public String getTotalItems() {
 	
 	return totalItemsLabel.getText().trim().replace("Total Items: ", "");
@@ -349,6 +354,11 @@ public class ConferenceRoomsPage extends AdminPage {
     @FindBy(xpath = ConferenceRoomsMap.FILTER_TEXTBOX)
     WebElement filterTextbox;
 
+    /**
+     * This function is for writing on filter box on conference room page.
+     * @param roomCriteria name of one room
+     * @return ConferenceRoomsPage instance
+     */
     public ConferenceRoomsPage typeOnFilterTextbox(String roomCriteria) {
 	
 	UIActions.clickAt(totalItemsLabel);
@@ -372,14 +382,26 @@ public class ConferenceRoomsPage extends AdminPage {
 	return this;
     }
 
+    /**
+     * This function is to compare size page found with a criteria.
+     * @param sizePage
+     * @return true if the page is less than a some criteria
+     */
     public boolean verifySizePage(int sizePage) {
 	
 	return getRoomsWithScrollBar(sizePage) <= sizePage ? true : false;
     }
 
+    /**
+     * this function is for get all rooms of one table using the scroll bar for
+     * search all rooms in table.
+     * @param sizePage size of page.
+     * @return return size of rooms found.
+     */
     private int getRoomsWithScrollBar(int sizePage) {
 	
-	int roomRead = sizePage / 15;
+	int visibleRows = 15;
+	int roomRead = sizePage / visibleRows;
 	List<String> list = new ArrayList<String>();
 	WebElement lastRow = null;
 	for (int i = 0; i < roomRead; i++) {
