@@ -80,7 +80,7 @@ public class ImpersonationGivenSteps {
 				.leftMenu
 				.clickOnEmailServerButton();
 
-		boolean isEmailServerPresent = emailServer.findEmailServer();
+		boolean isEmailServerPresent = emailServer.isEmailServerPresent();
 
 		if (isEmailServerPresent == true) {
 			emailServer

@@ -91,7 +91,7 @@ public class ImpersonationWhenSteps {
 						.clickOnEmailServerButton();
 
 		boolean isEmailServerPresent = emailServer
-						.findEmailServer();
+						.isEmailServerPresent();
 
 		Assert.assertFalse(isEmailServerPresent);
 	}

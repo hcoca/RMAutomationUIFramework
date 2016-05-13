@@ -26,18 +26,6 @@ When I delete the Email Server
 Then There is no rooms
 
 @service_functional
-Scenario: Service information is deleted when service is deleted.
-Given There is an Email Server added
-When I delete the Email Server
-Then Service information details are deleted
-
-@service_functional
-Scenario: Service information is deleted when service is deleted.
-Given There is an Email Server added
-When I delete the Email Server
-Then Service information details are deleted
-
-@service_functional
 Scenario: Meetings are deleted when a service is deleted.
 Given There is an Email Server added
 	And At least a meeting
