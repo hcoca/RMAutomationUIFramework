@@ -1,7 +1,9 @@
 package org.fundacionjala.automation.framework.pages.admin.emailserver;
 
 import org.fundacionjala.automation.framework.maps.admin.emailserver.AddEmailServerMap;
+import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -122,15 +124,11 @@ public class AddEmailServerPage {
      * @return EmailServerPage previous instance
      */
     public EmailServerPage clickSaveButton() {
-	(new WebDriverWait(BrowserManager.getDriver(), 60))
-		.until(ExpectedConditions.presenceOfElementLocated(By
-			.xpath(AddEmailServerMap.SAVE_BUTTON)));
-	saveButton.click();
-	(new WebDriverWait(BrowserManager.getDriver(), 60))
-		.until(ExpectedConditions.invisibilityOfElementLocated(By
-			.xpath(AddEmailServerMap.SAVE_BUTTON)));
-
+	
+	ExplicitWait.clickWhenReady(By.xpath(AddEmailServerMap.SAVE_BUTTON), 60);
 	LogManager.info("Add Email Server Save Button has been clicked");
+	
+	ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON),60);
 
 	return new EmailServerPage();
     }

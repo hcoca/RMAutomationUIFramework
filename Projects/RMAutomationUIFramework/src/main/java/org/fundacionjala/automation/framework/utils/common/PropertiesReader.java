@@ -195,6 +195,14 @@ public class PropertiesReader {
 	
 	return getReader().getProperty("ROOM_NAME");
     }
+    
+    /**
+     * @return String Conference room name 2 for to work on tablet GUI
+     */
+    public static String getSecondConferenceRoom() {
+	
+	return getReader().getProperty("ROOM_NAME2");
+    }
 
     /**
      * @return String Hostname of Exchange Mail Server

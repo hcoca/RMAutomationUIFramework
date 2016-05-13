@@ -52,9 +52,10 @@ public class EmailServerPage extends AdminPage {
      */
     public AddEmailServerPage clickOnAddButton() {
 	
-	(new WebDriverWait(BrowserManager.getDriver(), 20))
+	/*(new WebDriverWait(BrowserManager.getDriver(), 20))
 		.until(ExpectedConditions.visibilityOf(addButton));
-	addButton.click();
+	addButton.click();*/
+    ExplicitWait.clickWhenReady(By.xpath(EmailServerMap.ADD_BUTTON), 10);
 
 	LogManager.info("Add Email Server Button has been clicked");
 
@@ -169,18 +170,45 @@ public class EmailServerPage extends AdminPage {
      * @return boolean True - Email Server exist. 
      *                 False - There is no Email Server
      */
-    public boolean findEmailServer() {
-	
-	try {
-	    WebElement hostName = BrowserManager.getDriver().findElement(
-		    By.xpath(EmailServerMap.HOST_NAME));
-	    LogManager.info("Email Server Host Name " + hostName.getText()
-		    + " has been found");
-	    return true;
-	} catch (Exception e) {
-	    LogManager.info("Email Server Host Name has not been found");
-	    return false;
-	}
+    public boolean isEmailServerPresent() {
+    	//BrowserManager.getDriver().navigate().refresh();
+	    			    		 
+    	WebElement hostName = ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.HOST_NAME), 15);	
+	    if (hostName != null)					
+	    {
+	    	LogManager.info("Email Server Host Name " + hostName.getText()
+	    		    + " has been found");
+	    	return true;
+	    }
+	    else
+	    {
+	    	LogManager.info("Email Server Host Name has not been found");
+	    	
+	       return false;	
+	    }
+	    		
+    }
+    
+    /**
+     * Find if Email server exist in the Email Server Page
+     * @return boolean True - Email Server exist. 
+     *                 False - There is no Email Server
+     */
+    public boolean isAddButtonPresent() {
+	    			    		 
+    	WebElement addButton = ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.ADD_BUTTON), 15);	
+	    if (addButton != null)					
+	    {
+	    	LogManager.info("Add Button has been found");
+	    	return true;
+	    }
+	    else
+	    {
+	    	LogManager.info("Add Button has not been found");
+	    	
+	       return false;	
+	    }
+	    		
     }
     
     /**
