@@ -15,6 +15,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 /**
  * This class make request by API service for Rooms
  * @author alejandraneolopan
+ * @author Rodrigo Cespedes
  */
 public class RoomAPIManager {
 
@@ -60,6 +61,7 @@ public class RoomAPIManager {
      * @return List<Room> current Room objects
      * @throws UnirestException
      */
+   
     public static List<Room> getRequest(String endPoint)
 	    throws UnirestException {
 
