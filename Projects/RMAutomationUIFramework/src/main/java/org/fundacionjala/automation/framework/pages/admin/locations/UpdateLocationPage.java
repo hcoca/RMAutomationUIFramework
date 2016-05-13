@@ -4,6 +4,7 @@ import org.fundacionjala.automation.framework.maps.admin.locations.UpdateLocatio
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -79,7 +80,17 @@ public class UpdateLocationPage {
      * @return a new "Locations" page.
      */
     public LocationPage clickOnSaveButton() {
-	saveButton.click();
+	WebElement html = BrowserManager.getDriver()
+		.findElement(By.tagName("html"));
+	
+	if (saveButton.isDisplayed()){
+	    saveButton.click();
+	}else{
+	    html.sendKeys(Keys.chord(Keys.CONTROL, Keys.SUBTRACT));
+	    saveButton.click();
+	    html.sendKeys(Keys.chord(Keys.CONTROL, "0"));
+	}
+	
 	LogManager.info("Save button has been clicked");
 	return new LocationPage();
     }
