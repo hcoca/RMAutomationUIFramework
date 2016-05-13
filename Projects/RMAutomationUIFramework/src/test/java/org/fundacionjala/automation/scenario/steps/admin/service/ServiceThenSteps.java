@@ -15,201 +15,197 @@ import com.mongodb.MongoClient;
 import cucumber.api.java.en.Then;
 
 public class ServiceThenSteps {
-    @Then("^Service infomation is saved with description \"([^\"]*)\"$")
-    public void service_infomation_is_saved_with_description(
-	    String myExpectedDescription) throws Throwable {
-	EmailServerPage emailServer = new EmailServerPage();
+	@Then("^Service infomation is saved with description \"([^\"]*)\"$")
+	public void service_infomation_is_saved_with_description(
+			String myExpectedDescription) throws Throwable {
+		EmailServerPage emailServer = new EmailServerPage();
 
-	String myActualDescription = emailServer.clickOnServerButton()
-		.getEmailServerDescription();
+		String myActualDescription = emailServer.clickOnServerButton()
+				.getEmailServerDescription();
 
-	Assert.assertEquals(myActualDescription, myExpectedDescription);
-    }
-
-    @Then("^The changes: user name \"([^\"]*)\" and password \"([^\"]*)\" are saved$")
-    public void the_changes_user_name_and_password_are_saved(
-	    String newUserName, String newPassword) throws Throwable {
-	EmailServerPage emailServer = new EmailServerPage();
-
-	String myActualUserName = emailServer.getUserName();
-
-	Assert.assertEquals(myActualUserName, newUserName);
-
-	LoginPage login = new LoginPage();
-
-	EmailServerPage server = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
-		.clickOnEmailServerButton();
-
-	server.clickOnServerButton().clickOnEditCredentialButton()
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnAcceptButton();
-    }
-
-    @Then("^An error message is displayed$")
-    public void an_error_message_is_displayed() throws Throwable {
-	String expectedErrorMessage = "Credentials don't have authorization, "
-		+ "please try with another";
-	EmailServerPage emailServer = new EmailServerPage();
-
-	String myActualErrorMessage = emailServer.getErrorMessage();
-
-	Assert.assertEquals(myActualErrorMessage, expectedErrorMessage);
-    }
-
-    @Then("^All Conference rooms are added from Exchange service$")
-    public void all_Conference_rooms_are_added_from_Exchange_service()
-	    throws Throwable {
-	EmailServerPage emailServer = new EmailServerPage();
-	ConferenceRoomsPage rooms;
-	rooms = emailServer
-			.leftMenu
-			.clickOnConferenceRoomsButton();
-
-	Assert.assertEquals(Integer.parseInt(rooms.getTotalItems()), 210);
-    }
-
-    @Then("^There is no rooms$")
-    public void there_is_no_rooms() throws Throwable {
-	EmailServerPage emailServer = new EmailServerPage();
-
-	boolean areConferenceRoomsPresent = emailServer.verifyIfThereAreRooms();
-
-	Assert.assertFalse(areConferenceRoomsPresent);
-
-	LoginPage login = new LoginPage();
-
-	EmailServerPage server = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
-		.clickOnEmailServerButton();
-
-	boolean isEmailServerPresent = server.findEmailServer();
-
-	if (isEmailServerPresent == false) {
-
-	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
-
-	    server = addEmailServer
-		    .setDomainServer(PropertiesReader.getExchangeHostname())
-		    .setUserName(PropertiesReader.getExchangeConnectUserName())
-		    .setPassword(PropertiesReader.getExchangeConnectPassword())
-		    .clickSaveButton();
+		Assert.assertEquals(myActualDescription, myExpectedDescription);
 	}
-    }
 
-    @Then("^Service information details are deleted$")
-    public void service_information_details_are_deleted() throws Throwable {
-	MongoClient mongoClient = new MongoClient(
-		PropertiesReader.getHostIPAddress(),
-		PropertiesReader.getMongoDBConnectionPort());
-	DB db = mongoClient.getDB(PropertiesReader.getDBName());
-	DBCollection table = db.getCollection(PropertiesReader
-		.getServicesTableName());
-	DBCursor cursor = table.find();
+	@Then("^The changes: user name \"([^\"]*)\" and password \"([^\"]*)\" are saved$")
+	public void the_changes_user_name_and_password_are_saved(
+			String newUserName, String newPassword) throws Throwable {
+		EmailServerPage emailServer = new EmailServerPage();
 
-	long actualServiceSize = cursor.getCollection().count();
-	long expectedServiceSize = 0;
+		String myActualUserName = emailServer.getUserName();
 
-	Assert.assertEquals(actualServiceSize, expectedServiceSize);
+		Assert.assertEquals(myActualUserName, newUserName);
 
-	LoginPage login = new LoginPage();
+		LoginPage login = new LoginPage();
 
-	EmailServerPage server = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
-		.clickOnEmailServerButton();
+		EmailServerPage server = login
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
+				.clickOnEmailServerButton();
 
-	boolean isEmailServerPresent = server.findEmailServer();
-
-	if (isEmailServerPresent == false) {
-
-	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
-
-	    server = addEmailServer
-		    .setDomainServer(PropertiesReader.getExchangeHostname())
-		    .setUserName(PropertiesReader.getExchangeConnectUserName())
-		    .setPassword(PropertiesReader.getExchangeConnectPassword())
-		    .clickSaveButton();
+		server.clickOnServerButton().clickOnEditCredentialButton()
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnAcceptButton();
 	}
-    }
 
-    @Then("^The meetings are deleted$")
-    public void the_meetings_are_deleted() throws Throwable {
-	MongoClient mongoClient = new MongoClient(
-		PropertiesReader.getHostIPAddress(),
-		PropertiesReader.getMongoDBConnectionPort());
-	DB db = mongoClient.getDB(PropertiesReader.getDBName());
-	DBCollection table = db.getCollection(PropertiesReader
-		.getMongoDBMeetingTable());
-	DBCursor cursor = table.find();
+	@Then("^An error message is displayed$")
+	public void an_error_message_is_displayed() throws Throwable {
+		String expectedErrorMessage = "Credentials don't have authorization, "
+				+ "please try with another";
+		EmailServerPage emailServer = new EmailServerPage();
 
-	long actualMeetingsSize = cursor.getCollection().count();
-	long expectedMeetingsSize = 0;
-
-	Assert.assertEquals(actualMeetingsSize, expectedMeetingsSize);
-
-	LoginPage login = new LoginPage();
-
-	EmailServerPage server = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
-		.clickOnEmailServerButton();
-
-	boolean isEmailServerPresent = server.findEmailServer();
-
-	if (isEmailServerPresent == false) {
-
-	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
-
-	    server = addEmailServer
-		    .setDomainServer(PropertiesReader.getExchangeHostname())
-		    .setUserName(PropertiesReader.getExchangeConnectUserName())
-		    .setPassword(PropertiesReader.getExchangeConnectPassword())
-		    .clickSaveButton();
+		String myActualErrorMessage = emailServer.getErrorMessage();
+        
+		
+		Assert.assertEquals(myActualErrorMessage, expectedErrorMessage);
+		
+		
 	}
-    }
 
-    @Then("^The out-of-orders are deleted$")
-    public void the_out_of_orders_are_deleted() throws Throwable {
-	MongoClient mongoClient = new MongoClient(
-		PropertiesReader.getHostIPAddress(),
-		PropertiesReader.getMongoDBConnectionPort());
-	DB db = mongoClient.getDB(PropertiesReader.getDBName());
-	DBCollection table = db.getCollection(PropertiesReader
-		.getMongoDBOutOfOrderTable());
-	DBCursor cursor = table.find();
+	@Then("^All Conference rooms are added from Exchange service$")
+	public void all_Conference_rooms_are_added_from_Exchange_service()
+			throws Throwable {
+		EmailServerPage emailServer = new EmailServerPage();
+		ConferenceRoomsPage rooms;
+		rooms = emailServer.leftMenu.clickOnIssuesButton()
+				.clickOnConferenceRoomsButton();
 
-	long actualOutOfOrdersSize = cursor.getCollection().count();
-	long expectedOutOfOrdersSize = 0;
-
-	Assert.assertEquals(actualOutOfOrdersSize, expectedOutOfOrdersSize);
-
-	LoginPage login = new LoginPage();
-
-	EmailServerPage server = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
-		.clickOnEmailServerButton();
-
-	boolean isEmailServerPresent = server.findEmailServer();
-
-	if (isEmailServerPresent == false) {
-
-	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
-
-	    server = addEmailServer
-		    .setDomainServer(PropertiesReader.getExchangeHostname())
-		    .setUserName(PropertiesReader.getExchangeConnectUserName())
-		    .setPassword(PropertiesReader.getExchangeConnectPassword())
-		    .clickSaveButton();
+		Assert.assertEquals(Integer.parseInt(rooms.getTotalItems()), 210);
 	}
-    }
+
+	@Then("^There is no rooms$")
+	public void there_is_no_rooms() throws Throwable {
+		EmailServerPage emailServer = new EmailServerPage();
+
+		boolean areConferenceRoomsPresent = emailServer.verifyIfThereAreRooms();
+
+		Assert.assertFalse(areConferenceRoomsPresent);
+
+		LoginPage login = new LoginPage();
+
+		EmailServerPage server = login
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
+				.clickOnEmailServerButton();
+
+		if (server.isAddButtonPresent()) {
+
+			AddEmailServerPage addEmailServer = server.clickOnAddButton();
+
+			server = addEmailServer
+					.setDomainServer(PropertiesReader.getExchangeHostname())
+					.setUserName(PropertiesReader.getExchangeConnectUserName())
+					.setPassword(PropertiesReader.getExchangeConnectPassword())
+					.clickSaveButton();
+		}
+	}
+
+	@Then("^Service information details are deleted$")
+	public void service_information_details_are_deleted() throws Throwable {
+		MongoClient mongoClient = new MongoClient(
+				PropertiesReader.getHostIPAddress(),
+				PropertiesReader.getMongoDBConnectionPort());
+		DB db = mongoClient.getDB(PropertiesReader.getDBName());
+		DBCollection table = db.getCollection(PropertiesReader
+				.getServicesTableName());
+		DBCursor cursor = table.find();
+
+		long actualServiceSize = cursor.getCollection().count();
+		long expectedServiceSize = 0;
+
+		Assert.assertEquals(actualServiceSize, expectedServiceSize);
+
+		LoginPage login = new LoginPage();
+
+		EmailServerPage server = login
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
+				.clickOnEmailServerButton();
+
+		if (server.isAddButtonPresent()) {
+
+			AddEmailServerPage addEmailServer = server.clickOnAddButton();
+
+			server = addEmailServer
+					.setDomainServer(PropertiesReader.getExchangeHostname())
+					.setUserName(PropertiesReader.getExchangeConnectUserName())
+					.setPassword(PropertiesReader.getExchangeConnectPassword())
+					.clickSaveButton();
+		}
+	}
+
+	@Then("^The meetings are deleted$")
+	public void the_meetings_are_deleted() throws Throwable {
+		MongoClient mongoClient = new MongoClient(
+				PropertiesReader.getHostIPAddress(),
+				PropertiesReader.getMongoDBConnectionPort());
+		DB db = mongoClient.getDB(PropertiesReader.getDBName());
+		DBCollection table = db.getCollection(PropertiesReader
+				.getMongoDBMeetingTable());
+		DBCursor cursor = table.find();
+
+		long actualMeetingsSize = cursor.getCollection().count();
+		long expectedMeetingsSize = 0;
+
+		Assert.assertEquals(actualMeetingsSize, expectedMeetingsSize);
+
+		LoginPage login = new LoginPage();
+
+		EmailServerPage server = login
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
+				.clickOnEmailServerButton();
+
+		if (server.isAddButtonPresent()) {
+
+			AddEmailServerPage addEmailServer = server.clickOnAddButton();
+
+			server = addEmailServer
+					.setDomainServer(PropertiesReader.getExchangeHostname())
+					.setUserName(PropertiesReader.getExchangeConnectUserName())
+					.setPassword(PropertiesReader.getExchangeConnectPassword())
+					.clickSaveButton();
+		}
+	}
+
+	@Then("^The out-of-orders are deleted$")
+	public void the_out_of_orders_are_deleted() throws Throwable {
+		MongoClient mongoClient = new MongoClient(
+				PropertiesReader.getHostIPAddress(),
+				PropertiesReader.getMongoDBConnectionPort());
+		DB db = mongoClient.getDB(PropertiesReader.getDBName());
+		DBCollection table = db.getCollection(PropertiesReader
+				.getMongoDBOutOfOrderTable());
+		DBCursor cursor = table.find();
+
+		long actualOutOfOrdersSize = cursor.getCollection().count();
+		long expectedOutOfOrdersSize = 0;
+
+		Assert.assertEquals(actualOutOfOrdersSize, expectedOutOfOrdersSize);
+
+		LoginPage login = new LoginPage();
+
+		EmailServerPage server = login
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnSigInButton()
+				.leftMenu
+				.clickOnIssuesButton()
+				.clickOnEmailServerButton();
+
+		if (server.isAddButtonPresent()) {
+
+			AddEmailServerPage addEmailServer = server.clickOnAddButton();
+
+			server = addEmailServer
+					.setDomainServer(PropertiesReader.getExchangeHostname())
+					.setUserName(PropertiesReader.getExchangeConnectUserName())
+					.setPassword(PropertiesReader.getExchangeConnectPassword())
+					.clickSaveButton();
+		}
+	}
 }

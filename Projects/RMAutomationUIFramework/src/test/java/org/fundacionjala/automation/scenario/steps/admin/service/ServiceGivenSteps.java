@@ -11,75 +11,71 @@ import cucumber.api.java.en.Given;
 
 public class ServiceGivenSteps {
 
-    @Given("^There is an Email Server added$")
-    public void there_is_a_service_existent() throws Throwable {
-	BrowserManager.openBrowser();
-	LoginPage login = new LoginPage();
+	@Given("^There is an Email Server added$")
+	public void there_is_a_service_existent() throws Throwable {
+		BrowserManager.openBrowser();
+		LoginPage login = new LoginPage();
 
-	EmailServerPage emailServer = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
-		.clickOnEmailServerButton();
+		EmailServerPage emailServer = login
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
+				.clickOnEmailServerButton();
 
-	boolean isEmailServerPresent = emailServer.findEmailServer();
+		if (!emailServer.isEmailServerPresent()) {
 
-	if (isEmailServerPresent == false) {
+			AddEmailServerPage addEmailServer = emailServer.clickOnAddButton();
 
-	    AddEmailServerPage addEmailServer = emailServer.clickOnAddButton();
-
-	    emailServer = addEmailServer
-		    .setDomainServer(PropertiesReader.getExchangeHostname())
-		    .setUserName(PropertiesReader.getExchangeConnectUserName())
-		    .setPassword(PropertiesReader.getExchangeConnectPassword())
-		    .clickSaveButton();
+			emailServer = addEmailServer
+					.setDomainServer(PropertiesReader.getExchangeHostname())
+					.setUserName(PropertiesReader.getExchangeConnectUserName())
+					.setPassword(PropertiesReader.getExchangeConnectPassword())
+					.clickSaveButton();
+		}
 	}
-    }
 
-    @Given("^There is no Email Server added$")
-    public void there_is_no_services_added() throws Throwable {
-	BrowserManager.openBrowser();
-	LoginPage login = new LoginPage();
+	@Given("^There is no Email Server added$")
+	public void there_is_no_services_added() throws Throwable {
+		BrowserManager.openBrowser();
+		LoginPage login = new LoginPage();
 
-	EmailServerPage emailServer = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
-		.clickOnEmailServerButton();
+		EmailServerPage emailServer = login
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
+				.clickOnEmailServerButton();
 
-	boolean isEmailServerPresent = emailServer.findEmailServer();
+		if (emailServer.isEmailServerPresent()) {
 
-	if (isEmailServerPresent == true) {
-
-	    emailServer.clickOnRemoveButton().clickOnYesButton();
+			emailServer.clickOnRemoveButton().clickOnYesButton();
+		}
 	}
-    }
 
-    @Given("^At least a meeting$")
-    public void at_least_a_meeting() throws Throwable {
-	LoginPage login = new LoginPage();
+	@Given("^At least a meeting$")
+	public void at_least_a_meeting() throws Throwable {
+		LoginPage login = new LoginPage();
 
-	ConferenceRoomsPage conferenceRooms = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
-		.clickOnIssuesButton().clickOnConferenceRoomsButton();
+		ConferenceRoomsPage conferenceRooms = login
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
+				.clickOnConferenceRoomsButton();
 
-	conferenceRooms.doubleClickOnRoom(PropertiesReader.getConferenceRoom())
-		.SelectOutOfOrder().activeOutOfOrder().clickOnSave();
-    }
+		conferenceRooms.doubleClickOnRoom(PropertiesReader.getSecondConferenceRoom())
+				.SelectOutOfOrder().activeOutOfOrder().clickOnSave();
+	}
 
-    @Given("^At least an out of order$")
-    public void at_least_an_out_of_order() throws Throwable {
-	LoginPage login = new LoginPage();
+	@Given("^At least an out of order$")
+	public void at_least_an_out_of_order() throws Throwable {
+		LoginPage login = new LoginPage();
 
-	ConferenceRoomsPage conferenceRooms = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
-		.clickOnIssuesButton().clickOnConferenceRoomsButton();
+		ConferenceRoomsPage conferenceRooms = login
+				.setUserName(PropertiesReader.getUserName())
+				.setPassword(PropertiesReader.getPassword())
+				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
+				.clickOnConferenceRoomsButton();
 
-	conferenceRooms.doubleClickOnRoom(PropertiesReader.getConferenceRoom())
-		.SelectOutOfOrder().activeOutOfOrder().clickOnSave();
-    }
+		conferenceRooms.doubleClickOnRoom(PropertiesReader.getConferenceRoom())
+				.SelectOutOfOrder().activeOutOfOrder().clickOnSave();
+	}
 }

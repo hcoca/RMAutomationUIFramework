@@ -348,6 +348,7 @@ public class ConferenceRoomsPage extends AdminPage {
      */
     public String getTotalItems() {
 	
+    	   ExplicitWait.getWhenVisible(By.xpath(ConferenceRoomsMap.TOTAL_ITEMS_LABEL), 30);
 	return totalItemsLabel.getText().trim().replace("Total Items: ", "");
     }
 

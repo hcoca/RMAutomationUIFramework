@@ -15,96 +15,127 @@ public class OutOfOrderPage {
 	public static String timeEnd;
 	public static String timeBeginComplex;
 	public static String timeEndComplex;
-	
+
 	public OutOfOrderPage() {
 		PageFactory.initElements(BrowserManager.getDriver(), this);
 	}
-	
-	@FindBy (xpath = OutOfOrderMap.FROM_FIELD) WebElement fromField;
+
+	@FindBy(xpath = OutOfOrderMap.FROM_FIELD)
+	WebElement fromField;
+
 	public OutOfOrderPage storeFromTime() {
 		timeBegin = fromField.getAttribute("value");
 		return this;
 	}
-	 
-	@FindBy (xpath = OutOfOrderMap.TO_FIELD) WebElement toField;
+
+	@FindBy(xpath = OutOfOrderMap.TO_FIELD)
+	WebElement toField;
+
 	public OutOfOrderPage storeToTime() {
 		timeEnd = toField.getAttribute("value");
 		return this;
 	}
-	
-	@FindBy (xpath = OutOfOrderMap.FROM_FIELD_COMPLEX) WebElement fromFieldComplex;
+
+	@FindBy(xpath = OutOfOrderMap.FROM_FIELD_COMPLEX)
+	WebElement fromFieldComplex;
+
 	public OutOfOrderPage storeFromTimeComplex() {
 		timeBeginComplex = fromFieldComplex.getText();
 		return this;
 	}
-	 
-	@FindBy (xpath = OutOfOrderMap.TO_FIELD_COMPLEX) WebElement toFieldComplex;
+
+	@FindBy(xpath = OutOfOrderMap.TO_FIELD_COMPLEX)
+	WebElement toFieldComplex;
+
 	public OutOfOrderPage storeToTimeComplex() {
 		timeEndComplex = toField.getText();
 		return this;
 	}
 
-	@FindBy (xpath = "//table[@ng-focus]/tbody/tr[3]/td[1]/a") WebElement downTimeBeginButton;
+	@FindBy(xpath = "//table[@ng-focus]/tbody/tr[3]/td[1]/a")
+	WebElement downTimeBeginButton;
+
 	public OutOfOrderPage setTimeBeginDown() {
 		downTimeBeginButton.click();
 		downTimeBeginButton.click();
 		LogManager.info("The BeginTime has been updated");
 		return this;
-	}	
-	
-	@FindBy (xpath = "//table[@ng-model='form.to.value']/tbody/tr[3]/td[1]/a") WebElement downTimeEndButton;
+	}
+
+	@FindBy(xpath = "//table[@ng-model='form.to.value']/tbody/tr[3]/td[1]/a")
+	WebElement downTimeEndButton;
+
 	public OutOfOrderPage setTimeEndDown() {
 		downTimeEndButton.click();
 		downTimeEndButton.click();
 		LogManager.info("The EndTime has been updated");
 		return this;
 	}
-	
-	@FindBy (xpath = "//table[@ng-focus]/tbody/tr[1]/td[1]/a") WebElement upTimeBeginButton;
+
+	@FindBy(xpath = "//table[@ng-focus]/tbody/tr[1]/td[1]/a")
+	WebElement upTimeBeginButton;
+
 	public OutOfOrderPage setTimeBeginUp() {
 		upTimeBeginButton.click();
 		upTimeBeginButton.click();
 		LogManager.info("The BeginTime has been updated");
 		return this;
-	}	
-	
-	@FindBy (xpath = "//table[@ng-model='form.to.value']/tbody/tr[1]/td[1]/a") WebElement upTimeEndButton;
+	}
+
+	@FindBy(xpath = "//table[@ng-model='form.to.value']/tbody/tr[1]/td[1]/a")
+	WebElement upTimeEndButton;
+
 	public OutOfOrderPage setTimeEndUp() {
 		upTimeEndButton.click();
 		upTimeEndButton.click();
 		LogManager.info("The EndTime has been updated");
 		return this;
 	}
-	
-	@FindBy (xpath = OutOfOrderMap.ACTIVE_BUTTON) WebElement activeButton;
+
+	@FindBy(xpath = OutOfOrderMap.ACTIVE_BUTTON)
+	WebElement activeButton;
+
 	public OutOfOrderPage activeOutOfOrder() {
 		LogManager.info("The OufOfOrder has been activated - ActiveButton");
 		By locator = By.xpath(OutOfOrderMap.ACTIVE_BUTTON);
 		(new WebDriverWait(BrowserManager.getDriver(), 120))
-		.until(ExpectedConditions.presenceOfElementLocated(locator));
+				.until(ExpectedConditions.presenceOfElementLocated(locator));
 		activeButton.click();
 		return this;
 	}
-	
-	@FindBy (css = OutOfOrderMap.BOX_BUTTON) WebElement buttonBox;
+
+	@FindBy(css = OutOfOrderMap.BOX_BUTTON)
+	WebElement buttonBox;
+
 	public OutOfOrderPage clickOnBoxButon() {
 		buttonBox.click();
 		LogManager.info("The BoxButton has been clicked for select the Title");
 		return this;
 	}
-	
-	@FindBy (linkText = OutOfOrderMap.CLOSED_FOR_MAINTENANCE_LINK) WebElement ClosedForMaintenanceLink;
+
+	@FindBy(linkText = OutOfOrderMap.CLOSED_FOR_MAINTENANCE_LINK)
+	WebElement ClosedForMaintenanceLink;
+
 	public OutOfOrderPage ClickOnClosedForMaintenanceLink() {
 		ClosedForMaintenanceLink.click();
 		LogManager.info("Has been selected a Title: Closed For Maintenance");
 		return this;
 	}
-	
-	@FindBy (xpath = OutOfOrderMap.SAVE_BUTTON) WebElement saveButton;
+
+	@FindBy(xpath = OutOfOrderMap.SAVE_BUTTON)
+	WebElement saveButton;
+
 	public ConferenceRoomsPage clickOnSave() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(saveButton));
+		(new WebDriverWait(BrowserManager.getDriver(), 30))
+				.until(ExpectedConditions.elementToBeClickable(saveButton));
 		saveButton.click();
-		LogManager.info("The changes on the OutOfOrder has been saved - SaveButton");
+		LogManager
+				.info("The changes on the OutOfOrder has been saved - SaveButton");
+
+		(new WebDriverWait(BrowserManager.getDriver(), 30))
+				.until(ExpectedConditions.invisibilityOfElementLocated(By
+						.xpath(OutOfOrderMap.SAVE_BUTTON)));
+
 		return new ConferenceRoomsPage();
 	}
 }
