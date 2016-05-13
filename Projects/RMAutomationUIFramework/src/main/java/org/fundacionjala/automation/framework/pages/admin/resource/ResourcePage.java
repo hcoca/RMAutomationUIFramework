@@ -3,15 +3,13 @@ package org.fundacionjala.automation.framework.pages.admin.resource;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
+
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
-import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
-import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
