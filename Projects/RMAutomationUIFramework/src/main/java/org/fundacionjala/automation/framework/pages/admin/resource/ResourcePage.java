@@ -1,18 +1,26 @@
 package org.fundacionjala.automation.framework.pages.admin.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * This class represents Resource page
  * @author mariaalcocer
@@ -56,7 +64,10 @@ public class ResourcePage extends AdminPage {
 	 */
 	public AddResourcePage clickOnAddButton(){
 	    
-		UIActions.waitFor(ResourceMap.ADD_BUTTON);
+	    By locator = By.xpath(ResourceMap.ADD_BUTTON);
+	    (new WebDriverWait(BrowserManager.getDriver(), 60))
+		.until(ExpectedConditions
+			.presenceOfElementLocated(locator));
 		UIActions.clickAt(addButton);
 		return new AddResourcePage();
 	}
@@ -106,7 +117,8 @@ public class ResourcePage extends AdminPage {
 	 * @return true if find the resourceName else return false
 	 */
 	public boolean verifyResourceExist(String resourceName){
-	    
+	   
+	    UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		if (verifyExist(resourceName)) {
 			LogManager.info("[TRUE] Resource " 
 					+ resourceName + " exists");
@@ -124,6 +136,7 @@ public class ResourcePage extends AdminPage {
 	 */
 	public boolean verifyResourceNotExist(String resourceName){
 	    
+	    UIActions.waitFor(ResourceMap.ROWS_CONTAINER);
 		if (verifyExist(resourceName)) {
 			LogManager.error("[FALSE] Resource "
 					 + resourceName + " exists");
@@ -140,14 +153,17 @@ public class ResourcePage extends AdminPage {
 	 * @return true if a resourceName is found else return false
 	 */
 	private boolean verifyExist(String resourceName){
-	    
-		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+		
+	    try {
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
 				return true;
 			}
 		}
 		return false;
+	    } catch (Exception e) {
+		return false;
+	    }
 	}
 	
 	/**
@@ -348,16 +364,40 @@ public class ResourcePage extends AdminPage {
 	 * @param pageSize
 	 * @return true if the resource table size is same else return false
 	 */
-	public boolean verifyNumberOfResources(Integer pageSize){
+	public boolean verifyNumberOfResources(String pageSize){
 	    
-	    	String xpath = ResourceMap.DROPDOWN_PAGE_SIZE
-	    				  .replace("number", 
-	    					  pageSize.toString());
-		UIActions.waitFor(xpath);
-		System.out.println("tamanio "+resourceNames.size());
-		return (resourceNames.size()== pageSize ) ? true : false;
+		
+		String actualResult = getResourceTableSize(pageSize).trim();
+		return (pageSize.trim().equalsIgnoreCase(actualResult))
+			? true : false;
 		
 	}
+	
+	public String getResourceTableSize(String sizePage)
+	{
+	    int size = Integer.parseInt(sizePage);
+	       int resourceRead =  size / 15;
+		List<String> list = new ArrayList<String>();
+		WebElement lastRow = null;
+		for (int i = 0; i < resourceRead; i++) {
+		    for (WebElement resource : getResources()) {
+			if (!list.contains(resource.getText().trim())) {
+			    list.add(resource.getText().trim());
+			}
+			lastRow = resource;
+		    }
+		    ((JavascriptExecutor) BrowserManager.getDriver())
+		    .executeScript(
+			    "arguments[0].scrollIntoView(true);", lastRow);
+		}
+		return list.size() + "";
+	}
+	
+	 public List<WebElement> getResources() {
+
+		return ExplicitWait.getElementsWhenVisible(
+			By.xpath(ResourceMap.RESOURCE_NAMES), 60);
+	    }
 
 	/**
 	 * Click on firstPage button on resource table
@@ -401,7 +441,9 @@ public class ResourcePage extends AdminPage {
 	    
 		UIActions.waitFor(ResourceMap.INPUT_NUMBER_PAGE);
 		String lastPage = inputNumberPage.getAttribute("value").trim();
+		System.out.println("el label" + lastPage);
 		String xpath = ResourceMap.TOTAL_NUMBER_PAGE.replace("totalPages", lastPage);
+		System.out.println("el xpath" + xpath);
 		try {
 		    return (BrowserManager.getDriver().findElement(
 			    By.xpath(xpath))!= null) ? true: false;
@@ -432,7 +474,6 @@ public class ResourcePage extends AdminPage {
 		UIActions.waitFor(ResourceMap.INPUT_NUMBER_PAGE);
 		return (inputNumberPage.getAttribute("value")
 			.equalsIgnoreCase(numberPage))? true: false;
-		
 	}
 
 	/**

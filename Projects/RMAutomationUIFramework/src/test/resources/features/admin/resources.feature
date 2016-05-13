@@ -31,6 +31,7 @@ Given I have a resource created with the name "Fire", display name "Fire", descr
  Then Validate that the resource "Fire" is modified according the changes ("displayname" field with value "newFirevalue")
  
 #scenario 5
+@resouceDelete
 Scenario: All resources are displayed in resource table
 Given I as Administrator Login to Room Manager
 	And I add "2" resources
@@ -44,6 +45,7 @@ Given I as Administrator Login to Room Manager
  Then Validate that resource with "folder", "folder" and "fa-folder" is displayed
 		
 #scenario 7
+@resouceDelete
 Scenario: The number of total items is displayed in the resource table
 Given I as Administrator Login to Room Manager 
  When I add "4" resources
@@ -58,13 +60,15 @@ Given I have a resource created with the name "dashboard", display name "dashboa
  Then Validate that the association with the "Room001" room is displayed
 
 #scenario 9
+@resouceDelete
 Scenario: The quantity selected in page size is displayed in resource table
 Given I have atleast "200" created resources
   And I as Administrator Login to Room Manager
- When I select a option "50" on page size option
- Then Validate that the resource table size is same than the option "50" selected
+ When I select a option "100" on page size option
+ Then Validate that the resource table size is same than the option "100" selected
 	
 #scenario 10
+@resouceDelete
 Scenario: When First button is clicked the first page is displayed in resource table
 Given I have atleast "53" created resources
   And I as Administrator Login to Room Manager
@@ -72,29 +76,33 @@ Given I have atleast "53" created resources
  Then Validate that the first page is displayed on resource table		
  		
 #scenario 11 
+@resouceDelete
 Scenario: When 'Last' button is clicked the last page is displayed in resource table
-Given I have atleast "105" created resources
+Given I have atleast "205" created resources
  	And I as Administrator Login to Room Manager
  When I Clicked on Last button on resource table
  Then Validate that the last page is displayed on resource table
 
 #scenario 12
+@resouceDelete
 Scenario: When 'Next' button is clicked the next page is displayed in resource table
-Given I have atleast "100" created resources 
+Given I have atleast "200" created resources 
   And I as Administrator Login to Room Manager
   And I am in the first page
  When I cliked on 'Next' button on resource table
  Then Validate that the 'next' page is displayed on resource table 
 
 #scenario 13
+@resouceDelete
 Scenario: When 'Previous' button is clicked the before page is displayed in resource table
-Given I have atleast "100" created resources
+Given I have atleast "200" created resources
   And I as Administrator Login to Room Manager
   And I am in the last page
  When I clicked on 'Previous' button on resource table
  Then Validate that the 'previous' page is displayed on resource table
 
  #scenario 14
+ @resouceDelete
  Scenario: The 'current page' field displays the number of the current page
  Given I have atleast "200" created resources
    And I as Administrator Login to Room Manager
