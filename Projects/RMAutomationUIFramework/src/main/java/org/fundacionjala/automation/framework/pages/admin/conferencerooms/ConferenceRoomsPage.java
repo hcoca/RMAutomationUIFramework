@@ -109,7 +109,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	String xpathRoom = ConferenceRoomsMap.ROOM
 		.replace("roomName", roomName);
 
-	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 60);
+	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 20);
     }
     
     /**
@@ -121,7 +121,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	
 	String xpathRoom = ConferenceRoomsMap.ROOM_DISABLED
 		.replace("roomName", roomName);
-	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
+	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 20);
     }
    
     /**
@@ -130,8 +130,9 @@ public class ConferenceRoomsPage extends AdminPage {
      * @return RoomInfoPage
      */
     public RoomInfoPage openConfigurationPage(String roomToModify) {
-
+    	
 	UIActions.doubleClick(getRoom(roomToModify));
+	
 	return new RoomInfoPage();
     }
     
