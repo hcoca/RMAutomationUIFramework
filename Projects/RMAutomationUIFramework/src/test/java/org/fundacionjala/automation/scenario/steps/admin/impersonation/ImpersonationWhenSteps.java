@@ -21,7 +21,8 @@ public class ImpersonationWhenSteps {
 		  .leftMenu
 		  .clickOnImpersonationButton()
 		  .clickOnUseImpersonationCheckBox()
-		  .clickOnSaveButton();
+		  .clickOnSaveButton()
+		  .waitForImpersonationMessageDisappear();
 	}
 
 	@When("^I disable Impersonation$")
@@ -32,7 +33,8 @@ public class ImpersonationWhenSteps {
 		  .leftMenu
 	      	  .clickOnImpersonationButton()
 		  .clickOnUseImpersonationCheckBox()
-		  .clickOnSaveButton();
+		  .clickOnSaveButton()
+		  .waitForImpersonationMessageDisappear();
 	}
 
 	@When("^I change Authentication to User and Password$")
