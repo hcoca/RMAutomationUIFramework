@@ -8,12 +8,13 @@ Feature: Resources associations
     And open the pop-up configuration of the resource associated
     Then I see the quantity "25" with the room associated
 
-    @scenario#2
+  @scenario#2
   Scenario: The resources associated are displayed on the rooms table after doing a click on the resource with the quantity
     Given I am on the conference rooms page
     And I have a resource associate with quantity "30"
     When I click on the resource
     Then I see the resource associate on the table of the conference room with the quantity "30"
+
 
   @scenario#3
   Scenario: The quantity of the resources associated to one room is edited after changing the value of this
@@ -28,6 +29,7 @@ Feature: Resources associations
     And I associate a resource on resources association page
     When I remove the resource of the associated column
     Then I see the resource on available resources column
+    
   @scenario#5
   Scenario: The resource associated to one Room is displayed on Associated column on the pop-up configuration of the room when the room was disabled
     Given I have one Room disabled
@@ -51,11 +53,5 @@ Feature: Resources associations
     When I open the pop-up configuration of the each room
     Then I see the resource associate in each room that was modified
 
-  @scenario#8
-  Scenario: More than ten resources are associated to one room after doing a click on the resources avaibles
-    Given I am on the conference rooms page
-    And I associate many resources to one room
-    When I open the pop-up configuration of the room
-    Then I see the all resources associated to this room
 
   

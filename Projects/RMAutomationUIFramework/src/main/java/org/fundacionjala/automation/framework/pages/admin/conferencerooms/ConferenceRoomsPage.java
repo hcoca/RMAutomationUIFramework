@@ -94,7 +94,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	String xpathRoom = ConferenceRoomsMap.ROOM
 		.replace("roomName", roomName);
 
-	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 60);
+	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 20);
     }
     
     /**
@@ -106,16 +106,18 @@ public class ConferenceRoomsPage extends AdminPage {
 	
 	String xpathRoom = ConferenceRoomsMap.ROOM_DISABLED
 		.replace("roomName", roomName);
-	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 5);
+	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 20);
     }
    
     /**
      * This method open the pop-up configuration of one room	
      * @param roomToModify - represent the displayname of the room
      * @return RoomInfoPage
+     * @throws InterruptedException 
      */
-    public RoomInfoPage openConfigurationPage(String roomToModify) {
-
+    public RoomInfoPage openConfigurationPage(String roomToModify) throws InterruptedException {
+    	Thread.sleep(2000);
+    	
 	UIActions.doubleClick(getRoom(roomToModify));
 	return new RoomInfoPage();
     }
@@ -124,9 +126,10 @@ public class ConferenceRoomsPage extends AdminPage {
      * This method open the pop-up configuration of one room disabled	
      * @param roomToModify - represent the displayname of the room
      * @return RoomInfoPage
+     * @throws InterruptedException 
      */
-    public RoomInfoPage openRoomDisabled(String roomToModify) {
-	
+    public RoomInfoPage openRoomDisabled(String roomToModify) throws InterruptedException {
+    Thread.sleep(2000);
 	UIActions.doubleClick(getRoomDisabled(roomToModify));
 	return new RoomInfoPage();
     }

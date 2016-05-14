@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomInfoMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -28,7 +30,7 @@ public class RoomInfoPage {
      * @return a new instance of RoomsResourceAssociationsPage
      */
     public RoomsResourceAssociationsPage clickOnResourceAssociations() {
-	
+	ExplicitWait.getWhenVisible(By.linkText(RoomInfoMap.RESOURCES_ASSOCIATIONS_LINK), 30);
 	resourcesAssociations.click();
 	return new RoomsResourceAssociationsPage();
     }

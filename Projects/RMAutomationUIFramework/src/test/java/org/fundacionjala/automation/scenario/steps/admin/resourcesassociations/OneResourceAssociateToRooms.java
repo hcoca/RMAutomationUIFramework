@@ -7,6 +7,7 @@ import org.fundacionjala.automation.framework.pages.admin.conferencerooms.Confer
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
+import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.testng.Assert;
 
 import cucumber.api.java.After;
@@ -25,15 +26,12 @@ public class OneResourceAssociateToRooms {
 	private RoomsResourceAssociationsPage resourceAssociations;
 	
 
-	@Before("@scenario#7")
-	public void beforeScenario() throws Throwable {
-
-		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourcesActions.createResourceByAPI("GAMEPAD", 
-			                                                    IconResources.GAMEPAD, 
-			                                                    "GAMEPAD");
+	@Given("^I associate one resource to many rooms$")
+	public void i_associate_one_resource_to_many_rooms() throws Throwable {
 		
-		resourceName = resourceToAssociate.customName;
+		conferenceRoom = new ConferenceRoomsPage();
+		
+		resourceName = "resourceassoc07";
 		result = false;
 
 		String roomToModify01 = "Room001";
@@ -46,15 +44,11 @@ public class OneResourceAssociateToRooms {
 		rooms.add(roomToModify03);
 		rooms.add(roomToModify04);
 
-	}
-
-	@Given("^I associate one resource to many rooms$")
-	public void i_associate_one_resource_to_many_rooms() throws Throwable {
-
 		for (int i = 0; i < 4; i++) {
 			conferenceRoom.openConfigurationPage(rooms.get(i))
 					.clickOnResourceAssociations().addResource(resourceName)
 					.clickOnSave();
+
 		}
 
 	}
@@ -75,12 +69,7 @@ public class OneResourceAssociateToRooms {
 	public void i_see_the_resource_associate_in_each_room_that_was_modified() throws Throwable {
 
 		Assert.assertTrue(result, "All roooms have the resource associated");
+		BrowserManager.getDriver().navigate().refresh();
 
-	}
-
-	@After("@scenario#7")
-	public void afterScenario() throws Throwable {
-	    
-		ResourcesActions.deleteResourceByAPI(resourceToAssociate);
 	}
 }
