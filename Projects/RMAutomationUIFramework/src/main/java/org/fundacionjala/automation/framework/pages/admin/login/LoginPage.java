@@ -22,12 +22,20 @@ public class LoginPage {
     WebElement passwordTextField;
     @FindBy(xpath = LoginMap.SIGN_IN_BUTTON)
     WebElement sigInButton;
-
+    
+    /**
+     * Open Admin page and Initialize elements with driver 
+     */
     public LoginPage() {
 	BrowserManager.setUrl(PropertiesReader.getAdminURL());
 	PageFactory.initElements(BrowserManager.getDriver(), this);
     }
-
+    
+    /**
+     * Set login username
+     * @param userName
+     * @return this current object 
+     */
     public LoginPage setUserName(String userName) {
 	UIActions.waitFor(LoginMap.USER_NAME_TEXT_FIELD);
 	UIActions.typeOn(userNameTextField, userName);
@@ -35,6 +43,11 @@ public class LoginPage {
 	return this;
     }
 
+    /**
+     * Set login password
+     * @param password
+     * @return this current object
+     */
     public LoginPage setPassword(String password) {
 	UIActions.waitFor(LoginMap.PASSWORD_TEXT_FIELD);
 	UIActions.typeOn(passwordTextField, password);
@@ -42,6 +55,10 @@ public class LoginPage {
 	return this;
     }
 
+    /**
+     * Press Sign In button
+     * @return AdminPage 
+     */
     public AdminPage clickOnSigInButton() {
 
 	UIActions.clickAt(sigInButton);
