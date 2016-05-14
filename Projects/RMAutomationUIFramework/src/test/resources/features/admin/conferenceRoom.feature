@@ -48,7 +48,7 @@ Then I validate if the previous page is displayed according the page size specif
 
 Scenario: "Display Name" of room is updated in the "Conference Room" table when it is edited in "Room Info" form.
 Given I am logged as "Administrator" with password "Control*123"
-When I edit "Room002" room with a new display name "RoomChanged"
+When I edit "Room002" room with a new display name "ARoomIsChanged"
 Then I validate if the display name has been updated in the Conference Room table
      
 Scenario: "Code" of a room is updated when it is edited in "Room Info" form.
@@ -73,14 +73,14 @@ When I create a new "resourceForTry" Resource
 Then I validate if the resource is in Conference Room page.
     
 Scenario: A room is enabled when its button is clicked.
-Given I am logged as "Administrator" with password "Control*123"
-And I have "Room005" room disabled
+Given I have "Room005" room disabled
+And I am logged as "Administrator" with password "Control*123"
 When I enabled "Room005" room
 Then I validate if the room "Room005" is enabled in tablet page
 
 Scenario: A room is disabled when its button is clicked.
-Given I am logged as "Administrator" with password "Control*123"
-And I have "Room006" room enabled
+Given I have "Room006" room enabled
+And I am logged as "Administrator" with password "Control*123"
 When I disabled "Room006" room
 Then I validate if the room "Room006" is disabled in tablet page
 

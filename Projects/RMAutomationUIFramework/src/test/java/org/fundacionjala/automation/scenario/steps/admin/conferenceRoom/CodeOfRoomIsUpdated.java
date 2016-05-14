@@ -1,6 +1,7 @@
 package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomInfoPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.testng.Assert;
 
@@ -33,6 +34,7 @@ public class CodeOfRoomIsUpdated {
 		.clickOnConferenceRoomsButton()
 		.openConfigurationPage(room)
 		.VerifyIfCodeUpdate(expectedResult));
+	new RoomInfoPage().clickOnCancelButton();
 
     }
 }

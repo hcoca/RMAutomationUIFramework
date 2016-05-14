@@ -3,7 +3,6 @@ package org.fundacionjala.automation.framework.utils.common;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -53,6 +52,18 @@ public class ExplicitWait {
 			LogManager.error("Error when get an element" + e.getMessage());
 		}
 		return element;
+	}
+	
+	public static boolean waitForElement(String locator, int timeout) {
+		WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),
+				timeout);
+		try{
+			wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath(locator)));
+			return true;
+		}catch (Exception e){
+			return false;
+		}
 	}
 
 	public static List<WebElement> getElementsWhenVisible(By locator, int timeout) {

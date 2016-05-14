@@ -201,4 +201,15 @@ public class RoomInfoPage {
 			true : false;
     }
 
+    @FindBy(xpath = RoomInfoMap.CANCEL_BUTTON) WebElement cancelButton;
+    
+    /**
+     * This method perform click on cancel button
+     * @return Conference Room Page instance.
+     */
+    public ConferenceRoomsPage clickOnCancelButton() {
+	UIActions.clickAt(cancelButton);
+	return new ConferenceRoomsPage();	
+    }
+
 }

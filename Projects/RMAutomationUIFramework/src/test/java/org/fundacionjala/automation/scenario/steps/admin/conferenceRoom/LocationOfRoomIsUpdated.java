@@ -1,6 +1,7 @@
 package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomInfoPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.managers.LocationAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Location;
@@ -51,6 +52,7 @@ public class LocationOfRoomIsUpdated {
 		.clickOnConferenceRoomsButton()
 		.openConfigurationPage(room)
 		.VerifyIfLocationUpdate(expectedResult));
+	new RoomInfoPage().clickOnCancelButton();
 	LocationAPIManager
 	.deleteRequest(PropertiesReader.getServiceURL() + "/locations", locationId);
     }

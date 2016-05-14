@@ -42,9 +42,10 @@ public class RoomAPIManager {
 	    throws UnirestException {
 	Room roomSelected = RoomAPIManager.getRoomByName(roomName);
 	String serviceId = "";
+	
 	List<Service> listServices;
 	listServices = ServiceAPIManager.getRequest(PropertiesReader
-		.getServiceURL() + "/services");
+		.getServiceURL() + "/services");	
 	for (Service service : listServices) {
 	    serviceId = service._id;
 	}
@@ -90,8 +91,7 @@ public class RoomAPIManager {
     public static void putRequest(String endPoint, JSONObject body)
 	    throws UnirestException {
 
-	HttpResponse<JsonNode> jsonResponse = APIManager.request(endPoint,
-		body, "put");
+	APIManager.request(endPoint, body, "put");
     }
 
     /**

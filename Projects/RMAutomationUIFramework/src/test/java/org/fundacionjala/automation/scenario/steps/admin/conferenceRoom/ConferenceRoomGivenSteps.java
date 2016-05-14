@@ -2,6 +2,7 @@ package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
+
 import cucumber.api.java.en.Given;
 
 public class ConferenceRoomGivenSteps {
@@ -22,5 +23,15 @@ public class ConferenceRoomGivenSteps {
 	AdminPage home = new AdminPage();
 	home.leftMenu.clickOnConferenceRoomsButton()
 		.setPage(page);
+    }
+    
+    @Given("^I create an Out of Order on a specific \"([^\"]*)\" room$")
+    public void createOutOfOrderOnRoom(String roomName) throws Throwable {
+	AdminPage home = new AdminPage();
+		home.leftMenu.clickOnConferenceRoomsButton()
+		.openConfigurationPage(roomName).clickOnOutOfOrder()
+		.setTimeBeginUp().setTimeEndUp().clickOnBoxButon()
+		.ClickOnClosedForMaintenanceLink()
+		.clickOnSaveButton();
     }
 }
