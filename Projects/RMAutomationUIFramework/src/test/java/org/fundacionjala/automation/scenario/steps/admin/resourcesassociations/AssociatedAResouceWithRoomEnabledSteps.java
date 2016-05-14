@@ -1,14 +1,8 @@
 package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 
-import org.fundacionjala.automation.framework.maps.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
-import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
-
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,23 +10,17 @@ import cucumber.api.java.en.When;
 public class AssociatedAResouceWithRoomEnabledSteps {
 
     private String roomToModify, resourceName;
-    private Resource resourceToAssociate;
     private ConferenceRoomsPage conferenceRoom;
     private RoomsResourceAssociationsPage resourceAssociations;
 
-    @Before("@scenario#6")
-    public void beforeScenario() throws Throwable {
-
-	conferenceRoom = new ConferenceRoomsPage();
-	resourceToAssociate = ResourcesActions.createResourceByAPI("resource",
-		                                                   IconResources.ERASER, "eraser for the room");
-	resourceName = resourceToAssociate.customName;
-	roomToModify = conferenceRoom.getRandomRoom();
-    }
 
     @Given("^I associate a resource on resources associations page$")
     public void i_associate_a_resource_on_resources_associations_page() throws Throwable {
 	
+    conferenceRoom = new ConferenceRoomsPage();
+    resourceName = "resourceassoc06";
+    roomToModify = conferenceRoom.getRandomRoom();
+    
 	conferenceRoom.openConfigurationPage(roomToModify)
 		      .clickOnResourceAssociations()
 		      .addResource(resourceName)
@@ -58,11 +46,6 @@ public class AssociatedAResouceWithRoomEnabledSteps {
 
 	Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceName),
         		  "The resource should be in resource column");
-    }
-
-    @After("@scenario#6")
-    public void afterScenario() throws Throwable {
-	ResourcesActions.deleteResourceByAPI(resourceToAssociate);
     }
 
 }

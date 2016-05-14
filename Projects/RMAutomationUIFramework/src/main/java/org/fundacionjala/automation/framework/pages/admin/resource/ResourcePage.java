@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
@@ -97,9 +98,10 @@ public class ResourcePage extends AdminPage {
 	 * Selects a resource of the resource table
 	 * @param resourceName
 	 * @return ResourcePage
+	 * @throws InterruptedException 
 	 */
-	public ResourcePage selectResource(String resourceName){
-	    
+	public ResourcePage selectResource(String resourceName) throws InterruptedException{
+	    Thread.sleep(2000);
 		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
@@ -172,6 +174,7 @@ public class ResourcePage extends AdminPage {
 	 */
 	public ResourceInfoPage doubleClickOnResource(String name) 
 		throws InterruptedException{
+		Thread.sleep(1000);
 	    	UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		for (WebElement element : resourceNames) {
 			if (element.getText().equalsIgnoreCase(name)) {

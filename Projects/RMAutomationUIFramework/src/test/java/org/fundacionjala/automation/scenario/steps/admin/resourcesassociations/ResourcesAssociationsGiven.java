@@ -10,8 +10,12 @@ public class ResourcesAssociationsGiven {
 
     @Given("^I am on the conference rooms page$")
     public void i_am_on_the_conference_rooms_page() throws Throwable {
-	home = LoginActions.ExecuteLogin().leftMenu
-		.clickOnConferenceRoomsButton();
+    	
+	    home = LoginActions
+	    		.ExecuteLogin()
+	    		.leftMenu
+		        .clickOnConferenceRoomsButton();
+	
     }
 
 }

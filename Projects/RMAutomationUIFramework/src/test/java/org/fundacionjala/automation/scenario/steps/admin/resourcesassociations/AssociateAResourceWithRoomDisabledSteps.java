@@ -4,10 +4,9 @@ import org.fundacionjala.automation.framework.maps.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
+import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.testng.Assert;
 
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,37 +15,36 @@ import cucumber.api.java.en.When;
 public class AssociateAResourceWithRoomDisabledSteps {
 	
 	private String resourceName, roomToModify;
-	private Resource resourceToAssociate;
 	private ConferenceRoomsPage conferenceRoom;
 	private RoomsResourceAssociationsPage resourceAssociations;
-	
+	private String resourceNameCreated;
 	
 	@Before("@scenario#5")
-	public void beforeScenario() throws Throwable {
-             
+	public void beforeScenario5() throws Throwable {
+		resourceNameCreated = "resourceassoc05";
+		ResourcesActions.createResourceByAPI(resourceNameCreated, IconResources.FEMALE, "key003");
+		
 		conferenceRoom = new ConferenceRoomsPage();
-                roomToModify = conferenceRoom.getRandomRoom();
-                
-		resourceToAssociate = ResourcesActions.createResourceByAPI("desktop", 
-				                                           IconResources.DESKTOP, 
-				                                           "monitorOfDesktop");
-
-		resourceName = resourceToAssociate.customName;
+		roomToModify = conferenceRoom.getRandomRoom();
+	    conferenceRoom.disableRoom(roomToModify);
+	    
 	}
+	
 	
 	@Given("^I have one Room disabled$")
 	public void i_have_one_Room_disabled() throws Throwable {
-	    
-	    conferenceRoom.disableRoom(roomToModify);
+		
+		
 	}
 
 	@Given("^I have a resource associated$")
 	public void i_have_a_resource_associated() throws Throwable {
+		
 	    
 		  conferenceRoom
 			      .openRoomDisabled(roomToModify)
 			      .clickOnResourceAssociations()
-			      .addResource(resourceName)
+			      .addResource(resourceNameCreated)
 			      .clickOnSave();
 		
 	}
@@ -61,15 +59,10 @@ public class AssociateAResourceWithRoomDisabledSteps {
 	@Then("^I see the resource associated in Associated column$")
 	public void i_see_the_resource_associated_in_Associated_column() throws Throwable {
 		
-	     Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceName),
+		 conferenceRoom.enableRoom(roomToModify);
+	     Assert.assertTrue(resourceAssociations.isInAssociatedColumn(resourceNameCreated),
 			     "the resource should be in resource column");
 	   
-	}
-	@After("@scenario#5")
-	public void afterScenario() throws Throwable {
-	    
-	    conferenceRoom.enableRoom(roomToModify);
-	    ResourcesActions.deleteResourceByAPI(resourceToAssociate);
 	}
 	
 }

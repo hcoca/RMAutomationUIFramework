@@ -21,13 +21,13 @@ public class LoginActions {
 				.setUserName(PropertiesReader.getUserName())
 				.setPassword(PropertiesReader.getPassword())
 				.clickOnSigInButton()
-				.refreshPage();
+				.leftMenu
+				.clickOnEmailServerButton();
 		}
 		else{
-
-			 BrowserManager.getDriver().navigate().refresh();
 			 leftMenu.clickOnEmailServerButton();
 		}
+		
 		return new AdminPage();
 	}
 
