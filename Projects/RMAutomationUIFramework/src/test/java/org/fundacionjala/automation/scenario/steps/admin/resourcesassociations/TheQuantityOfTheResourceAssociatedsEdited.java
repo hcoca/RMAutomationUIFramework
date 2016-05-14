@@ -1,13 +1,8 @@
 package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 
-import org.fundacionjala.automation.framework.maps.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
-import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.testng.Assert;
 
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -15,24 +10,15 @@ import cucumber.api.java.en.When;
 public class TheQuantityOfTheResourceAssociatedsEdited {
 	
 	private String              roomToModify, resourceName;
-	private Resource            resourceToAssociate;
 	private ConferenceRoomsPage conferenceRoom;
 	
 	
-	@Before("@scenario#3")
-	public void beforeScenario() throws Throwable {
-		
-		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourcesActions.createResourceByAPI("New_Key", 
-				                                           IconResources.KEY,
-				                                           "this key is in the room");
-                resourceName = resourceToAssociate.customName;
-                roomToModify = conferenceRoom.getRandomRoom();
- 	   
-	}
-	
 	@Given("^I associate a resource on resources associattion page$")
 	public void i_associate_a_resource_on_resources_associattion_page() throws Throwable {
+		
+		conferenceRoom = new ConferenceRoomsPage();
+		resourceName = "resourceassoc03";
+		roomToModify = conferenceRoom.getRandomRoom();
 		
 		conferenceRoom
 				.openConfigurationPage(roomToModify)
@@ -59,12 +45,4 @@ public class TheQuantityOfTheResourceAssociatedsEdited {
 				  .hasTheQuantity(resourceName, quantity));
 		
 	}
-	
-	@After("@scenario#3")
-	public void afterScenario() throws Throwable {
-	       ResourcesActions.deleteResourceByAPI(resourceToAssociate);
-	}
-	
-	
-	
 }

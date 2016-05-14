@@ -23,19 +23,12 @@ public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
         private ConferenceRoomsPage conferenceRoom;
 	private ResourceAssociationsPage resourceAssociationsPage;
 	
-	
-	@Before("@scenario#1")
-	public void beforeScenario() throws Throwable {
-
-		conferenceRoom = new ConferenceRoomsPage();
-		resourceToAssociate = ResourcesActions.createResourceByAPI("folder1", IconResources.FOLDER, "folder1");
-                resourceName = resourceToAssociate.customName;
-                roomToModify = conferenceRoom.getRandomRoom();
-	
-	}
    
 	@Given("^I associate a resource with quantity \"([^\"]*)\"$")
 	public void i_associate_a_resource_with_quantity(String qty) throws Throwable {
+		conferenceRoom = new ConferenceRoomsPage();
+		resourceName = "resourceassoc01";
+		roomToModify = conferenceRoom.getRandomRoom();
 		
 		conferenceRoom
 		.openConfigurationPage(roomToModify)
@@ -68,11 +61,6 @@ public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 		Assert.assertTrue(resourceAssociationsPage.isQtyDisplayed(qty)
                           , "The correct quantity should be displayed");
 
-	}
-	
-	@After("@scenario#1")
-	public void afterScenario() throws Throwable {
-		ResourcesActions.deleteResourceByAPI(resourceToAssociate);
 	}
 	
 }

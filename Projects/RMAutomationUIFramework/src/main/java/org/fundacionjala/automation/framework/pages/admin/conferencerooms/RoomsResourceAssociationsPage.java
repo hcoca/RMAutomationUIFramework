@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.framework.pages.admin.conferencerooms;
 import java.util.List;
+
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomResourceAssociationsMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
@@ -27,7 +28,7 @@ public class RoomsResourceAssociationsPage {
     private List<WebElement> getResourcesAvailabes() {
 	
 	return ExplicitWait.getElementsWhenVisible(
-		By.xpath(RoomResourceAssociationsMap.RESOURCES_AVAILABLES), 2);
+		By.xpath(RoomResourceAssociationsMap.RESOURCES_AVAILABLES), 30);
     }
 
     /**
@@ -69,7 +70,7 @@ public class RoomsResourceAssociationsPage {
 	
 	List<WebElement> resourceList = getResourcesAvailabes();
 	for (int i = 0; i < resourceList.size(); i++) {
-
+      
 	    String resText = resourceList.get(i).getText();
 	    if (resText.contains(resourceName)) {
 
@@ -130,9 +131,9 @@ public class RoomsResourceAssociationsPage {
     /**
      * This method perform a click on save changes button
      * @return a new instance of ConferenceRoomsPage
+     * @throws InterruptedException 
      */
     public ConferenceRoomsPage clickOnSave() {
-	
 	saveButton.click();
 	LogManager.info("Click on save");
 	return new ConferenceRoomsPage();
