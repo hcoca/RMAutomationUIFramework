@@ -26,18 +26,18 @@ When I delete the Email Server
 Then There is no rooms
 
 @service_functional
-Scenario: Meetings are deleted when a service is deleted.
-Given There is an Email Server added
-	And At least a meeting
-When I delete the Email Server from Conference Rooms page
-Then The meetings are deleted
-
-@service_functional
 Scenario: Out of Orders are deleted when a service is deleted.
 Given There is an Email Server added
 	And At least an out of order 
 When I delete the Email Server from Conference Rooms page
 Then The out-of-orders are deleted
+
+@service_functional
+Scenario: Meetings are deleted when a service is deleted.
+Given There is an Email Server added
+	And At least a meeting
+When I delete the Email Server from Conference Rooms page
+Then The meetings are deleted
 
 @service_functional_negative
 Scenario: An error message is displayed when user account does not follow the requirements.

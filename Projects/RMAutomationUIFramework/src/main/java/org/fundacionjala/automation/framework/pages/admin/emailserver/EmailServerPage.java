@@ -39,6 +39,9 @@ public class EmailServerPage extends AdminPage {
     WebElement descriptionTextField;
     @FindBy(xpath = EmailServerMap.ERROR_MESSAGE)
     WebElement errorMessage;
+    @FindBy(xpath = EmailServerMap.CANCEL_BUTTON)
+    WebElement cancelButton;
+    
     /**
      * Initialize elements of EmailServerPage with the current driver
      */
@@ -157,11 +160,45 @@ public class EmailServerPage extends AdminPage {
 		.xpath(EmailServerMap.ACCEPT_BUTTON), 60);
 	acceptButton.click();
 	ExplicitWait.getWhenVisible(By
-		.xpath(EmailServerMap.EDIT_BUTTON), 60);
+		.xpath(EmailServerMap.EDIT_BUTTON), 20);
 
 	LogManager
 		.info("Edit Email Server Credential Accept Button has been clicked");
 
+	return this;
+    }
+    
+    /**
+     * Click on Accept button in order to confirm the changes and wait until
+     * Edit button get visibility
+     * @return this "EmailServerPage" instance
+     */
+    public EmailServerPage clickOnAcceptButton(boolean verify) {
+	
+	ExplicitWait.getWhenVisible(By
+		.xpath(EmailServerMap.ACCEPT_BUTTON), 60);
+	acceptButton.click();
+	ExplicitWait.getWhenVisible(By
+		.xpath(EmailServerMap.EDIT_BUTTON), 20, false);
+
+	LogManager
+		.info("Edit Email Server Credential Accept Button has been clicked");
+	if (verify){
+	    
+	    //Verifying if an error message was found
+	    WebElement errormsg = ExplicitWait.getWhenVisible(By
+					.xpath(EmailServerMap.ERROR_MESSAGE),
+					5, false);
+	    if (errormsg != null){
+		LogManager.error("Plugin internal error or Credential incorrect");
+		ExplicitWait.getWhenVisible(By
+				.xpath(EmailServerMap.CANCEL_BUTTON), 10);
+		cancelButton.click();
+		ExplicitWait.getWhenVisible(By
+			.xpath(EmailServerMap.EDIT_BUTTON), 10);
+	    }
+	}
+	
 	return this;
     }
 
