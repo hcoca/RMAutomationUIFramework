@@ -12,34 +12,52 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
-	@FindBy (xpath = LoginMap.USER_NAME_TEXT_FIELD) WebElement userNameTextField;
-	@FindBy (xpath = LoginMap.PASSWORD_TEXT_FIELD) WebElement passwordTextField;
-	@FindBy (xpath = LoginMap.SIGN_IN_BUTTON) WebElement sigInButton;
-	
-	public LoginPage() {
-		BrowserManager.setUrl(PropertiesReader.getAdminURL());
-		PageFactory.initElements(BrowserManager.getDriver(), this);
-	}
-	
-	public LoginPage setUserName(String userName) {
-		UIActions.waitFor(LoginMap.USER_NAME_TEXT_FIELD);
-		UIActions.typeOn(userNameTextField, userName);
-		
-		return this;
-	}
-	
-	public LoginPage setPassword(String password) {
-		UIActions.waitFor(LoginMap.PASSWORD_TEXT_FIELD);
-		UIActions.typeOn(passwordTextField, password);
-		
-		return this;
-	}
-	
-	public AdminPage clickOnSigInButton()	{
-		
-		UIActions.clickAt(sigInButton);
-		ExplicitWait.waitForUrl("http://172.20.208.84:4040/admin/#/admin", 120);
-		
-		return new AdminPage();
-	}
+    @FindBy(xpath = LoginMap.USER_NAME_TEXT_FIELD)
+    WebElement userNameTextField;
+    @FindBy(xpath = LoginMap.PASSWORD_TEXT_FIELD)
+    WebElement passwordTextField;
+    @FindBy(xpath = LoginMap.SIGN_IN_BUTTON)
+    WebElement sigInButton;
+    
+    /**
+     * Open Admin page and Initialize elements with driver 
+     */
+    public LoginPage() {
+	BrowserManager.setUrl(PropertiesReader.getAdminURL());
+	PageFactory.initElements(BrowserManager.getDriver(), this);
+    }
+    
+    /**
+     * Set login username
+     * @param userName
+     * @return this current object 
+     */
+    public LoginPage setUserName(String userName) {
+	UIActions.waitFor(LoginMap.USER_NAME_TEXT_FIELD);
+	UIActions.typeOn(userNameTextField, userName);
+
+	return this;
+    }
+
+    /**
+     * Set login password
+     * @param password
+     * @return this current object
+     */
+    public LoginPage setPassword(String password) {
+	UIActions.waitFor(LoginMap.PASSWORD_TEXT_FIELD);
+	UIActions.typeOn(passwordTextField, password);
+
+	return this;
+    }
+
+    /**
+     * Press Sign In button
+     * @return AdminPage 
+     */
+    public AdminPage clickOnSigInButton() {
+
+	UIActions.clickAt(sigInButton);
+	return new AdminPage();
+    }
 }

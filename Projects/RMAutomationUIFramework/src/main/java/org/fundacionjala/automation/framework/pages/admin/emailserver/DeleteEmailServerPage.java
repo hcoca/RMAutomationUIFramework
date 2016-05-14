@@ -1,7 +1,9 @@
 package org.fundacionjala.automation.framework.pages.admin.emailserver;
 
 import org.fundacionjala.automation.framework.maps.admin.emailserver.DeleteEmailServerMap;
+import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -35,17 +37,13 @@ public class DeleteEmailServerPage {
      * @return EmailServerPage previous instance
      */
     public EmailServerPage clickOnYesButton() {
-	(new WebDriverWait(BrowserManager.getDriver(), 30))
-		.until(ExpectedConditions.presenceOfElementLocated(By
-			.xpath(DeleteEmailServerMap.YES_BUTTON)));
-	yesButton.click();
-	(new WebDriverWait(BrowserManager.getDriver(), 30))
-		.until(ExpectedConditions.invisibilityOfElementLocated(By
-			.xpath(DeleteEmailServerMap.YES_BUTTON)));
 
-	LogManager.info("Remove Email Server Yes Button has been clicked");
-
-	return new EmailServerPage();
+	    ExplicitWait.clickWhenReady(By.xpath(DeleteEmailServerMap.YES_BUTTON), 10);
+	    ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.ADD_BUTTON), 30);
+		
+		LogManager.info("Remove Email Server Yes Button has been clicked");
+	
+		return new EmailServerPage();
     }
     /**
      * Click on No button in order to cancel the remove of an Email Server

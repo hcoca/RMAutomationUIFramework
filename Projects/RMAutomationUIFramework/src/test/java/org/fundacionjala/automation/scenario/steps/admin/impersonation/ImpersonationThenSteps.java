@@ -170,13 +170,11 @@ public class ImpersonationThenSteps {
 				.setUserName(PropertiesReader.getUserName())
 				.setPassword(PropertiesReader.getPassword())
 				.clickOnSigInButton()
-				.refreshPage()
 				.leftMenu
+				.clickOnIssuesButton()
 				.clickOnEmailServerButton();
 
-		boolean isEmailServerPresent = server.findEmailServer();
-
-		if (isEmailServerPresent == false) {
+		if (server.isAddButtonPresent()) {
 
 			AddEmailServerPage addEmailServer = server
 					.clickOnAddButton();

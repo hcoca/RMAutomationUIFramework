@@ -21,7 +21,8 @@ public class ImpersonationWhenSteps {
 		  .leftMenu
 		  .clickOnImpersonationButton()
 		  .clickOnUseImpersonationCheckBox()
-		  .clickOnSaveButton();
+		  .clickOnSaveButton()
+		  .waitForImpersonationMessageDisappear();
 	}
 
 	@When("^I disable Impersonation$")
@@ -32,7 +33,8 @@ public class ImpersonationWhenSteps {
 		  .leftMenu
 	      	  .clickOnImpersonationButton()
 		  .clickOnUseImpersonationCheckBox()
-		  .clickOnSaveButton();
+		  .clickOnSaveButton()
+		  .waitForImpersonationMessageDisappear();
 	}
 
 	@When("^I change Authentication to User and Password$")
@@ -77,7 +79,7 @@ public class ImpersonationWhenSteps {
 		SchedulerPage scheduler = home.clickOnScheduleButton()
 				.setOrganizer(PropertiesReader.getExchangeConnectUserName())
 				.setSubject(subject)
-				.setAttende(PropertiesReader.getExchangeInviteUser());
+				.setAttende(PropertiesReader.getExchangeInviteMail());
 
 		scheduler.clickOnCreateButton();
 	}
@@ -91,7 +93,7 @@ public class ImpersonationWhenSteps {
 						.clickOnEmailServerButton();
 
 		boolean isEmailServerPresent = emailServer
-						.findEmailServer();
+						.isEmailServerPresent();
 
 		Assert.assertFalse(isEmailServerPresent);
 	}

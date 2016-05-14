@@ -67,7 +67,7 @@ public class ImpersonationGivenSteps {
 				+ "/settings", settings);
 	}
 
-	@Given("^a user has logged into Room Manager with an email server added$")
+	@Given("^a user has logged into Room Manager with no email server added$")
 	public void loginAndAddEmailServer() throws Throwable {
 		BrowserManager.openBrowser();
 		LoginPage login = new LoginPage();
@@ -76,13 +76,11 @@ public class ImpersonationGivenSteps {
 				.setUserName(PropertiesReader.getUserName())
 				.setPassword(PropertiesReader.getPassword())
 				.clickOnSigInButton()
-				.refreshPage()
 				.leftMenu
+				.clickOnIssuesButton()
 				.clickOnEmailServerButton();
 
-		boolean isEmailServerPresent = emailServer.findEmailServer();
-
-		if (isEmailServerPresent == true) {
+		if (emailServer.isEmailServerPresent()) {
 			emailServer
 				.clickOnRemoveButton()
 				.clickOnYesButton();

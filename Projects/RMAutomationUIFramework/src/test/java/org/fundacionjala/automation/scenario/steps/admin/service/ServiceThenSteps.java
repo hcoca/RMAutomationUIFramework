@@ -40,13 +40,13 @@ public class ServiceThenSteps {
 	EmailServerPage server = login
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
+		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
 	server.clickOnServerButton().clickOnEditCredentialButton()
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnAcceptButton();
+		.clickOnAcceptButton(true);
     }
 
     @Then("^An error message is displayed$")
@@ -58,6 +58,7 @@ public class ServiceThenSteps {
 	String myActualErrorMessage = emailServer.getErrorMessage();
 
 	Assert.assertEquals(myActualErrorMessage, expectedErrorMessage);
+
     }
 
     @Then("^All Conference rooms are added from Exchange service$")
@@ -67,9 +68,10 @@ public class ServiceThenSteps {
 	ConferenceRoomsPage rooms;
 	rooms = emailServer
 			.leftMenu
+			.clickOnIssuesButton()
 			.clickOnConferenceRoomsButton();
 
-	Assert.assertEquals(Integer.parseInt(rooms.getTotalItems()), 210);
+	Assert.assertEquals(rooms.verifyTotalItems(), 210);
     }
 
     @Then("^There is no rooms$")
@@ -85,12 +87,10 @@ public class ServiceThenSteps {
 	EmailServerPage server = login
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
+		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
-	boolean isEmailServerPresent = server.findEmailServer();
-
-	if (isEmailServerPresent == false) {
+	if (server.isAddButtonPresent()) {
 
 	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
 
@@ -122,12 +122,10 @@ public class ServiceThenSteps {
 	EmailServerPage server = login
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
+		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
-	boolean isEmailServerPresent = server.findEmailServer();
-
-	if (isEmailServerPresent == false) {
+	if (server.isAddButtonPresent()) {
 
 	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
 
@@ -159,12 +157,10 @@ public class ServiceThenSteps {
 	EmailServerPage server = login
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
+		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
-	boolean isEmailServerPresent = server.findEmailServer();
-
-	if (isEmailServerPresent == false) {
+	if (server.isAddButtonPresent()) {
 
 	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
 
@@ -196,12 +192,10 @@ public class ServiceThenSteps {
 	EmailServerPage server = login
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
+		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
-	boolean isEmailServerPresent = server.findEmailServer();
-
-	if (isEmailServerPresent == false) {
+	if (server.isAddButtonPresent()) {
 
 	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
 

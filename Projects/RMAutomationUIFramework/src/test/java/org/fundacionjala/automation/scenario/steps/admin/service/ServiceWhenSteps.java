@@ -18,7 +18,9 @@ public class ServiceWhenSteps {
 	EmailServerPage emailServer = login
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
+		.clickOnSigInButton()
+		.leftMenu
+		.clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
 	AddEmailServerPage addEmailServer = emailServer.clickOnAddButton();
@@ -38,12 +40,14 @@ public class ServiceWhenSteps {
 	EmailServerPage emailServer = login
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
+		.clickOnSigInButton()
+		.leftMenu
+		.clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
 	emailServer.clickOnServerButton().clickOnEditCredentialButton()
 		.setUserName(newUserName).setPassword(newPassword)
-		.clickOnAcceptButton();
+		.clickOnAcceptButton(true);
     }
 
     @When("^I try to modify the Exchange Email Server credential with user account which does not follow the requirements$")
@@ -53,7 +57,9 @@ public class ServiceWhenSteps {
 	EmailServerPage emailServer = login
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
+		.clickOnSigInButton()
+		.leftMenu
+		.clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
 	emailServer.clickOnServerButton().clickOnEditCredentialButton()
@@ -68,7 +74,9 @@ public class ServiceWhenSteps {
 	EmailServerPage emailServer = login
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
+		.clickOnSigInButton()
+		.leftMenu
+        .clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
 	AddEmailServerPage addEmailServer = emailServer.clickOnAddButton();
@@ -87,7 +95,9 @@ public class ServiceWhenSteps {
 	EmailServerPage emailServer = login
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage().leftMenu
+		.clickOnSigInButton()
+		.leftMenu
+		.clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
 	emailServer.clickOnRemoveButton().clickOnYesButton();

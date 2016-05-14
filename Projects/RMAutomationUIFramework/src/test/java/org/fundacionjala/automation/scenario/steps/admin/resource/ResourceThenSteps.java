@@ -12,6 +12,7 @@ import org.testng.Assert;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 
 public class ResourceThenSteps {
@@ -71,7 +72,7 @@ public class ResourceThenSteps {
 		Assert.assertTrue(
 				resources.verifyNextPage("2"));
 		//Post condition
-		deleteResourcesCreated();
+		//deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that the 'previous' page is displayed on resource table$")
@@ -81,7 +82,7 @@ public class ResourceThenSteps {
 		Assert.assertTrue(
 				resources.verifyPreviousPage(previousPage));
 		//Post condition
-		deleteResourcesCreated();
+		//deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that the \"([^\"]*)\" page is displayed$")
@@ -97,7 +98,7 @@ public class ResourceThenSteps {
 				resources
 				.verifyTheFirstElementOnThePage(firstElement));
 		//Post condition
-		deleteResourcesCreated();
+		//deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that resource with \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\" is displayed$")
@@ -124,7 +125,7 @@ public class ResourceThenSteps {
 				 resources
 				 .verifyResourcesOnResourceTable(listResource));
 		 //Post condition
-		 deleteResourcesCreated();
+		 //deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that total resources are displayed$")
@@ -138,7 +139,7 @@ public class ResourceThenSteps {
 				 resources.verifyTotalItems(totalItems));
 		 
 		//Post condition
-		deleteResourcesCreated();
+		//deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that the resource table size is same than the option \"([^\"]*)\" selected$")
@@ -147,9 +148,9 @@ public class ResourceThenSteps {
                 ResourcePage resources = new ResourcePage();
                 Assert.assertTrue(
                 	resources
-                	.verifyNumberOfResources(Integer.parseInt(sizeTable)));
+                		.verifyNumberOfResources(sizeTable));
                 //Post condition
-                deleteResourcesCreated();
+               // deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that the association with the \"([^\"]*)\" room is displayed$")
@@ -170,7 +171,7 @@ public class ResourceThenSteps {
 			resources
 			    	.verifyTheFirstPage("1"));
 		//Post condition
-	    	deleteResourcesCreated(); 
+	    	//deleteResourcesCreated(); 
 	}
 	
 	@Then("^Validate that the last page is displayed on resource table$")
@@ -178,9 +179,13 @@ public class ResourceThenSteps {
 	    ResourcePage resources = new ResourcePage();
 	    	Assert.assertTrue(
 				resources
-			    	.verifyTheLastPage());
-		//Post condition
-	    	deleteResourcesCreated();
+			    	.verifyTheLastPage());  	
+	}
+	
+	@After("@resouceDelete")
+	public void tearDown() throws Throwable
+	{
+	    deleteResourcesCreated();
 	}
 	
 	private void deleteResourceByName(

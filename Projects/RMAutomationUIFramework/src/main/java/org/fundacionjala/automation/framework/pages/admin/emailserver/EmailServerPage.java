@@ -39,6 +39,9 @@ public class EmailServerPage extends AdminPage {
     WebElement descriptionTextField;
     @FindBy(xpath = EmailServerMap.ERROR_MESSAGE)
     WebElement errorMessage;
+    @FindBy(xpath = EmailServerMap.CANCEL_BUTTON)
+    WebElement cancelButton;
+    
     /**
      * Initialize elements of EmailServerPage with the current driver
      */
@@ -52,9 +55,10 @@ public class EmailServerPage extends AdminPage {
      */
     public AddEmailServerPage clickOnAddButton() {
 	
-	(new WebDriverWait(BrowserManager.getDriver(), 20))
+	/*(new WebDriverWait(BrowserManager.getDriver(), 20))
 		.until(ExpectedConditions.visibilityOf(addButton));
-	addButton.click();
+	addButton.click();*/
+    ExplicitWait.clickWhenReady(By.xpath(EmailServerMap.ADD_BUTTON), 10);
 
 	LogManager.info("Add Email Server Button has been clicked");
 
@@ -156,11 +160,45 @@ public class EmailServerPage extends AdminPage {
 		.xpath(EmailServerMap.ACCEPT_BUTTON), 60);
 	acceptButton.click();
 	ExplicitWait.getWhenVisible(By
-		.xpath(EmailServerMap.EDIT_BUTTON), 60);
+		.xpath(EmailServerMap.EDIT_BUTTON), 20);
 
 	LogManager
 		.info("Edit Email Server Credential Accept Button has been clicked");
 
+	return this;
+    }
+    
+    /**
+     * Click on Accept button in order to confirm the changes and wait until
+     * Edit button get visibility
+     * @return this "EmailServerPage" instance
+     */
+    public EmailServerPage clickOnAcceptButton(boolean verify) {
+	
+	ExplicitWait.getWhenVisible(By
+		.xpath(EmailServerMap.ACCEPT_BUTTON), 60);
+	acceptButton.click();
+	ExplicitWait.getWhenVisible(By
+		.xpath(EmailServerMap.EDIT_BUTTON), 20, false);
+
+	LogManager
+		.info("Edit Email Server Credential Accept Button has been clicked");
+	if (verify){
+	    
+	    //Verifying if an error message was found
+	    WebElement errormsg = ExplicitWait.getWhenVisible(By
+					.xpath(EmailServerMap.ERROR_MESSAGE),
+					5, false);
+	    if (errormsg != null){
+		LogManager.error("Plugin internal error or Credential incorrect");
+		ExplicitWait.getWhenVisible(By
+				.xpath(EmailServerMap.CANCEL_BUTTON), 10);
+		cancelButton.click();
+		ExplicitWait.getWhenVisible(By
+			.xpath(EmailServerMap.EDIT_BUTTON), 10);
+	    }
+	}
+	
 	return this;
     }
 
@@ -169,18 +207,44 @@ public class EmailServerPage extends AdminPage {
      * @return boolean True - Email Server exist. 
      *                 False - There is no Email Server
      */
-    public boolean findEmailServer() {
-	
-	try {
-	    WebElement hostName = BrowserManager.getDriver().findElement(
-		    By.xpath(EmailServerMap.HOST_NAME));
-	    LogManager.info("Email Server Host Name " + hostName.getText()
-		    + " has been found");
-	    return true;
-	} catch (Exception e) {
-	    LogManager.info("Email Server Host Name has not been found");
-	    return false;
-	}
+    public boolean isEmailServerPresent() {
+	    			    		 
+    	WebElement hostName = ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.HOST_NAME), 15);	
+	    if (hostName != null)					
+	    {
+	    	LogManager.info("Email Server Host Name " + hostName.getText()
+	    		    + " has been found");
+	    	return true;
+	    }
+	    else
+	    {
+	    	LogManager.info("Email Server Host Name has not been found");
+	    	
+	       return false;	
+	    }
+	    		
+    }
+    
+    /**
+     * Find if Email server exist in the Email Server Page
+     * @return boolean True - Email Server exist. 
+     *                 False - There is no Email Server
+     */
+    public boolean isAddButtonPresent() {
+	    			    		 
+    	WebElement addButton = ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.ADD_BUTTON), 15, false);	
+	    if (addButton != null)					
+	    {
+	    	LogManager.info("Add Button has been found");
+	    	return true;
+	    }
+	    else
+	    {
+	    	LogManager.info("Add Button has not been found");
+	    	
+	       return false;	
+	    }
+	    		
     }
     
     /**

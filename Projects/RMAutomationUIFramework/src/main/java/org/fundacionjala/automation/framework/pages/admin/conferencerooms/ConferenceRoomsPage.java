@@ -4,6 +4,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -18,6 +19,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -331,6 +333,8 @@ public class ConferenceRoomsPage extends AdminPage {
      */
     public String getTotalItems() {
 	
+    	   ExplicitWait.getWhenVisible(By.xpath(
+    		   ConferenceRoomsMap.TOTAL_ITEMS_LABEL), 30);
 	return totalItemsLabel.getText().trim().replace("Total Items: ", "");
     }
 
@@ -395,5 +399,26 @@ public class ConferenceRoomsPage extends AdminPage {
 		    "arguments[0].scrollIntoView(true);", lastRow);
 	}
 	return list.size();
+    }
+
+    /**
+     * This method verify if there are rooms, by false does a second attempt
+     * going to other menu and returning again.
+     * @return Total rooms
+     * @throws InterruptedException
+     */
+    public int verifyTotalItems() throws InterruptedException {
+	WebElement totalItems =  ExplicitWait.getWhenVisible(By.xpath(
+ 		   ConferenceRoomsMap.TOTAL_ITEMS_LABEL), 30);
+	if (totalItems == null){
+	    
+	    this.leftMenu.clickOnIssuesButton()
+	    .clickOnConferenceRoomsButton();
+	    ExplicitWait.getWhenVisible(By.xpath(
+	 		   ConferenceRoomsMap.TOTAL_ITEMS_LABEL), 30);
+	}
+	
+	return Integer.parseInt(totalItemsLabel.getText()
+		.trim().replace("Total Items: ", ""));
     }
 }
