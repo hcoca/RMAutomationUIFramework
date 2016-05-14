@@ -14,7 +14,7 @@ Feature: Resources associations
     And I have a resource associate with quantity "30"
     When I click on the resource
     Then I see the resource associate on the table of the conference room with the quantity "30"
-
+    
 
   @scenario#3
   Scenario: The quantity of the resources associated to one room is edited after changing the value of this
@@ -53,5 +53,11 @@ Feature: Resources associations
     When I open the pop-up configuration of the each room
     Then I see the resource associate in each room that was modified
 
+@scenario#8
+  Scenario: More than ten resources are associated to one room after doing a click on the resources avaibles
+    Given I am on the conference rooms page
+    And I associate many resources to one room
+    When I open the pop-up configuration of the room
+    Then I see the all resources associated to this room
 
   

@@ -25,7 +25,6 @@ public class PrePostConditions {
 					       IconResources.FOLDER, 
 					       "folder1");
 			
-			refreshPage();
 		}
 		
 		@Before("@scenario#2")
@@ -33,7 +32,7 @@ public class PrePostConditions {
 			
 			resourceNameCreated = "resourceassoc02";
 			createResource(resourceNameCreated, IconResources.DESKTOP, "desktop");
-			refreshPage();
+			
 		}
 		
 		@Before("@scenario#3")
@@ -41,34 +40,34 @@ public class PrePostConditions {
 			
 			resourceNameCreated = "resourceassoc03";
 			createResource(resourceNameCreated, IconResources.KEY, "key003");
-			refreshPage();
+			
 		}
 	    
 		@Before("@scenario#4")
 		public void beforeScenario4() throws Throwable {
 			resourceNameCreated = "resourceassoc04";
 			createResource(resourceNameCreated, IconResources.KEY, "key003");
-			refreshPage();
+			
 		}
 	    
 		@Before("@scenario#5")
 		public void beforeScenario5() throws Throwable {
 			resourceNameCreated = "resourceassoc05";
 			ResourcesActions.createResourceByAPI(resourceNameCreated, IconResources.KEY, "key003");
-			refreshPage();
+			
 		}
 	    
 		@Before("@scenario#6")
 		public void beforeScenario6() throws Throwable {
 			resourceNameCreated = "resourceassoc06";
 			createResource(resourceNameCreated, IconResources.KEY, "key003");
-			refreshPage();
+			
 		}
 		@Before("@scenario#7")
 		public void beforeScenario7() throws Throwable {
 			resourceNameCreated = "resourceassoc07";
 			createResource(resourceNameCreated, IconResources.KEY, "key0089");
-			refreshPage();
+			
 		}
 		
 	    @After("@scenario#1,@scenario#2,@scenario#3,@scenario#4,@scenario#5,@scenario#6,@scenario#7,@scenario#8")
@@ -83,7 +82,7 @@ public class PrePostConditions {
 	                 		PropertiesReader.getServiceURL() + "/resources");
 	                 for (Resource resource : listResource) {
 	                	 
-	                 	if(resource.name.contains(resourceNameCreated))
+	                 	if(resource.name.contains("resourceassoc"))
 	                 	{
 	                 		ResourceAPIManager.deleteRequest(
 	                 			PropertiesReader.getServiceURL() + 
@@ -97,14 +96,7 @@ public class PrePostConditions {
 	 		ResourcesActions.createResourceByAPI(name, icon, description);
 	 	}
 	 	
-	 	
-	 	private void refreshPage()
-	 	{
-	 		if (BrowserManager.getDriver() != null) {
-				BrowserManager.getDriver().navigate().refresh();	
-			}
-	 		
-	 	}
+	 
 	 }
 
 
