@@ -3,7 +3,11 @@ package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.OutOfOrderMap;
+import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.OutOfOrderPage;
+import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
 import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
@@ -23,7 +27,7 @@ public class ConferenceRoomThenSteps {
 	    throws Throwable {
 	ConnectionPage connection = new ConnectionPage();
 	NavigationPage navigation = connection
-		.setUpServiceURL(PropertiesReader.getTabletURL())
+		.setUpServiceURL(PropertiesReader.getServiceURL())
 		.clickOnSaveButton()
 		.clickOnNavigationButton();
 
@@ -39,7 +43,7 @@ public class ConferenceRoomThenSteps {
 	    String roomName) throws Throwable {
 	ConnectionPage connection = new ConnectionPage();
 	NavigationPage navigation = connection
-		.setUpServiceURL(PropertiesReader.getTabletURL())
+		.setUpServiceURL(PropertiesReader.getServiceURL())
 		.clickOnSaveButton().clickOnNavigationButton();
 
 	Assert.assertFalse(roomName + " room is in the list",
@@ -139,6 +143,114 @@ public class ConferenceRoomThenSteps {
 	if (messageError.getText().contains(
 		"Cannot establish out of order as an past event")) {
 	    verification = true;
+	}
+	Assert.assertTrue(verification);
+	new OutOfOrderPage().clickOnCancelButton();
+    }
+    
+    @Then("^The \"([^\"]*)\" room should changes its status to non-available with the \"([^\"]*)\" title corresponding$")
+    public void validateRoomChangesStatusNonAvailable(String roomName,
+	    String titleOutOfOrder) throws Throwable {
+	AdminPage home = new AdminPage();
+	boolean verification = false;
+
+	WebElement title = BrowserManager.getDriver().findElement(
+		By.xpath(HomeMap.TITLE_OUT_OF_ORDER));
+	if (title.getText().contains(titleOutOfOrder)) {
+	    verification = true;
+	}
+	Assert.assertTrue(verification);
+
+	// PostCondition
+	BrowserManager.openBrowser();
+	LoginPage login = new LoginPage();
+	home = login.setUserName(PropertiesReader.getUserName())
+		.setPassword(PropertiesReader.getPassword())
+		.clickOnSigInButton().refreshPage();
+	home.leftMenu.clickOnConferenceRoomsButton()
+		.openConfigurationPage(roomName).clickOnOutOfOrder()
+		.activeOutOfOrder().clickOnSave();
+
+    }
+    
+    @Then("^The Out Of Order on \"([^\"]*)\" room should be created with the time interval defined$")
+    public void outOfOrderShouldBeCreatedWithIntervalTimeDefined(String roomName)
+	    throws Throwable {
+	boolean verification = false;
+	ConnectionPage connection = new ConnectionPage();
+
+	NavigationPage navigation = connection
+		.setUpServiceURL(PropertiesReader.getServiceURL())
+		.clickOnSaveButton().clickOnNavigationButton();
+
+	navigation.clickOnRoomToggleButton()
+		.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+		.clickOnHomeButton();
+
+	WebElement time = BrowserManager.getDriver().findElement(
+		By.xpath(HomeMap.TIME_OUT_OF_ORDER));
+	if ((time.getText().contains(OutOfOrderPage.timeBegin))
+		&& (time.getText().contains(OutOfOrderPage.timeEnd))) {
+	    verification = true;
+	}
+	Assert.assertTrue(verification);
+	// PostCondition
+	BrowserManager.openBrowser();
+	LoginPage login = new LoginPage();
+	AdminPage home = login.setUserName(PropertiesReader.getUserName())
+		.setPassword(PropertiesReader.getPassword())
+		.clickOnSigInButton().refreshPage();
+	home.leftMenu.clickOnConferenceRoomsButton()
+		.openConfigurationPage(roomName).clickOnOutOfOrder()
+		.activeOutOfOrder().clickOnSave();
+    }
+    
+    @Then("^The Out Of Order on \"([^\"]*)\" room should have been created an OutOfOrder with the \"([^\"]*)\" title corresponding$")
+    public void outOfOrderShouldHaveTitleCorresponding(String roomName,
+	    String titleOutOfOrder) throws Throwable {
+	boolean verification = false;
+	ConnectionPage connection = new ConnectionPage();
+	NavigationPage navigation = connection
+		.setUpServiceURL(PropertiesReader.getServiceURL())
+		.clickOnSaveButton().clickOnNavigationButton();
+
+	navigation.clickOnRoomToggleButton()
+		.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+		.clickOnHomeButton();
+
+	WebElement title = BrowserManager.getDriver().findElement(
+		By.xpath(HomeMap.TITLE_OUT_OF_ORDER));
+	if (title.getText().contains(titleOutOfOrder)) {
+	    verification = true;
+	}
+	Assert.assertTrue(verification);
+	// PostCondition
+	BrowserManager.openBrowser();
+	LoginPage login = new LoginPage();
+	AdminPage home = login.setUserName(PropertiesReader.getUserName())
+		.setPassword(PropertiesReader.getPassword())
+		.clickOnSigInButton().refreshPage();
+	home.leftMenu.clickOnConferenceRoomsButton()
+		.openConfigurationPage(roomName).clickOnOutOfOrder()
+		.activeOutOfOrder().clickOnSave();
+    }
+    
+    @Then("^The Out Of Order on \"([^\"]*)\" room should has been disabled correctly with the \"([^\"]*)\" title corresponding$")
+    public void the_Out_Of_Order_on_room_should_has_been_disabled_correctly_with_the_title_corresponding(
+	    String roomName, String titleOutOfOrder) throws Throwable {
+	boolean verification = true;
+	ConnectionPage connection = new ConnectionPage();
+	NavigationPage navigation = connection
+		.setUpServiceURL(PropertiesReader.getServiceURL())
+		.clickOnSaveButton().clickOnNavigationButton();
+
+	navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
+		.clickOnSaveButton().topMenu.clickOnHomeButton();
+
+	WebElement title = BrowserManager.getDriver().findElement(
+		By.xpath(HomeMap.TITLE_OUT_OF_ORDER));
+	if (title.getText().contains(titleOutOfOrder)) {
+	    verification = false;
 	}
 	Assert.assertTrue(verification);
     }

@@ -12,8 +12,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.google.common.base.Function;
-
 public class ExplicitWait {
 
     public static void clickWhenReady(By locator, int timeout) {
@@ -75,6 +73,18 @@ public class ExplicitWait {
 	}
 	return element;
     }
+    
+    public static boolean waitForElement(String locator, int timeout) {
+	WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),
+		timeout);
+	try{
+		wait.until(ExpectedConditions.presenceOfElementLocated(
+			By.xpath(locator)));
+		return true;
+	}catch (Exception e){
+		return false;
+	}
+}
 
     public static void waitElementVisible(WebElement element, int timeout) {
 

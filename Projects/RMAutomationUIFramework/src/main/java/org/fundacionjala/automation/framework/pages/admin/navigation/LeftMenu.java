@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.framework.pages.admin.navigation;
 
+import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.maps.admin.navigation.LeftMenuMap;
 import org.fundacionjala.automation.framework.pages.admin.emailserver.EmailServerPage;
 import org.fundacionjala.automation.framework.pages.admin.impersonation.ImpersonationPage;
@@ -7,6 +8,7 @@ import org.fundacionjala.automation.framework.pages.admin.conferencerooms.Confer
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.WebElement;
@@ -38,8 +40,14 @@ public class LeftMenu {
 	
 	public ConferenceRoomsPage clickOnConferenceRoomsButton() throws InterruptedException{
 		LogManager.info("Click on conference rooms page");
-		UIActions.clickAt(conferenceRoomsButton);
-		conferenceRoomsButton.click();
+		boolean existAtLeasARoom = false;
+		do{
+		    clickOnEmailServerButton();
+		    UIActions.clickAt(conferenceRoomsButton);
+		    if(ExplicitWait.waitForElement(ConferenceRoomsMap.FIRST_ROW, 5)){
+			existAtLeasARoom = true;
+		    }
+		}while(existAtLeasARoom == false);
 		return new ConferenceRoomsPage();
 	}
 	

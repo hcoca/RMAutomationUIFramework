@@ -20,8 +20,7 @@ public class LocationGivenSteps {
 		loginPage
 			.setUserName(userName)
 			.setPassword(password)
-			.clickOnSigInButton()
-			.refreshPage();
+			.clickOnSigInButton();
 	}
 	
 	@Given("^I have a location added with name: \"([^\"]*)\", display name \"([^\"]*)\" and description \"([^\"]*)\"$")

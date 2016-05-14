@@ -18,7 +18,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.mongodb.BasicDBObject;
@@ -32,22 +31,6 @@ public class ConferenceRoomsPage extends AdminPage {
     public ConferenceRoomsPage() {
 
 	PageFactory.initElements(BrowserManager.getDriver(), this);
-    }
-
-    /**
-     * Set "pageSize" text field with a new pageSize.
-     * @param pageSize: The new pageSize that the field receives.
-     * @return this "ConferenceRoomsPage".
-     */
-    public ConferenceRoomsPage selectPageSize(String pageSize) {
-	
-	new Select(BrowserManager.getDriver().findElement(
-		By.xpath(ConferenceRoomsMap.PAGE_SIZE_BOX_SELECTOR)))
-		.selectByVisibleText(pageSize);
-	String sizeOption = ConferenceRoomsMap.PAGE_SIZE_OPTION.replace(
-		"sizePage", pageSize);
-	BrowserManager.getDriver().findElement(By.xpath(sizeOption)).click();
-	return this;
     }
 
     /**
@@ -84,9 +67,9 @@ public class ConferenceRoomsPage extends AdminPage {
      */
     public ConferenceRoomsPage selectOutOfOrderIcon(String roomName) {
 
-	String iconOutOfOrder = ConferenceRoomsMap.OUT_OF_ORDER_ICONS.replace(
+	String iconOutOfOrder = ConferenceRoomsMap.OUT_OF_ORDER_ICON.replace(
 		"roomName", roomName);
-	ExplicitWait.getWhenVisible(By.xpath(iconOutOfOrder), 5);
+	ExplicitWait.waitForElement(iconOutOfOrder, 5);
 	BrowserManager.getDriver().findElement(By.xpath(iconOutOfOrder))
 		.click();
 	return this;
@@ -98,7 +81,7 @@ public class ConferenceRoomsPage extends AdminPage {
     public List<WebElement> getRooms() {
 
 	return ExplicitWait.getElementsWhenVisible(
-		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 60);
+		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 15);
     }
 
     /**
@@ -262,7 +245,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	WebElement turnOnOffButton = BrowserManager.getDriver().findElement(
 		By.xpath(ConferenceRoomsMap.TURN_ON_OFF_BUTTON.replace(
 			"roomName", roomName)));
-	UIActions.clickAt(turnOnOffButton);
+	UIActions.clickAt(turnOnOffButton);	
 	return this;
     }
 
@@ -379,13 +362,10 @@ public class ConferenceRoomsPage extends AdminPage {
      * @param sizePage: The number of Rooms in the table by page.
      * @return this "ConferenceRoomsPage".
      */
-    public ConferenceRoomsPage selectPageSize(Integer sizePage) {
-	
-	String sizePageString = sizePage.toString();
-	WebElement dropDown = BrowserManager.getDriver().findElement(
-		By.xpath(ConferenceRoomsMap.PAGE_SIZE.replace("sizePage",
-			sizePageString)));
-	UIActions.clickAt(dropDown);
+    public ConferenceRoomsPage selectPageSize(String sizePage) {
+	WebElement size = BrowserManager.getDriver().findElement(
+		By.xpath(ConferenceRoomsMap.PAGE_SIZE.replace("sizePage",sizePage)));
+	UIActions.clickAt(size);
 	return this;
     }
 

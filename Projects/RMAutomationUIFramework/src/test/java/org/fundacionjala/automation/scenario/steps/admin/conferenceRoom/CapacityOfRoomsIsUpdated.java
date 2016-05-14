@@ -1,6 +1,7 @@
 package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomInfoPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.testng.Assert;
 
@@ -31,5 +32,6 @@ public class CapacityOfRoomsIsUpdated {
 	Assert.assertTrue(Home.leftMenu.clickOnConferenceRoomsButton()
 		.openConfigurationPage(room)
 		.VerifyIfCapacityUpdate(expectedResult));
+	new RoomInfoPage().clickOnCancelButton();
     }
 }
