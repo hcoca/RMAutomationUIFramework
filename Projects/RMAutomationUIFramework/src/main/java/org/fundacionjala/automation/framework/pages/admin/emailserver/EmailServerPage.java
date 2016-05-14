@@ -171,7 +171,6 @@ public class EmailServerPage extends AdminPage {
      *                 False - There is no Email Server
      */
     public boolean isEmailServerPresent() {
-    	//BrowserManager.getDriver().navigate().refresh();
 	    			    		 
     	WebElement hostName = ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.HOST_NAME), 15);	
 	    if (hostName != null)					
@@ -196,7 +195,7 @@ public class EmailServerPage extends AdminPage {
      */
     public boolean isAddButtonPresent() {
 	    			    		 
-    	WebElement addButton = ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.ADD_BUTTON), 15);	
+    	WebElement addButton = ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.ADD_BUTTON), 15, false);	
 	    if (addButton != null)					
 	    {
 	    	LogManager.info("Add Button has been found");

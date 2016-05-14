@@ -1,14 +1,6 @@
 Feature: Resources associations
 
-  @scenario#1
-  Scenario: The correct quantity of the associated resource is displayed on Quantity column of the pop-up configuration of the resource
-    Given I am on the conference rooms page
-    And I associate a resource with quantity "25"
-    When I go to resources page
-    And open the pop-up configuration of the resource associated
-    Then I see the quantity "25" with the room associated
-
-    @scenario#2
+  @scenario#2
   Scenario: The resources associated are displayed on the rooms table after doing a click on the resource with the quantity
     Given I am on the conference rooms page
     And I have a resource associate with quantity "30"
@@ -21,13 +13,23 @@ Feature: Resources associations
     And I associate a resource on resources associattion page
     When I modify the quantity of the associated resource to "25"
     Then I can see that the quantity "25" is displayed
-
+  
+  
+  @scenario#1
+  Scenario: The correct quantity of the associated resource is displayed on Quantity column of the pop-up configuration of the resource
+    Given I am on the conference rooms page
+    And I associate a resource with quantity "25"
+    When I go to resources page
+    And open the pop-up configuration of the resource associated
+    Then I see the quantity "25" with the room associated
+  
   @scenario#4
   Scenario: The resource is displayed on the Avaible column of the pop-up configuration of the room after removing the resource of the "Associated" column
     Given I am on the conference rooms page
     And I associate a resource on resources association page
     When I remove the resource of the associated column
     Then I see the resource on available resources column
+    
   @scenario#5
   Scenario: The resource associated to one Room is displayed on Associated column on the pop-up configuration of the room when the room was disabled
     Given I have one Room disabled
@@ -44,18 +46,5 @@ Feature: Resources associations
     And when I open the pop-up configuration of the room enabled
     Then I see the resource associated in Associate column
     
- @scenario#7
-  Scenario: One resource is associated to more than one room after adding the resource from the Avaible column to Associated column of the pop-up configuration of the rooms
-    Given I am on the conference rooms page
-    And I associate one resource to many rooms
-    When I open the pop-up configuration of the each room
-    Then I see the resource associate in each room that was modified
-
-  @scenario#8
-  Scenario: More than ten resources are associated to one room after doing a click on the resources avaibles
-    Given I am on the conference rooms page
-    And I associate many resources to one room
-    When I open the pop-up configuration of the room
-    Then I see the all resources associated to this room
 
   

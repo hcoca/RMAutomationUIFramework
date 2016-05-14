@@ -30,7 +30,7 @@ public class AddEmailServerPage {
     WebElement descriptionTextField;
     @FindBy(xpath = AddEmailServerMap.SAVE_BUTTON)
     WebElement saveButton;
-    
+
     /**
      * Initialize elements of AddEmailServerPage with the current driver
      */
@@ -57,7 +57,7 @@ public class AddEmailServerPage {
 
 	return this;
     }
-    
+
     /**
      * Set the UserName
      * 
@@ -78,12 +78,12 @@ public class AddEmailServerPage {
 
 	return this;
     }
-    
+
     /**
      * Set the Password
      * 
      * @param password
-     *            password belongs to the user Exchange server, take account 
+     *            password belongs to the user Exchange server, take account
      *            that username must have cn, displayname and samAccount equal
      * @return this AddEmailServerPage instance
      * @see setUserName
@@ -98,12 +98,12 @@ public class AddEmailServerPage {
 
 	return this;
     }
-    
+
     /**
      * Set a description of Email Server
      * 
-     * @param description 
-     *            
+     * @param description
+     * 
      * @return this AddEmailServerPage instance
      */
     public AddEmailServerPage setDescription(String description) {
@@ -117,19 +117,29 @@ public class AddEmailServerPage {
 
 	return this;
     }
-    
+
     /**
      * Click on Save Button
-     *            
+     * 
      * @return EmailServerPage previous instance
      */
     public EmailServerPage clickSaveButton() {
-	
-	ExplicitWait.clickWhenReady(By.xpath(AddEmailServerMap.SAVE_BUTTON), 60);
-	LogManager.info("Add Email Server Save Button has been clicked");
-	
-	ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON),60);
 
+	ExplicitWait
+		.clickWhenReady(By.xpath(AddEmailServerMap.SAVE_BUTTON), 30);
+	LogManager.info("Add Email Server Save Button has been clicked");
+
+	WebElement EmailServerItem = ExplicitWait.getWhenVisible(
+		By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON), 60, false);
+	
+	//Verifying if AddEmailServer still visible after timeout
+	if (EmailServerItem == null) {
+
+	    // Press Save again, second attempt
+	    saveButton.click();
+	    ExplicitWait.getWhenVisible(
+		    By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON), 30);
+	}
 	return new EmailServerPage();
     }
 }

@@ -22,7 +22,7 @@ public class ServiceGivenSteps {
 				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 				.clickOnEmailServerButton();
 
-		if (!emailServer.isEmailServerPresent()) {
+		if (emailServer.isAddButtonPresent()) {
 
 			AddEmailServerPage addEmailServer = emailServer.clickOnAddButton();
 
@@ -45,13 +45,13 @@ public class ServiceGivenSteps {
 				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 				.clickOnEmailServerButton();
 
-		if (emailServer.isEmailServerPresent()) {
+		if (!emailServer.isAddButtonPresent()) {
 
 			emailServer.clickOnRemoveButton().clickOnYesButton();
 		}
 	}
 
-	@Given("^At least a meeting$")
+    @Given("^At least a meeting$")
 	public void at_least_a_meeting() throws Throwable {
 		LoginPage login = new LoginPage();
 
