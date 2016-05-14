@@ -22,7 +22,7 @@ public class ServiceGivenSteps {
 				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 				.clickOnEmailServerButton();
 
-		if (!emailServer.isEmailServerPresent()) {
+		if (emailServer.isAddButtonPresent()) {
 
 			AddEmailServerPage addEmailServer = emailServer.clickOnAddButton();
 
@@ -45,7 +45,7 @@ public class ServiceGivenSteps {
 				.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 				.clickOnEmailServerButton();
 
-		if (emailServer.isEmailServerPresent()) {
+		if (!emailServer.isAddButtonPresent()) {
 
 			emailServer.clickOnRemoveButton().clickOnYesButton();
 		}
