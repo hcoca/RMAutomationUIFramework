@@ -46,7 +46,7 @@ public class ServiceThenSteps {
 	server.clickOnServerButton().clickOnEditCredentialButton()
 		.setUserName(PropertiesReader.getUserName())
 		.setPassword(PropertiesReader.getPassword())
-		.clickOnAcceptButton();
+		.clickOnAcceptButton(true);
     }
 
     @Then("^An error message is displayed$")

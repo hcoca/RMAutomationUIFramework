@@ -47,7 +47,7 @@ public class ServiceWhenSteps {
 
 	emailServer.clickOnServerButton().clickOnEditCredentialButton()
 		.setUserName(newUserName).setPassword(newPassword)
-		.clickOnAcceptButton();
+		.clickOnAcceptButton(true);
     }
 
     @When("^I try to modify the Exchange Email Server credential with user account which does not follow the requirements$")
