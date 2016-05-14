@@ -36,7 +36,6 @@ public class AssociateManyResources {
 		}
 	   
 		   roomToModify = conferenceRoom.getRandomRoom();
-		   BrowserManager.getDriver().navigate().refresh();
 	
 	}
     
@@ -72,7 +71,7 @@ public class AssociateManyResources {
 			Assert.assertTrue(resourceAssociations
 					           .isInAssociatedColumn(resourcesToAssociate.get(i).customName));
 		}
-		//BrowserManager.getDriver().navigate().refresh();
+		BrowserManager.getDriver().navigate().refresh();
 	}
 	
 }

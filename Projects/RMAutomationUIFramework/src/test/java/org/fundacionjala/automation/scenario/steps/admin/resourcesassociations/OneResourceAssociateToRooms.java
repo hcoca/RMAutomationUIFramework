@@ -69,7 +69,6 @@ public class OneResourceAssociateToRooms {
 	public void i_see_the_resource_associate_in_each_room_that_was_modified() throws Throwable {
 
 		Assert.assertTrue(result, "All roooms have the resource associated");
-		//BrowserManager.getDriver().navigate().refresh();
 
 	}
 }
