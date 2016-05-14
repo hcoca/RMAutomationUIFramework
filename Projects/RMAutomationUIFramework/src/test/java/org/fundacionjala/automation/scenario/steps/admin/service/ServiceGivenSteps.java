@@ -51,7 +51,7 @@ public class ServiceGivenSteps {
 		}
 	}
 
-	@Given("^At least a meeting$")
+    @Given("^At least a meeting$")
 	public void at_least_a_meeting() throws Throwable {
 		LoginPage login = new LoginPage();
 
