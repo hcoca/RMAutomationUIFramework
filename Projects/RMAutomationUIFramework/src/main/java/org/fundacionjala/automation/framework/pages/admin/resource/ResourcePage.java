@@ -63,11 +63,12 @@ public class ResourcePage extends AdminPage {
 	 */
 	public AddResourcePage clickOnAddButton(){
 	    
-	    By locator = By.xpath(ResourceMap.ADD_BUTTON);
+	   /* By locator = By.xpath(ResourceMap.ADD_BUTTON);
 	    (new WebDriverWait(BrowserManager.getDriver(), 60))
 		.until(ExpectedConditions
 			.presenceOfElementLocated(locator));
-		UIActions.clickAt(addButton);
+		UIActions.clickAt(addButton);*/
+		ExplicitWait.clickWhenReady(By.xpath(ResourceMap.ADD_BUTTON), 30);
 		return new AddResourcePage();
 	}
 	
@@ -101,8 +102,11 @@ public class ResourcePage extends AdminPage {
 	 * @throws InterruptedException 
 	 */
 	public ResourcePage selectResource(String resourceName) throws InterruptedException{
-	    Thread.sleep(2000);
-		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+	    //Thread.sleep(2000);
+		//UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
+		WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),
+		10);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(ResourceMap.RESOURCE_NAMES)));
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
 				UIActions.clickAt(name);

@@ -1,10 +1,13 @@
 package org.fundacionjala.automation.scenario.steps.admin.resource;
 
+import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourceInfoPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
+import org.openqa.selenium.By;
 
 import cucumber.api.java.en.When;
 
@@ -63,8 +66,14 @@ public class ResourceWhenSteps {
 	AdminPage home = new AdminPage();
 	ResourcePage resourcePage = new ResourcePage();
 	ResourceInfoPage info = new ResourceInfoPage();
-	resourcePage = home.leftMenu.clickOnIssuesButton()
+	//resourcePage = home.leftMenu.clickOnIssuesButton()
+	home.leftMenu.clickOnEmailServerButton();
+	ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON), 10);
+	
+	home.leftMenu.clickOnConferenceRoomsButton();
+	resourcePage = home.leftMenu  
 		.clickOnResourcesButton();
+	
 	info = resourcePage
 		.doubleClickOnResource(resourceName);
 	switch (name.charAt(0)) {
@@ -169,10 +178,12 @@ public class ResourceWhenSteps {
     	AdminPage adminPage = new AdminPage();
     	adminPage
 		.leftMenu
-		.clickOnLocationsButton()
-		.refreshPage()
-		.leftMenu
-		.clickOnIssuesButton()
+		//.clickOnLocationsButton()
+		//.refreshPage()
+		//.leftMenu
+		//.clickOnIssuesButton()
+		.clickOnConferenceRoomsButton();
+    	adminPage.leftMenu
 		.clickOnResourcesButton()
 		.selectResource(resourceName)
 		.clickOnRemoveButton();
