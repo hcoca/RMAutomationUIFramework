@@ -25,6 +25,7 @@ public class LoginActions {
 				.clickOnEmailServerButton();
 		}
 		else{
+			BrowserManager.getDriver().navigate().refresh();	
 			 leftMenu.clickOnEmailServerButton();
 		}
 		
