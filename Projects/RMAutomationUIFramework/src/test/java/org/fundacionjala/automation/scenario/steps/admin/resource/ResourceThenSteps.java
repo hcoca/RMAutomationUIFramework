@@ -7,6 +7,7 @@ import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourc
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
+import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
 
@@ -20,6 +21,15 @@ public class ResourceThenSteps {
 	@Then("^Validate that the resource with name \"([^\"]*)\" is diplayed in resource page$")
 	public void validate_that_the_resource_with_name_is_diplayed(
 		String resourceName) throws Throwable {
+		
+		////??
+		BrowserManager.getDriver().navigate().refresh();
+		AdminPage admin = new AdminPage();
+		admin.leftMenu.clickOnEmailServerButton();
+		admin.leftMenu.clickOnConferenceRoomsButton();
+		admin.leftMenu.clickOnResourcesButton();
+		/////??
+			
 		ResourcePage resources = new ResourcePage();
 		Assert.assertTrue(resources
 					.verifyResourceExist(resourceName));
