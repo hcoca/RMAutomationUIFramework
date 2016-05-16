@@ -126,13 +126,13 @@ public class ImpersonationPage {
 	}
 
 	/**
-	 * Wait for Impersonation Message Disappear method
+	 * Wait for Impersonation Message method
 	 * This method generates a wait until Impersonation Message
-	 * Disappear
+	 * is displayed
 	 * 
 	 * @return the current Impersonation Page
 	 */
-	public ImpersonationPage waitForImpersonationMessageDisappear() {
+	public ImpersonationPage waitForImpersonationMessage() {
 		(new WebDriverWait(BrowserManager.getDriver(), 30))
 				.until(ExpectedConditions.presenceOfElementLocated(By
 						.xpath(ImpersonationMap.IMPERSONATION_MESSAGE)));
@@ -161,5 +161,20 @@ public class ImpersonationPage {
 			LogManager.info("Save Button has not been found");
 			return false;
 		}
+	}
+	
+	/**
+	 * Get Impersonation message method
+	 * This method retrieves the message of Impersonation Message
+	 * 
+	 * @return the value of Impersonation Message
+	 */
+	public String getImpersonationMessage() {
+		String message = impersonationMessage.getText();
+
+		LogManager.info("<Impersonation Message:> " + message
+				+ " <has obtained>");
+		
+		return message;
 	}
 }
