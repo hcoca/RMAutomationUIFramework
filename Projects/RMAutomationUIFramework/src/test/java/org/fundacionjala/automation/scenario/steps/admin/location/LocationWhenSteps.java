@@ -109,7 +109,7 @@ public class LocationWhenSteps {
 		
 		LocationPage locationPage = adminPage
 						.leftMenu
-						.clickOnLocationsButton();
+	 				.clickOnLocationsButton();
 	    
 	    return locationPage;
 	}
