@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
 
@@ -9,7 +10,8 @@ public class ConferenceRoomGivenSteps {
 
     @Given("^I have \"([^\"]*)\" room disabled$")
     public void disableRoom(String roomName) throws Throwable {
-	RoomAPIManager.changeStatusOfRoom(roomName, false);
+	//RoomAPIManager.changeStatusOfRoom(roomName, false);
+	new ConferenceRoomsPage().disableRoom(roomName);
     }
 
     @Given("^I have \"([^\"]*)\" room enabled$")

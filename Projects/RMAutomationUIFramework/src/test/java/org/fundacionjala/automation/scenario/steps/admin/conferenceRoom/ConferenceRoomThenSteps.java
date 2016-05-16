@@ -45,13 +45,13 @@ public class ConferenceRoomThenSteps {
 	NavigationPage navigation = connection
 		.setUpServiceURL(PropertiesReader.getServiceURL())
 		.clickOnSaveButton().clickOnNavigationButton();
-
+ 
+	RoomAPIManager.changeStatusOfRoom(roomName, true);
 	Assert.assertFalse(roomName + " room is in the list",
 		navigation
 		.clickOnRoomToggleButton()
 		.verifyIfExistRoomInList(roomName)
 		);
-	RoomAPIManager.changeStatusOfRoom(roomName, true);
     }
 
     @Then("^validate if the quantity of rooms in server is the same displayed in conference room page$")

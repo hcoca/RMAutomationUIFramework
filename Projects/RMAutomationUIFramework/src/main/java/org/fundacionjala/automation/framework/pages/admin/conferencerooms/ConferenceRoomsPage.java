@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
+import org.fundacionjala.automation.framework.maps.admin.impersonation.ImpersonationMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
@@ -15,6 +16,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -245,7 +247,13 @@ public class ConferenceRoomsPage extends AdminPage {
 	WebElement turnOnOffButton = BrowserManager.getDriver().findElement(
 		By.xpath(ConferenceRoomsMap.TURN_ON_OFF_BUTTON.replace(
 			"roomName", roomName)));
-	UIActions.clickAt(turnOnOffButton);	
+	
+	Actions action = new Actions(BrowserManager.getDriver());
+	action.click(turnOnOffButton).perform();
+	
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	.until(ExpectedConditions.visibilityOfElementLocated(By
+			.xpath(ConferenceRoomsMap.ENABLE_DISABLE_MESSAGE)));
 	return this;
     }
 
@@ -423,5 +431,11 @@ public class ConferenceRoomsPage extends AdminPage {
 	
 	return Integer.parseInt(totalItemsLabel.getText()
 		.trim().replace("Total Items: ", ""));
+    }
+    
+    @FindBy (xpath = ConferenceRoomsMap.ENABLE_DISABLE_MESSAGE) 
+    WebElement enableDisableMessage;
+    public String getMessage() {
+	return enableDisableMessage.getText();
     }
 }
