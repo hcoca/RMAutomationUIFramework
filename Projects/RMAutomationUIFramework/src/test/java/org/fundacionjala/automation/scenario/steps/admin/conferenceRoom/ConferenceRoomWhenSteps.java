@@ -19,12 +19,26 @@ public class ConferenceRoomWhenSteps {
 
     @When("^I enabled \"([^\"]*)\" room$")
     public void enableARoom(String roomName) throws Throwable {
-	goToConferenceRoomPage().clickOnTurnOnOffButton(roomName);
+	ConferenceRoomsPage rooms = new ConferenceRoomsPage();
+	String message = "Room " + roomName + " was disabled";	
+	rooms = goToConferenceRoomPage();
+	while(message.equals("Room " + roomName + " was disabled") || message.contains("Error on trying to")){
+	    message = rooms
+		    .clickOnTurnOnOffButton(roomName)
+		    .getMessage();
+	}
     }
 
     @When("^I disabled \"([^\"]*)\" room$")
     public void disableARoom(String roomName) throws Throwable {
-	goToConferenceRoomPage().clickOnTurnOnOffButton(roomName);
+	ConferenceRoomsPage rooms = new ConferenceRoomsPage();
+	String message = "Room " + roomName + " was enabled";
+	rooms = goToConferenceRoomPage();
+	while(message.equals("Room " + roomName + " was enabled") || message.contains("Error on trying to")){
+	    message = rooms
+		    .clickOnTurnOnOffButton(roomName)
+		    .getMessage();
+	}
     }
 
     @When("^I go to conference room page$")
