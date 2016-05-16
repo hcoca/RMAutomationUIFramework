@@ -143,10 +143,15 @@ public class ResourceWhenSteps {
     @When("^Click on resource option$")
     public void click_on_resource_option() throws Throwable {
 	AdminPage home = new AdminPage();
+	/*/
 		home
 		.leftMenu
 		.clickOnIssuesButton()
-		.clickOnResourcesButton();
+		.clickOnResourcesButton();*/
+	////??
+	home.leftMenu.clickOnConferenceRoomsButton();
+	home.leftMenu.clickOnResourcesButton();
+	////??
     }
     
     @When("^I select a option \"([^\"]*)\" on page size option$")

@@ -21,6 +21,15 @@ public class ResourceThenSteps {
 	@Then("^Validate that the resource with name \"([^\"]*)\" is diplayed in resource page$")
 	public void validate_that_the_resource_with_name_is_diplayed(
 		String resourceName) throws Throwable {
+		
+		////??
+		BrowserManager.getDriver().navigate().refresh();
+		AdminPage admin = new AdminPage();
+		admin.leftMenu.clickOnEmailServerButton();
+		admin.leftMenu.clickOnConferenceRoomsButton();
+		admin.leftMenu.clickOnResourcesButton();
+		/////??
+			
 		ResourcePage resources = new ResourcePage();
 		BrowserManager.getDriver().navigate().refresh();
 	    AdminPage admin = new AdminPage();
