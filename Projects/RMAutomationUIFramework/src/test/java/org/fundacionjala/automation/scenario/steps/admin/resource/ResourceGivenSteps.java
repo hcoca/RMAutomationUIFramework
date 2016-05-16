@@ -49,13 +49,12 @@ public class ResourceGivenSteps {
     @Given("^I add \"([^\"]*)\" resources$")
     public void i_add_resources(String numberOfResources) throws Throwable {
 	AdminPage home = new AdminPage();
-	ResourcePage resource = new ResourcePage();
 	
 		for (int i = 0; i < Integer.parseInt(numberOfResources); i++) {
 			BrowserManager.getDriver().navigate().refresh();
 			home.leftMenu.clickOnConferenceRoomsButton();
-            home.leftMenu.clickOnResourcesButton();
-	            resource
+            home.leftMenu
+                .clickOnResourcesButton()
 	            .clickOnAddButton()
 	            .setResourceName("Gift" + i)
 	            .setDisplayName("Gift" + i)
