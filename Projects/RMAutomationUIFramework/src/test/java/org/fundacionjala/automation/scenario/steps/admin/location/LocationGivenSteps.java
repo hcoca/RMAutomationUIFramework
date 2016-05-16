@@ -1,6 +1,5 @@
 package org.fundacionjala.automation.scenario.steps.admin.location;
 
-import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.utils.api.managers.LocationAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Location;
@@ -17,13 +16,11 @@ public class LocationGivenSteps {
 		
 		BrowserManager.openBrowser();
 		LoginPage loginPage = new LoginPage();
-		AdminPage adminPage = new AdminPage();
 		
 		loginPage
 			.setUserName(userName)
 			.setPassword(password)
 			.clickOnSigInButton();
-		adminPage.leftMenu.clickOnEmailServerButton();
 	}
 	
 	@Given("^I have a location added with name: \"([^\"]*)\", display name \"([^\"]*)\" and description \"([^\"]*)\"$")
