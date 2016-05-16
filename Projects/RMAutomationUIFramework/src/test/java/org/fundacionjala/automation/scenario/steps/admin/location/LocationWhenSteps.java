@@ -108,6 +108,7 @@ public class LocationWhenSteps {
 		AdminPage adminPage = new AdminPage();
 		
 		LocationPage locationPage = adminPage
+						.refreshPage()
 						.leftMenu
 	 				.clickOnLocationsButton();
 	    
