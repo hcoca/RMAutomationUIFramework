@@ -156,6 +156,7 @@ public class ImpersonationThenSteps {
 
 		ImpersonationPage impersonation = emailServer
 				.leftMenu
+				.clickOnIssuesButton()
 				.clickOnImpersonationButton();
 
 		boolean isSaveButtonPresent = impersonation
