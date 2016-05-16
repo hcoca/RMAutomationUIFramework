@@ -19,8 +19,13 @@ public class ServiceThenSteps {
     public void service_infomation_is_saved_with_description(
 	    String myExpectedDescription) throws Throwable {
 	EmailServerPage emailServer = new EmailServerPage();
+	emailServer
+        	.leftMenu
+        	.clickOnIssuesButton()
+        	.clickOnEmailServerButton();
 
-	String myActualDescription = emailServer.clickOnServerButton()
+	String myActualDescription = emailServer
+		.clickOnServerButton()
 		.getEmailServerDescription();
 
 	Assert.assertEquals(myActualDescription, myExpectedDescription);
@@ -66,10 +71,8 @@ public class ServiceThenSteps {
 	    throws Throwable {
 	EmailServerPage emailServer = new EmailServerPage();
 	ConferenceRoomsPage rooms;
-	rooms = emailServer
-			.leftMenu
-			.clickOnIssuesButton()
-			.clickOnConferenceRoomsButton();
+	rooms = emailServer.leftMenu.clickOnIssuesButton()
+		.clickOnConferenceRoomsButton();
 
 	Assert.assertEquals(rooms.verifyTotalItems(), 210);
     }
