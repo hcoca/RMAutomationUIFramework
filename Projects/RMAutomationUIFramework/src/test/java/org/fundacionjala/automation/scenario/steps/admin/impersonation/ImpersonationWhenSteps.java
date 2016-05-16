@@ -2,6 +2,7 @@ package org.fundacionjala.automation.scenario.steps.admin.impersonation;
 
 import org.fundacionjala.automation.framework.pages.admin.emailserver.EmailServerPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.impersonation.ImpersonationPage;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
@@ -15,26 +16,40 @@ public class ImpersonationWhenSteps {
 
 	@When("^I enable Impersonation$")
 	public void enableImpersonation() throws Throwable {
-		AdminPage admin = new AdminPage();
+	    	AdminPage admin = new AdminPage();
+		String message = "Impersonation is now disabled.";
 
-		admin
-		  .leftMenu
-		  .clickOnImpersonationButton()
-		  .clickOnUseImpersonationCheckBox()
-		  .clickOnSaveButton()
-		  .waitForImpersonationMessageDisappear();
+		ImpersonationPage impersonation = admin
+						.leftMenu
+						.clickOnImpersonationButton();
+		
+		while(message.equals("Impersonation is now disabled.")) {
+			
+			message = impersonation	
+					.clickOnUseImpersonationCheckBox()
+					.clickOnSaveButton()
+					.waitForImpersonationMessage()
+					.getImpersonationMessage();
+		}
 	}
 
 	@When("^I disable Impersonation$")
 	public void disableImpersonation() throws Throwable {
-		AdminPage admin = new AdminPage();
+	    	AdminPage admin = new AdminPage();
+		String message = "Impersonation is now enabled.";
 
-		admin
-		  .leftMenu
-	      	  .clickOnImpersonationButton()
-		  .clickOnUseImpersonationCheckBox()
-		  .clickOnSaveButton()
-		  .waitForImpersonationMessageDisappear();
+		ImpersonationPage impersonation = admin
+						.leftMenu
+						.clickOnImpersonationButton();
+		
+		while(message.equals("Impersonation is now enabled.")) {
+			
+			message = impersonation	
+						.clickOnUseImpersonationCheckBox()
+						.clickOnSaveButton()
+						.waitForImpersonationMessage()
+						.getImpersonationMessage();
+		}
 	}
 
 	@When("^I change Authentication to User and Password$")
@@ -46,7 +61,7 @@ public class ImpersonationWhenSteps {
 		  .clickOnImpersonationButton()
 		  .clickOnUserAndPasswordRadioButton()
 		  .clickOnSaveButton()
-		  .waitForImpersonationMessageDisappear();
+		  .waitForImpersonationMessage();
 	}
 
 	@When("^I change Authentication to RFID$")
@@ -58,7 +73,7 @@ public class ImpersonationWhenSteps {
 		  .clickOnImpersonationButton()
 		  .clickOnRFIDRadioButton()
 		  .clickOnSaveButton()
-		  .waitForImpersonationMessageDisappear();
+		  .waitForImpersonationMessage();
 	}
 
 	@When("^I create a new meeting with subject \"([^\"]*)\"$")
