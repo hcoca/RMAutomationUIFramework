@@ -139,7 +139,7 @@ public class ImpersonationPage {
 		String message = impersonationMessage.getText();
 
 		LogManager.info("<Impersonation Message:> " + message
-				+ " <has disappeared>");
+				+ " <has been displayed>");
 
 		return this;
 	}
@@ -176,5 +176,28 @@ public class ImpersonationPage {
 				+ " <has obtained>");
 		
 		return message;
+	}
+	
+	/**
+	 * Wait for Impersonation Message Disappear method
+	 * This method generates a wait until Impersonation Message
+	 * Disappear
+	 * 
+	 * @return the current Impersonation Page
+	 */
+	public ImpersonationPage waitForImpersonationMessageDisappear() {
+		(new WebDriverWait(BrowserManager.getDriver(), 30))
+				.until(ExpectedConditions.presenceOfElementLocated(By
+						.xpath(ImpersonationMap.IMPERSONATION_MESSAGE)));
+		String message = impersonationMessage.getText();
+		
+		(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.invisibilityOfElementLocated(By
+				.xpath(ImpersonationMap.IMPERSONATION_MESSAGE)));
+
+		LogManager.info("<Impersonation Message:> " + message
+				+ " <has disappeared>");
+
+		return this;
 	}
 }

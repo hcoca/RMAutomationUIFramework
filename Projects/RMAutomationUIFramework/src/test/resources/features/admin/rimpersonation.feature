@@ -32,6 +32,6 @@ When I create a new meeting with subject "My Subject"
 Then the Impersonation Options displayed in the Credentials Page
     
 Scenario: Impersonation Option is disabled when there is no Email Server Added
-Given a user has logged into Room Manager with no email server added
+Given a user has logged into Room Manager with no email server added 
 When there is no Email Server Added to do impersonation
 Then Impersonation Option is disabled

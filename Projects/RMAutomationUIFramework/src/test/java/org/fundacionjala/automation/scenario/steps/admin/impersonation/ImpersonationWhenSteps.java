@@ -28,6 +28,7 @@ public class ImpersonationWhenSteps {
 			
 			message = impersonation	
 					.clickOnUseImpersonationCheckBox()
+					.clickOnUserAndPasswordRadioButton()
 					.clickOnSaveButton()
 					.waitForImpersonationMessage()
 					.getImpersonationMessage();
@@ -48,6 +49,7 @@ public class ImpersonationWhenSteps {
 			
 			message = impersonation	
 					.clickOnUseImpersonationCheckBox()
+					.clickOnUserAndPasswordRadioButton()
 					.clickOnSaveButton()
 					.waitForImpersonationMessage()
 					.getImpersonationMessage();
@@ -64,7 +66,7 @@ public class ImpersonationWhenSteps {
 		  .clickOnImpersonationButton()
 		  .clickOnUserAndPasswordRadioButton()
 		  .clickOnSaveButton()
-		  .waitForImpersonationMessage();
+		  .waitForImpersonationMessageDisappear();
 	}
 
 	@When("^I change Authentication to RFID$")
@@ -77,7 +79,7 @@ public class ImpersonationWhenSteps {
 		  .clickOnImpersonationButton()
 		  .clickOnRFIDRadioButton()
 		  .clickOnSaveButton()
-		  .waitForImpersonationMessage();
+		  .waitForImpersonationMessageDisappear();
 	}
 
 	@When("^I create a new meeting with subject \"([^\"]*)\"$")
@@ -97,11 +99,9 @@ public class ImpersonationWhenSteps {
 				.clickOnHomeButton();
 
 		SchedulerPage scheduler = home.clickOnScheduleButton()
-				.setOrganizer(PropertiesReader
-				.getExchangeConnectUserName())
+				.setOrganizer(PropertiesReader.getExchangeConnectUserName())
 				.setSubject(subject)
-				.setAttende(PropertiesReader
-				.getExchangeInviteMail());
+				.setAttende(PropertiesReader.getExchangeInviteMail());
 
 		scheduler.clickOnCreateButton();
 	}
