@@ -21,6 +21,7 @@ public class ImpersonationWhenSteps {
 
 		ImpersonationPage impersonation = admin
 						.leftMenu
+						.clickOnIssuesButton()
 						.clickOnImpersonationButton();
 		
 		while(message.equals("Impersonation is now disabled.")) {
@@ -40,15 +41,16 @@ public class ImpersonationWhenSteps {
 
 		ImpersonationPage impersonation = admin
 						.leftMenu
+						.clickOnIssuesButton()
 						.clickOnImpersonationButton();
 		
 		while(message.equals("Impersonation is now enabled.")) {
 			
 			message = impersonation	
-						.clickOnUseImpersonationCheckBox()
-						.clickOnSaveButton()
-						.waitForImpersonationMessage()
-						.getImpersonationMessage();
+					.clickOnUseImpersonationCheckBox()
+					.clickOnSaveButton()
+					.waitForImpersonationMessage()
+					.getImpersonationMessage();
 		}
 	}
 
@@ -58,6 +60,7 @@ public class ImpersonationWhenSteps {
 
 		admin
 		  .leftMenu
+		  .clickOnIssuesButton()
 		  .clickOnImpersonationButton()
 		  .clickOnUserAndPasswordRadioButton()
 		  .clickOnSaveButton()
@@ -70,6 +73,7 @@ public class ImpersonationWhenSteps {
 
 		admin
 		  .leftMenu
+		  .clickOnIssuesButton()
 		  .clickOnImpersonationButton()
 		  .clickOnRFIDRadioButton()
 		  .clickOnSaveButton()
@@ -85,16 +89,19 @@ public class ImpersonationWhenSteps {
 				.clickOnSaveButton()
 				.clickOnNavigationButton();
 
-		HomePage home = navigation.clickOnRoomToggleButton()
+		HomePage home = navigation
+				.clickOnRoomToggleButton()
 				.selectConferenceRoom(PropertiesReader.getConferenceRoom())
 				.clickOnSaveButton()
 				.topMenu
 				.clickOnHomeButton();
 
 		SchedulerPage scheduler = home.clickOnScheduleButton()
-				.setOrganizer(PropertiesReader.getExchangeConnectUserName())
+				.setOrganizer(PropertiesReader
+				.getExchangeConnectUserName())
 				.setSubject(subject)
-				.setAttende(PropertiesReader.getExchangeInviteMail());
+				.setAttende(PropertiesReader
+				.getExchangeInviteMail());
 
 		scheduler.clickOnCreateButton();
 	}
@@ -105,6 +112,7 @@ public class ImpersonationWhenSteps {
 
 		EmailServerPage emailServer = admin
 						.leftMenu
+						.clickOnIssuesButton()
 						.clickOnEmailServerButton();
 
 		boolean isEmailServerPresent = emailServer
