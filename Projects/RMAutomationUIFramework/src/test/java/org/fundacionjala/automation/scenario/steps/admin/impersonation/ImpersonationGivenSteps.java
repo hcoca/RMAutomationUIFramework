@@ -91,7 +91,6 @@ public class ImpersonationGivenSteps {
 		loginPage
 			.setUserName(PropertiesReader.getUserName())
 			.setPassword(PropertiesReader.getPassword())
-			.clickOnSigInButton()
-			.refreshPage();
+			.clickOnSigInButton();
 	}
 }
