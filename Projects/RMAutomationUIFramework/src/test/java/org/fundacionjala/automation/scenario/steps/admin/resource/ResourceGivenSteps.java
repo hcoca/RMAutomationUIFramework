@@ -18,16 +18,7 @@ import cucumber.api.java.en.Given;
 public class ResourceGivenSteps {
     @Given("^I as Administrator Login to Room Manager$")
     public void i_as_Administrator_Login_to_Room_Manager() throws Throwable {
-    	/*
-	BrowserManager.openBrowser();
-	LoginPage login = new LoginPage();
-		login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton()
-		.refreshPage()
-		.leftMenu
-		.clickOnEmailServerButton();*/
+    	
     	
     	AdminPage home = 
             	LoginActions
@@ -35,7 +26,6 @@ public class ResourceGivenSteps {
     	
     	home.leftMenu.clickOnConferenceRoomsButton();
  	  
- 	    		//.clickOnEmailServerButton();
 		
     }
 

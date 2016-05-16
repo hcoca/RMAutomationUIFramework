@@ -7,6 +7,7 @@ import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourc
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
+import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
 
@@ -21,6 +22,11 @@ public class ResourceThenSteps {
 	public void validate_that_the_resource_with_name_is_diplayed(
 		String resourceName) throws Throwable {
 		ResourcePage resources = new ResourcePage();
+		BrowserManager.getDriver().navigate().refresh();
+	    AdminPage admin = new AdminPage();
+	    admin.leftMenu.clickOnConferenceRoomsButton();
+	    admin.leftMenu.clickOnResourcesButton();
+		
 		Assert.assertTrue(resources
 					.verifyResourceExist(resourceName));
 		//Post condition
@@ -72,7 +78,6 @@ public class ResourceThenSteps {
 		Assert.assertTrue(
 				resources.verifyNextPage("2"));
 		//Post condition
-		//deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that the 'previous' page is displayed on resource table$")
@@ -82,7 +87,6 @@ public class ResourceThenSteps {
 		Assert.assertTrue(
 				resources.verifyPreviousPage(previousPage));
 		//Post condition
-		//deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that the \"([^\"]*)\" page is displayed$")
@@ -98,7 +102,6 @@ public class ResourceThenSteps {
 				resources
 				.verifyTheFirstElementOnThePage(firstElement));
 		//Post condition
-		//deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that resource with \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\" is displayed$")
@@ -121,11 +124,14 @@ public class ResourceThenSteps {
 		List<Resource> listResource = 
 			ResourceAPIManager.getRequest(
 				PropertiesReader.getServiceURL() + "/resources");
+		AdminPage admin = new AdminPage();
+		admin.leftMenu.clickOnConferenceRoomsButton();
+	    admin.leftMenu.clickOnResourcesButton();
+		
 		 Assert.assertTrue(
 				 resources
 				 .verifyResourcesOnResourceTable(listResource));
 		 //Post condition
-		 //deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that total resources are displayed$")
@@ -139,7 +145,6 @@ public class ResourceThenSteps {
 				 resources.verifyTotalItems(totalItems));
 		 
 		//Post condition
-		//deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that the resource table size is same than the option \"([^\"]*)\" selected$")
@@ -150,7 +155,6 @@ public class ResourceThenSteps {
                 	resources
                 		.verifyNumberOfResources(sizeTable));
                 //Post condition
-               // deleteResourcesCreated();
 	}
 	
 	@Then("^Validate that the association with the \"([^\"]*)\" room is displayed$")
@@ -171,7 +175,6 @@ public class ResourceThenSteps {
 			resources
 			    	.verifyTheFirstPage("1"));
 		//Post condition
-	    	//deleteResourcesCreated(); 
 	}
 	
 	@Then("^Validate that the last page is displayed on resource table$")

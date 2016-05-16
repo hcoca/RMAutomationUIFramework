@@ -81,7 +81,7 @@ public class ConferenceRoomsPage extends AdminPage {
     public List<WebElement> getRooms() {
 
 	return ExplicitWait.getElementsWhenVisible(
-		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 15);
+		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 60);
     }
 
     /**

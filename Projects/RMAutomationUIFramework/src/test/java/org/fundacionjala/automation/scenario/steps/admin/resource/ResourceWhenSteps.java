@@ -66,7 +66,6 @@ public class ResourceWhenSteps {
 	AdminPage home = new AdminPage();
 	ResourcePage resourcePage = new ResourcePage();
 	ResourceInfoPage info = new ResourceInfoPage();
-	//resourcePage = home.leftMenu.clickOnIssuesButton()
 	home.leftMenu.clickOnEmailServerButton();
 	ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON), 10);
 	
@@ -178,10 +177,6 @@ public class ResourceWhenSteps {
     	AdminPage adminPage = new AdminPage();
     	adminPage
 		.leftMenu
-		//.clickOnLocationsButton()
-		//.refreshPage()
-		//.leftMenu
-		//.clickOnIssuesButton()
 		.clickOnConferenceRoomsButton();
     	adminPage.leftMenu
 		.clickOnResourcesButton()
