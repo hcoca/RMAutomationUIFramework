@@ -1,17 +1,12 @@
 package org.fundacionjala.automation.scenario.steps.admin.resource;
 
-import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
-import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
-import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
-import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.openqa.selenium.By;
 
 import cucumber.api.java.en.Given;
 
@@ -19,14 +14,8 @@ public class ResourceGivenSteps {
     @Given("^I as Administrator Login to Room Manager$")
     public void i_as_Administrator_Login_to_Room_Manager() throws Throwable {
     	
-    	
-    	AdminPage home = 
             	LoginActions
- 	    		.ExecuteLogin();
-    	
-    	home.leftMenu.clickOnConferenceRoomsButton();
- 	  
-		
+ 	    	             	.ExecuteLogin();
     }
 
     @Given("^I have a resource created with the name \"([^\"]*)\", display name \"([^\"]*)\", description \"([^\"]*)\" and icon \"([^\"]*)\"$")
@@ -61,17 +50,18 @@ public class ResourceGivenSteps {
     public void i_add_resources(String numberOfResources) throws Throwable {
 	AdminPage home = new AdminPage();
 	ResourcePage resource = new ResourcePage();
-	resource = home
-			.leftMenu
-			.clickOnResourcesButton();
-	for (int i = 0; i < Integer.parseInt(numberOfResources); i++) {
-            resource
-            .clickOnAddButton()
-            .setResourceName("Gift" + i)
-            .setDisplayName("Gift" + i)
-            .setDescription("Gift" + i)
-            .clickOnSaveButton();
-	}
+	
+		for (int i = 0; i < Integer.parseInt(numberOfResources); i++) {
+			BrowserManager.getDriver().navigate().refresh();
+			home.leftMenu.clickOnConferenceRoomsButton();
+            home.leftMenu.clickOnResourcesButton();
+	            resource
+	            .clickOnAddButton()
+	            .setResourceName("Gift" + i)
+	            .setDisplayName("Gift" + i)
+	            .setDescription("Gift" + i)
+	            .clickOnSaveButton();
+		}
     }
     
     @Given("^I have atleast \"([^\"]*)\" created resources$")

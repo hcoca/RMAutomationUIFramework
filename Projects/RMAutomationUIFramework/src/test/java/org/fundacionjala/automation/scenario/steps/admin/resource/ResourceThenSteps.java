@@ -29,10 +29,13 @@ public class ResourceThenSteps {
 	    admin.leftMenu.clickOnConferenceRoomsButton();
 	    admin.leftMenu.clickOnResourcesButton();
 		
-		Assert.assertTrue(resources
-					.verifyResourceExist(resourceName));
-		//Post condition
-		deleteResourceByName(resourceName);
+	    boolean expectedResult  = resources
+	    		                           .verifyResourceExist(resourceName);
+	    deleteResourceByName(resourceName);
+	    
+		Assert.assertTrue(expectedResult);
+		
+		
 	}
 	@Then("^Validate that the resource with the name \"([^\"]*)\" has been deleted$")
 	public void validate_that_the_resource_with_the_name_has_been_deleted(
@@ -43,18 +46,18 @@ public class ResourceThenSteps {
 					.clickOnIssuesButton()
 					.clickOnResourcesButton();
 		boolean isResourceNotPresent = resource
-						.verifyResourceNotExist(arg1);
+						                      .verifyResourceNotExist(arg1);
 		Assert.assertTrue(isResourceNotPresent);
 	}
 	@Then("^Validate the resource \"([^\"]*)\" is displayed$")
 	public void validate_the_resource_is_displayed(
 		String resourceName) throws Throwable {
 		ResourcePage resourcePage = new ResourcePage();
-		Assert.assertTrue(
-				resourcePage.verifyResourceExist(resourceName));
 		
-		//Post condition
-		deleteResourceByName(resourceName);
+	    boolean expectedResult = resourcePage.verifyResourceExist(resourceName);
+	    deleteResourceByName(resourceName);
+	    
+		Assert.assertTrue(expectedResult);
 	}
 
 	@Then("^Validate that the resource \"([^\"]*)\" is modified according the changes \\(\"([^\"]*)\" field with value \"([^\"]*)\"\\)$")
@@ -66,12 +69,11 @@ public class ResourceThenSteps {
 				.leftMenu
 				.clickOnResourcesButton();
 		
-		Assert.assertTrue(
-			resourcePage
-			.verifyResourceModifiedByField(resourceName,nameField,
-							value)); 
-		//Post condition
+		boolean expectedResult = resourcePage
+				                      .verifyResourceModifiedByField(
+				                    		   resourceName,nameField,value); 
 		deleteResourceByName(resourceName);
+		Assert.assertTrue(expectedResult);
 	}
 	
 	@Then("^Validate that the 'next' page is displayed on resource table$")
@@ -79,7 +81,7 @@ public class ResourceThenSteps {
 		ResourcePage resources = new ResourcePage();
 		Assert.assertTrue(
 				resources.verifyNextPage("2"));
-		//Post condition
+		
 	}
 	
 	@Then("^Validate that the 'previous' page is displayed on resource table$")
@@ -88,7 +90,7 @@ public class ResourceThenSteps {
 		int previousPage = resources.getTheTotalNumberPage();
 		Assert.assertTrue(
 				resources.verifyPreviousPage(previousPage));
-		//Post condition
+		
 	}
 	
 	@Then("^Validate that the \"([^\"]*)\" page is displayed$")
@@ -103,7 +105,7 @@ public class ResourceThenSteps {
 		Assert.assertTrue(
 				resources
 				.verifyTheFirstElementOnThePage(firstElement));
-		//Post condition
+		
 	}
 	
 	@Then("^Validate that resource with \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\" is displayed$")
@@ -112,12 +114,20 @@ public class ResourceThenSteps {
 		String displayname, 
 		String icon) throws Throwable {
 		ResourcePage resources = new ResourcePage();
-		Assert.assertTrue(
-			resources
-			.verifyResourceDisplayed(resourceName, displayname,
-						icon));
-		 //Post condition
+		
+		BrowserManager.getDriver().navigate().refresh();
+	    AdminPage admin = new AdminPage();
+	    admin.leftMenu.clickOnConferenceRoomsButton();
+	    admin.leftMenu.clickOnResourcesButton();
+		
+		boolean expectedResult = resources
+			                            .verifyResourceDisplayed(resourceName, 
+			                            		                 displayname,
+						                                         icon);
+		
 		deleteResourceByName(resourceName);
+		Assert.assertTrue(expectedResult);
+		
 	}
 	
 	@Then("^Validate that all resources are displayed in resource table$")
@@ -126,27 +136,30 @@ public class ResourceThenSteps {
 		List<Resource> listResource = 
 			ResourceAPIManager.getRequest(
 				PropertiesReader.getServiceURL() + "/resources");
-		AdminPage admin = new AdminPage();
-		admin.leftMenu.clickOnConferenceRoomsButton();
-	    admin.leftMenu.clickOnResourcesButton();
 		
 		 Assert.assertTrue(
 				 resources
 				 .verifyResourcesOnResourceTable(listResource));
-		 //Post condition
+		
 	}
 	
 	@Then("^Validate that total resources are displayed$")
 	public void validate_total_resources_are_displayed() throws Throwable {
+		
 		ResourcePage resources = new ResourcePage();
+		AdminPage home = new AdminPage();
+		
+		BrowserManager.getDriver().navigate().refresh();
+		home.leftMenu.clickOnConferenceRoomsButton();
+        home.leftMenu.clickOnResourcesButton();
+		
 		List<Resource> listResource = 
 			ResourceAPIManager.getRequest(
 				PropertiesReader.getServiceURL() + "/resources");
 		int totalItems = listResource.size();
 		Assert.assertTrue(
 				 resources.verifyTotalItems(totalItems));
-		 
-		//Post condition
+	
 	}
 	
 	@Then("^Validate that the resource table size is same than the option \"([^\"]*)\" selected$")
@@ -156,31 +169,33 @@ public class ResourceThenSteps {
                 Assert.assertTrue(
                 	resources
                 		.verifyNumberOfResources(sizeTable));
-                //Post condition
 	}
 	
 	@Then("^Validate that the association with the \"([^\"]*)\" room is displayed$")
 	public void validate_resource_association(
 		String RoomName) throws Throwable {
 	    RemoveResourcePage removeResource = new RemoveResourcePage();
-	    Assert.assertTrue(
-		    	removeResource.verifyAssociatedRoomExist(RoomName));
-	 	
-	    	//Post condition
-	    	removeResource.clickOnRemoveButton();
+	    
+	    boolean expectedResult = removeResource.verifyAssociatedRoomExist(RoomName);
+	    
+	    
+	    Assert.assertTrue(expectedResult);
+	    removeResource.clickOnRemoveButton();
+	    	
 	}
 	
 	@Then("^Validate that the first page is displayed on resource table$")
 	public void validate_the_first_page() throws Throwable {
+		
 	    	ResourcePage resources = new ResourcePage();
 	    	Assert.assertTrue(
 			resources
 			    	.verifyTheFirstPage("1"));
-		//Post condition
 	}
 	
 	@Then("^Validate that the last page is displayed on resource table$")
 	public void validate_the_last_page() throws Throwable {
+		
 	    ResourcePage resources = new ResourcePage();
 	    	Assert.assertTrue(
 				resources
@@ -209,6 +224,7 @@ public class ResourceThenSteps {
 	}
 	
 	private void deleteResourcesCreated() throws UnirestException{
+		
                 List<Resource> listResource = 
                 	ResourceAPIManager.getRequest(
                 		PropertiesReader.getServiceURL() + "/resources");
@@ -220,6 +236,7 @@ public class ResourceThenSteps {
                 			"/resources", resource._id);
                 	}
 		}
+                
 	}
 	
 }

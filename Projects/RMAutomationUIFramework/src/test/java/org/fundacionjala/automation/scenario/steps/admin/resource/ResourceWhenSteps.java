@@ -21,6 +21,9 @@ public class ResourceWhenSteps {
 	AdminPage home = new AdminPage();
 		home
 		.leftMenu
+		.clickOnConferenceRoomsButton();
+		home
+		.leftMenu
 		.clickOnResourcesButton()
 		.clickOnAddButton()
 		.setResourceName(name)
@@ -63,16 +66,16 @@ public class ResourceWhenSteps {
     public void i_modify_the_field_with_value_in_the_resource(String name,
 	    String value,
 	    String resourceName) throws Throwable {
-	AdminPage home = new AdminPage();
-	ResourcePage resourcePage = new ResourcePage();
-	ResourceInfoPage info = new ResourceInfoPage();
-	home.leftMenu.clickOnEmailServerButton();
-	ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON), 10);
-	
-	home.leftMenu.clickOnConferenceRoomsButton();
-	resourcePage = home.leftMenu  
-		.clickOnResourcesButton();
-	
+		AdminPage home = new AdminPage();
+		ResourcePage resourcePage = new ResourcePage();
+		ResourceInfoPage info = new ResourceInfoPage();
+		home.leftMenu.clickOnEmailServerButton();
+		ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON), 10);
+		
+		home.leftMenu.clickOnConferenceRoomsButton();
+		resourcePage = home.leftMenu  
+			.clickOnResourcesButton();
+		
 	info = resourcePage
 		.doubleClickOnResource(resourceName);
 	switch (name.charAt(0)) {
@@ -142,20 +145,17 @@ public class ResourceWhenSteps {
 
     @When("^Click on resource option$")
     public void click_on_resource_option() throws Throwable {
-	AdminPage home = new AdminPage();
-	/*/
-		home
-		.leftMenu
-		.clickOnIssuesButton()
-		.clickOnResourcesButton();*/
-	////??
-	home.leftMenu.clickOnConferenceRoomsButton();
-	home.leftMenu.clickOnResourcesButton();
-	////??
+		AdminPage home = new AdminPage();
+		
+		BrowserManager.getDriver().navigate().refresh();
+		home.leftMenu.clickOnConferenceRoomsButton();
+		home.leftMenu.clickOnResourcesButton();
+		
     }
     
     @When("^I select a option \"([^\"]*)\" on page size option$")
     public void i_select_page_size_option(String sizeTable) throws Throwable {
+    	
     	AdminPage home = new AdminPage();
         	home
         	.leftMenu
@@ -167,6 +167,7 @@ public class ResourceWhenSteps {
     public void i_associate_the_resource_to_a_room(
 	    String resourceName, 
 	    String roomName) throws Throwable {
+    	
     	AdminPage home = new AdminPage();
     	home
         	.leftMenu
@@ -179,11 +180,14 @@ public class ResourceWhenSteps {
     
     @When("^I want to remove the resource \"([^\"]*)\"$")
     public void i_want_to_remove_the_resource(String resourceName) throws Throwable {
+    	
     	AdminPage adminPage = new AdminPage();
     	adminPage
 		.leftMenu
 		.clickOnConferenceRoomsButton();
-    	adminPage.leftMenu
+    	
+    	adminPage
+    	.leftMenu
 		.clickOnResourcesButton()
 		.selectResource(resourceName)
 		.clickOnRemoveButton();
