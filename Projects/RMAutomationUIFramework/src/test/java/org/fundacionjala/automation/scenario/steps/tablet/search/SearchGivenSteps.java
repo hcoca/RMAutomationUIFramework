@@ -13,6 +13,7 @@ public class SearchGivenSteps {
 	
 	@Given("^I am on search page$")
 	public void i_am_on_search_page() throws Throwable {
+		
 		BrowserManager.openBrowser();
 		ConnectionPage connection = new ConnectionPage();
 		NavigationPage navigation = connection
@@ -26,7 +27,6 @@ public class SearchGivenSteps {
 			.clickOnHomeButton();
 		
 	   home.clickOnSearchButton();
-	
 	}
 	
 }

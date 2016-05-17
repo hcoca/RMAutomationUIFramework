@@ -13,17 +13,16 @@ public class SearchThenSteps {
 	@Then("^I see the advanced option with all field to search$")
 	public void i_see_the_advanced_option_with_all_field_to_search() throws Throwable {
 		
-		Assert.assertTrue(search.allFieldsArePresent());
-		
+		Assert.assertTrue(search.allFieldsArePresent());		
 	}
 	
 	@Then("^I see all rooms that match with the room name criteria$")
 	public void i_see_all_rooms_that_match_with_the_room_name_criteria() throws Throwable {
 	   
-		int qtyInBD = CrudOpearionRooms.getRooms("Room00").size();
-		int quantityRooms = search.getRoomList().size();
+		int expectedQty = CrudOpearionRooms.getRooms("Room00").size();
+		int actualQty = search.getRoomList().size();
 		
-	    Assert.assertEquals(qtyInBD, quantityRooms);
+	    Assert.assertEquals(expectedQty, actualQty);
 		
 	}
 	
