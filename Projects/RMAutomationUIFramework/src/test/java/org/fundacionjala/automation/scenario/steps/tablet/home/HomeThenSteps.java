@@ -15,9 +15,14 @@ import cucumber.api.java.en.Then;
 
 public class HomeThenSteps {
 
-    @Then("^All meetings of \"([^\"]*)\" room are displayed on home time line$")
-    public void verifyTimeLineMeetings(String roomName) throws Throwable {
-	HomePage homePage = new HomePage();
+    @Then("^All meetings of \"([^\"]*)\" room are displayed on home time line even \"([^\"]*)\" meeting$")
+    public void verifyTimeLineMeetings(String roomName, String subject) throws Throwable {
+	SchedulerPage schedulerPage = new SchedulerPage();
+        HomePage homePage = new HomePage();
+        
+        schedulerPage
+        .topMenu
+        .clickOnHomeButton();
 
 	MongoClient mongoClient = new MongoClient(
 		PropertiesReader.getHostIPAddress(),
@@ -30,6 +35,8 @@ public class HomeThenSteps {
 
 	boolean actualResult = homePage.verifyTimeLineMeetings(cursor
 		.getCollection().count(query));
+	
+	deleteMeeting(subject);
 	
 	Assert.assertTrue(actualResult);
     }
