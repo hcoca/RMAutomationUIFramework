@@ -183,9 +183,16 @@ public class RoomInfoPage {
      * @return RoomInfoPage instance
      */
     public RoomInfoPage selectLocation(String locationName) {
-	UIActions.waitFor(RoomInfoMap.DISPLAY_LOCATIONS_BUTTON);
-	UIActions.clickAt(displayLocationsButton);
-	UIActions.clickAt(getLocation(locationName));
+	try{
+	    UIActions.waitFor(RoomInfoMap.DISPLAY_LOCATIONS_BUTTON);
+	    UIActions.clickAt(displayLocationsButton);
+	    UIActions.clickAt(getLocation(locationName));
+	}catch(Exception exc){
+	    LogManager.error("Location can not be found - Cancelling the operation");
+	    ExplicitWait.clickWhenReady(By.xpath(RoomInfoMap.CANCEL_BUTTON),
+		    			20);
+	}
+	
 	return this;
     }
 
