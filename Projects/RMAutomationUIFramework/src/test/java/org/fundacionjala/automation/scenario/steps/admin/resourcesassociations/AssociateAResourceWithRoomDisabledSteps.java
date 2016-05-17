@@ -4,7 +4,6 @@ import org.fundacionjala.automation.framework.maps.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
-import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.testng.Assert;
 
 import cucumber.api.java.Before;
@@ -14,7 +13,7 @@ import cucumber.api.java.en.When;
 
 public class AssociateAResourceWithRoomDisabledSteps {
 	
-	private String resourceName, roomToModify;
+	private String roomToModify;
 	private ConferenceRoomsPage conferenceRoom;
 	private RoomsResourceAssociationsPage resourceAssociations;
 	private String resourceNameCreated;

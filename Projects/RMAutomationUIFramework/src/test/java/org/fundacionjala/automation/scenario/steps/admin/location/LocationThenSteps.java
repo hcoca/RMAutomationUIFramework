@@ -54,6 +54,8 @@ public class LocationThenSteps {
 		
 		updateLocationPage =
 			locationPage
+			.leftMenu.clickOnIssuesButton()
+			.clickOnLocationsButton()
 			.doubleClickOnALocation(displayName);
 		
 		Assert.assertTrue(

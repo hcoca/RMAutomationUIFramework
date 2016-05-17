@@ -3,6 +3,7 @@ package org.fundacionjala.automation.scenario.steps.admin.resource;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -22,10 +23,10 @@ public class ResourceGivenSteps {
     public void i_have_a_resource_created(
 	    String name, String displayname, String description, String icon)
 	    throws Throwable {
-	Resource resource = new Resource(name, displayname, "fa " + icon, "",
-					description);
-	ResourceAPIManager.postRequest(PropertiesReader.getServiceURL()
-					+ "/resources", resource);
+    	
+		Resource resource = new Resource(name, displayname, "fa " + icon, "",
+						 description);
+		ResourcesActions.createResourceByAPI(resource);
     }
 
     @Given("^I am in the first page$")
@@ -33,8 +34,12 @@ public class ResourceGivenSteps {
 	AdminPage home = new AdminPage();
 		home
 		.leftMenu
+		.clickOnConferenceRoomsButton();
+	    home
+	    .leftMenu
 		.clickOnResourcesButton()
 		.clickOnFirstPageButton();
+		
     }
 
     @Given("^I am in the last page$")
@@ -42,6 +47,9 @@ public class ResourceGivenSteps {
 	AdminPage home = new AdminPage();
 		home
 		.leftMenu
+		.clickOnConferenceRoomsButton();
+	    home
+	    .leftMenu
 		.clickOnResourcesButton()
 		.clickOnLastPageButton();
     }
@@ -65,15 +73,16 @@ public class ResourceGivenSteps {
     
     @Given("^I have atleast \"([^\"]*)\" created resources$")
     public void i_have_created_resources(String resourcesQuantity)throws Throwable {
+    	
 	int quantity = Integer.parseInt(resourcesQuantity);
 	for (int i = 0; i < quantity; i++) {
 		Resource resource = new Resource("Gift" + i,
-						 "Gift" + i,
-						 "fa fa-gift", "", 
-						 "Gift" + i);
-		ResourceAPIManager.postRequest(
-			PropertiesReader.getServiceURL()
-				+ "/resources", resource);
+										 "Gift" + i,
+										 "fa fa-gift", "", 
+										 "Gift" + i);
+						
+		ResourcesActions.createResourceByAPI(resource);
+		
 	}
     }
 }
