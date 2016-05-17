@@ -22,18 +22,19 @@ public class RemoveAssociation {
     	resourceName = "resourceassoc04";
     	roomToModify = conferenceRoom.getRandomRoom();
     	
-    	conferenceRoom
-		    .openConfigurationPage(roomToModify)
-			.clickOnResourceAssociations().addResource(resourceName)
-			.clickOnSave();
+		conferenceRoom
+		             .openConfigurationPage(roomToModify)
+				     .clickOnResourceAssociations()
+				     .addResource(resourceName)
+				     .clickOnSave();
     }
 
     @When("^I remove the resource of the associated column$")
     public void i_remove_the_resource_of_the_associated_column() throws Throwable {
 
-	conferenceRoom
-	        .openConfigurationPage(roomToModify)
-		.clickOnResourceAssociations().removeResource(resourceName);
+		conferenceRoom
+		             .openConfigurationPage(roomToModify)
+			         .clickOnResourceAssociations().removeResource(resourceName);
 
     }
 
@@ -41,9 +42,9 @@ public class RemoveAssociation {
     public void i_see_the_resource_on_available_resources_column() throws Throwable {
 
 	resourceAssociations = 
-		conferenceRoom
-        		.openConfigurationPage(roomToModify)
-        		.clickOnResourceAssociations();
+						conferenceRoom
+					        		.openConfigurationPage(roomToModify)
+					        		.clickOnResourceAssociations();
 
 	Assert.assertTrue(resourceAssociations.isInAvailableList(resourceName),
 		          "The resource should not be in resource column");

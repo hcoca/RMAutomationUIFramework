@@ -10,9 +10,9 @@ public class ResourcesAssociationsGiven {
     public void i_am_on_the_conference_rooms_page() throws Throwable {
     	
     	LoginActions
-	    		.ExecuteLogin()
-	    		.leftMenu
-		        .clickOnConferenceRoomsButton();
+		    		.ExecuteLogin()
+		    		.leftMenu
+			        .clickOnConferenceRoomsButton();
     }
 
 }

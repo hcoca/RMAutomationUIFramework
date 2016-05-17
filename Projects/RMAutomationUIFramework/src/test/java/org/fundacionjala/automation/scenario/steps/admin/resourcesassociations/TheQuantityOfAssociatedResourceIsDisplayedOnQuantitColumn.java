@@ -12,12 +12,12 @@ import cucumber.api.java.en.When;
 public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 
 	private String resourceName, roomToModify;
-        private AdminPage home;
-        private ResourcePage resourcePage;
-        private ConferenceRoomsPage conferenceRoom;
+	private AdminPage home;
+	private ResourcePage resourcePage;
+	private ConferenceRoomsPage conferenceRoom;
 	private ResourceAssociationsPage resourceAssociationsPage;
-	
    
+	
 	@Given("^I associate a resource with quantity \"([^\"]*)\"$")
 	public void i_associate_a_resource_with_quantity(String qty) throws Throwable {
 		conferenceRoom = new ConferenceRoomsPage();
@@ -25,11 +25,11 @@ public class TheQuantityOfAssociatedResourceIsDisplayedOnQuantitColumn {
 		roomToModify = conferenceRoom.getRandomRoom();
 		
 		conferenceRoom
-		.openConfigurationPage(roomToModify)
-		.clickOnResourceAssociations()
-		.addResource(resourceName)
-		.editQuantityOfResourceAssociated(resourceName, qty)
-		.clickOnSave();
+					.openConfigurationPage(roomToModify)
+					.clickOnResourceAssociations()
+					.addResource(resourceName)
+					.editQuantityOfResourceAssociated(resourceName, qty)
+					.clickOnSave();
 	}
 
 	@When("^I go to resources page$")

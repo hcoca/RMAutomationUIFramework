@@ -14,7 +14,7 @@ import cucumber.api.java.en.When;
 
 public class AssociateManyResources {
 	
-        private int numResources;
+	private int numResources;
 	private String roomToModify;
 	private ArrayList<Resource> resourcesToAssociate;
 	private ConferenceRoomsPage conferenceRoom;
