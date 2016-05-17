@@ -118,7 +118,7 @@ public class RoomInfoPage {
      */
     public ConferenceRoomsPage clickOnSave() {
 	
-	UIActions.clickAt(saveButton);
+	ExplicitWait.clickWhenReady(By.xpath(RoomInfoMap.SAVE_BUTTON), 30);
 	return new ConferenceRoomsPage();
     }
 
