@@ -34,15 +34,15 @@ public class RemoveAssociation {
 
 		conferenceRoom
 		             .openConfigurationPage(roomToModify)
-			         .clickOnResourceAssociations().removeResource(resourceName);
+			         .clickOnResourceAssociations()
+			         .removeResource(resourceName);
 
     }
 
     @Then("^I see the resource on available resources column$")
     public void i_see_the_resource_on_available_resources_column() throws Throwable {
 
-	resourceAssociations = 
-						conferenceRoom
+	resourceAssociations = conferenceRoom
 					        		.openConfigurationPage(roomToModify)
 					        		.clickOnResourceAssociations();
 
