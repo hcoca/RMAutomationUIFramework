@@ -118,7 +118,7 @@ public class RoomInfoPage {
      */
     public ConferenceRoomsPage clickOnSave() {
 	
-	UIActions.clickAt(saveButton);
+	ExplicitWait.clickWhenReady(By.xpath(RoomInfoMap.SAVE_BUTTON), 30);
 	return new ConferenceRoomsPage();
     }
 
@@ -183,9 +183,16 @@ public class RoomInfoPage {
      * @return RoomInfoPage instance
      */
     public RoomInfoPage selectLocation(String locationName) {
-	UIActions.waitFor(RoomInfoMap.DISPLAY_LOCATIONS_BUTTON);
-	UIActions.clickAt(displayLocationsButton);
-	UIActions.clickAt(getLocation(locationName));
+	try{
+	    UIActions.waitFor(RoomInfoMap.DISPLAY_LOCATIONS_BUTTON);
+	    UIActions.clickAt(displayLocationsButton);
+	    UIActions.clickAt(getLocation(locationName));
+	}catch(Exception exc){
+	    LogManager.error("Location can not be found - Cancelling the operation");
+	    ExplicitWait.clickWhenReady(By.xpath(RoomInfoMap.CANCEL_BUTTON),
+		    			20);
+	}
+	
 	return this;
     }
 
