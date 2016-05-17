@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
+import org.fundacionjala.automation.framework.pages.tablet.search.SearchPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
@@ -17,7 +18,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * This class represents a Room Manager Home Page.
- * 
  * @author ArielYanarico
  *
  */
@@ -56,20 +56,21 @@ public class HomePage {
      */
     public boolean verifyTimeLineMeetings(long numberOfMeetings) {
 	ExplicitWait.waitElementVisible(homeTimeLine, 30);
-	
+
 	List<WebElement> meetings = homeTimeLine.findElements(By
 		.xpath(HomeMap.HOME_TIME_LINE_MEETINGS));
-	
+
 	LogManager.info("There are: " + numberOfMeetings + " meetings and "
 		+ meetings.size() + " are displayed");
-	
+
 	return meetings.size() == numberOfMeetings;
     }
 
     public boolean verifyCurrentMeetingDisplayed(String subject) {
 	try {
-	    BrowserManager.getDriver()
-		    .findElement(By.xpath("//div[@ng-bind='current._title' and text()='"+subject+"']"));
+	    BrowserManager.getDriver().findElement(
+		    By.xpath("//div[@ng-bind='current._title' and text()='"
+			    + subject + "']"));
 	    LogManager.info("Test Passed: " + subject + " has been displayed");
 	    return true;
 	} catch (NoSuchElementException e) {
@@ -77,5 +78,11 @@ public class HomePage {
 	    LogManager.error("Element not found (Exception)");
 	    return false;
 	}
+    }
+
+    public SearchPage clickOnSearchButton() {
+
+	ExplicitWait.clickWhenReady(By.cssSelector(HomeMap.SEARCH_BUTTON), 20);
+	return new SearchPage();
     }
 }
