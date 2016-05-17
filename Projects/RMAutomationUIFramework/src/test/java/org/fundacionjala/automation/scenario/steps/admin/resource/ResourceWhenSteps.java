@@ -1,13 +1,11 @@
 package org.fundacionjala.automation.scenario.steps.admin.resource;
 
-import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourceInfoPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
-import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
-import org.openqa.selenium.By;
+
 
 import cucumber.api.java.en.When;
 
@@ -38,6 +36,11 @@ public class ResourceWhenSteps {
 	    throws Throwable {
 	BrowserManager.openBrowser();
 	AdminPage home = new AdminPage();
+	   
+		home
+		.leftMenu
+		.clickOnConferenceRoomsButton();
+		
 		home
 		.leftMenu
 		.clickOnResourcesButton()
@@ -69,10 +72,11 @@ public class ResourceWhenSteps {
 		AdminPage home = new AdminPage();
 		ResourcePage resourcePage = new ResourcePage();
 		ResourceInfoPage info = new ResourceInfoPage();
-		home.leftMenu.clickOnEmailServerButton();
-		ExplicitWait.getWhenVisible(By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON), 10);
 		
-		home.leftMenu.clickOnConferenceRoomsButton();
+		home
+		.leftMenu
+		.clickOnConferenceRoomsButton();
+		
 		resourcePage = home.leftMenu  
 			.clickOnResourcesButton();
 		
@@ -99,7 +103,13 @@ public class ResourceWhenSteps {
 
     @When("^I cliked on 'Next' button on resource table$")
     public void i_cliked_on_Next_button_on_resource_table() throws Throwable {
-	AdminPage home = new AdminPage();
+    	
+	    AdminPage home = new AdminPage();
+	    
+		home
+		.leftMenu
+		.clickOnConferenceRoomsButton();
+		
 		home
 		.leftMenu
 		.clickOnResourcesButton()
@@ -109,7 +119,9 @@ public class ResourceWhenSteps {
     @When("^I clicked on 'Previous' button on resource table$")
     public void i_clicked_on_Previous_button_on_resource_table()
 	    throws Throwable {
+    	
 	AdminPage home = new AdminPage();
+		
 		home
 		.leftMenu
 		.clickOnResourcesButton()
@@ -120,6 +132,10 @@ public class ResourceWhenSteps {
     public void go_to_the_page_on_resource_page(String numberPage)
 	    throws Throwable {
 	AdminPage home = new AdminPage();
+		home
+		.leftMenu
+		.clickOnConferenceRoomsButton();
+		
 		home
 		.leftMenu
 		.clickOnResourcesButton()
@@ -156,7 +172,12 @@ public class ResourceWhenSteps {
     @When("^I select a option \"([^\"]*)\" on page size option$")
     public void i_select_page_size_option(String sizeTable) throws Throwable {
     	
+    	
     	AdminPage home = new AdminPage();
+        	home
+        	.leftMenu
+        	.clickOnConferenceRoomsButton();
+        	
         	home
         	.leftMenu
         	.clickOnResourcesButton()

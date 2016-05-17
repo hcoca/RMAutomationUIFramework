@@ -1,12 +1,8 @@
 package org.fundacionjala.automation.framework.pages.admin.login;
-
-import org.fundacionjala.automation.framework.maps.admin.emailserver.EmailServerMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.navigation.LeftMenu;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
-import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.openqa.selenium.By;
 
 public class LoginActions {
 	
@@ -26,14 +22,10 @@ public class LoginActions {
 				.clickOnSigInButton()
 				.leftMenu
 				.clickOnEmailServerButton();
-			   ExplicitWait.getElementsWhenVisible(By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON), 15);
-			   ExplicitWait.getElementsWhenVisible(By.xpath(EmailServerMap.REMOVE_BUTTON), 15);
 		}
 		else{
-			BrowserManager.getDriver().navigate().refresh();	
+			 BrowserManager.getDriver().navigate().refresh();	
 			 leftMenu.clickOnEmailServerButton();
-			 ExplicitWait.getElementsWhenVisible(By.xpath(EmailServerMap.EMAIL_SERVER_BUTTON), 15);
-			 ExplicitWait.getElementsWhenVisible(By.xpath(EmailServerMap.REMOVE_BUTTON), 15);
 		}
 		
 		return new AdminPage();
