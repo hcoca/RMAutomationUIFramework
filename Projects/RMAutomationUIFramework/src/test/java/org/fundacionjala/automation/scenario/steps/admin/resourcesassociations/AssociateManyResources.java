@@ -7,7 +7,6 @@ import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActi
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.testng.Assert;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -15,7 +14,7 @@ import cucumber.api.java.en.When;
 
 public class AssociateManyResources {
 	
-        private int numResources;
+	private int numResources;
 	private String roomToModify;
 	private ArrayList<Resource> resourcesToAssociate;
 	private ConferenceRoomsPage conferenceRoom;

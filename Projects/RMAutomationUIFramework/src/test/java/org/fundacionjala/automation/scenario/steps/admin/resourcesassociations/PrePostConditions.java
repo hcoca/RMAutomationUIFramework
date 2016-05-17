@@ -6,7 +6,6 @@ import org.fundacionjala.automation.framework.maps.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
-import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 
 import com.mashape.unirest.http.exceptions.UnirestException;

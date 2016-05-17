@@ -1,17 +1,9 @@
 package org.fundacionjala.automation.scenario.steps.admin.resourcesassociations;
 
 import java.util.ArrayList;
-
-import org.fundacionjala.automation.framework.maps.admin.resource.IconResources;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomsResourceAssociationsPage;
-import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
-import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.testng.Assert;
-
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -20,7 +12,6 @@ public class OneResourceAssociateToRooms {
 
 	private String resourceName;
 	private boolean result;
-	private Resource resourceToAssociate;
 	private ArrayList<String> rooms;
 	private ConferenceRoomsPage conferenceRoom;
 	private RoomsResourceAssociationsPage resourceAssociations;
