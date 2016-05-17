@@ -221,6 +221,12 @@ public class OutOfOrderPage {
 	save.click();
 	LogManager
 		.info("The changes on the OutOfOrder has been saved - SaveButton");
+	if (ExplicitWait.waitForElement(OutOfOrderMap.SAVE_BUTTON, 10)) {
+	    ExplicitWait
+		    .clickWhenReady(By.xpath(RoomInfoMap.CANCEL_BUTTON), 10);
+	    LogManager
+		.error("Out of order couldn't  be created. An error ocurred");
+	}
 	return this;
     }
 
