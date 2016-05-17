@@ -1,17 +1,21 @@
 package org.fundacionjala.automation.framework.pages.tablet.settings;
 
 import java.util.List;
-
 import org.fundacionjala.automation.framework.maps.tablet.settings.NavigationMap;
+import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Room;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 public class NavigationPage extends SettingsPage {
 
@@ -21,6 +25,8 @@ public class NavigationPage extends SettingsPage {
     WebElement saveButton;
     @FindBy(xpath = NavigationMap.ROOMS_LIST)
     WebElement roomsList;
+    @FindBy(xpath = NavigationMap.SEARCH_FIELD)
+    WebElement searchField;
 
     public NavigationPage() {
 	PageFactory.initElements(BrowserManager.getDriver(), this);
@@ -80,5 +86,41 @@ public class NavigationPage extends SettingsPage {
      */
     public boolean verifyIfExistRoomInList(String roomName) {
 	return getConferenceRoom(roomName) != null ? true : false;
+    }
+    
+    /**
+     * This function is to verify that all rooms are in the list on Navigate page.
+     * @return true if the size of the list on Navigate page is equals to the corresponding size(API)
+     */
+    public boolean verifyIfRoomsExist() throws Throwable {
+	boolean verification = false;
+	new RoomAPIManager();
+	List<Room> rooms = RoomAPIManager.getRequest(PropertiesReader.getServiceURL()+"/rooms");
+	List<WebElement> roomsTable = roomsList.findElements(By.xpath(NavigationMap.ROOMS_LIST_ELEMENT));
+	if(rooms.size() == roomsTable.size()){
+	    verification = true;
+	}
+	return verification;
+    }
+    
+    public NavigationPage insertFilterSearch(String filter) {
+	searchField.clear();
+	searchField.sendKeys(filter);
+	return this;
+    }
+    
+    public void verifyIfRoomsExistAccordingFilter(String filter) throws Throwable {
+	int size = 0;
+	new RoomAPIManager();
+	List<String> rooms = RoomAPIManager.getRoomsByCriteria(filter);
+	List<WebElement> roomsSearch = roomsList.findElements(By.xpath(NavigationMap.ROOMS_LIST_ELEMENT));
+	for (WebElement webElement : roomsSearch) {
+	    if(rooms.contains(webElement.getText().trim())){
+		size++;
+	    }
+	}
+	Assert.assertEquals(
+		"Quantity of rooms on rooms table is not the same than rooms that match with a citeria",
+		rooms.size(), size);
     }
 }
