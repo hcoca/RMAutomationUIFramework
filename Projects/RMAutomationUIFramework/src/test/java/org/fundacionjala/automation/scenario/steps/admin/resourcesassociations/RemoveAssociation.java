@@ -32,10 +32,10 @@ public class RemoveAssociation {
     @When("^I remove the resource of the associated column$")
     public void i_remove_the_resource_of_the_associated_column() throws Throwable {
 
-		conferenceRoom
-		             .openConfigurationPage(roomToModify)
-			         .clickOnResourceAssociations()
-			         .removeResource(resourceName);
+			conferenceRoom
+			             .openConfigurationPage(roomToModify)
+				         .clickOnResourceAssociations()
+				         .removeResource(resourceName);
 
     }
 
