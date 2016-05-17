@@ -13,7 +13,7 @@ public class SettingsThenSteps {
     @Then("^A message that describes that the connection has been successful should be displayed$")
     public void a_message_that_describes_that_the_connection_has_been_successful_should_be_displayed() throws Throwable {
 	boolean verification = false;
-        if(ExplicitWait.waitForElement("//div[@ng-switch-default]", 20)){
+        if(ExplicitWait.waitForElement(ConnectionMap.MESSAGE_STATUS, 20)){
 	   verification = true;
         }
         Assert.assertTrue(verification); 
@@ -29,7 +29,7 @@ public class SettingsThenSteps {
     @Then("^A message that describes that the connection with the room has been successful should be displayed$")
     public void a_message_that_describes_that_the_connection_with_the_room_has_been_successful_should_be_displayed() throws Throwable {
 	boolean verification = false;
-        if(ExplicitWait.waitForElement("//div[@ng-switch-default]", 20)){
+        if(ExplicitWait.waitForElement(NavigationMap.MESSAGE_STATUS, 20)){
 	   verification = true;
         }
         Assert.assertTrue(verification); 
