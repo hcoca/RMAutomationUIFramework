@@ -100,4 +100,33 @@ public class HomePage {
 	    return false;
 	}
     }
+  
+    public boolean verifyNextMeetingDisplayed(String subject) {
+	try {
+	    BrowserManager.getDriver().findElement(
+		    By.xpath("//div[@ng-bind='next._title' and text()='" 
+			    + subject + "']"));
+	    LogManager.info("Test Passed: " + subject + " has been displayed");
+	    return true;
+	} catch (NoSuchElementException e) {
+	    LogManager.warning("Test Failed");
+	    LogManager.error("Element not found (Exception)");
+	    return false;
+	}
+    }
+
+    public boolean verifyNextOrganizerDisplayed(String organizer) {
+	try {
+	    BrowserManager.getDriver().findElement(
+		    By.xpath("//div[@ng-bind='next._organizer' and text()='"
+			    + organizer + "']"));
+	    LogManager
+		    .info("Test Passed: " + organizer + " has been displayed");
+	    return true;
+	} catch (NoSuchElementException e) {
+	    LogManager.warning("Test Failed");
+	    LogManager.error("Element not found (Exception)");
+	    return false;
+	}
+    }
 }
