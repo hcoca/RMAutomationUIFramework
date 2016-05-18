@@ -247,10 +247,10 @@ public class OutOfOrderPage {
      * @return OutOfOrderPage
      */
     public OutOfOrderPage clickOnSaveButton(boolean state) {
-	if (!state){
+	if (!state) {
 	    ExplicitWait.clickWhenReady(By.xpath(OutOfOrderMap.SAVE_BUTTON), 30);
 	    LogManager.info("Save button has been pressed");
-	}else{
+	} else {
 	   return clickOnSaveButton();
 	}
 	return this;
