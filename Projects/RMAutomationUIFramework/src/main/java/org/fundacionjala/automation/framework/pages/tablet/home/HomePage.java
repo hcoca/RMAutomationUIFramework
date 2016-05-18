@@ -85,4 +85,19 @@ public class HomePage {
 	ExplicitWait.clickWhenReady(By.cssSelector(HomeMap.SEARCH_BUTTON), 20);
 	return new SearchPage();
     }
+
+    public boolean verifyCurrentOrganizerDisplayed(String organizer) {
+	try {
+	    BrowserManager.getDriver().findElement(
+		    By.xpath("//div[@ng-bind='current._organizer' and text()='"
+			    + organizer + "']"));
+	    LogManager
+		    .info("Test Passed: " + organizer + " has been displayed");
+	    return true;
+	} catch (NoSuchElementException e) {
+	    LogManager.warning("Test Failed");
+	    LogManager.error("Element not found (Exception)");
+	    return false;
+	}
+    }
 }

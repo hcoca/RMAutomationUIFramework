@@ -41,6 +41,7 @@ public class SchedulerPage {
     WebElement attendeesList;
 
     public SchedulerPage() {
+	this.topMenu = new TopMenu();
 	PageFactory.initElements(BrowserManager.getDriver(), this);
     }
 
