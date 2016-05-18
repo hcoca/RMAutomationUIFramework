@@ -13,6 +13,8 @@ Then The meeting "TestMeeting" is displayed on Home Page as current
 Scenario: Time left until end of the day is displayed on Home Page when there is no meeting
 When I am on Home Page of "Room004" room
 Then The correct time left until end of the day should be displayed on Home page
+
+Scenario: Current meeting organizer is displayed on Home Page when it  is created
 Given I am on Home Page of "Room003" room
 When I create a meeting with "TestMeeting" subject and "Ariel" as organizer 
 Then The meeting "TestMeeting" is displayed on Home Page as current
