@@ -67,4 +67,10 @@ public class HomeThenSteps {
 	.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 	.clickOkButton();
     }
+    
+    @Then("^The correct time left until end of the day should be displayed on Home page$")
+    public void verifyCorrectLeftTime() throws Throwable {
+	HomePage homePage = new HomePage();
+        Assert.assertTrue(homePage.verifyTimeLeft());
+    }
 }
