@@ -45,6 +45,12 @@ public class MeetingAPIManager {
 	return meetingList;
     }
     
+    /**
+     * this method is for doing an API request for creating a meeting
+     * @param roomName room where meeting will be created
+     * @param body data for creating meeting
+     * @throws UnirestException
+     */
     public static void postRequest(String roomName, Meeting body) throws UnirestException{
 	String roomId = RoomAPIManager.getRoomByName(roomName)._id;
 	String serviceId = ServiceAPIManager.getRequest(PropertiesReader.getServiceURL() 
