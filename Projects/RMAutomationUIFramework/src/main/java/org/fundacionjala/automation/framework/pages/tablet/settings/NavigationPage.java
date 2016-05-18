@@ -8,7 +8,6 @@ import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -123,20 +122,16 @@ public class NavigationPage extends SettingsPage {
      * are according the filter criteria
      * @param filter
      */
-    public void verifyIfRoomsExistAccordingFilter(String filter)
+    public boolean verifyIfRoomsExistAccordingFilter(String filter)
 	    throws Throwable {
-	int size = 0;
+	boolean verification = false;
 	new RoomAPIManager();
 	List<String> rooms = RoomAPIManager.getRoomsByCriteria(filter);
 	List<WebElement> roomsSearch = roomsList.findElements(By
 		.xpath(NavigationMap.ROOMS_LIST_ELEMENT));
-	for (WebElement webElement : roomsSearch) {
-	    if (rooms.contains(webElement.getText().trim())) {
-		size++;
-	    }
+	if(rooms.size() == roomsSearch.size()){
+	    verification = true;
 	}
-	Assert.assertEquals(
-		"Quantity of rooms on rooms table is not the same than rooms that match with a citeria",
-		rooms.size(), size);
+	return verification;
     }
 }

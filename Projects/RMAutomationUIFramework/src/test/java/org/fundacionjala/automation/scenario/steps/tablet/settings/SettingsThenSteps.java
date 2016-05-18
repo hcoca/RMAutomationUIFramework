@@ -4,6 +4,8 @@ import org.fundacionjala.automation.framework.maps.tablet.settings.ConnectionMap
 import org.fundacionjala.automation.framework.maps.tablet.settings.NavigationMap;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
+
+
 import org.junit.Assert;
 
 import cucumber.api.java.en.Then;
@@ -57,7 +59,7 @@ public class SettingsThenSteps {
     @Then("^The results displayed should be according the filter inserted \"([^\"]*)\"$")
     public void the_results_displayed_should_be_according_the_filter_inserted(String filter) throws Throwable {
 	NavigationPage navigation = new NavigationPage();
-	navigation.verifyIfRoomsExistAccordingFilter(filter);
+	Assert.assertTrue(navigation.verifyIfRoomsExistAccordingFilter(filter));
     }
 
 }
