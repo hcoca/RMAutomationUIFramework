@@ -2,7 +2,7 @@ package org.fundacionjala.automation.scenario.steps.tablet.createMeeting;
 
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.testng.Assert;
+import org.junit.Assert;
 
 import cucumber.api.java.en.Then;
 
@@ -12,13 +12,21 @@ public class CreateMeetingThenSteps {
     public void validate_that_has_been_created_on_timeline(String subject) throws Throwable {
         SchedulerPage scheduler = new SchedulerPage();
         Assert.assertTrue(
-        scheduler
-        .isMeetingPresentOnTimeLine(subject));
+            scheduler
+            .isMeetingPresentOnTimeLine(subject));
         
         scheduler
-        .clickOnMeeting(subject)
-        .clickOnRemoveButton()
-        .setPassword(PropertiesReader.getExchangeOrganizerPwd())
-        .clickOkButton();
+            .clickOnMeeting(subject)
+            .clickOnRemoveButton()
+            .setPassword(PropertiesReader.getExchangeOrganizerPwd())
+            .clickOkButton();
+    }
+
+    @Then("^validate that \"([^\"]*)\" has been removed and it is not on timeline$")
+    public void validate_that_has_been_removed_and_it_is_not_on_timeline(String meetingName) throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+        Assert.assertFalse(
+        	scheduler
+        	.isMeetingPresentOnTimeLine(meetingName));
     }
 }

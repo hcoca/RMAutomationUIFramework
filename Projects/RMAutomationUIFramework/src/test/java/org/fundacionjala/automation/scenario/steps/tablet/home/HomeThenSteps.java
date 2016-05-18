@@ -17,12 +17,7 @@ public class HomeThenSteps {
 
     @Then("^All meetings of \"([^\"]*)\" room are displayed on home time line even \"([^\"]*)\" meeting$")
     public void verifyTimeLineMeetings(String roomName, String subject) throws Throwable {
-	SchedulerPage schedulerPage = new SchedulerPage();
         HomePage homePage = new HomePage();
-        
-        schedulerPage
-        .topMenu
-        .clickOnHomeButton();
 
 	MongoClient mongoClient = new MongoClient(
 		PropertiesReader.getHostIPAddress(),
