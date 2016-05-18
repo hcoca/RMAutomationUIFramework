@@ -4,7 +4,6 @@ import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPa
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.fundacionjala.automation.framework.utils.common.UIActions;
 
 import cucumber.api.java.en.When;
 

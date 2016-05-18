@@ -250,10 +250,9 @@ public class SchedulerPage {
     }
 
     public boolean verifyOrganizerTextFieldIsDisable() {
-	(new WebDriverWait(BrowserManager.getDriver(), 30))
-	.until(ExpectedConditions.presenceOfElementLocated(
-		By.xpath(SchedulerMap.ORGANIZER_TEXT_FIELD)));
-	System.out.println(organizerTextField.getAttribute("disabled"));
+	
+	ExplicitWait.waitForElement(SchedulerMap.ORGANIZER_TEXT_FIELD, 30);
+
 	return organizerTextField.getAttribute("disabled")
 		.equalsIgnoreCase("true") ? true : false;
 	
