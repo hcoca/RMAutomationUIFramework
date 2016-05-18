@@ -18,8 +18,7 @@ public class CreateMeetingThenSteps {
         scheduler
         .clickOnMeeting(subject)
         .clickOnRemoveButton()
-        .setUserName(PropertiesReader.getExchangeOrganizerUser())
-        .setPassword(PropertiesReader.getExchangeOrganizerUser())
+        .setPassword(PropertiesReader.getExchangeOrganizerPwd())
         .clickOkButton();
     }
 }
