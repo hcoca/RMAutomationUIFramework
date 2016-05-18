@@ -20,4 +20,5 @@ public class HomeWhenSteps {
 		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOkButton();
     }
+    
 }
