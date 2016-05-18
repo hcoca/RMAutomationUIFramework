@@ -8,5 +8,6 @@ public class SearchMap {
 	public static final String LOCATION_COMBOBOX = "listLocation";
 	public static final String CLEAR_BUTTON = "//button[@ng-click='clear()']";
 	public static final String ROOMS_LIST = "//button[@class='room-box ng-scope']";
-	
-}//span[@class="ng-hide"][text()="Advanced"]
+	public static final String ROOM_BUTTON = "//button[text()='roomName']";
+}
+

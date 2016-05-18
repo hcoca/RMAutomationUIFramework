@@ -28,7 +28,6 @@ public class DatabaseConnection {
 			 System.out.println("Error: " + e.getMessage());
 		}
             
-           
    }
 
     private void initDatabase(String host, int port) throws UnknownHostException {

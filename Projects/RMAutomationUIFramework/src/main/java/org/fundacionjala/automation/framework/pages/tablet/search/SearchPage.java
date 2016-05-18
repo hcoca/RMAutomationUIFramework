@@ -2,6 +2,7 @@ package org.fundacionjala.automation.framework.pages.tablet.search;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.tablet.search.SearchMap;
+import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
@@ -111,7 +112,14 @@ public class SearchPage {
 	{
 		return ExplicitWait
 				.getElementsWhenVisible(By.xpath(SearchMap.ROOMS_LIST), 10);
+	}
+	
+	public SchedulerPage clickOnRoom(String name) {
 		
+		String roomXpath = SearchMap.ROOM_BUTTON.replace("roomName", name);
+		ExplicitWait.clickWhenReady(By.xpath(roomXpath), 15);
+		
+		return new SchedulerPage();
 	}
 	
 }

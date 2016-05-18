@@ -3,10 +3,10 @@ package org.fundacionjala.automation.framework.pages.admin.locations;
 import org.fundacionjala.automation.framework.maps.admin.locations.LocationMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -38,12 +38,13 @@ public class LocationPage extends AdminPage {
      * @return true if is displayed else false
      */
     public boolean verifyLocationIsDisplayed(String name) {
-	try {
-	    locationTable
-		    .findElement(By.xpath("//span[text()='" + name + "']"));
+	
+	WebElement location = ExplicitWait.getWhenVisible(
+		By.xpath("//span[text()='" + name + "']"), 10, false);
+	if (location != null){
 	    LogManager.info("Test Passed");
 	    return true;
-	} catch (NoSuchElementException e) {
+	} else {
 	    LogManager.warning("Test Failed");
 	    LogManager.error("Element not found (Exception)");
 	    return false;
@@ -56,12 +57,14 @@ public class LocationPage extends AdminPage {
      * @return true if is not displayed else false
      */
     public boolean verifyLocationIsNotDisplayed(String name) {
-	try {
-	    locationTable
-		    .findElement(By.xpath("//span[text()='" + name + "']"));
+
+	WebElement location = ExplicitWait.getWhenVisible(
+		    By.xpath("//span[text()='" + name + "']"), 10, false);
+
+	if (location != null){
 	    LogManager.info("Test Failed");
 	    return false;
-	} catch (NoSuchElementException e) {
+	} else{
 	    LogManager.warning("Test Passed");
 	    return true;
 	}
@@ -74,12 +77,13 @@ public class LocationPage extends AdminPage {
      * @return true if is displayed else false
      */
     public boolean verifyLocationIsDisplayedByDisplayName(String displayName) {
-	try {
-	    locationTable.findElement(By.xpath("//div[text()='" + displayName
-		    + "']"));
+
+	WebElement location = ExplicitWait.getWhenVisible(
+		By.xpath("//div[text()='" + displayName + "']"), 10, false);
+	if (location != null) {
 	    LogManager.info("Test Passed");
 	    return true;
-	} catch (NoSuchElementException e) {
+	} else {
 	    LogManager.warning("Test Failed");
 	    LogManager.error("Element not found (Exception)");
 	    return false;
@@ -101,8 +105,9 @@ public class LocationPage extends AdminPage {
      * @return a new "Remove Location" page.
      */
     public RemoveLocationPage clickOnRemoveButton() {
-	removeButton.click();
-	LogManager.info("'-Remove'button has been clicked");
+	ExplicitWait.clickWhenReady(
+		By.xpath(LocationMap.REMOVE_LOCATION_BUTTON), 30);
+	LogManager.info("'-Remove' button has been clicked");
 	return new RemoveLocationPage();
     }
 
@@ -112,7 +117,9 @@ public class LocationPage extends AdminPage {
      * @return a new "Update Location" page.
      */
     public UpdateLocationPage doubleClickOnALocation(String displayName) {
-	UIActions.doubleClick(locationTable.findElement(By
+	ExplicitWait.getWhenVisible(
+		By.xpath("//div[text()='" + displayName + "']"), 30);
+	UIActions.doubleClickJS(locationTable.findElement(By
 		.xpath("//div[text()='" + displayName + "']")));
 	return new UpdateLocationPage();
     }
