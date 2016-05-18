@@ -194,6 +194,15 @@ public class SchedulerPage {
 	    	
 	return new CredentialsPage();
     }
+    
+    public boolean isTitlePresent(String name) {
+    	
+    	String title = SchedulerMap.ROOM_NAME_TITLE.replace("roomName", name);
+    	WebElement element = ExplicitWait.getWhenVisible(By.xpath(title), 15);
+    	
+    	return ((element != null)? true : false);
+    }
+    
 
     public SchedulerPage setBody(String body) {
 	(new WebDriverWait(BrowserManager.getDriver(), 30))

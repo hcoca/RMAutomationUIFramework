@@ -98,6 +98,9 @@ public class LocationWhenSteps {
 		LocationPage locationPage = new LocationPage();
 		
 		locationPage
+			.leftMenu
+			.clickOnIssuesButton()
+			.clickOnLocationsButton()
 			.doubleClickOnALocation(displayName)
 			.clickOnLocationAssociationLink()
 			.clickOnRemoveAssociatedRoom(roomName)
