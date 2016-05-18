@@ -37,13 +37,6 @@ public class Meeting extends RequestObject {
      * @param obj JSON which contains one item of Meetings collection
      */
     public Meeting(JSONObject obj) {
-	/*
-	start = obj.get("start").toString();
-	end = obj.get("end").toString();
-	roomId = obj.get("roomId").toString();
-	title = obj.get("title").toString();
-	serviceId = obj.get("serviceId").toString();
-	*/
     }
     
     /**
