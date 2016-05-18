@@ -7,7 +7,6 @@ import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -39,12 +38,13 @@ public class LocationPage extends AdminPage {
      * @return true if is displayed else false
      */
     public boolean verifyLocationIsDisplayed(String name) {
-	try {
-	    locationTable
-		    .findElement(By.xpath("//span[text()='" + name + "']"));
+	
+	WebElement location = ExplicitWait.getWhenVisible(
+		By.xpath("//span[text()='" + name + "']"), 10, false);
+	if (location != null){
 	    LogManager.info("Test Passed");
 	    return true;
-	} catch (NoSuchElementException e) {
+	} else {
 	    LogManager.warning("Test Failed");
 	    LogManager.error("Element not found (Exception)");
 	    return false;
@@ -57,14 +57,14 @@ public class LocationPage extends AdminPage {
      * @return true if is not displayed else false
      */
     public boolean verifyLocationIsNotDisplayed(String name) {
-	try {
-	    ExplicitWait.getWhenVisible(
+
+	WebElement location = ExplicitWait.getWhenVisible(
 		    By.xpath("//span[text()='" + name + "']"), 10, false);
-	    locationTable
-		    .findElement(By.xpath("//span[text()='" + name + "']"));
+
+	if (location != null){
 	    LogManager.info("Test Failed");
 	    return false;
-	} catch (NoSuchElementException e) {
+	} else{
 	    LogManager.warning("Test Passed");
 	    return true;
 	}
@@ -77,12 +77,13 @@ public class LocationPage extends AdminPage {
      * @return true if is displayed else false
      */
     public boolean verifyLocationIsDisplayedByDisplayName(String displayName) {
-	try {
-	    locationTable.findElement(By.xpath("//div[text()='" + displayName
-		    + "']"));
+
+	WebElement location = ExplicitWait.getWhenVisible(
+		By.xpath("//div[text()='" + displayName + "']"), 10, false);
+	if (location != null) {
 	    LogManager.info("Test Passed");
 	    return true;
-	} catch (NoSuchElementException e) {
+	} else {
 	    LogManager.warning("Test Failed");
 	    LogManager.error("Element not found (Exception)");
 	    return false;

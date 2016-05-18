@@ -9,7 +9,7 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features ="src/test/resources/features/admin",
+@CucumberOptions(features ="src/test/resources/features",
 		format = { "pretty", "html:reports/cucumber" , "json:./cucumber.json"})
 
 /**

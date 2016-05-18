@@ -5,7 +5,6 @@ import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -79,14 +78,13 @@ public class LocationAssociationPage {
      * @return true if is displayed else false
      */
     public boolean verifyAvailableRoomDisplayed(String roomName) {
-	try {
-	    ExplicitWait.getWhenVisible(By.xpath("//div[text()='" + roomName
-		    + "']"), 30);
-	    availableRoomsGrid.findElement(By.xpath("//div[text()='" + roomName
-		    + "']"));
+	
+	WebElement room = ExplicitWait.getWhenVisible(
+		By.xpath("//div[text()='" + roomName + "']"), 30);
+	if (room != null) {
 	    LogManager.info("Test Passed");
 	    return true;
-	} catch (NoSuchElementException e) {
+	} else {
 	    LogManager.warning("Test Failed");
 	    LogManager.error("Element not found (Exception)");
 	    return false;
@@ -100,14 +98,13 @@ public class LocationAssociationPage {
      * @return true if is displayed else false
      */
     public boolean verifyAssociatedRoomDisplayed(String roomName) {
-	try {
-	    ExplicitWait.getWhenVisible(By.xpath("//div[text()='"
+
+	WebElement room = ExplicitWait.getWhenVisible(By.xpath("//div[text()='"
 		    + roomName + "']"), 30);
-	    associatedRoomsGrid.findElement(By.xpath("//div[text()='"
-		    + roomName + "']"));
+	if (room != null) {
 	    LogManager.info("Test Passed");
 	    return true;
-	} catch (NoSuchElementException e) {
+	} else{
 	    LogManager.warning("Test Failed");
 	    LogManager.error("Element not found (Exception)");
 	    return false;
