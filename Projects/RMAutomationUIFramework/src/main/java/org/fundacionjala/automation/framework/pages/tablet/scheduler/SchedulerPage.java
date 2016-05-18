@@ -29,6 +29,8 @@ public class SchedulerPage {
     WebElement subjectTextField;
     @FindBy(xpath = SchedulerMap.ATTENDEES_TEXT_FIELD)
     WebElement attendeesTextField;
+    @FindBy(xpath = SchedulerMap.BODY_TEXT_FIELD)
+    WebElement bodyTextField;
     @FindBy(xpath = SchedulerMap.CREATE_BUTTON)
     WebElement createButton;
     @FindBy(xpath = SchedulerMap.UPDATE_BUTTON)
@@ -177,7 +179,8 @@ public class SchedulerPage {
     }
 	
     public SchedulerPage clickOnMeeting(String subject) {
- 	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']/parent::div"), 30);	    	meeting.click();
+ 	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']/parent::div"), 30);	    	
+ 	meeting.click();
 	LogManager.info("Meeting " + subject + " has been selected");
 	return this;
     }
@@ -189,5 +192,14 @@ public class SchedulerPage {
 	LogManager.info("Remove Button has been clicked");
 	    	
 	return new CredentialsPage();
+    }
+
+    public SchedulerPage setBody(String body) {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	.until(ExpectedConditions.visibilityOf(bodyTextField));
+        bodyTextField.clear();
+        bodyTextField.sendKeys(body);
+        LogManager.info("Body " + bodyTextField + " has been set up");
+	return this;
     }
 }
