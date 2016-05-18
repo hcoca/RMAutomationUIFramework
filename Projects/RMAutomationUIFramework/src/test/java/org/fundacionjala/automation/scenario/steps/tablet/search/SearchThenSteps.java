@@ -11,6 +11,7 @@ public class SearchThenSteps {
 	
 	SearchPage search = new SearchPage();
 
+	
 	@Then("^I see the advanced option with all field to search$")
 	public void i_see_the_advanced_option_with_all_field_to_search() throws Throwable {
 		
@@ -32,7 +33,12 @@ public class SearchThenSteps {
 	    SchedulerPage schedule = new SchedulerPage();
 	    
 		Assert.assertTrue(schedule.isTitlePresent(roomName));
-		
+	}
+	
+	@Then("^I see the \"([^\"]*)\" listed in the results$")
+	public void i_see_the_listed_in_the_results(String roomName) throws Throwable {
+	    
+	    Assert.assertTrue(search.isListedRoom(roomName));
 	}
 	
 }
