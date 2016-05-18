@@ -8,4 +8,6 @@ public class HomeMap {
 	public static final String HOME_TIME_LINE = "//div[@class='vis-timeline vis-bottom']";
 	public static final String HOME_TIME_LINE_MEETINGS = "//div[@class='vis-item-overflow']";
 	public static final String SEARCH_BUTTON = "rm-panel-option.tile-column-option.tile-column-option-landscape > div.tile-button-search";
+	public static final String CURRENT_TIME = "//span[@ng-bind='currentTime']";
+	public static final String LEFT_TIME = "//div[@class='timeleft-remaining ng-binding']";
 }

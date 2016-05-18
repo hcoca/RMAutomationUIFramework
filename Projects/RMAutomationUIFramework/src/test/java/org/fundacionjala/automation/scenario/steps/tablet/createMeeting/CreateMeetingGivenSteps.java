@@ -2,8 +2,11 @@ package org.fundacionjala.automation.scenario.steps.tablet.createMeeting;
 
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
+import org.fundacionjala.automation.framework.utils.api.managers.MeetingAPIManager;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Meeting;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+import org.fundacionjala.automation.framework.utils.common.RMGenerator;
 
 import cucumber.api.java.en.Given;
 
@@ -24,5 +27,19 @@ public class CreateMeetingGivenSteps {
 		.clickOnSaveButton()
 		.topMenu
 		.clickOnHomeButton();
+    }
+    
+    @Given("^I have a meeting with this subject \"([^\"]*)\" on \"([^\"]*)\" room$")
+    public void i_have_a_meeting(String subject, String roomName) throws Throwable {
+	String roomEmail = roomName + "@" + PropertiesReader.getExchangeDomain();
+	String resources = roomName + "@" + PropertiesReader.getExchangeDomain();
+	String start = RMGenerator.getIsoTime(0);
+	String end = RMGenerator.getIsoTime(1);
+	
+	Meeting meeting = new Meeting(PropertiesReader.getExchangeOrganizerUser(),
+		subject, start, end, roomName, roomEmail, resources,
+		PropertiesReader.getExchangeInviteMail());
+	
+	MeetingAPIManager.postRequest(roomName, meeting);
     }
 }

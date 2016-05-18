@@ -30,3 +30,7 @@ And it meeting will be from "19:00:00.000" start time to "19:10:00.000" end time
 And it has "TestMeeting" as subject, "this is a description meeting" as description
 And it has the following attendee "Administrator@roommanager.local"
 Then The organizer "Ariel" of next meeting "TestMeeting" is displayed on Home
+
+Scenario: Time left until end of the day is displayed on Home Page when there is no meeting
+When I am on Home Page of "Room004" room
+Then The correct time left until end of the day should be displayed on Home page

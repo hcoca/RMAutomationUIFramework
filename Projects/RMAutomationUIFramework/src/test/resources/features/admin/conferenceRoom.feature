@@ -85,12 +85,12 @@ Then The Out Of Order on "Room005" room should has been disabled correctly with 
 
 Scenario: An "Out of Order" cannot be established when a time in the past is used.
 Given I am logged as "Administrator" with password "Control*123" 
-When  I create an OuOfOrder on "Room006" room with a time in the past
+When  I create an OutOfOrder on "Room006" room with a time in the past
 Then The Out Of Order cannot be created an error message is displayed
 
 Scenario: An "Out of Order" cannot be established when a date in the past is used.
 Given I am logged as "Administrator" with password "Control*123"
-When  I create an OuOfOrder on "Room007" with a date in the past
+When  I create an OutOfOrder on "Room007" with a date in the past
 Then The Out Of Order cannot be created an error message is displayed
 
 Scenario: Next page is displayed in "Conference Room" table when "Next Page" button is clicked.

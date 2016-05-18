@@ -10,6 +10,7 @@ import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -185,7 +186,8 @@ public class SchedulerPage {
 	
     public SchedulerPage clickOnMeeting(String subject) {
  	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']/parent::div"), 30);	    	
- 	meeting.click();
+ 	Actions action = new Actions(BrowserManager.getDriver());
+ 	action.click(meeting).build().perform();
 	LogManager.info("Meeting " + subject + " has been selected");
 	return this;
     }
@@ -247,5 +249,14 @@ public class SchedulerPage {
 	endTextField.sendKeys(end);
         LogManager.info("End time " + endTextField + " has been set up");
 	return this;
+    }
+
+    public boolean verifyOrganizerTextFieldIsDisable() {
+	
+	ExplicitWait.waitForElement(SchedulerMap.ORGANIZER_TEXT_FIELD, 30);
+
+	return organizerTextField.getAttribute("disabled")
+		.equalsIgnoreCase("true") ? true : false;
+	
     }
 }
