@@ -12,11 +12,11 @@ public class HomeGivenSteps {
     @Given("^I have a meeting with \"([^\"]*)\" subject and \"([^\"]*)\" as organizer on \"([^\"]*)\" room$")
     public void addMeetingByAPI(String subject, String organizer, String room)
 	    throws Throwable {
-	Meeting meeting = new Meeting(organizer, subject, RMGenerator.getIsoTime(0),
-		RMGenerator.getIsoTime(1), room, room + "@cba.edu", room + "@cba.edu",
+	Meeting meeting = new Meeting(organizer, subject,
+		RMGenerator.getIsoTime(0), RMGenerator.getIsoTime(1), room,
+		room + "@" + PropertiesReader.getExchangeDomain(), 
+		room + "@" + PropertiesReader.getExchangeDomain(),
 		PropertiesReader.getExchangeInviteMail());
 	MeetingAPIManager.postRequest(room, meeting);
     }
-
-    
 }
