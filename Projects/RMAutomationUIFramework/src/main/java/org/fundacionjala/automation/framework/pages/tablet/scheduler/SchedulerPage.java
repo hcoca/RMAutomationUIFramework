@@ -250,4 +250,13 @@ public class SchedulerPage {
         LogManager.info("End time " + endTextField + " has been set up");
 	return this;
     }
+
+    public boolean verifyOrganizerTextFieldIsDisable() {
+	
+	ExplicitWait.waitForElement(SchedulerMap.ORGANIZER_TEXT_FIELD, 30);
+
+	return organizerTextField.getAttribute("disabled")
+		.equalsIgnoreCase("true") ? true : false;
+	
+    }
 }
