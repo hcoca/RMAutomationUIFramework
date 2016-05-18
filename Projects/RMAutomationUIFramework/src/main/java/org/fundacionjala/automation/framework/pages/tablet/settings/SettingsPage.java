@@ -11,32 +11,38 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SettingsPage {
-	
-	public TopMenu topMenu;
-	
-	@FindBy (xpath = SettingsMap.CONNECTION_BUTTON) WebElement connectionButton;
-	@FindBy (xpath = SettingsMap.NAVIGATION_BUTTON) WebElement navigationButton;
-	
-	public SettingsPage() {
-		topMenu = new TopMenu();
-		PageFactory.initElements(BrowserManager.getDriver(), this);
-	}
-	
-	public ConnectionPage clickOnConnectionButton() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(connectionButton));
-		connectionButton.click();
-		
-		LogManager.info("Connection Button has been clicked");
-		
-		return new ConnectionPage();
-	}
-	
-	public NavigationPage clickOnNavigationButton() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(navigationButton));
-		navigationButton.click();
-		
-		LogManager.info("Navigation Button has been clicked");
-		
-		return new NavigationPage();
-	}
+
+    public TopMenu topMenu;
+
+    @FindBy(xpath = SettingsMap.CONNECTION_BUTTON)
+    WebElement connectionButton;
+    @FindBy(xpath = SettingsMap.NAVIGATION_BUTTON)
+    WebElement navigationButton;
+
+    public SettingsPage() {
+	topMenu = new TopMenu();
+	PageFactory.initElements(BrowserManager.getDriver(), this);
+    }
+
+    public ConnectionPage clickOnConnectionButton() {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions
+			.elementToBeClickable(connectionButton));
+	connectionButton.click();
+
+	LogManager.info("Connection Button has been clicked");
+
+	return new ConnectionPage();
+    }
+
+    public NavigationPage clickOnNavigationButton() {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions
+			.elementToBeClickable(navigationButton));
+	navigationButton.click();
+
+	LogManager.info("Navigation Button has been clicked");
+
+	return new NavigationPage();
+    }
 }
