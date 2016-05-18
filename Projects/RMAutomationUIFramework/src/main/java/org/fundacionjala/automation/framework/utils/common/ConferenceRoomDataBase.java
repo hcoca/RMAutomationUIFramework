@@ -3,21 +3,21 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 
-public class RoomMongo {
+public class ConferenceRoomDataBase {
 	private int _id;
 	private String emailAddress;
 	private int serviceId;
 	private boolean enabled;
 	private String displayName;
-	private MongoConexion mongo;
+	private DatabaseConnection mongo;
 	private DBCollection collection;
     private BasicDBObject searchQuery;
 	
-	public RoomMongo(String name) {
+	public ConferenceRoomDataBase(String name) {
 		
 		displayName = name;
 	    serviceId = 0;
-		mongo = new MongoConexion(); 
+		mongo = new DatabaseConnection(); 
 		mongo.switchCollection(PropertiesReader.getRoomsFieldName());
 		collection = mongo.getCollection();
 		searchQuery = new BasicDBObject().append("displayName", displayName);

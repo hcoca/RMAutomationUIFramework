@@ -11,7 +11,7 @@ import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.fundacionjala.automation.framework.utils.common.RoomMongo;
+import org.fundacionjala.automation.framework.utils.common.ConferenceRoomDataBase;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -157,7 +157,7 @@ public class ConferenceRoomsPage extends AdminPage {
      */
     public ConferenceRoomsPage disableRoom(String roomToModify) {
 	    
-    	RoomMongo room = new RoomMongo(roomToModify);
+    	ConferenceRoomDataBase room = new ConferenceRoomDataBase(roomToModify);
     	room.setEnable(false);
     		
 	    return this;
@@ -170,7 +170,7 @@ public class ConferenceRoomsPage extends AdminPage {
      */
     public ConferenceRoomsPage enableRoom(String roomToModify) {
 	
-    	RoomMongo room = new RoomMongo(roomToModify);
+    	ConferenceRoomDataBase room = new ConferenceRoomDataBase(roomToModify);
     	room.setEnable(true);
     	
         return this;

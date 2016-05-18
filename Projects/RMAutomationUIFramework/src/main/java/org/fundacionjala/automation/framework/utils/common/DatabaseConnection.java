@@ -9,13 +9,13 @@ import com.mongodb.DBCursor;
 import com.mongodb.Mongo;
 import com.mongodb.DBCollection;
 
-public class MongoConexion {
+public class DatabaseConnection {
 
     private Mongo mongo;
     private DB db;
     private DBCollection collection;
 
-    public MongoConexion() {
+    public DatabaseConnection() {
 	    
     	try {
     		
