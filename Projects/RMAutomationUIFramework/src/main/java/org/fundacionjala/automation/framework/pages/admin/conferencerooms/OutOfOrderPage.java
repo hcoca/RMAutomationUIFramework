@@ -212,18 +212,16 @@ public class OutOfOrderPage {
 
     /**
      * This method performs a click on save button.
-     * 
      * @return OutOfOrderPage
      */
     public OutOfOrderPage clickOnSaveButton() {
-	(new WebDriverWait(BrowserManager.getDriver(), 30))
-		.until(ExpectedConditions.elementToBeClickable(saveButton));
-	save.click();
+	ExplicitWait.clickWhenReady(By.xpath(OutOfOrderMap.SAVE_BUTTON), 30);
 	LogManager
 		.info("The changes on the OutOfOrder has been saved - SaveButton");
-	if (ExplicitWait.waitForElement(OutOfOrderMap.SAVE_BUTTON, 10)) {
-	    ExplicitWait
-		    .clickWhenReady(By.xpath(RoomInfoMap.CANCEL_BUTTON), 10);
+	WebElement cancel_button =ExplicitWait.getWhenVisible(
+		By.xpath(RoomInfoMap.CANCEL_BUTTON), 10, false);
+	if (cancel_button != null) {
+	    cancel_button.click();
 	    LogManager
 		.error("Out of order couldn't  be created. An error ocurred");
 	}
@@ -235,14 +233,27 @@ public class OutOfOrderPage {
 
     /**
      * This method perform click on cancel button
-     * 
      * @return Conference Room Page instance.
      */
     public ConferenceRoomsPage clickOnCancelButton() {
-	cancelButton.click();
+	ExplicitWait.clickWhenReady(By.xpath(RoomInfoMap.CANCEL_BUTTON), 30);
 	LogManager
 		.info("The changes on the OutOfOrder has been canceled - CancelButton");
 	return new ConferenceRoomsPage();
+    }
+    /**
+     * This method performs a click on save button in order to verify error
+     *  messages. Don't close the window.
+     * @return OutOfOrderPage
+     */
+    public OutOfOrderPage clickOnSaveButton(boolean state) {
+	if (!state){
+	    ExplicitWait.clickWhenReady(By.xpath(OutOfOrderMap.SAVE_BUTTON), 30);
+	    LogManager.info("Save button has been pressed");
+	}else{
+	   return clickOnSaveButton();
+	}
+	return this;
     }
 
 }
