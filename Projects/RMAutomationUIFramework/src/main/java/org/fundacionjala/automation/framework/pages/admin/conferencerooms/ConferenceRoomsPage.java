@@ -11,6 +11,7 @@ import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+import org.fundacionjala.automation.framework.utils.common.RoomMongo;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -154,22 +155,12 @@ public class ConferenceRoomsPage extends AdminPage {
      * @param roomToModify - represent the displayname of the room
      * @return ConferenceRoomsPage
      */
-    public ConferenceRoomsPage disableRoom(String roomToModify) throws UnknownHostException {
+    public ConferenceRoomsPage disableRoom(String roomToModify) {
 	    
-	MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), 
-		                                  PropertiesReader.getMongoDBConnectionPort());
-	
-        DB db = mongoClient.getDB(PropertiesReader.getDBName());
-	DBCollection collection = db.getCollection(PropertiesReader.getRoomsFieldName());
-	    
-        BasicDBObject newDocument = new BasicDBObject();
-	newDocument.append("$set", new BasicDBObject().append("enabled", false));
-				
-	BasicDBObject searchQuery = new BasicDBObject().append("displayName", roomToModify);
-
-	collection.update(searchQuery, newDocument);
-	
-	return this;
+    	RoomMongo room = new RoomMongo(roomToModify);
+    	room.setEnable(false);
+    		
+	    return this;
     }
     
     /**
@@ -177,21 +168,11 @@ public class ConferenceRoomsPage extends AdminPage {
      * @param roomToModify - represent the displayName of the room
      * @return ConferenceRoomsPage
      */
-    public ConferenceRoomsPage enableRoom(String roomToModify) throws UnknownHostException {
+    public ConferenceRoomsPage enableRoom(String roomToModify) {
 	
-	MongoClient mongoClient = new MongoClient(PropertiesReader.getHostIPAddress(), 
-        PropertiesReader.getMongoDBConnectionPort());
-        
-        DB db = mongoClient.getDB(PropertiesReader.getDBName());
-        DBCollection collection = db.getCollection(PropertiesReader.getRoomsFieldName());
-        
-        BasicDBObject newDocument = new BasicDBObject();
-        newDocument.append("$set", new BasicDBObject().append("enabled", true));
-        
-        BasicDBObject searchQuery = new BasicDBObject().append("displayName", roomToModify);
-        
-        collection.update(searchQuery, newDocument);
-        
+    	RoomMongo room = new RoomMongo(roomToModify);
+    	room.setEnable(true);
+    	
         return this;
     }
     
