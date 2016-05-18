@@ -1,13 +1,13 @@
 package org.fundacionjala.automation.framework.pages.tablet.home;
 
 import java.util.List;
-
 import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.pages.tablet.search.SearchPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -85,6 +85,20 @@ public class HomePage {
 	ExplicitWait.clickWhenReady(By.cssSelector(HomeMap.SEARCH_BUTTON), 20);
 	return new SearchPage();
     }
+
+    
+    public boolean verifyTimeLeft(){
+	ExplicitWait.waitForUrl(PropertiesReader.getServiceURL()+"/tablet/#/home", 15);
+	BrowserManager.getDriver().navigate().refresh();
+	boolean verification = false;
+	WebElement currentTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.CURRENT_TIME), 60);
+	WebElement leftTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.LEFT_TIME), 60);
+	if(Integer.parseInt(currentTime.getText().replace(":", ""))+Integer.parseInt(leftTime.getText().replace(":", ""))== 2359){
+	    verification = true;
+	}
+	return verification;
+    }
+
 
     public boolean verifyCurrentOrganizerDisplayed(String organizer) {
 	try {
