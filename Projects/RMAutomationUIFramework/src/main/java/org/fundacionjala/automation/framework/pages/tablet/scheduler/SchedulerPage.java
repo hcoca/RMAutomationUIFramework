@@ -248,4 +248,14 @@ public class SchedulerPage {
         LogManager.info("End time " + endTextField + " has been set up");
 	return this;
     }
+
+    public boolean verifyOrganizerTextFieldIsDisable() {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	.until(ExpectedConditions.presenceOfElementLocated(
+		By.xpath(SchedulerMap.ORGANIZER_TEXT_FIELD)));
+	System.out.println(organizerTextField.getAttribute("disabled"));
+	return organizerTextField.getAttribute("disabled")
+		.equalsIgnoreCase("true") ? true : false;
+	
+    }
 }
