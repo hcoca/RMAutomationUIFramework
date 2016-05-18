@@ -3,7 +3,9 @@ package org.fundacionjala.automation.framework.pages.tablet.scheduler;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.tablet.scheduler.SchedulerMap;
+import org.fundacionjala.automation.framework.pages.tablet.navigation.TopMenu;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -18,6 +20,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  */
 public class SchedulerPage {
+    
+    public TopMenu topMenu;
 
     @FindBy(xpath = SchedulerMap.ORGANIZER_TEXT_FIELD)
     WebElement organizerTextField;
@@ -170,5 +174,20 @@ public class SchedulerPage {
 	LogManager.info("Meeting " + subject + " has not been found");
 
 	return null;
+    }
+	
+    public SchedulerPage clickOnMeeting(String subject) {
+ 	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']/parent::div"), 30);	    	meeting.click();
+	LogManager.info("Meeting " + subject + " has been selected");
+	return this;
+    }
+    
+    public CredentialsPage clickOnRemoveButton() {
+	ExplicitWait.waitElementVisible(removeButton, 30);
+	removeButton.click();
+	    	
+	LogManager.info("Remove Button has been clicked");
+	    	
+	return new CredentialsPage();
     }
 }

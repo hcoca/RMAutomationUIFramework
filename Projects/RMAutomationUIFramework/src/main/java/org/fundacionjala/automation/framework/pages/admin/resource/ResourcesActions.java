@@ -26,11 +26,34 @@ public class ResourcesActions {
 		} catch (Exception e) {
 			
 			LogManager.info("The resource could not be created " + e);
-		        resource = null;	
+		    resource = null;	
 		}
 		return resource;
 	}
 	
+    public static void createResourceByAPI(Resource resource) {
+    	
+    	if (resource != null) {
+    		
+    		try {
+    			
+    			ResourceAPIManager.postRequest(PropertiesReader.getServiceURL()
+                     	+ "/resources", resource);
+    			
+    			LogManager.info("The resource: " + resource.customName + "  was created");
+    			
+    		} catch (Exception e) {
+    			
+    			LogManager.error("The resource could not be created " + e);	
+    		}
+		}
+    	
+    	else {
+    		
+    		LogManager.error("Invalid Resource object");
+    	}
+		    
+	}
 	/**
 	 * This method delete a Resource by API
 	 * @param resource - Resource object to delete

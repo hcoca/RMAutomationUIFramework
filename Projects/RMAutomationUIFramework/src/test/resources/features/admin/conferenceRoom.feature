@@ -15,6 +15,7 @@ Given I am logged as "Administrator" with password "Control*123"
 When I edit "Room001" room with a new capacity "50"
 Then I validate if the Capacity has been updated in the Room Info page.
 
+@locationOfRoomIsUpdated
 Scenario: "Location" of a room is updated when it is edited in "Room Info" form.
 Given I am logged as "Administrator" with password "Control*123"
 And I have a new Location "locationNew"
