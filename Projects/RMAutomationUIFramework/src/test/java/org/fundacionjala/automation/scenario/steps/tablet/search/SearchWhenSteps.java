@@ -18,4 +18,10 @@ public class SearchWhenSteps {
 	   search.setRoomName("Room00");		
 	}
 	
+	@When("^I click on Room \"([^\"]*)\"$")
+	public void i_click_on_Room(String room) throws Throwable {
+		
+	    search.clickOnRoom(room);
+	    
+	}
 }

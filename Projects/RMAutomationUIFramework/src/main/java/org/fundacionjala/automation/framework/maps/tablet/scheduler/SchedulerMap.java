@@ -12,4 +12,6 @@ public class SchedulerMap {
 	public static final String TIME_LINE = "//div[@id='timelinePanel']/rm-vis/div/div[4]";
 	public static final String ATTENDEES_LIST = "//ul[contains(@class,'list-inline')]";
 	public static final String ATTENDEE_NAME = "li/span";
+	public static final String ROOM_NAME_TITLE = "//span[text()='roomName']";
+	
 }
