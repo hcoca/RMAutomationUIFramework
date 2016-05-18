@@ -111,7 +111,7 @@ public class ConferenceRoomWhenSteps {
         	 .clickOnSave();
     }
     
-    @When("^I create an OuOfOrder on \"([^\"]*)\" with a date in the past$")
+    @When("^I create an OutOfOrder on \"([^\"]*)\" with a date in the past$")
     public void createOuOfOrderWithPastDate(String roomName) throws Throwable {
 	AdminPage adminPage = new AdminPage();
 	adminPage.leftMenu.clickOnConferenceRoomsButton()
@@ -120,7 +120,7 @@ public class ConferenceRoomWhenSteps {
                 		.setTimeBeginDown()
                 		.setTimeEndDown()
                 		.activeOutOfOrder()
-                       	 	.clickOnSaveButton();
+                       	 	.clickOnSaveButton(false);
     }
     
     @When("^I disable this OutOfOrder on \"([^\"]*)\" room$")
@@ -139,7 +139,7 @@ public class ConferenceRoomWhenSteps {
        	 	.clickOnSave();
     }
     
-    @When("^I create an OuOfOrder on \"([^\"]*)\" room with a time in the past$")
+    @When("^I create an OutOfOrder on \"([^\"]*)\" room with a time in the past$")
     public void createOuOfOrderWithPastTime(String roomName) throws Throwable {
 	AdminPage adminPage = new AdminPage();
 	adminPage.leftMenu.clickOnConferenceRoomsButton()
@@ -148,7 +148,7 @@ public class ConferenceRoomWhenSteps {
                     		 .setTimeBeginDown()
                     		 .setTimeEndDown()
                     		 .activeOutOfOrder()
-                        	 .clickOnSaveButton();
+                        	 .clickOnSaveButton(false);
                         	 
     }
 }

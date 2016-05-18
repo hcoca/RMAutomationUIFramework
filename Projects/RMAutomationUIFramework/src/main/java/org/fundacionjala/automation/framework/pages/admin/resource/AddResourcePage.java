@@ -2,6 +2,7 @@ package org.fundacionjala.automation.framework.pages.admin.resource;
 
 import org.fundacionjala.automation.framework.maps.admin.resource.AddResourceMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -116,16 +117,14 @@ public class AddResourcePage {
 	 * This function is to click on SAVE button on AddResourcePage
 	 * @return ResourcePage
 	 */
-	public ResourcePage clickOnSaveButton()	{
-	    
-		(new WebDriverWait(BrowserManager.getDriver(), 10))
-		.until(ExpectedConditions.presenceOfElementLocated(
-			By.xpath(AddResourceMap.SAVE_BUTTON)));
-		saveButton.click();
-		LogManager.info("'Save' button has been clicked");
-		
-		return new ResourcePage();
-	}
+        public ResourcePage clickOnSaveButton() {
+    
+    		ExplicitWait.clickWhenReady(By.xpath(
+    			AddResourceMap.SAVE_BUTTON), 30);
+    		LogManager.info("'Save' button has been clicked");
+    
+    	return new ResourcePage();
+        }
 	
 	/**
 	 * This function is to click on CANCEL button on AddResourcePage
