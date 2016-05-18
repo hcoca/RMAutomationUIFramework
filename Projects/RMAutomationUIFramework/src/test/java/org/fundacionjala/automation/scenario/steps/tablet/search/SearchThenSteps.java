@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.scenario.steps.tablet.search;
 
+import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.pages.tablet.search.SearchPage;
 import org.fundacionjala.automation.framework.utils.common.CrudOperationRooms;
 import org.junit.Assert;
@@ -23,6 +24,14 @@ public class SearchThenSteps {
 		int actualQty = search.getRoomList().size();
 		
 	    Assert.assertEquals(expectedQty, actualQty);
+	}
+
+	@Then("^I see the the Schedule page of the room \"([^\"]*)\"$")
+	public void i_see_the_the_Schedule_page_of_the_room(String roomName) throws Throwable {
+		
+	    SchedulerPage schedule = new SchedulerPage();
+	    
+		Assert.assertTrue(schedule.isTitlePresent(roomName));
 		
 	}
 	
