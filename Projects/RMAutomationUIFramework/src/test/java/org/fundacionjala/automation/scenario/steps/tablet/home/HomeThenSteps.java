@@ -68,6 +68,38 @@ public class HomeThenSteps {
         Assert.assertTrue(actualResult);
     }
     
+    @Then("^The meeting \"([^\"]*)\" is displayed on Home Page as next$")
+    public void verifyNextMeeting(String subject) throws Throwable {
+	SchedulerPage schedulerPage = new SchedulerPage();
+        HomePage homePage = new HomePage();
+        
+        schedulerPage
+        .topMenu
+        .clickOnHomeButton();
+        
+        boolean actualResult = homePage.verifyNextMeetingDisplayed(subject);
+        
+        deleteMeeting(subject);
+        
+        Assert.assertTrue(actualResult);
+    }
+    
+    @Then("^The organizer \"([^\"]*)\" of next meeting \"([^\"]*)\" is displayed on Home$")
+    public void verifyNextMeetingOrganizer(String organizer, String subject) throws Throwable {
+	SchedulerPage schedulerPage = new SchedulerPage();
+        HomePage homePage = new HomePage();
+        
+        schedulerPage
+        .topMenu
+        .clickOnHomeButton();
+        
+        boolean actualResult = homePage.verifyNextOrganizerDisplayed(organizer);
+      
+        deleteMeeting(subject);
+        
+        Assert.assertTrue(actualResult);
+    }
+    
     public void deleteMeeting(String subject){
 	HomePage homePage = new HomePage();
 	
