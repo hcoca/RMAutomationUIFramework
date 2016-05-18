@@ -22,6 +22,8 @@ public class CredentialsPage {
     WebElement createAsCheckBox;
     @FindBy(xpath = CredentialsMap.OK_BUTTON)
     WebElement okButton;
+    @FindBy (xpath = CredentialsMap.CANCEL_AS_CHECKBOX)
+    WebElement cancelAsCheckBox;
 
     public CredentialsPage() {
 	PageFactory.initElements(BrowserManager.getDriver(), this);
@@ -72,6 +74,17 @@ public class CredentialsPage {
 
 	return this;
     }
+    
+    public CredentialsPage clickCancelAsCheckBox() {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions
+			.elementToBeClickable(cancelAsCheckBox));
+	cancelAsCheckBox.click();
+
+	LogManager.info("Cancel As CheckBox has been clicked");
+
+	return this;
+    }
 
     public boolean isCreateInBehalfOfTextFieldPresent() {
 	try {
@@ -87,6 +100,22 @@ public class CredentialsPage {
 	    return false;
 	}
     }
+    
+    public boolean isCancelInBehalfOfMessagePresent() {
+	try {
+	    (new WebDriverWait(BrowserManager.getDriver(), 15))
+		    .until(ExpectedConditions
+			    .presenceOfElementLocated(By
+				    .xpath(CredentialsMap.CANCEL_IN_BEHALF_OF_MESSAGE)));
+	    LogManager.info("Cancel in Behalf of Message has been found");
+	    return true;
+
+	} catch (Exception e) {
+	    LogManager
+		    .info("Cancel in Behalf of Message has not been found");
+	    return false;
+	}
+    }
 
     public boolean isCreateAsCheckBoxPresent() {
 	try {
@@ -97,6 +126,19 @@ public class CredentialsPage {
 
 	} catch (Exception e) {
 	    LogManager.info("Create As CheckBox has not been found");
+	    return false;
+	}
+    }
+    
+    public boolean isCancelAsCheckBoxPresent() {
+	try {
+	    (new WebDriverWait(BrowserManager.getDriver(), 15))
+		    .until(ExpectedConditions.visibilityOf(cancelAsCheckBox));
+	    LogManager.info("Cancel As CheckBox has been found");
+	    return true;
+
+	} catch (Exception e) {
+	    LogManager.info("Cancel As CheckBox has not been found");
 	    return false;
 	}
     }

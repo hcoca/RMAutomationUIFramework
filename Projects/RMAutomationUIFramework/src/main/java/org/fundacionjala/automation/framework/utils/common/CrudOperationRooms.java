@@ -9,7 +9,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 
-public class CrudOpearionRooms {
+public class CrudOperationRooms {
 
     public static ArrayList<String> getRooms(String criteria) throws UnknownHostException
     {
