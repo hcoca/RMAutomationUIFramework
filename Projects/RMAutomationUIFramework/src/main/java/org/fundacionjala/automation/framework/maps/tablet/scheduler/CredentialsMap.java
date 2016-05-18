@@ -7,4 +7,6 @@ public class CredentialsMap {
 	public static final String PASSWORD_TEXT_FIELD = "//input[@type='password'][@ng-model='dialog.credentials.password'][@placeholder='password']";
 	public static final String OK_BUTTON = "//button[@ng-click='dialog.ok()'][@type='button']";
 	public static final String CREATE_AS_CHECKBOX = "//span[@class='checkbox-label ng-binding'][contains(text(),'Create as')]";
+	public static final String CANCEL_AS_CHECKBOX = "//span[@class='checkbox-label ng-binding'][contains(text(),'Cancel as')]";
+	public static final String CANCEL_IN_BEHALF_OF_MESSAGE = "//h4[@class='ng-binding'][contains(text(),'Cancel in behalf of')]";
 }
