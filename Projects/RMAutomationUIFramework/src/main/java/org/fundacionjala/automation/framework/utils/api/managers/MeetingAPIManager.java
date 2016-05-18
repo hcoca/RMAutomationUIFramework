@@ -55,8 +55,8 @@ public class MeetingAPIManager {
 	String roomId = RoomAPIManager.getRoomByName(roomName)._id;
 	String serviceId = ServiceAPIManager.getRequest(PropertiesReader.getServiceURL() 
 		+ "/services").get(0)._id;
-	String endPoint = PropertiesReader.getServiceURL() + "/services" + serviceId 
-		+ "/rooms" + roomId + "/meetings?misrepresent=true";
+	String endPoint = PropertiesReader.getServiceURL() + "/services/" + serviceId 
+		+ "/rooms/" + roomId + "/meetings?misrepresent=true";
 	APIManager.request(endPoint, body.getJsonObject(), "post");
     }
 
