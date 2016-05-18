@@ -10,7 +10,6 @@ public class ConferenceRoomGivenSteps {
 
     @Given("^I have \"([^\"]*)\" room disabled$")
     public void disableRoom(String roomName) throws Throwable {
-	//RoomAPIManager.changeStatusOfRoom(roomName, false);
 	new ConferenceRoomsPage().disableRoom(roomName);
     }
 
@@ -30,7 +29,8 @@ public class ConferenceRoomGivenSteps {
     @Given("^I create an Out of Order on a specific \"([^\"]*)\" room$")
     public void createOutOfOrderOnRoom(String roomName) throws Throwable {
 	AdminPage home = new AdminPage();
-		home.leftMenu.clickOnConferenceRoomsButton()
+		home.leftMenu.clickOnIssuesButton()
+		.clickOnConferenceRoomsButton()
 		.openConfigurationPage(roomName).clickOnOutOfOrder()
 		.setTimeBeginUp().setTimeEndUp().clickOnBoxButon()
 		.ClickOnClosedForMaintenanceLink()
