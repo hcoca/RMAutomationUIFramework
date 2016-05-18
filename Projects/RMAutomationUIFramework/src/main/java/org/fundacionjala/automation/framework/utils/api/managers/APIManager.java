@@ -1,4 +1,5 @@
 package org.fundacionjala.automation.framework.utils.api.managers;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.HttpResponse;
@@ -36,6 +37,8 @@ public class APIManager {
         case "post":
         	jsonResponse = Unirest.post(endPoint)
 			  .header("Content-Type", "application/json")
+			  .basicAuth(PropertiesReader.getExchangeOrganizerUser(),
+				  PropertiesReader.getExchangeOrganizerPwd())
 			  .body(jsonObject)
 			  .asJson();
         	break;
