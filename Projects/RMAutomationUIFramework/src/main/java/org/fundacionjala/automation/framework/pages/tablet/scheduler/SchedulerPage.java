@@ -27,6 +27,10 @@ public class SchedulerPage {
     WebElement organizerTextField;
     @FindBy(xpath = SchedulerMap.SUBJECT_TEXT_FIELD)
     WebElement subjectTextField;
+    @FindBy(xpath = SchedulerMap.START_TEXT_FIELD)
+    WebElement startTextField;
+    @FindBy(xpath = SchedulerMap.END_TEXT_FIELD)
+    WebElement endTextField;
     @FindBy(xpath = SchedulerMap.ATTENDEES_TEXT_FIELD)
     WebElement attendeesTextField;
     @FindBy(xpath = SchedulerMap.BODY_TEXT_FIELD)
@@ -203,13 +207,45 @@ public class SchedulerPage {
     	return ((element != null)? true : false);
     }
     
-
+    /**
+     * this method is for setting description of meeting
+     * @param body meeting description
+     * @return SchedulerPage instance
+     */
     public SchedulerPage setBody(String body) {
 	(new WebDriverWait(BrowserManager.getDriver(), 30))
 	.until(ExpectedConditions.visibilityOf(bodyTextField));
         bodyTextField.clear();
         bodyTextField.sendKeys(body);
         LogManager.info("Body " + bodyTextField + " has been set up");
+	return this;
+    }
+
+    /**
+     *  this method is for setting start time of meeting
+     * @param start
+     * @return SchedulerPage instance
+     */
+    public SchedulerPage setStartTime(String start) {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	.until(ExpectedConditions.visibilityOf(startTextField));
+	startTextField.clear();
+	startTextField.sendKeys(start);
+        LogManager.info("Start time " + startTextField + " has been set up");
+	return this;
+    }
+    
+    /**
+     *  this method is for setting end time of meeting
+     * @param end
+     * @return SchedulerPage instance
+     */
+    public SchedulerPage setEndTime(String end) {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	.until(ExpectedConditions.visibilityOf(endTextField));
+	endTextField.clear();
+	endTextField.sendKeys(end);
+        LogManager.info("End time " + endTextField + " has been set up");
 	return this;
     }
 }
