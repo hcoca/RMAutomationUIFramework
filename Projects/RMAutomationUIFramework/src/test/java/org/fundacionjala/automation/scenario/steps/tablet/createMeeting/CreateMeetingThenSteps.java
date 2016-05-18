@@ -2,7 +2,7 @@ package org.fundacionjala.automation.scenario.steps.tablet.createMeeting;
 
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.testng.Assert;
+import org.junit.Assert;
 
 import cucumber.api.java.en.Then;
 
