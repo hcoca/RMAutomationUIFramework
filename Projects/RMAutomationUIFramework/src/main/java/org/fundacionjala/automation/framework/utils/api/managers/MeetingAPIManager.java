@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Meeting;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
+import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -42,6 +43,15 @@ public class MeetingAPIManager {
 	    }
 	}
 	return meetingList;
+    }
+    
+    public static void postRequest(String roomName, Meeting body) throws UnirestException{
+	String roomId = RoomAPIManager.getRoomByName(roomName)._id;
+	String serviceId = ServiceAPIManager.getRequest(PropertiesReader.getServiceURL() 
+		+ "/services").get(0)._id;
+	String endPoint = PropertiesReader.getServiceURL() + "/services" + serviceId 
+		+ "/rooms" + roomId + "/meetings?misrepresent=true";
+	APIManager.request(endPoint, body.getJsonObject(), "post");
     }
 
 }

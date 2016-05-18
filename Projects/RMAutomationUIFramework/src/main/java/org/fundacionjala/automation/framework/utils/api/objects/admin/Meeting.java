@@ -1,5 +1,7 @@
 package org.fundacionjala.automation.framework.utils.api.objects.admin;
 
+import java.util.ArrayList;
+
 import org.fundacionjala.automation.framework.utils.api.objects.RequestObject;
 import org.json.JSONObject;
 
@@ -8,28 +10,26 @@ import org.json.JSONObject;
  * @author alejandraneolopan
  */
 public class Meeting extends RequestObject {
+    public String organizer;
+    public String title;
     public String start;
     public String end;
-    public String roomId;
-    public String title;
-    public String description;
-    public String serviceId;
-
-    /**
-     * Initialize a Meeting object with the main data for create a POST request
-     * @param from String DateTime start
-     * @param to String DateTime finish
-     * @param roomId String room Id
-     * @param subject String Meeting subject
-     * @param serviceId String Service Id
-     */
-    public Meeting(String from, String to, String roomId, String subject,
-	    String serviceId) {
-	this.start = from;
-	this.end = to;
-	this.roomId = roomId;
-	this.title = subject;
-	this.serviceId = serviceId;
+    public String location;
+    public String roomEmail;
+    public ArrayList<String> resources = new ArrayList<String>();
+    public ArrayList<String> attendees = new ArrayList<String>();
+    
+    public Meeting(String organizer, String title, String start, String end, 
+	    String location, String roomEmail, String resources, String attendees) {
+	
+	this.organizer = organizer;
+	this.title = title;
+	this.start = start;
+	this.end = end;
+	this.location = location;
+	this.roomEmail = roomEmail;
+	this.resources.add(resources);
+	this.attendees.add(attendees);
     }
     
     /**
@@ -37,11 +37,13 @@ public class Meeting extends RequestObject {
      * @param obj JSON which contains one item of Meetings collection
      */
     public Meeting(JSONObject obj) {
+	/*
 	start = obj.get("start").toString();
 	end = obj.get("end").toString();
 	roomId = obj.get("roomId").toString();
 	title = obj.get("title").toString();
 	serviceId = obj.get("serviceId").toString();
+	*/
     }
     
     /**
@@ -50,10 +52,14 @@ public class Meeting extends RequestObject {
      */
     public JSONObject getJsonObject() {
 	JSONObject jsonObject = new JSONObject();
+	jsonObject.put("organizer", this.organizer);
+	jsonObject.put("title", this.title);
 	jsonObject.put("start", this.start);
 	jsonObject.put("end", this.end);
-	jsonObject.put("roomId", this.roomId);
-	jsonObject.put("title", this.title);
+	jsonObject.put("location", this.location);
+	jsonObject.put("roomEmail", this.roomEmail);
+	jsonObject.put("resources", this.resources);
+	jsonObject.put("attendees", this.attendees);
 	return jsonObject;
     }
     
