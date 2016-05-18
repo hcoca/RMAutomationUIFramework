@@ -2,7 +2,9 @@ package org.fundacionjala.automation.framework.pages.admin.locations;
 
 import org.fundacionjala.automation.framework.maps.admin.locations.RemoveLocationMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -30,7 +32,8 @@ public class RemoveLocationPage {
      * @return a new "Location" page.
      */
     public LocationPage clickOnRemoveButton() {
-	removeButton.click();
+	ExplicitWait.clickWhenReady(By.xpath(RemoveLocationMap.REMOVE_BUTTON),
+		30);
 	LogManager.info("'-Remove'button has been clicked");
 	return new LocationPage();
     }

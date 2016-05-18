@@ -2,6 +2,7 @@ package org.fundacionjala.automation.framework.pages.admin.locations;
 
 import org.fundacionjala.automation.framework.maps.admin.locations.UpdateLocationMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -141,6 +142,8 @@ public class UpdateLocationPage {
      * @return a new "Location Association" page.
      */
     public LocationAssociationPage clickOnLocationAssociationLink() {
+	ExplicitWait.getWhenVisible(
+		By.xpath(UpdateLocationMap.LOCATION_ASSOCIATION_LINK), 40);
 	associationLink.click();
 	LogManager.info("Location associations link has been clicked");
 	return new LocationAssociationPage();
