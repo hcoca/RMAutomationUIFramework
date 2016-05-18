@@ -1,9 +1,7 @@
 package org.fundacionjala.automation.framework.pages.tablet.home;
 
 import java.util.List;
-
 import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
-import org.fundacionjala.automation.framework.maps.tablet.scheduler.SchedulerMap;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.pages.tablet.search.SearchPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -93,8 +91,8 @@ public class HomePage {
 	ExplicitWait.waitForUrl(PropertiesReader.getServiceURL()+"/tablet/#/home", 15);
 	BrowserManager.getDriver().navigate().refresh();
 	boolean verification = false;
-	WebElement currentTime = ExplicitWait.getWhenVisible(By.xpath(SchedulerMap.CURRENT_TIME), 60);
-	WebElement leftTime = ExplicitWait.getWhenVisible(By.xpath(SchedulerMap.LEFT_TIME), 60);
+	WebElement currentTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.CURRENT_TIME), 60);
+	WebElement leftTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.LEFT_TIME), 60);
 	if(Integer.parseInt(currentTime.getText().replace(":", ""))+Integer.parseInt(leftTime.getText().replace(":", ""))== 2359){
 	    verification = true;
 	}
