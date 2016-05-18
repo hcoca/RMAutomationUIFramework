@@ -16,5 +16,6 @@ public class SchedulerMap {
 	public static final String ATTENDEES_LIST = "//ul[contains(@class,'list-inline')]";
 	public static final String ATTENDEE_NAME = "li/span";
 	public static final String ROOM_NAME_TITLE = "//span[text()='roomName']";
-	
+	public static final String CURRENT_TIME = "//span[@ng-bind='currentTime']";
+	public static final String LEFT_TIME = "//div[@class='timeleft-remaining ng-binding']";
 }
