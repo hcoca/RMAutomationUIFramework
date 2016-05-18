@@ -213,17 +213,19 @@ public class OutOfOrderPage {
     /**
      * This method performs a click on save button.
      * @return OutOfOrderPage
+     * @throws InterruptedException 
      */
-    public OutOfOrderPage clickOnSaveButton() {
+    public OutOfOrderPage clickOnSaveButton() throws InterruptedException {
 	ExplicitWait.clickWhenReady(By.xpath(OutOfOrderMap.SAVE_BUTTON), 30);
 	LogManager
 		.info("The changes on the OutOfOrder has been saved - SaveButton");
+	Thread.sleep(2000);
 	WebElement cancel_button =ExplicitWait.getWhenVisible(
 		By.xpath(RoomInfoMap.CANCEL_BUTTON), 10, false);
 	if (cancel_button != null) {
-	    cancel_button.click();
 	    LogManager
 		.error("Out of order couldn't  be created. An error ocurred");
+	    ExplicitWait.clickWhenReady(By.xpath(RoomInfoMap.CANCEL_BUTTON), 10);
 	}
 	return this;
     }
@@ -245,8 +247,9 @@ public class OutOfOrderPage {
      * This method performs a click on save button in order to verify error
      *  messages. Don't close the window.
      * @return OutOfOrderPage
+     * @throws InterruptedException 
      */
-    public OutOfOrderPage clickOnSaveButton(boolean state) {
+    public OutOfOrderPage clickOnSaveButton(boolean state) throws InterruptedException {
 	if (!state) {
 	    ExplicitWait.clickWhenReady(By.xpath(OutOfOrderMap.SAVE_BUTTON), 30);
 	    LogManager.info("Save button has been pressed");
