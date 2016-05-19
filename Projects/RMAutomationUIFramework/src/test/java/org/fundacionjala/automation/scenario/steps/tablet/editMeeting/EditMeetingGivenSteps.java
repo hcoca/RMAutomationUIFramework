@@ -17,7 +17,7 @@ public class EditMeetingGivenSteps {
 	String endDate = RMGenerator.getIsoTime(1);
 	String roomEmail = room + "@" + PropertiesReader.getExchangeDomain();
        Meeting meeting = new Meeting(organizer, subject, startDate, endDate, 
-	       room, roomEmail, roomEmail, PropertiesReader.getExchangeInviteUser());
+	       room, roomEmail, roomEmail, PropertiesReader.getExchangeInviteMail());
        MeetingAPIManager.postRequest(room, meeting);
     }
 }
