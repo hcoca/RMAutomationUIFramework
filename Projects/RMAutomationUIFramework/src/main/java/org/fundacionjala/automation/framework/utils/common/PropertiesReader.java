@@ -57,12 +57,21 @@ public class PropertiesReader {
     }
 
     /**
-     * @return String admin url e.g. https://172.20.208.146:4040/admin
+     * @return String admin url e.g. https://172.20.208.146:4040/admin/#/login
      */
     public static String getAdminURL() {
 	
 	return getServiceURL() + "/"
 		+ getReader().getProperty("SERVICE_ADMIN_URL");
+    }
+    
+    /**
+     * @return String admin url e.g. http://172.20.208.84:4040/admin/#/admin
+     */
+    public static String getAdminHomeURL() {
+	
+	return getServiceURL() + "/"
+		+ getReader().getProperty("SERVICE_ADMIN_HOME_URL");
     }
 
     /**
