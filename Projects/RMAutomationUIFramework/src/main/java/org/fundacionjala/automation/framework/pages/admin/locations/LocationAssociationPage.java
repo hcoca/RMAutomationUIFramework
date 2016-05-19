@@ -6,6 +6,8 @@ import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -40,12 +42,6 @@ public class LocationAssociationPage {
     		searchRoom.sendKeys(roomName);
     	}
     	
-    	return this;
-    }
-    
-    public LocationAssociationPage clickOnNonAssigned() {
-    	
-    	ExplicitWait.clickWhenReady(By.xpath(LocationAssociationMap.NON_ASSIGNED_BUTTON), 15);
     	return this;
     }
     

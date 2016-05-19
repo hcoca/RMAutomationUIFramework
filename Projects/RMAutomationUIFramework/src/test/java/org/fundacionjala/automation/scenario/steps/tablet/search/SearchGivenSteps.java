@@ -55,7 +55,6 @@ public class SearchGivenSteps {
 		            .doubleClickOnALocation(location)
 		            .clickOnLocationAssociationLink()
 		            .setRoomName(room)
-		            .clickOnNonAssigned()
 		            .clickOnAssigned()
 		            .clickOnAddAvailableRoom(room)
 		            .clickOnSaveButton();
