@@ -278,7 +278,11 @@ public class SchedulerPage {
      */
     public SchedulerPage displayAllDayOnTimeline() throws AWTException {
 	ExplicitWait.waitForElement(SchedulerMap.TIME_LINE, 30);
-	UIActions.scrollTimeline(timelineCenter, 5000);
+	int size = -6000;
+	do{
+	    UIActions.scrollTimeline(timelineCenter, size);
+	    size = size * -1;
+	}while(!verifyIfTimelineDisplayAllDay());
 	return this;	
     }
 
