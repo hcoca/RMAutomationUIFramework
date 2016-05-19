@@ -7,7 +7,7 @@ import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 
 import cucumber.api.java.en.When;
 
-public class EditMeetingWhen {
+public class EditMeetingWhenSteps {
 
     @When("^I display the meeting \"([^\"]*)\" in the \"([^\"]*)\" room$")
     public void displayMeeting(String subject, String roomName) throws Throwable {

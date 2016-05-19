@@ -6,8 +6,7 @@ import org.testng.Assert;
 
 import cucumber.api.java.en.Then;
 
-public class EditMeetingThen {
-    
+public class EditMeetingThenSteps {
     
     @Then("^Validate that the organizer is not able to modified$")
     public void validateOrganizerIsNotAbleToModified() throws Throwable {
@@ -15,11 +14,11 @@ public class EditMeetingThen {
         SchedulerPage meeting = new SchedulerPage();
         Assert.assertTrue(
         	meeting.verifyOrganizerTextFieldIsDisable());
-        
         meeting
         	.clickOnRemoveButton()
         	.setPassword(PropertiesReader.getExchangeOrganizerPwd())
         	.clickOkButton();
     }
+
 
 }

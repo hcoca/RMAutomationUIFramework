@@ -7,7 +7,7 @@ import org.fundacionjala.automation.framework.utils.common.RMGenerator;
 
 import cucumber.api.java.en.Given;
 
-public class EditMeetingGiven {
+public class EditMeetingGivenSteps {
     
     @Given("^I had a created meeting with \"([^\"]*)\" organizer, with \"([^\"]*)\" subject in the \"([^\"]*)\" room$")
     public void IHadAMeetingCreated(String organizer, String subject, 
