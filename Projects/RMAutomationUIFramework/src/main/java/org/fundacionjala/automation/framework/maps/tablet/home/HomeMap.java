@@ -10,4 +10,5 @@ public class HomeMap {
 	public static final String SEARCH_BUTTON = "rm-panel-option.tile-column-option.tile-column-option-landscape > div.tile-button-search";
 	public static final String CURRENT_TIME = "//span[@ng-bind='currentTime']";
 	public static final String LEFT_TIME = "//div[@class='timeleft-remaining ng-binding']";
+	public static final String SETTINGS_BUTTON = "//span[@ng-click='goToSettings()']";
 }

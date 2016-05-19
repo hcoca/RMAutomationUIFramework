@@ -185,7 +185,7 @@ public class SchedulerPage {
     }
 	
     public SchedulerPage clickOnMeeting(String subject) {
- 	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']/parent::div"), 30);	    	
+ 	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']/parent::div"), 60);	    	
  	Actions action = new Actions(BrowserManager.getDriver());
  	action.click(meeting).build().perform();
 	LogManager.info("Meeting " + subject + " has been selected");

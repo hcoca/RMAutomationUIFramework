@@ -2,6 +2,7 @@ package org.fundacionjala.automation.scenario.steps.tablet.home;
 
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
+import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
 
@@ -100,6 +101,25 @@ public class HomeThenSteps {
         Assert.assertTrue(actualResult);
     }
     
+    @Then("^The correct time left until end of the day should be displayed on Home page$")
+    public void verifyCorrectLeftTime() throws Throwable {
+	HomePage homePage = new HomePage();
+        Assert.assertTrue(homePage.verifyTimeLeft());
+    }
+    
+    @Then("^Room \"([^\"]*)\" is displayed on Home Page$")
+    public void room_is_displayed_on_Home_Page(String roomName) throws Throwable {
+	NavigationPage navigation = new NavigationPage();
+	HomePage homePage = new HomePage();
+	
+	navigation.topMenu
+		  .clickOnHomeButton();
+	
+	 boolean actualResult = homePage.verifyRoomNameDisplayed(roomName);
+	 
+	 Assert.assertTrue(actualResult);
+    }
+    
     public void deleteMeeting(String subject){
 	HomePage homePage = new HomePage();
 	
@@ -109,11 +129,5 @@ public class HomeThenSteps {
         .clickOnRemoveButton()
 	.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 	.clickOkButton();
-    }
-    
-    @Then("^The correct time left until end of the day should be displayed on Home page$")
-    public void verifyCorrectLeftTime() throws Throwable {
-	HomePage homePage = new HomePage();
-        Assert.assertTrue(homePage.verifyTimeLeft());
     }
 }
