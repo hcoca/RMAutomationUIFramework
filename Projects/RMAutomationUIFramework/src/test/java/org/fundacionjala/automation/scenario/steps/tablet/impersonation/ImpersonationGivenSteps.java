@@ -11,8 +11,8 @@ import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import cucumber.api.java.en.Given;
 
 public class ImpersonationGivenSteps {
-    	@Given("^I schedule a new meeting with \"([^\"]*)\" subject$")
-   	public void createMeetingUsing(String subject) throws Throwable {
+    	@Given("^I schedule a new meeting with a \"([^\"]*)\" subject$")
+   	public void createMeeting(String subject) throws Throwable {
     	BrowserManager.openBrowser();
     	ConnectionPage connection = new ConnectionPage();
 

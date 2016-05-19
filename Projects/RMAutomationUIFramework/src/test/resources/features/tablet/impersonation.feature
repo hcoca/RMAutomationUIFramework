@@ -76,7 +76,7 @@ Then create RFID Authentication Options are displayed in the Credentials Page
 
 Scenario: Credentials RFID Options are displayed in the Credentials
 Page when removing a Meeting
-Given I schedule a new meeting with "Custom Subject" subject
+Given I schedule a new meeting with a "Custom Subject" subject
 And authentication type configured as "rfid"
 When I try to cancel a meeting with "Custom Subject" subject
 Then cancel RFID Authentication Options are displayed in the Credentials Page
