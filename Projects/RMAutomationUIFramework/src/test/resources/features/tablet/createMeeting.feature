@@ -15,3 +15,9 @@ Given I have a meeting with this subject "removeMeet" on "Room045" room
 And I am on Home Page of "Room045" room
 When I remove "removeMeet" meeting
 Then validate that "removeMeet" has been removed and it is not on timeline
+
+#Scenario03
+Scenario: Timeline displays all day when zoom is reduced over timeline.
+Given I am on Home Page of "Room045" room
+When I reduce timeline for watching all day
+Then validate that all day is displayed on timeline
