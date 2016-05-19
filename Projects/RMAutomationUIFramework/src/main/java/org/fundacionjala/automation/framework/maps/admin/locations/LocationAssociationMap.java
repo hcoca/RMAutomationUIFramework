@@ -7,5 +7,5 @@ public class LocationAssociationMap {
 	public static final String ROOMS = "//div[text()='room']/following::button[1]";
 	public static final String SEARCH_ROOM_INPUT = "//input[@placeholder='Search by Display Name']";
 	public static final String ASSIGNED_BUTTON = "//span[text()='Assigned']";
-	public static final String NON_ASSIGNED_BUTTON = "//span[text()='Non-Assigned']";
+	public static final String NON_ASSIGNED_BUTTON = "//label[@ng-click='collapseUnassociated()']/i";
 }

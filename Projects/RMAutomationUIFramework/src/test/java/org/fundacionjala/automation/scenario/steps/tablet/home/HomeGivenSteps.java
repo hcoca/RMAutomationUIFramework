@@ -24,4 +24,17 @@ public class HomeGivenSteps {
 		attendees);
 	MeetingAPIManager.postRequest(room, meeting);
     }
+    
+    @Given("^I have a meeting with \"([^\"]*)\" subject and \"([^\"]*)\" as organizer on \"([^\"]*)\" room in the next hour$")
+    public void addNextMeetingByAPI(String subject, String organizer, String room)
+	    throws Throwable {
+	List<String> attendees = new ArrayList<String>();
+	attendees.add(PropertiesReader.getExchangeInviteMail());
+	Meeting meeting = new Meeting(organizer, subject,
+		RMGenerator.getIsoTime(1), RMGenerator.getIsoTime(2), room,
+		room + "@" + PropertiesReader.getExchangeDomain(), 
+		room + "@" + PropertiesReader.getExchangeDomain(),
+		attendees);
+	MeetingAPIManager.postRequest(room, meeting);
+    }
 }
