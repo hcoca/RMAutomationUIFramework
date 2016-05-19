@@ -187,7 +187,8 @@ public class ConferenceRoomThenSteps {
 		.clickOnSaveButton().clickOnNavigationButton();
 
 	navigation.clickOnRoomToggleButton()
-		.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+		.selectConferenceRoom(roomName).clickOnSaveButton()
+		.topMenu
 		.clickOnHomeButton();
 
 	WebElement time = BrowserManager.getDriver().findElement(

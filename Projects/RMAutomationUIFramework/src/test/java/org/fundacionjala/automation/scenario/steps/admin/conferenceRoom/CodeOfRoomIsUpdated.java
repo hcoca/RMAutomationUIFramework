@@ -36,5 +36,10 @@ public class CodeOfRoomIsUpdated {
 		.VerifyIfCodeUpdate(expectedResult));
 	new RoomInfoPage().clickOnCancelButton();
 
+	//PostCondition
+	ConferenceRoom = Home.leftMenu.clickOnConferenceRoomsButton()
+		.openConfigurationPage(room)
+		.typeOnCode("")
+		.clickOnSave();
     }
 }
