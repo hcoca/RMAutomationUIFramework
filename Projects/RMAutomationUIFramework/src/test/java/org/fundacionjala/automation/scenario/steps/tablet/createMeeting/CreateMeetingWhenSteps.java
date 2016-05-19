@@ -67,4 +67,14 @@ public class CreateMeetingWhenSteps {
         	.setPassword(PropertiesReader.getExchangeOrganizerPwd())
         	.clickOkButton();
     }
+    
+    @When("^I reduce timeline for watching all day$")
+    public void i_reduce_timeline_for_watching_all_day() throws Throwable {
+	HomePage home = new HomePage();
+	home
+		.clickOnScheduleButton();
+	SchedulerPage scheduler = new SchedulerPage();
+	scheduler
+        	.displayAllDayOnTimeline();
+    }
 }
