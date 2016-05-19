@@ -281,7 +281,7 @@ public class SchedulerPage {
     }
 
     /**
-     * Ths method is to verify that a list of attendees is present
+     * This method is to verify that a list of attendees is present
      * @param attendees
      * @return true if all attendees are present else return false
      */
