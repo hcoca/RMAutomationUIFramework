@@ -1,6 +1,7 @@
 package org.fundacionjala.automation.framework.utils.api.objects.admin;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.fundacionjala.automation.framework.utils.api.objects.RequestObject;
 import org.json.JSONObject;
@@ -20,7 +21,7 @@ public class Meeting extends RequestObject {
     public ArrayList<String> attendees = new ArrayList<String>();
     
     public Meeting(String organizer, String title, String start, String end, 
-	    String location, String roomEmail, String resources, String attendees) {
+	    String location, String roomEmail, String resources, List<String> attendees) {
 	
 	this.organizer = organizer;
 	this.title = title;
@@ -29,7 +30,10 @@ public class Meeting extends RequestObject {
 	this.location = location;
 	this.roomEmail = roomEmail;
 	this.resources.add(resources);
-	this.attendees.add(attendees);
+	for (String attendee : attendees) {
+	    this.attendees.add(attendee);
+	}
+	
     }
     
     /**
