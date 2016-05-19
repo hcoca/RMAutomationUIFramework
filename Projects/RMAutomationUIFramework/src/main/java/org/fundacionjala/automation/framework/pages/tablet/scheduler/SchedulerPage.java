@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.framework.pages.tablet.scheduler;
 
+import java.awt.AWTException;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.tablet.scheduler.SchedulerMap;
@@ -7,6 +8,7 @@ import org.fundacionjala.automation.framework.pages.tablet.navigation.TopMenu;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
+import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -46,6 +48,8 @@ public class SchedulerPage {
     WebElement timeLine;
     @FindBy(xpath = SchedulerMap.ATTENDEES_LIST)
     WebElement attendeesList;
+    @FindBy(xpath = SchedulerMap.CENTRAL_TIMELINE)
+    WebElement timelineCenter;
 
     public SchedulerPage() {
 	this.topMenu = new TopMenu();
@@ -120,9 +124,7 @@ public class SchedulerPage {
 	getMeetingButton(subject).click();
 	(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions.visibilityOf(updateButton));
-
 	LogManager.info("Meeting Button " + subject + " has been clicked");
-
 	return this;
     }
     
@@ -188,7 +190,9 @@ public class SchedulerPage {
  	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']/parent::div"), 60);	    	
  	Actions action = new Actions(BrowserManager.getDriver());
  	action.click(meeting).build().perform();
-	LogManager.info("Meeting " + subject + " has been selected");
+ 	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	.until(ExpectedConditions.visibilityOf(updateButton));
+ 	LogManager.info("Meeting " + subject + " has been selected");
 	return this;
     }
     
@@ -258,5 +262,16 @@ public class SchedulerPage {
 	return organizerTextField.getAttribute("disabled")
 		.equalsIgnoreCase("true") ? true : false;
 	
+    }
+
+    /**
+     * this method expand the time line in order to display all day on time line 
+     * @return SchedulerPage instance
+     * @throws AWTException
+     */
+    public SchedulerPage displayAllDayOnTimeline() throws AWTException {
+	ExplicitWait.waitForElement(SchedulerMap.TIME_LINE, 30);
+	UIActions.scrollTimeline(timelineCenter, 2000);
+	return this;	
     }
 }

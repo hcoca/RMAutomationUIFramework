@@ -16,6 +16,7 @@ public class CreateMeetingThenSteps {
             .isMeetingPresentOnTimeLine(subject));
         
         scheduler
+            .displayAllDayOnTimeline()
             .clickOnMeeting(subject)
             .clickOnRemoveButton()
             .setPassword(PropertiesReader.getExchangeOrganizerPwd())
