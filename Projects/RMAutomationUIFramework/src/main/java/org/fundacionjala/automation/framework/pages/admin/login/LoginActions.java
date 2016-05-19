@@ -6,24 +6,23 @@ import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 
 public class LoginActions {
 	
+	
 	public static AdminPage ExecuteLogin() throws InterruptedException
 	{
-		LoginPage login;
 		LeftMenu leftMenu = new LeftMenu();
-		
-		if(!isLogged()){
-
-			BrowserManager.openBrowser();
-			login = new LoginPage();
+		if(!driverExists()){
 			
-			   login
-				.setUserName(PropertiesReader.getUserName())
-				.setPassword(PropertiesReader.getPassword())
-				.clickOnSigInButton()
-				.leftMenu
-				.clickOnEmailServerButton();
+			BrowserManager.openBrowser();
+			insertCredentials();
 		}
+		
+		else if(!isloggedToAdmn()) {
+			
+			insertCredentials();
+		}
+		
 		else{
+			
 			 BrowserManager.getDriver().navigate().refresh();	
 			 leftMenu.clickOnEmailServerButton();
 		}
@@ -31,13 +30,28 @@ public class LoginActions {
 		return new AdminPage();
 	}
 
-	private static boolean isLogged() {
+	private static boolean isloggedToAdmn() {
 		
-		if(BrowserManager.getDriver() != null)
-		{
-			return true;
-		}
+		String currentUrl = BrowserManager.getDriver().getCurrentUrl();
+		String expectedUrl = PropertiesReader.getAdminHomeURL();
 		
-		return false;
+		return ((currentUrl != expectedUrl)? false : true);
 	}
+
+	private static boolean driverExists() {
+		
+		return ((BrowserManager.getDriver() == null)? false : true);
+	}
+	
+	private static void insertCredentials() {
+
+		LoginPage login = new LoginPage();
+		login
+			.setUserName(PropertiesReader.getUserName())
+			.setPassword(PropertiesReader.getPassword())
+			.clickOnSigInButton()
+			.leftMenu
+			.clickOnEmailServerButton();
+	}
+	
 }
