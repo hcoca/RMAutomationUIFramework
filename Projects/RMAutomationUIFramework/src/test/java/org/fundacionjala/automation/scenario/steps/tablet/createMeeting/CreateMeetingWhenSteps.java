@@ -3,7 +3,6 @@ package org.fundacionjala.automation.scenario.steps.tablet.createMeeting;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-import org.testng.Assert;
 
 import cucumber.api.java.en.When;
 
@@ -60,10 +59,12 @@ public class CreateMeetingWhenSteps {
     public void i_remove_meeting(String meetingName) throws Throwable {
 	HomePage home = new HomePage();
 	home.clickOnScheduleButton();
-
 	SchedulerPage scheduler = new SchedulerPage();
-	scheduler.clickOnMeeting(meetingName).clickOnRemoveButton()
-		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
-		.clickOkButton();
+	scheduler
+        	.displayAllDayOnTimeline()
+        	.clickOnMeeting(meetingName)
+        	.clickOnRemoveButton()
+        	.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+        	.clickOkButton();
     }
 }
