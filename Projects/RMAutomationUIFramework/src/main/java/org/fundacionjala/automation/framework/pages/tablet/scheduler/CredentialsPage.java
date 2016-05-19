@@ -22,6 +22,8 @@ public class CredentialsPage {
     WebElement createAsCheckBox;
     @FindBy(xpath = CredentialsMap.OK_BUTTON)
     WebElement okButton;
+    @FindBy(xpath = CredentialsMap.CANCEL_BUTTON)
+    WebElement cancelButton;
     @FindBy (xpath = CredentialsMap.CANCEL_AS_CHECKBOX)
     WebElement cancelAsCheckBox;
 
@@ -61,6 +63,16 @@ public class CredentialsPage {
 
 	LogManager.info("Ok Button has been clicked");
 
+	return new SchedulerPage();
+    }
+    
+    public SchedulerPage clickCancelButton() {
+	(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(cancelButton));
+	cancelButton.click();
+	(new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(CredentialsMap.CANCEL_BUTTON)));
+	
+	LogManager.info("Cancel Button has been clicked");
+	
 	return new SchedulerPage();
     }
 
@@ -116,6 +128,22 @@ public class CredentialsPage {
 	    return false;
 	}
     }
+    
+    public boolean isNoFunctionalityProvidedMessagePresent() {
+	try {
+	    (new WebDriverWait(BrowserManager.getDriver(), 15))
+		    .until(ExpectedConditions
+			    .presenceOfElementLocated(By
+				    .xpath(CredentialsMap.NO_FUNCTIONALITY_PROVIDED_MESSAGE)));
+	    LogManager.info("No functionality provided Message has been found");
+	    return true;
+
+	} catch (Exception e) {
+	    LogManager
+		    .info("No functionality provided Message has not been found");
+	    return false;
+	}
+    }
 
     public boolean isCreateAsCheckBoxPresent() {
 	try {
@@ -139,6 +167,32 @@ public class CredentialsPage {
 
 	} catch (Exception e) {
 	    LogManager.info("Cancel As CheckBox has not been found");
+	    return false;
+	}
+    }
+    
+    public boolean isUserNameTextFieldPresent() {
+	try {
+	    (new WebDriverWait(BrowserManager.getDriver(), 15))
+		    .until(ExpectedConditions.visibilityOf(userNameTextField));
+	    LogManager.info("User Name Text Field has been found");
+	    return true;
+
+	} catch (Exception e) {
+	    LogManager.info("User Name Text Field has not been found");
+	    return false;
+	}
+    }
+    
+    public boolean isPasswordTextFieldPresent() {
+	try {
+	    (new WebDriverWait(BrowserManager.getDriver(), 15))
+		    .until(ExpectedConditions.visibilityOf(userNameTextField));
+	    LogManager.info("Password Text Field has been found");
+	    return true;
+
+	} catch (Exception e) {
+	    LogManager.info("Password Text Field has not been found");
 	    return false;
 	}
     }
