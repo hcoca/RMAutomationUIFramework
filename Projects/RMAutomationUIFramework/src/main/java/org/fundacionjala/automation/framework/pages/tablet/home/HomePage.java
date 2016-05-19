@@ -1,9 +1,11 @@
 package org.fundacionjala.automation.framework.pages.tablet.home;
 
 import java.util.List;
+
 import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.pages.tablet.search.SearchPage;
+import org.fundacionjala.automation.framework.pages.tablet.settings.SettingsPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
@@ -25,6 +27,8 @@ public class HomePage {
 
     @FindBy(xpath = HomeMap.SCHEDULE_BUTTON)
     WebElement scheduleButton;
+    @FindBy(xpath = HomeMap.SETTINGS_BUTTON)
+    WebElement settingsButton;
     @FindBy(xpath = HomeMap.HOME_TIME_LINE)
     WebElement homeTimeLine;
 
@@ -47,6 +51,16 @@ public class HomePage {
 	LogManager.info("Schedule Button has been clicked");
 
 	return new SchedulerPage();
+    }
+    
+    public SettingsPage clickOnSettinsButton(){
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	.until(ExpectedConditions.elementToBeClickable(settingsButton));
+	settingsButton.click();
+
+	LogManager.info("Settings Button has been clicked");
+	
+	return new SettingsPage();
     }
 
     /**
@@ -136,6 +150,21 @@ public class HomePage {
 			    + organizer + "']"));
 	    LogManager
 		    .info("Test Passed: " + organizer + " has been displayed");
+	    return true;
+	} catch (NoSuchElementException e) {
+	    LogManager.warning("Test Failed");
+	    LogManager.error("Element not found (Exception)");
+	    return false;
+	}
+    }
+    
+    public boolean verifyRoomNameDisplayed(String roomName) {
+	try {
+	    BrowserManager.getDriver().findElement(
+		    By.xpath("//span[@ng-bind='room.customDisplayName' and text()='"
+			    + roomName + "']"));
+	    LogManager
+		    .info("Test Passed: " + roomName + " has been displayed");
 	    return true;
 	} catch (NoSuchElementException e) {
 	    LogManager.warning("Test Failed");

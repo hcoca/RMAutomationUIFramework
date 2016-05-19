@@ -21,4 +21,14 @@ public class HomeWhenSteps {
 		.clickOkButton();
     }
     
+    @When("^I configure \"([^\"]*)\" as tablet room$")
+    public void changeRoom(String roomName) throws Throwable {
+	HomePage homePage = new HomePage();
+	
+	homePage.clickOnSettinsButton()
+		.clickOnNavigationButton()
+		.clickOnRoomToggleButton()
+		.selectConferenceRoom(roomName)
+		.clickOnSaveButton();
+    }
 }
