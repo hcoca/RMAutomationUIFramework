@@ -258,6 +258,10 @@ public class SchedulerPage {
 	return this;
     }
 
+    /**
+     * this method is to verify that the organizer test field is disable to edit
+     * @return true id found the attribute disable else return false
+     */
     public boolean verifyOrganizerTextFieldIsDisable() {
 	
 	ExplicitWait.waitForElement(SchedulerMap.ORGANIZER_TEXT_FIELD, 30);
@@ -278,6 +282,21 @@ public class SchedulerPage {
 	return this;	
     }
 
+    /**
+     * This method is to verify that a list of attendees is present
+     * @param attendees
+     * @return true if all attendees are present else return false
+     */
+    public boolean verifyAteendees(List<String> attendees) {
+	int count = 0;
+	for (String attendee : attendees) {
+	    if(isAttendeePresent(attendee)){
+		count = count + 1;
+	    }
+	}
+	return (count == attendees.size()) ? true : false;
+    }
+    
     /**
      * this method is to verify if if time line displays all day, comparing 
      * time list with 24 hours
