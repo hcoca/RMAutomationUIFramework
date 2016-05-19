@@ -161,7 +161,8 @@ public class OutOfOrderPage {
      * @return OutOfOrderPage
      */
     public OutOfOrderPage clickOnBoxButon() {
-	buttonBox.click();
+	ExplicitWait.clickWhenReady(By.cssSelector(OutOfOrderMap.BOX_BUTTON),
+		30);
 	LogManager.info("The BoxButton has been clicked for select the Title");
 	return this;
     }
@@ -175,6 +176,7 @@ public class OutOfOrderPage {
      * @return OutOfOrderPage
      */
     public OutOfOrderPage ClickOnClosedForMaintenanceLink() {
+	ExplicitWait.waitElementVisible(ClosedForMaintenanceLink, 30);
 	ClosedForMaintenanceLink.click();
 	LogManager.info("Has been selected a Title: Closed For Maintenance");
 	return this;
@@ -219,7 +221,7 @@ public class OutOfOrderPage {
 	ExplicitWait.clickWhenReady(By.xpath(OutOfOrderMap.SAVE_BUTTON), 30);
 	LogManager
 		.info("The changes on the OutOfOrder has been saved - SaveButton");
-	Thread.sleep(2000);
+	Thread.sleep(5000);
 	WebElement cancel_button =ExplicitWait.getWhenVisible(
 		By.xpath(RoomInfoMap.CANCEL_BUTTON), 10, false);
 	if (cancel_button != null) {
