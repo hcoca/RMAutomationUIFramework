@@ -45,7 +45,6 @@ public class ImpersonationWhenSteps {
    				.clickOkButton();
    	}
     
-    
     	@When("^I cancel a meeting with \"([^\"]*)\" subject using Impersonation$")
     	public void cancelMeetingUsingImpersonation(String subject) throws Throwable {	
 		BrowserManager.openBrowser();
@@ -127,4 +126,87 @@ public class ImpersonationWhenSteps {
         		.clickOnMeetingButton(subject)
         		.clickRemoveButton();
     	}
+    	
+    	@When("^I try to create a new meeting with \"([^\"]*)\" subject$")
+    	public void tryToCreateMeeting(String subject) throws Throwable {
+    	    	BrowserManager.openBrowser();
+        	ConnectionPage connection = new ConnectionPage();
+    
+        	NavigationPage navigation = connection
+    				.setUpServiceURL(PropertiesReader.getServiceURL())
+    				.clickOnSaveButton()
+    				.clickOnNavigationButton();
+    
+        	HomePage home = navigation
+    				.clickOnRoomToggleButton()
+    				.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+    				.clickOnSaveButton()
+    				.topMenu
+    				.clickOnHomeButton();
+    
+        	SchedulerPage scheduler = home.clickOnScheduleButton()
+    				.setOrganizer(PropertiesReader.getExchangeConnectUserName())
+    				.setSubject(subject)
+    				.setAttende(PropertiesReader.getExchangeInviteMail());
+    
+        	scheduler
+        		.clickOnCreateButton();
+    	}
+    	
+    	@When("^I try to cancel a meeting with \"([^\"]*)\" subject$")
+    	public void tryToCancelMeeting(String subject) throws Throwable {
+            	BrowserManager.openBrowser();
+        	ConnectionPage connection = new ConnectionPage();
+        
+        	NavigationPage navigation = connection
+        			.setUpServiceURL(PropertiesReader.getServiceURL())
+        			.clickOnSaveButton()
+        			.clickOnNavigationButton();
+        
+        	HomePage home = navigation
+        			.clickOnRoomToggleButton()
+        			.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+        			.clickOnSaveButton()
+        			.topMenu
+        			.clickOnHomeButton();
+        	
+        	SchedulerPage scheduler = home
+        			.clickOnScheduleButton();
+        	
+        	scheduler
+        		.clickOnMeetingButton(subject)
+        		.clickRemoveButton();
+    	}
+    	
+    	@When("^I schedule a new meeting with \"([^\"]*)\" subject$")
+   	public void createMeeting(String subject) throws Throwable {
+        	BrowserManager.openBrowser();
+        	ConnectionPage connection = new ConnectionPage();
+
+   		NavigationPage navigation = connection
+   				.setUpServiceURL(PropertiesReader.getServiceURL())
+   				.clickOnSaveButton()
+   				.clickOnNavigationButton();
+
+   		HomePage home = navigation
+   				.clickOnRoomToggleButton()
+   				.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+   				.clickOnSaveButton()
+   				.topMenu
+   				.clickOnHomeButton();
+
+   		SchedulerPage scheduler = home
+   				.clickOnScheduleButton()
+   				.setOrganizer(PropertiesReader.getExchangeOrganizerUser())
+   				.setSubject(subject)
+   				.setAttende(PropertiesReader.getExchangeInviteMail());
+
+   		CredentialsPage credentials = scheduler
+   				.clickOnCreateButton();
+   		
+   		scheduler = credentials
+   				.setUserName(PropertiesReader.getExchangeOrganizerUser())
+   				.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+   				.clickOkButton();
+   	}
 }
