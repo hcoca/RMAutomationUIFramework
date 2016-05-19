@@ -13,9 +13,11 @@ public class CreateMeetingThenSteps {
         SchedulerPage scheduler = new SchedulerPage();
         Assert.assertTrue(
             scheduler
+            .displayAllDayOnTimeline()
             .isMeetingPresentOnTimeLine(subject));
         
         scheduler
+            .displayAllDayOnTimeline()
             .clickOnMeeting(subject)
             .clickOnRemoveButton()
             .setPassword(PropertiesReader.getExchangeOrganizerPwd())
