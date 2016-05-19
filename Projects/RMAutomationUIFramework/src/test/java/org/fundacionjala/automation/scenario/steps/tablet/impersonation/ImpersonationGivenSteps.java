@@ -12,7 +12,7 @@ import cucumber.api.java.en.Given;
 
 public class ImpersonationGivenSteps {
     	@Given("^I schedule a new meeting with \"([^\"]*)\" subject$")
-   	public void createMeetingUsingImpersonation(String subject) throws Throwable {
+   	public void createMeetingUsing(String subject) throws Throwable {
     	BrowserManager.openBrowser();
     	ConnectionPage connection = new ConnectionPage();
 

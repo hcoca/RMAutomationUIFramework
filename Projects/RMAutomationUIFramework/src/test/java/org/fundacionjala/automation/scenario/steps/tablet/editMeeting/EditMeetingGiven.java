@@ -8,8 +8,11 @@ import org.fundacionjala.automation.framework.utils.common.RMGenerator;
 import cucumber.api.java.en.Given;
 
 public class EditMeetingGiven {
+    
     @Given("^I had a created meeting with \"([^\"]*)\" organizer, with \"([^\"]*)\" subject in the \"([^\"]*)\" room$")
-    public void IHadAMeetingCreated(String organizer, String subject, String room) throws Throwable {
+    public void IHadAMeetingCreated(String organizer, String subject, 
+	    String room) throws Throwable {
+	
 	String startDate = RMGenerator.getIsoTime(0);
 	String endDate = RMGenerator.getIsoTime(1);
 	String roomEmail = room + "@" + PropertiesReader.getExchangeDomain();
