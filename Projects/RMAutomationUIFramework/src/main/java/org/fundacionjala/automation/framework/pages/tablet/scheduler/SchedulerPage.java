@@ -139,7 +139,11 @@ public class SchedulerPage {
     }
 
     public boolean isMeetingPresentOnTimeLine(String subject) {
-	return getMeetingButton(subject) != null ? true : false;
+	WebElement html = BrowserManager.getDriver()
+		.findElement(By.tagName("html"));
+	boolean response = getMeetingButton(subject) != null ? true : false;
+	html.sendKeys(Keys.chord(Keys.CONTROL, "0"));
+	return response;
     }
 
     public boolean isAttendeePresent(String attendee) {
@@ -277,12 +281,13 @@ public class SchedulerPage {
      * @throws AWTException
      */
     public SchedulerPage displayAllDayOnTimeline() throws AWTException {
+	WebElement html = BrowserManager.getDriver()
+		.findElement(By.tagName("html"));
 	ExplicitWait.waitForElement(SchedulerMap.TIME_LINE, 30);
-	int size = -6000;
-	do{
-	    UIActions.scrollTimeline(timelineCenter, size);
-	    size = size * -1;
-	}while(!verifyIfTimelineDisplayAllDay());
+	while(!verifyIfTimelineDisplayAllDay()){
+	    	UIActions.scrollTimeline(timelineCenter, 5000);
+	    	html.sendKeys(Keys.chord(Keys.CONTROL, Keys.SUBTRACT));   
+	}
 	return this;	
     }
 
@@ -307,6 +312,10 @@ public class SchedulerPage {
      * @return true if timeline displays all day else false
      */
     public boolean verifyIfTimelineDisplayAllDay() {
-	return timeList.size() == 24 ? true : false;
+	WebElement html = BrowserManager.getDriver()
+		.findElement(By.tagName("html"));
+	boolean response = timeList.size() == 24 ? true : false;
+	html.sendKeys(Keys.chord(Keys.CONTROL, "0"));
+	return response;
     }
 }
