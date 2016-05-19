@@ -1,5 +1,7 @@
 package org.fundacionjala.automation.scenario.steps.tablet.home;
 
+import java.awt.AWTException;
+
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
@@ -120,11 +122,12 @@ public class HomeThenSteps {
 	 Assert.assertTrue(actualResult);
     }
     
-    public void deleteMeeting(String subject){
+    public void deleteMeeting(String subject) throws AWTException{
 	HomePage homePage = new HomePage();
 	
 	homePage
         .clickOnScheduleButton()
+        .displayAllDayOnTimeline()
         .clickOnMeeting(subject)
         .clickOnRemoveButton()
 	.setPassword(PropertiesReader.getExchangeOrganizerPwd())
