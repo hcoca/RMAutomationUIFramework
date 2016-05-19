@@ -50,6 +50,8 @@ public class SchedulerPage {
     WebElement attendeesList;
     @FindBy(xpath = SchedulerMap.CENTRAL_TIMELINE)
     WebElement timelineCenter;
+    @FindBy(xpath = SchedulerMap.TIME_TIMELINE)
+    List<WebElement> timeList;
 
     public SchedulerPage() {
 	this.topMenu = new TopMenu();
@@ -293,5 +295,14 @@ public class SchedulerPage {
 	    }
 	}
 	return (count == attendees.size()) ? true : false;
+    }
+    
+    /**
+     * this method is to verify if if time line displays all day, comparing 
+     * time list with 24 hours
+     * @return true if timeline displays all day else false
+     */
+    public boolean verifyIfTimelineDisplayAllDay() {
+	return timeList.size() == 24 ? true : false;
     }
 }
