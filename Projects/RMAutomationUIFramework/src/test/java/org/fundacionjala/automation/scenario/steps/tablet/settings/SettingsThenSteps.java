@@ -15,7 +15,7 @@ public class SettingsThenSteps {
     @Then("^A message that describes that the connection has been successful should be displayed$")
     public void a_message_that_describes_that_the_connection_has_been_successful_should_be_displayed() throws Throwable {
 	boolean verification = false;
-        if(ExplicitWait.waitForElement(ConnectionMap.MESSAGE_STATUS, 20)){
+        if(ExplicitWait.waitForElement(ConnectionMap.MESSAGE_STATUS, 60)){
 	   verification = true;
         }
         Assert.assertTrue(verification); 
@@ -31,7 +31,7 @@ public class SettingsThenSteps {
     @Then("^A message that describes that the connection with the room has been successful should be displayed$")
     public void a_message_that_describes_that_the_connection_with_the_room_has_been_successful_should_be_displayed() throws Throwable {
 	boolean verification = false;
-        if(ExplicitWait.waitForElement(NavigationMap.MESSAGE_STATUS, 20)){
+        if(ExplicitWait.waitForElement(NavigationMap.MESSAGE_STATUS, 60)){
 	   verification = true;
         }
         Assert.assertTrue(verification); 
@@ -40,7 +40,7 @@ public class SettingsThenSteps {
     @Then("^The Connection page should be displayed with the elements corresponding$")
     public void the_Connection_page_should_be_displayed_with_the_elements_corresponding() throws Throwable {
 	boolean verification = false;
-        if(ExplicitWait.waitForElement(ConnectionMap.SERVICE_URL_TEXT_FIELD, 20)){
+        if(ExplicitWait.waitForElement(ConnectionMap.SERVICE_URL_TEXT_FIELD, 60)){
 	   verification = true;
         }
         Assert.assertTrue(verification); 
@@ -49,8 +49,8 @@ public class SettingsThenSteps {
     @Then("^The Navigation page should be displayed with the elements corresponding$")
     public void the_Navigation_page_should_be_displayed_with_the_elements_corresponding() throws Throwable {
 	boolean verification = false;
-        if((ExplicitWait.waitForElement(NavigationMap.DEFAULT_ROOM_TOGGLE_BUTTON, 20))&& 
-        	(ExplicitWait.waitForElement(NavigationMap.INACTIVITY_TIMEOUT_FIELD, 20))){
+        if((ExplicitWait.waitForElement(NavigationMap.DEFAULT_ROOM_TOGGLE_BUTTON, 60))&& 
+        	(ExplicitWait.waitForElement(NavigationMap.INACTIVITY_TIMEOUT_FIELD, 60))){
 	   verification = true;
         }
         Assert.assertTrue(verification); 

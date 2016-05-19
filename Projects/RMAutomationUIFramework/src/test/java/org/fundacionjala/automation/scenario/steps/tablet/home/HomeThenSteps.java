@@ -133,4 +133,16 @@ public class HomeThenSteps {
 	.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 	.clickOkButton();
     }
+    
+    @Then("^The correct time left should be displayed according the current meeting \"([^\"]*)\"$")
+    public void the_correct_time_left_should_be_displayed_according_the_current_meeting(String subject) throws Throwable {
+	NavigationPage navigation = new NavigationPage();
+	HomePage homePage = new HomePage();
+	
+	navigation.topMenu
+		  .clickOnHomeButton();
+
+	Assert.assertTrue(homePage.verifyTimeLeftOfCurrentMeeting(), "The Time Left displayed is correct");
+    }
+
 }
