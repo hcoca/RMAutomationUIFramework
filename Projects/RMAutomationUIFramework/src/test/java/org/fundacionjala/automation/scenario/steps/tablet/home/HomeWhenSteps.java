@@ -31,4 +31,17 @@ public class HomeWhenSteps {
 		.selectConferenceRoom(roomName)
 		.clickOnSaveButton();
     }
+    
+    @When("^I update \"([^\"]*)\" meeting with new subject \"([^\"]*)\"$")
+    public void updateMeetingSubject(String subject, String newSubject) throws Throwable {
+	HomePage homePage = new HomePage();
+	
+	homePage.clickOnScheduleButton()
+        	.displayAllDayOnTimeline()
+        	.clickOnMeeting(subject)
+        	.setSubject(newSubject)
+        	.clickUpdateButton()
+        	.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+        	.clickOkButton();
+    }
 }

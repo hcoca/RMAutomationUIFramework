@@ -1,5 +1,7 @@
 package org.fundacionjala.automation.scenario.steps.tablet.home;
 
+import java.awt.AWTException;
+
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
@@ -120,14 +122,27 @@ public class HomeThenSteps {
 	 Assert.assertTrue(actualResult);
     }
     
-    public void deleteMeeting(String subject){
+    public void deleteMeeting(String subject) throws AWTException{
 	HomePage homePage = new HomePage();
 	
 	homePage
         .clickOnScheduleButton()
+        .displayAllDayOnTimeline()
         .clickOnMeeting(subject)
         .clickOnRemoveButton()
 	.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 	.clickOkButton();
     }
+    
+    @Then("^The correct time left should be displayed according the current meeting \"([^\"]*)\"$")
+    public void the_correct_time_left_should_be_displayed_according_the_current_meeting(String subject) throws Throwable {
+	NavigationPage navigation = new NavigationPage();
+	HomePage homePage = new HomePage();
+	
+	navigation.topMenu
+		  .clickOnHomeButton();
+
+	Assert.assertTrue(homePage.verifyTimeLeftOfCurrentMeeting(), "The Time Left displayed is correct");
+    }
+
 }

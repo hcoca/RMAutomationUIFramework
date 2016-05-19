@@ -1,5 +1,8 @@
 package org.fundacionjala.automation.scenario.steps.tablet.createMeeting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
 import org.fundacionjala.automation.framework.utils.api.managers.MeetingAPIManager;
@@ -35,10 +38,11 @@ public class CreateMeetingGivenSteps {
 	String resources = roomName + "@" + PropertiesReader.getExchangeDomain();
 	String start = RMGenerator.getIsoTime(0);
 	String end = RMGenerator.getIsoTime(1);
-	
+	List<String> attendees = new ArrayList<String>();
+	attendees.add(PropertiesReader.getExchangeInviteMail());
 	Meeting meeting = new Meeting(PropertiesReader.getExchangeOrganizerUser(),
 		subject, start, end, roomName, roomEmail, resources,
-		PropertiesReader.getExchangeInviteMail());
+		attendees);
 	
 	MeetingAPIManager.postRequest(roomName, meeting);
     }
