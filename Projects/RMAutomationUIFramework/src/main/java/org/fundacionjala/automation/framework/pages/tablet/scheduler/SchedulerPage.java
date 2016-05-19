@@ -187,8 +187,9 @@ public class SchedulerPage {
     }
 	
     public SchedulerPage clickOnMeeting(String subject) {
- 	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']/parent::div"), 60);	    	
- 	Actions action = new Actions(BrowserManager.getDriver());
+ 	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']"), 60);	    	
+	
+	Actions action = new Actions(BrowserManager.getDriver());
  	action.click(meeting).build().perform();
  	(new WebDriverWait(BrowserManager.getDriver(), 30))
 	.until(ExpectedConditions.visibilityOf(updateButton));
@@ -271,7 +272,7 @@ public class SchedulerPage {
      */
     public SchedulerPage displayAllDayOnTimeline() throws AWTException {
 	ExplicitWait.waitForElement(SchedulerMap.TIME_LINE, 30);
-	UIActions.scrollTimeline(timelineCenter, 2000);
+	UIActions.scrollTimeline(timelineCenter, 5000);
 	return this;	
     }
 }

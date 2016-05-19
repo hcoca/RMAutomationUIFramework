@@ -13,6 +13,7 @@ public class CreateMeetingThenSteps {
         SchedulerPage scheduler = new SchedulerPage();
         Assert.assertTrue(
             scheduler
+            .displayAllDayOnTimeline()
             .isMeetingPresentOnTimeLine(subject));
         
         scheduler
