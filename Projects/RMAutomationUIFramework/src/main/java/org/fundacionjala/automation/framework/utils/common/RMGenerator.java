@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class RMGenerator {
+	
     public static String getIsoTime(int nextHoursFromCurrentTime) {
 	Calendar calendar = Calendar.getInstance();
 	calendar.add(Calendar.HOUR, nextHoursFromCurrentTime + 4);
@@ -12,4 +13,12 @@ public class RMGenerator {
 		"yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
 	return time.format(calendar.getTime());
     }
+    
+    public static String getTime(int nextHoursFromCurrentTime) {
+    	Calendar calendar = Calendar.getInstance();
+    	calendar.add(Calendar.HOUR, nextHoursFromCurrentTime + 4);
+    	SimpleDateFormat time = new SimpleDateFormat(
+    		"HH:mm:ss.SSS");
+    	return time.format(calendar.getTime());
+        }
 }
