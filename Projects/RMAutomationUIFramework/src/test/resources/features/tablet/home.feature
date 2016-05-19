@@ -51,3 +51,8 @@ Then The meeting "Updated" is displayed on Home Page as next
 Scenario: Time left until end of the day is displayed on Home Page when there is no meeting
 When I am on Home Page of "Room020" room
 Then The correct time left until end of the day should be displayed on Home page
+
+Scenario: Time left until current meeting finish is displayed on Home Page when there is a current meeting
+Given I am on Home Page of "Room181" room 
+When I create a meeting with "Meet" subject and "RoomManager2" as organizer 
+Then The correct time left should be displayed according the current meeting "Meet" 
