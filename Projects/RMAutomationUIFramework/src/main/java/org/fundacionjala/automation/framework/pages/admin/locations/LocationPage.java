@@ -119,8 +119,7 @@ public class LocationPage extends AdminPage {
     public UpdateLocationPage doubleClickOnALocation(String displayName) {
 	ExplicitWait.getWhenVisible(
 		By.xpath("//div[text()='" + displayName + "']"), 30);
-	UIActions.doubleClickJS(locationTable.findElement(By
-		.xpath("//div[text()='" + displayName + "']")));
+	UIActions.doubleClick(ExplicitWait.getWhenVisible(By.xpath("//div[text()='" + displayName + "']"), 30));
 	return new UpdateLocationPage();
     }
 

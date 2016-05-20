@@ -25,6 +25,10 @@ public class LocationThenSteps {
     public void verifyDisplayedLocation(String name) throws Throwable {
     	
 	LocationPage locationPage = new LocationPage();
+	AdminPage admin = new AdminPage();
+	admin.leftMenu.clickOnConferenceRoomsButton();
+	admin.leftMenu.clickOnLocationsButton();
+	
 	Assert.assertTrue(locationPage.verifyLocationIsDisplayed(name));
 	
     }
@@ -145,6 +149,7 @@ public class LocationThenSteps {
     	
 	LocationPage locationPage = new LocationPage();
 	LocationAssociationPage associationPage = new LocationAssociationPage();
+	
 	
 	locationPage
 		.leftMenu
