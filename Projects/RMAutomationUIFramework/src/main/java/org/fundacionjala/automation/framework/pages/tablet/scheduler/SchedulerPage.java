@@ -122,8 +122,10 @@ public class SchedulerPage {
 	return new CredentialsPage();
     }
 
-    public SchedulerPage clickOnMeetingButton(String subject) throws AWTException {
-	getMeetingButton(subject).click();
+    public SchedulerPage clickOnMeetingButton(String subject) {
+	Actions action = new Actions(BrowserManager.getDriver());
+	action.click(getMeetingButton(subject));
+	action.perform();
 	(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions.visibilityOf(updateButton));
 	LogManager.info("Meeting Button " + subject + " has been clicked");
