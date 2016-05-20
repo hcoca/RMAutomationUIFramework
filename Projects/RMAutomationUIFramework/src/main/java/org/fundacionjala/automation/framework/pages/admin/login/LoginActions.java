@@ -16,13 +16,17 @@ public class LoginActions {
 			insertCredentials();
 		}
 		
-		else if(!isloggedToAdmn()) {
+		else if(isInLogginPage()) {
 			
 			insertCredentials();
 		}
 		
-		else{
-			
+		else if(BrowserManager.getDriver().getCurrentUrl().contains("tablet")){
+			 
+			BrowserManager.openBrowser();
+			insertCredentials();
+		}
+		else {
 			 BrowserManager.getDriver().navigate().refresh();	
 			 leftMenu.clickOnEmailServerButton();
 		}
@@ -30,12 +34,12 @@ public class LoginActions {
 		return new AdminPage();
 	}
 
-	private static boolean isloggedToAdmn() {
+	private static boolean isInLogginPage() {
 		
 		String currentUrl = BrowserManager.getDriver().getCurrentUrl();
-		String expectedUrl = PropertiesReader.getAdminHomeURL();
+		String expectedUrl = PropertiesReader.getAdminURL();
 		
-		return ((currentUrl != expectedUrl)? false : true);
+		return ((currentUrl == expectedUrl)? true : false);
 	}
 
 	private static boolean driverExists() {
