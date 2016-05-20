@@ -135,14 +135,24 @@ public class HomeThenSteps {
     }
     
     @Then("^The correct time left should be displayed according the current meeting \"([^\"]*)\"$")
-    public void the_correct_time_left_should_be_displayed_according_the_current_meeting(String subject) throws Throwable {
+    public void verifyTimeLeftOnCurrentMeeting(String subject) throws Throwable {
 	NavigationPage navigation = new NavigationPage();
 	HomePage homePage = new HomePage();
 	
 	navigation.topMenu
 		  .clickOnHomeButton();
 
-	Assert.assertTrue(homePage.verifyTimeLeftOfCurrentMeeting(), "The Time Left displayed is correct");
+	Assert.assertTrue(homePage.verifyTimeLeftOfCurrentMeeting(), "The Time Left displayed is not according the current Meeting");
+    }
+    
+    @Then("^The correct time left should be displayed according the next meeting \"([^\"]*)\"$")
+    public void verifyTimeLeftOnNextMeeting(String subject) throws Throwable {
+    	NavigationPage navigation = new NavigationPage();
+    	HomePage homePage = new HomePage();
+    	
+    	navigation.topMenu
+    		  	  .clickOnHomeButton();
+    	Assert.assertTrue(homePage.verifyTimeLeftOfNextMeeting(), "The Time Left displayed is not according the next Meeting");
     }
 
 }
