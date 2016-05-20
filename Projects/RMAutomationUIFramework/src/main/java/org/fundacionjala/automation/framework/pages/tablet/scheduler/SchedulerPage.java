@@ -122,7 +122,7 @@ public class SchedulerPage {
 	return new CredentialsPage();
     }
 
-    public SchedulerPage clickOnMeetingButton(String subject) {
+    public SchedulerPage clickOnMeetingButton(String subject) throws AWTException {
 	getMeetingButton(subject).click();
 	(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions.visibilityOf(updateButton));
@@ -309,7 +309,7 @@ public class SchedulerPage {
     /**
      * this method is to verify if if time line displays all day, comparing 
      * time list with 24 hours
-     * @return true if timeline displays all day else false
+     * @return true if time line displays all day else false
      */
     public boolean verifyIfTimelineDisplayAllDay() {
 	WebElement html = BrowserManager.getDriver()

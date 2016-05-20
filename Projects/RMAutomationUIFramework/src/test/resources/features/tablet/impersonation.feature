@@ -1,32 +1,10 @@
 Feature: Impersonation
 
-Scenario: A meeting is scheduled using Impersonation
-Given impersonation is enabled
-And authentication type configured as "credentials"
-When I schedule a new meeting with "Subject" subject using Impersonation
-Then A meeting with "Subject" subject is created
-
-Scenario: A meeting is cancelled using Impersonation
-Given impersonation is enabled
-And authentication type configured as "credentials"
-And I schedule a new meeting with "My Test Subject" subject using Impersonation
-When I cancel a meeting with "My Test Subject" subject using Impersonation
-Then A meeting with "My Test Subject" subject is removed
-
-Scenario: Impersonation Options are displayed in the Credentials Page 
-when creating a Meeting
+Scenario: Impersonation Options are displayed in the Credentials Page when creating a Meeting
 Given impersonation is enabled
 And authentication type configured as "credentials"
 When I try to create a new meeting with "New Subject" subject using Impersonation
 Then create Impersonation Options are displayed in the Credentials Page
-
-Scenario: Impersonation Options are displayed in the Credentials Page
-when removing a Meeting
-Given impersonation is enabled
-And authentication type configured as "credentials"
-And I schedule a new meeting with "Another Subject" subject using Impersonation
-When I try to cancel a meeting with "Another Subject" subject using Impersonation
-Then cancel Impersonation Options are displayed in the Credentials Page
 
 Scenario: Impersonation Options are not displayed in the Credentials Page when creating a Meeting with Impersonation disabled
 Given impersonation is disabled
@@ -84,3 +62,23 @@ Given authentication type configured as "credentials"
 And I schedule a new meeting with "My new Subject" subject
 When I try to cancel a meeting with "My new Subject" subject
 Then cancel RFID Authentication Options are not displayed in the Credentials Page
+
+Scenario: A meeting is scheduled using Impersonation
+Given impersonation is enabled
+And authentication type configured as "credentials"
+When I schedule a new meeting with "Subject" subject using Impersonation
+Then A meeting with "Subject" subject is created
+
+Scenario: A meeting is cancelled using Impersonation
+Given impersonation is enabled
+And authentication type configured as "credentials"
+And I schedule a new meeting with "My Test Subject" subject using Impersonation
+When I cancel a meeting with "My Test Subject" subject using Impersonation
+Then A meeting with "My Test Subject" subject is removed
+
+Scenario: Impersonation Options are displayed in the Credentials Page when removing a Meeting
+Given impersonation is enabled
+And authentication type configured as "credentials"
+And I schedule a new meeting with "Another Subject" subject using Impersonation
+When I try to cancel a meeting with "Another Subject" subject using Impersonation
+Then cancel Impersonation Options are displayed in the Credentials Page
