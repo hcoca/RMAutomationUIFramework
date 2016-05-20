@@ -1,5 +1,8 @@
 package org.fundacionjala.automation.framework.utils.common;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
@@ -99,5 +102,21 @@ public class UIActions {
 	} catch (TimeoutException e) {
 	    System.out.println("element to be clickable was not found");
 	}
+    }
+
+    /**
+     * This method is to expand and minimize time line.
+     * first of all this go over time line then this expand or minimize
+     * @param timelineCenter WebElement time line
+     * @param size positive number to minimize and negative to maximize
+     * @throws AWTException
+     */
+    public static void scrollTimeline(WebElement timelineCenter, int size) throws AWTException {
+	Actions actions = new Actions(BrowserManager.getDriver());
+	actions.moveToElement(timelineCenter);
+	Robot robot = new Robot();
+	robot.mouseMove(timelineCenter.getLocation().x,
+	timelineCenter.getLocation().y);
+	robot.mouseWheel(size);
     }
 }

@@ -22,7 +22,9 @@ public class ImpersonationThenSteps {
         	
         	Assert.assertTrue(scheduler.isMeetingPresentOnTimeLine(subject));
         	
-        	scheduler.clickOnMeetingButton(subject);
+        	scheduler
+        		.displayAllDayOnTimeline()
+        		.clickOnMeetingButton(subject);
         	
         	String expectedSubject = subject;
         	String actualSubject = scheduler.getSubject();
@@ -35,6 +37,7 @@ public class ImpersonationThenSteps {
         	Assert.assertTrue(scheduler.isAttendeePresent(PropertiesReader.getExchangeInviteMail()));
         	
         	CredentialsPage credentials = scheduler
+        		.displayAllDayOnTimeline()
 			.clickOnMeetingButton(subject)
 			.clickRemoveButton();
 	
@@ -200,11 +203,21 @@ public class ImpersonationThenSteps {
     	    	Assert.assertFalse(credentials.isPasswordTextFieldPresent());
     	    	Assert.assertFalse(credentials.isCreateAsCheckBoxPresent());
     	    	Assert.assertFalse(credentials.isCreateInBehalfOfTextFieldPresent());
+    	    	
+    	    	Settings settings = new Settings(PropertiesReader
+	    		.getCredentialsAuthenticationType(), 5, "blue");
+		SettingsAPIManager.putRequest(PropertiesReader.getServiceURL()
+				+ "/settings", settings);
     	}
     	
-    	@Then("^cancel Credentials Authentication Options are displayed in the Credentials Page$")
-    	public void verifyCancelCredentialsAuthenticationOptionsAreDisplayed() throws Throwable {
-    	    	CredentialsPage credentials = new CredentialsPage();
+    	@Then("^cancel Credentials Authentication Options are displayed in the Credentials Page when cancelling \"([^\"]*)\" meeting$")
+    	public void verifyCancelCredentialsAuthenticationOptionsAreDisplayed(String subject) throws Throwable {
+    	    	SchedulerPage scheduler = new SchedulerPage();
+    	    	
+    	    	CredentialsPage credentials = scheduler
+    	    			.displayAllDayOnTimeline()
+				.clickOnMeeting(subject)
+				.clickOnRemoveButton();
 	    
 	    	Assert.assertTrue(credentials.isUserNameTextFieldPresent());
 	    	Assert.assertTrue(credentials.isPasswordTextFieldPresent());
@@ -212,14 +225,18 @@ public class ImpersonationThenSteps {
 	    	Assert.assertFalse(credentials.isCancelInBehalfOfMessagePresent());
 	    	
 	    	credentials
-	    		.setUserName(PropertiesReader.getExchangeOrganizerUser())
 	    		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 	    		.clickOkButton();
     	}
     	
-    	@Then("^cancel Credentials Authentication Options are not displayed in the Credentials Page$")
-    	public void verifyCancelCredentialsAuthenticationOptionsAreNotDisplayed() throws Throwable {
-    	    	CredentialsPage credentials = new CredentialsPage();
+    	@Then("^cancel Credentials Authentication Options are not displayed in the Credentials Page when cancelling \"([^\"]*)\" meeting$")
+    	public void verifyCancelCredentialsAuthenticationOptionsAreNotDisplayed(String subject) throws Throwable {
+    	    	SchedulerPage scheduler = new SchedulerPage();
+    	    
+    	    	CredentialsPage credentials = scheduler
+    	    					.displayAllDayOnTimeline()
+    	    					.clickOnMeeting(subject)
+    	    					.clickOnRemoveButton();
 	    
 	    	Assert.assertFalse(credentials.isUserNameTextFieldPresent());
 	    	Assert.assertFalse(credentials.isPasswordTextFieldPresent());
@@ -231,8 +248,8 @@ public class ImpersonationThenSteps {
 		SettingsAPIManager.putRequest(PropertiesReader.getServiceURL()
 				+ "/settings", settings);
 		
-		SchedulerPage scheduler = credentials
-						.clickCancelButton();
+		scheduler = credentials
+				.clickCancelButton();
 		
 		credentials = scheduler
 				.clickRemoveButton();
@@ -290,7 +307,6 @@ public class ImpersonationThenSteps {
     	    	Assert.assertFalse(credentials.isNoFunctionalityProvidedMessagePresent());
 	    	
             	credentials
-            		.setUserName(PropertiesReader.getExchangeOrganizerUser())
         		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
         		.clickOkButton();
     	}

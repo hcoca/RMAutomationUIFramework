@@ -6,6 +6,8 @@ import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -29,19 +31,47 @@ public class LocationAssociationPage {
     public LocationAssociationPage() {
 	PageFactory.initElements(BrowserManager.getDriver(), this);
     }
-
+    
+    public LocationAssociationPage setRoomName(String roomName) {
+    	
+    	WebElement searchRoom = ExplicitWait.getWhenVisible
+    			                (By.xpath(LocationAssociationMap.SEARCH_ROOM_INPUT), 30);
+    	   
+    	if (searchRoom != null) {
+    		
+    		searchRoom.sendKeys(roomName);
+    	}
+    	
+    	return this;
+    }
+    
+    public LocationAssociationPage clickOnAssigned() {
+    	
+    	ExplicitWait.clickWhenReady(By.xpath(LocationAssociationMap.ASSIGNED_BUTTON), 15);
+    	return this;
+    }
+    
+    
     /**
      * Clicks on "(+)Add" button of a room which is available.
      * @param roomName name of the available room.
      * @return this "Location Association" page.
      */
     public LocationAssociationPage clickOnAddAvailableRoom(String roomName) {
+    	
 	ExplicitWait.getWhenVisible(By.xpath("//div[text()='" + roomName
-		+ "']/following::button[1]"), 30);
-	availableRoomsGrid.findElement(
+		+ "']/following::button[1]"), 15);
+	
+	WebElement roomElement = availableRoomsGrid.findElement(
 		By.xpath("//div[text()='" + roomName
-			+ "']/following::button[1]")).click();
-	LogManager.info("An available room has been added");
+			+ "']/following::button[1]"));
+	   
+	if (roomElement != null) {
+		
+		roomElement.click();
+		LogManager.info("An available room has been added");
+	}
+	
 	return this;
     }
 
@@ -56,6 +86,9 @@ public class LocationAssociationPage {
 	associatedRoomsGrid.findElement(
 		By.xpath("//div[text()='" + roomName
 			+ "']/following::button[1]")).click();
+	
+	 
+	
 	LogManager.info("An available room has been removed");
 	return this;
     }

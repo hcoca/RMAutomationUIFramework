@@ -24,13 +24,7 @@ Then I see the the Schedule page of the room "Room109"
 @searchfeature4
 Scenario: Filter rooms by location
 Given I am in location page of Room Manager Admin
-And I associate the location "loc-jalasoft" to "Room003"
+And I associate the location "loc-jalasoft" to "Room004"
 When I go to search page of Room Manager tablet
 And I filter rooms by the location "loc-jalasoft"
-Then I see the "Room003" listed in the results
-
-
-
-
-
-
+Then I see the "Room004" listed in the results

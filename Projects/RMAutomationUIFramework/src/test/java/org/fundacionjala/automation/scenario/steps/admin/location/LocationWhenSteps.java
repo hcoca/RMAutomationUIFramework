@@ -12,6 +12,7 @@ public class LocationWhenSteps {
 	public void addALocation(String name, 
 			         String displayName, 
 			         String description) throws Throwable { 
+		
 	    	goToLocationPage()
 	    	.clickOnAddButton()
 	    	.setNameField(name)
@@ -30,6 +31,7 @@ public class LocationWhenSteps {
 				   String name, 
 				   String displayName, 
 				   String description) throws Throwable {
+		
 		goToLocationPage()
 		.doubleClickOnALocation(currentLocation)
 		.setNameField(name)
@@ -41,65 +43,77 @@ public class LocationWhenSteps {
 	@When("^I update \"([^\"]*)\" location parent to \"([^\"]*)\"$")
 	public void updateLocationParent(String displayName, 
 					 String parentName) throws Throwable {
+		
 		goToLocationPage()
-		.doubleClickOnALocation(displayName)
-		.clickOnAddParentButton()
-		.selectAParentLocation(parentName)
-		.clickOnSaveButton();
+			.doubleClickOnALocation(displayName)
+			.clickOnAddParentButton()
+			.selectAParentLocation(parentName)
+			.clickOnSaveButton();
 	}
 	
 	@When("^I delete the location \"([^\"]*)\"$")
-	public void deleteLocation(String displayName) throws Throwable {    
+	public void deleteLocation(String displayName) throws Throwable {
+		
 		goToLocationPage()
-		.clickOnALocation(displayName)
-		.clickOnRemoveButton()
-		.clickOnRemoveButton();
+			.clickOnALocation(displayName)
+			.clickOnRemoveButton()
+			.clickOnRemoveButton();
 	}
 	
 	@When("^I add a new location with name: \"([^\"]*)\", display name \"([^\"]*)\" and parent \"([^\"]*)\"$")
 	public void addChildLocation(String name, 
 				     String displayName, 
 				     String parentName) throws Throwable {
+		
 		goToLocationPage()
-		.clickOnAddButton()
-		.setNameField(name)
-		.setDisplayNameField(displayName)
-		.clickOnAddParentButton()
-		.selectAParentLocation(parentName)
-		.clickOnSaveButton();
+			.clickOnAddButton()
+			.setNameField(name)
+			.setDisplayNameField(displayName)
+			.clickOnAddParentButton()
+			.selectAParentLocation(parentName)
+			.clickOnSaveButton();
 	}
 	
 	@When("^I add a new location with name: \"([^\"]*)\", display name \"([^\"]*)\" and associated room \"([^\"]*)\"$")
 	public void addAssociatedLocation(String name, 
 					  String displayName, 
 					  String roomName) throws Throwable {
-		goToLocationPage()
-		.clickOnAddButton()
-		.setNameField(name)
-		.setDisplayNameField(displayName)
-		.clickOnLocationAssociationLink()
-		.clickOnAddAvailableRoom(roomName)
-		.clickOnSaveButton();
+		
+		 goToLocationPage()
+					.clickOnAddButton()
+					.setNameField(name)
+					.setDisplayNameField(displayName)
+					.clickOnLocationAssociationLink()
+					.setRoomName(roomName)
+					.clickOnAssigned()
+					.clickOnAddAvailableRoom(roomName)
+					.clickOnSaveButton();
 	}
 	
 	@When("^I associate the location \"([^\"]*)\" with a room \"([^\"]*)\"$")
 	public void associateLocation(String displayName, 
 				      String roomName) throws Throwable {
+		
 		goToLocationPage()
-		.doubleClickOnALocation(displayName)
-		.clickOnLocationAssociationLink()
-		.clickOnAddAvailableRoom(roomName)
-		.clickOnSaveButton();
+			.doubleClickOnALocation(displayName)
+			.clickOnLocationAssociationLink()
+			.setRoomName(roomName)
+			.clickOnAssigned()
+			.clickOnAddAvailableRoom(roomName)
+			.clickOnSaveButton();
 	}
 	
 	@When("^I delete the association between location \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void removeLocationAssociation(String displayName, 
 					      String roomName) throws Throwable {
+		
 		LocationPage locationPage = new LocationPage();
+		locationPage
+		    .leftMenu
+		    .clickOnConferenceRoomsButton();
 		
 		locationPage
 			.leftMenu
-			.clickOnIssuesButton()
 			.clickOnLocationsButton()
 			.doubleClickOnALocation(displayName)
 			.clickOnLocationAssociationLink()
@@ -108,12 +122,13 @@ public class LocationWhenSteps {
 	}
 	
 	private LocationPage goToLocationPage(){
+		
 		AdminPage adminPage = new AdminPage();
 		
 		LocationPage locationPage = adminPage
 						.refreshPage()
 						.leftMenu
-	 				.clickOnLocationsButton();
+	 		     		.clickOnLocationsButton();
 	    
 	    return locationPage;
 	}

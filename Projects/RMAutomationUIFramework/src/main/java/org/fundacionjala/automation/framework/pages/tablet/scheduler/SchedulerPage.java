@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.framework.pages.tablet.scheduler;
 
+import java.awt.AWTException;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.tablet.scheduler.SchedulerMap;
@@ -7,6 +8,7 @@ import org.fundacionjala.automation.framework.pages.tablet.navigation.TopMenu;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
+import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -46,6 +48,10 @@ public class SchedulerPage {
     WebElement timeLine;
     @FindBy(xpath = SchedulerMap.ATTENDEES_LIST)
     WebElement attendeesList;
+    @FindBy(xpath = SchedulerMap.CENTRAL_TIMELINE)
+    WebElement timelineCenter;
+    @FindBy(xpath = SchedulerMap.TIME_TIMELINE)
+    List<WebElement> timeList;
 
     public SchedulerPage() {
 	this.topMenu = new TopMenu();
@@ -117,12 +123,12 @@ public class SchedulerPage {
     }
 
     public SchedulerPage clickOnMeetingButton(String subject) {
-	getMeetingButton(subject).click();
+	Actions action = new Actions(BrowserManager.getDriver());
+	action.click(getMeetingButton(subject));
+	action.perform();
 	(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions.visibilityOf(updateButton));
-
 	LogManager.info("Meeting Button " + subject + " has been clicked");
-
 	return this;
     }
     
@@ -135,7 +141,11 @@ public class SchedulerPage {
     }
 
     public boolean isMeetingPresentOnTimeLine(String subject) {
-	return getMeetingButton(subject) != null ? true : false;
+	WebElement html = BrowserManager.getDriver()
+		.findElement(By.tagName("html"));
+	boolean response = getMeetingButton(subject) != null ? true : false;
+	html.sendKeys(Keys.chord(Keys.CONTROL, "0"));
+	return response;
     }
 
     public boolean isAttendeePresent(String attendee) {
@@ -185,10 +195,13 @@ public class SchedulerPage {
     }
 	
     public SchedulerPage clickOnMeeting(String subject) {
- 	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']/parent::div"), 60);	    	
- 	Actions action = new Actions(BrowserManager.getDriver());
+ 	WebElement meeting = ExplicitWait.getWhenVisible(By.xpath("//span[@class='vis-item-content' and text()='"+subject+"']"), 60);	    	
+	
+	Actions action = new Actions(BrowserManager.getDriver());
  	action.click(meeting).build().perform();
-	LogManager.info("Meeting " + subject + " has been selected");
+ 	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	.until(ExpectedConditions.visibilityOf(updateButton));
+ 	LogManager.info("Meeting " + subject + " has been selected");
 	return this;
     }
     
@@ -251,6 +264,10 @@ public class SchedulerPage {
 	return this;
     }
 
+    /**
+     * this method is to verify that the organizer test field is disable to edit
+     * @return true id found the attribute disable else return false
+     */
     public boolean verifyOrganizerTextFieldIsDisable() {
 	
 	ExplicitWait.waitForElement(SchedulerMap.ORGANIZER_TEXT_FIELD, 30);
@@ -258,5 +275,45 @@ public class SchedulerPage {
 	return organizerTextField.getAttribute("disabled")
 		.equalsIgnoreCase("true") ? true : false;
 	
+    }
+
+    /**
+     * this method expand the time line in order to display all day on time line 
+     * @return SchedulerPage instance
+     * @throws AWTException
+     */
+    public SchedulerPage displayAllDayOnTimeline() throws AWTException {
+	WebElement html = BrowserManager.getDriver()
+		.findElement(By.tagName("html"));
+	ExplicitWait.waitForElement(SchedulerMap.TIME_LINE, 30);
+	while(!verifyIfTimelineDisplayAllDay()){
+	    	UIActions.scrollTimeline(timelineCenter, 5000);
+	    	html.sendKeys(Keys.chord(Keys.CONTROL, Keys.SUBTRACT));   
+	}
+	return this;	
+    }
+
+    /**
+     * This method is to verify that a list of attendees is present
+     * @param attendees
+     * @return true if all attendees are present else return false
+     */
+    public boolean verifyAteendees(List<String> attendees) {
+	int count = 0;
+	for (String attendee : attendees) {
+	    if(isAttendeePresent(attendee)){
+		count = count + 1;
+	    }
+	}
+	return (count == attendees.size()) ? true : false;
+    }
+    
+    /**
+     * this method is to verify if if time line displays all day, comparing 
+     * time list with 24 hours
+     * @return true if time line displays all day else false
+     */
+    public boolean verifyIfTimelineDisplayAllDay() {
+	return timeList.size() == 24 ? true : false;
     }
 }

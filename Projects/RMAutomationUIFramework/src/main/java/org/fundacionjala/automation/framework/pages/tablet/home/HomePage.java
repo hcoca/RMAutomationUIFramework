@@ -172,4 +172,36 @@ public class HomePage {
 	    return false;
 	}
     }
+    
+    public boolean verifyTimeLeftOfCurrentMeeting() {
+    	ExplicitWait.waitForUrl(PropertiesReader.getServiceURL()+"/tablet/#/home", 15);
+    	BrowserManager.getDriver().navigate().refresh();
+    	boolean verification = false;
+    	WebElement currentTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.CURRENT_TIME), 60);
+    	WebElement leftTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.LEFT_TIME), 60);
+    	WebElement endTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.TIME_OUT_OF_ORDER), 60);
+    	int result = (Integer.parseInt(endTime.getText().replace("-0:00", "").replace(":", ""))- Integer.parseInt(currentTime.getText().replace(":", "")))-1;
+    	if(result >= 60){
+    	    result = result - 40;
+    	}
+    	if(result == Integer.parseInt(leftTime.getText().replace(":", ""))){
+    	    verification = true;
+    	}
+    	return verification;
+        }
+    
+    public boolean verifyTimeLeftOfNextMeeting() {
+    	ExplicitWait.waitForUrl(PropertiesReader.getServiceURL()+"/tablet/#/home", 15);
+    	BrowserManager.getDriver().navigate().refresh();
+    	boolean verification = false;
+    	WebElement currentTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.CURRENT_TIME), 60);
+    	WebElement leftTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.LEFT_TIME), 60);
+    	WebElement startTimeNextMeeting = ExplicitWait.getWhenVisible(By.xpath(HomeMap.TIME_OUT_OF_ORDER), 60);
+    	int result = (Integer.parseInt(startTimeNextMeeting.getText().substring(0,5).replace(":", ""))- Integer.parseInt(currentTime.getText().replace(":", "")))-41;
+    	if(result == Integer.parseInt(leftTime.getText().replace(":", ""))){
+    	    verification = true;
+    	}
+    	return verification;
+        }
+
 }
