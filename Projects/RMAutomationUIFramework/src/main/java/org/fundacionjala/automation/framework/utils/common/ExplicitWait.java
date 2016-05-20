@@ -128,21 +128,17 @@ public class ExplicitWait {
     }
 
     public static boolean isElementInvisible(By locator, int timeout) {
-
-	WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),
+	try {
+	    WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),
 		timeout);
 
-	return wait.until(ExpectedConditions
+	    return wait.until(ExpectedConditions
 		.invisibilityOfElementLocated(locator));
-
+    	} catch (Exception exc) {
+    	    return true;
+    	}
     }
+}
     
    
-     
-     
-    
-     
-    
-
-
-}
+  

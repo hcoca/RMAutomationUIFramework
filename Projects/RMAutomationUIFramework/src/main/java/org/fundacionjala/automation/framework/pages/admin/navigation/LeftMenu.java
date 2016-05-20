@@ -40,14 +40,16 @@ public class LeftMenu {
 	
 	public ConferenceRoomsPage clickOnConferenceRoomsButton() throws InterruptedException{
 		LogManager.info("Click on conference rooms page");
+		byte attempts = 0;
 		boolean existAtLeasARoom = false;
 		do{
 		    clickOnEmailServerButton();
 		    UIActions.clickAt(conferenceRoomsButton);
-		    if(ExplicitWait.waitForElement(ConferenceRoomsMap.FIRST_ROW, 5)){
+		    if(ExplicitWait.waitForElement(ConferenceRoomsMap.FIRST_ROW, 20)){
 			existAtLeasARoom = true;
 		    }
-		}while(existAtLeasARoom == false);
+		    attempts ++;
+		}while(!existAtLeasARoom && attempts <= 10);
 		return new ConferenceRoomsPage();
 	}
 	

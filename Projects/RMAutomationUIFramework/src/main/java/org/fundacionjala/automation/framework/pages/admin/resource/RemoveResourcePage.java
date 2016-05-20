@@ -2,6 +2,7 @@ package org.fundacionjala.automation.framework.pages.admin.resource;
 
 import org.fundacionjala.automation.framework.maps.admin.resource.RemoveResourceMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -33,14 +34,19 @@ public class RemoveResourcePage {
 	/**
 	 * This function is to click on REMOVE button
 	 * @return ResourcePage
+	 * @throws InterruptedException 
 	 */
-	public ResourcePage clickOnRemoveButton() {
-	    
-		UIActions.waitFor(RemoveResourceMap.REMOVE_BUTTON);
-		UIActions.clickAt(removeButton);
-		
-		return new ResourcePage();
-	}
+        public ResourcePage clickOnRemoveButton() throws InterruptedException {
+    
+        	UIActions.waitFor(RemoveResourceMap.REMOVE_BUTTON);
+        	UIActions.clickAt(removeButton);
+        	Thread.sleep(3000);
+        	if (!ExplicitWait.isElementInvisible(
+        		By.xpath(RemoveResourceMap.REMOVE_BUTTON), 10)) {
+        	    clickOnCancelButton();
+        	}
+        	return new ResourcePage();
+        }
 	
 	/**
 	 * This function is to click on CANCEL button

@@ -115,10 +115,15 @@ public class RoomInfoPage {
     /**
      * This method perform click on save button
      * @return ConferenceRoomsPage instance
+     * @throws InterruptedException 
      */
-    public ConferenceRoomsPage clickOnSave() {
+    public ConferenceRoomsPage clickOnSave() throws InterruptedException {
 	
 	ExplicitWait.clickWhenReady(By.xpath(RoomInfoMap.SAVE_BUTTON), 30);
+	Thread.sleep(2000);
+	if (!ExplicitWait.isElementInvisible(By.xpath(RoomInfoMap.SAVE_BUTTON), 10)) {
+	    clickOnCancelButton();
+	}
 	return new ConferenceRoomsPage();
     }
 

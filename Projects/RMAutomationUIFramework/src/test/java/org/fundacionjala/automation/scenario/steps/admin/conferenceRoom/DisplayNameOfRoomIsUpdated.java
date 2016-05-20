@@ -4,6 +4,7 @@ import org.fundacionjala.automation.framework.pages.admin.conferencerooms.Confer
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.testng.Assert;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -33,10 +34,18 @@ public class DisplayNameOfRoomIsUpdated {
     public void i_validate_if_the_display_name_has_been_updated_in_the_Conference_Room_table()
 	    throws Throwable {
 	
-	Assert.assertTrue(ConferenceRoom.VerifyIfRoomExist(expectedResult));
+	Assert.assertTrue(ConferenceRoom
+				.leftMenu
+				.clickOnConferenceRoomsButton()
+				.VerifyIfRoomExist(expectedResult));
+	
+    }
+    
+    @After("@conferenceDisplayNameChanged")
+    public void tearDownRoomDisplayNameChanged() throws InterruptedException {
 	Home.leftMenu.clickOnConferenceRoomsButton()
-		.openConfigurationPage(expectedResult)
-		.typeOnDisplayName(roomOriginalName)
-		.clickOnSave();
+	.openConfigurationPage(expectedResult)
+	.typeOnDisplayName(roomOriginalName)
+	.clickOnSave();
     }
 }

@@ -5,6 +5,7 @@ import org.fundacionjala.automation.framework.pages.admin.conferencerooms.RoomIn
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.testng.Assert;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -34,12 +35,16 @@ public class CodeOfRoomIsUpdated {
 		.clickOnConferenceRoomsButton()
 		.openConfigurationPage(room)
 		.VerifyIfCodeUpdate(expectedResult));
+	
+    }
+    
+    @After ("@conferenceCodeChanged")
+    public void afterRoomCodeChanged() throws InterruptedException {
 	new RoomInfoPage().clickOnCancelButton();
-
-	//PostCondition
 	ConferenceRoom = Home.leftMenu.clickOnConferenceRoomsButton()
 		.openConfigurationPage(room)
 		.typeOnCode("")
 		.clickOnSave();
+    
     }
 }

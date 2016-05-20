@@ -1,10 +1,10 @@
 Feature: Conference Room
-
+@conferenceDisplayNameChanged
 Scenario: "Display Name" of room is updated in the "Conference Room" table when it is edited in "Room Info" form.
 Given I am logged as "Administrator" with password "Control*123"
 When I edit "Room002" room with a new display name "ARoomIsChanged"
 Then I validate if the display name has been updated in the Conference Room table
-     
+@conferenceCodeChanged     
 Scenario: "Code" of a room is updated when it is edited in "Room Info" form.
 Given I am logged as "Administrator" with password "Control*123"
 When I edit "Room003" room with a new code "codeForTry"
@@ -21,7 +21,7 @@ Given I am logged as "Administrator" with password "Control*123"
 And I have a new Location "locationNew"
 When I edit "Room004" room with a new Location "locationNew"
 Then I validate if the Location has been updated in the Room Info page.
-
+@conferenceResource
 Scenario: Resource buttons created are displayed on conference room page.
 Given I am logged as "Administrator" with password "Control*123"
 When I create a new "resourceForTry" Resource
@@ -32,7 +32,7 @@ Given I have "Room005" room disabled
 And I am logged as "Administrator" with password "Control*123"
 When I enabled "Room005" room
 Then I validate if the room "Room005" is enabled in tablet page
-
+@conferenceDisabled
 Scenario: A room is disabled when its button is clicked.
 Given I have "Room006" room enabled
 And I am logged as "Administrator" with password "Control*123"

@@ -52,9 +52,11 @@ public class UIActions {
      * @param message String text to be written
      */
     public static void typeOn(WebElement element, String message) {
-	element.clear();
-	element.sendKeys(message);
-	LogManager.info("'" + message + "' has been set up in input text");
+	if (element != null) {
+	    element.clear();
+	    element.sendKeys(message);
+	    LogManager.info("'" + message + "' has been set up in input text");
+	}
     }
     
     /**
