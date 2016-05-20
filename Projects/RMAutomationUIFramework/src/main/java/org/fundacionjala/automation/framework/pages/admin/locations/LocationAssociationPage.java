@@ -1,6 +1,7 @@
 package org.fundacionjala.automation.framework.pages.admin.locations;
 
 import org.fundacionjala.automation.framework.maps.admin.locations.LocationAssociationMap;
+import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
@@ -57,20 +58,10 @@ public class LocationAssociationPage {
      * @param roomName name of the available room.
      * @return this "Location Association" page.
      */
-    public LocationAssociationPage clickOnAddAvailableRoom(String roomName) {
-    	
-	ExplicitWait.getWhenVisible(By.xpath("//div[text()='" + roomName
-		+ "']/following::button[1]"), 15);
-	
-	WebElement roomElement = availableRoomsGrid.findElement(
-		By.xpath("//div[text()='" + roomName
-			+ "']/following::button[1]"));
-	   
-	if (roomElement != null) {
-		
-		roomElement.click();
+    public LocationAssociationPage clickOnAddAvailableRoom() {
+    
+        ExplicitWait.clickWhenReady(By.xpath(LocationAssociationMap.PLUS_BUTTON), 15);
 		LogManager.info("An available room has been added");
-	}
 	
 	return this;
     }
