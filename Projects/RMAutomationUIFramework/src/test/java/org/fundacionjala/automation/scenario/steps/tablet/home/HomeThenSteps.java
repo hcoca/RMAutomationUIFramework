@@ -135,7 +135,7 @@ public class HomeThenSteps {
     }
     
     @Then("^The correct time left should be displayed according the current meeting \"([^\"]*)\"$")
-    public void the_correct_time_left_should_be_displayed_according_the_current_meeting(String subject) throws Throwable {
+    public void verifyTimeLeftOnCurrentMeeting(String subject) throws Throwable {
 	NavigationPage navigation = new NavigationPage();
 	HomePage homePage = new HomePage();
 	
@@ -146,7 +146,7 @@ public class HomeThenSteps {
     }
     
     @Then("^The correct time left should be displayed according the next meeting \"([^\"]*)\"$")
-    public void the_correct_time_left_should_be_displayed_according_the_next_meeting(String subject) throws Throwable {
+    public void verifyTimeLeftOnNextMeeting(String subject) throws Throwable {
     	NavigationPage navigation = new NavigationPage();
     	HomePage homePage = new HomePage();
     	
