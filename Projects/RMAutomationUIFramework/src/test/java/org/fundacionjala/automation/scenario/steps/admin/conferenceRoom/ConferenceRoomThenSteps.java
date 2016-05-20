@@ -99,8 +99,8 @@ public class ConferenceRoomThenSteps {
 	ConferenceRoomsPage room = new ConferenceRoomsPage();
 
 	boolean verification = false;
-	List<Room> listRooms = RoomAPIManager
-		.getRequest(PropertiesReader.getServiceURL() + "/rooms");
+	List<Room> listRooms = RoomAPIManager.getRequest(PropertiesReader
+		.getServiceURL() + "/rooms");
 	int index = ((Integer.parseInt(page) - 1) * Integer.parseInt(pageSize)) + 1;
 
 	for (int i = 0; i < listRooms.size(); i++) {
@@ -111,7 +111,8 @@ public class ConferenceRoomThenSteps {
 		}
 	    }
 	}
-	Assert.assertTrue(verification);
+	Assert.assertTrue("Next page isn't displaying according page size",
+		verification);
     }
 
     @Then("^I validate if the previous page is displayed according the page size specified \"([^\"]*)\" and the page \"([^\"]*)\"$")
@@ -120,8 +121,8 @@ public class ConferenceRoomThenSteps {
 	ConferenceRoomsPage room = new ConferenceRoomsPage();
 
 	boolean verification = false;
-	List<Room> listRooms = RoomAPIManager
-		.getRequest(PropertiesReader.getServiceURL() + "/rooms");
+	List<Room> listRooms = RoomAPIManager.getRequest(PropertiesReader
+		.getServiceURL() + "/rooms");
 	int index = ((Integer.parseInt(page) - 1) * Integer.parseInt(pageSize)) + 1;
 
 	for (int i = 0; i < listRooms.size(); i++) {
@@ -132,7 +133,9 @@ public class ConferenceRoomThenSteps {
 		}
 	    }
 	}
-	Assert.assertTrue(verification);
+	Assert.assertTrue(
+		"Previous page is not displaying acccording page size",
+		verification);
     }
     
     @Then("^The Out Of Order cannot be created an error message is displayed$")
@@ -144,7 +147,7 @@ public class ConferenceRoomThenSteps {
 		"Cannot establish out of order as an past event")) {
 	    verification = true;
 	}
-	Assert.assertTrue(verification);
+	Assert.assertTrue("Error message is not present", verification);
 	new OutOfOrderPage().clickOnCancelButton();
     }
     
@@ -159,7 +162,7 @@ public class ConferenceRoomThenSteps {
 	if (title.getText().contains(titleOutOfOrder)) {
 	    verification = true;
 	}
-	Assert.assertTrue(verification);
+	Assert.assertTrue("Meeting for out of order couldn't be updated.", verification);
 
 	// PostCondition
 	BrowserManager.openBrowser();
@@ -184,7 +187,8 @@ public class ConferenceRoomThenSteps {
 		.clickOnSaveButton().clickOnNavigationButton();
 
 	navigation.clickOnRoomToggleButton()
-		.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+		.selectConferenceRoom(roomName).clickOnSaveButton()
+		.topMenu
 		.clickOnHomeButton();
 
 	WebElement time = BrowserManager.getDriver().findElement(
@@ -193,7 +197,10 @@ public class ConferenceRoomThenSteps {
 		&& (time.getText().contains(OutOfOrderPage.timeEnd))) {
 	    verification = true;
 	}
-	Assert.assertTrue(verification);
+	Assert.assertTrue(
+		"Out of order couldn't be created or it is not visible",
+		verification);
+	
 	// PostCondition
 	BrowserManager.openBrowser();
 	LoginPage login = new LoginPage();
@@ -223,7 +230,8 @@ public class ConferenceRoomThenSteps {
 	if (title.getText().contains(titleOutOfOrder)) {
 	    verification = true;
 	}
-	Assert.assertTrue(verification);
+	Assert.assertTrue("Out of order couldn't be created or it is not visible", verification);
+	
 	// PostCondition
 	BrowserManager.openBrowser();
 	LoginPage login = new LoginPage();
@@ -252,6 +260,6 @@ public class ConferenceRoomThenSteps {
 	if (title.getText().contains(titleOutOfOrder)) {
 	    verification = false;
 	}
-	Assert.assertTrue(verification);
+	Assert.assertTrue("Out of order is not disable or it couldn't be created", verification);
     }
 }

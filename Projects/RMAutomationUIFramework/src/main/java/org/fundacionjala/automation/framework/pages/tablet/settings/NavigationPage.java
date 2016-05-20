@@ -53,8 +53,9 @@ public class NavigationPage extends SettingsPage {
 
     public NavigationPage selectConferenceRoom(String roomName) {
 	WebElement room = getConferenceRoom(roomName);
-	room.click();
-
+	if (room != null) {
+	    room.click();
+	}
 	return this;
     }
 
@@ -64,7 +65,7 @@ public class NavigationPage extends SettingsPage {
      * @return one Room if it is found else null
      */
     private WebElement getConferenceRoom(String name) {
-	ExplicitWait.getWhenVisible(By.xpath(NavigationMap.ROOMS_LIST), 60);
+	ExplicitWait.getWhenVisible(By.xpath(NavigationMap.ROOMS_LIST), 120);
 	List<WebElement> rooms = roomsList.findElements(By
 		.xpath(NavigationMap.ROOMS_LIST_ELEMENT));
 	for (WebElement room : rooms) {
