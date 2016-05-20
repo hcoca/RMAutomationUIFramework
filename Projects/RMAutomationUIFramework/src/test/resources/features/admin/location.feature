@@ -1,6 +1,7 @@
 @location
 Feature: Location Page
 
+
 @location1 
 Scenario: All locations are displayed on Locations page when it is opened
 Given I have a location added with name: "Cochabamba_1", display name "Cbba-Location_1" and description "This is Cochabamba Location"
