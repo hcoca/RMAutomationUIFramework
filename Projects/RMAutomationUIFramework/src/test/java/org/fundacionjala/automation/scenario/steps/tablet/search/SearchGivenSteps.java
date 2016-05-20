@@ -56,7 +56,7 @@ public class SearchGivenSteps {
 		            .clickOnLocationAssociationLink()
 		            .setRoomName(room)
 		            .clickOnAssigned()
-		            .clickOnAddAvailableRoom(room)
+		            .clickOnAddAvailableRoom()
 		            .clickOnSaveButton();
 	}
 }

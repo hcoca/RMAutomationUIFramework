@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 import org.fundacionjala.automation.framework.utils.common.DatabaseConnection;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
@@ -14,6 +15,15 @@ import cucumber.api.java.Before;
 public class PrePostConditions {
 	
 	DatabaseConnection connection = new DatabaseConnection();
+	
+	@Before("@search")
+	public void tearDownMeetings() {
+		
+		connection.switchCollection("meetings");
+		DBCollection myCollection = connection.getCollection();
+    	myCollection.drop();
+
+	}
 	
 	@Before("@searchfeature4")
 	public void createLocation() {
