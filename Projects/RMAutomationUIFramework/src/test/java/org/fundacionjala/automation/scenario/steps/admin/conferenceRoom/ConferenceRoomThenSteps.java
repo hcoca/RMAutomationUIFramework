@@ -13,15 +13,17 @@ import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPa
 import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Room;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ConferenceRoomDataBase;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 
 public class ConferenceRoomThenSteps {
-
+    String roomName;
     @Then("^I validate if the room \"([^\"]*)\" is enabled in tablet page$")
     public void validateRoomEnabled(String roomName)
 	    throws Throwable {
@@ -164,16 +166,6 @@ public class ConferenceRoomThenSteps {
 	}
 	Assert.assertTrue("Meeting for out of order couldn't be updated.", verification);
 
-	// PostCondition
-	BrowserManager.openBrowser();
-	LoginPage login = new LoginPage();
-	home = login.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage();
-	home.leftMenu.clickOnConferenceRoomsButton()
-		.openConfigurationPage(roomName).clickOnOutOfOrder()
-		.activeOutOfOrder().clickOnSave();
-
     }
     
     @Then("^The Out Of Order on \"([^\"]*)\" room should be created with the time interval defined$")
@@ -201,15 +193,6 @@ public class ConferenceRoomThenSteps {
 		"Out of order couldn't be created or it is not visible",
 		verification);
 	
-	// PostCondition
-	BrowserManager.openBrowser();
-	LoginPage login = new LoginPage();
-	AdminPage home = login.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage();
-	home.leftMenu.clickOnConferenceRoomsButton()
-		.openConfigurationPage(roomName).clickOnOutOfOrder()
-		.activeOutOfOrder().clickOnSave();
     }
     
     @Then("^The Out Of Order on \"([^\"]*)\" room should have been created an OutOfOrder with the \"([^\"]*)\" title corresponding$")
@@ -231,16 +214,7 @@ public class ConferenceRoomThenSteps {
 	    verification = true;
 	}
 	Assert.assertTrue("Out of order couldn't be created or it is not visible", verification);
-	
-	// PostCondition
-	BrowserManager.openBrowser();
-	LoginPage login = new LoginPage();
-	AdminPage home = login.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().refreshPage();
-	home.leftMenu.clickOnConferenceRoomsButton()
-		.openConfigurationPage(roomName).clickOnOutOfOrder()
-		.activeOutOfOrder().clickOnSave();
+
     }
     
     @Then("^The Out Of Order on \"([^\"]*)\" room should has been disabled correctly with the \"([^\"]*)\" title corresponding$")
@@ -261,5 +235,10 @@ public class ConferenceRoomThenSteps {
 	    verification = false;
 	}
 	Assert.assertTrue("Out of order is not disable or it couldn't be created", verification);
+    }
+    
+    @After ("@conferenceDisabled")
+    public void tearDownRoomDisabled (){
+	new ConferenceRoomDataBase(roomName).setEnable(true);
     }
 }

@@ -221,7 +221,7 @@ public class OutOfOrderPage {
 	ExplicitWait.clickWhenReady(By.xpath(OutOfOrderMap.SAVE_BUTTON), 30);
 	LogManager
 		.info("The changes on the OutOfOrder has been saved - SaveButton");
-	Thread.sleep(5000);
+	Thread.sleep(3000);
 	WebElement cancel_button =ExplicitWait.getWhenVisible(
 		By.xpath(RoomInfoMap.CANCEL_BUTTON), 10, false);
 	if (cancel_button != null) {

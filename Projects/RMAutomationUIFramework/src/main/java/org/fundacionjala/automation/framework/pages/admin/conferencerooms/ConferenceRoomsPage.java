@@ -84,7 +84,7 @@ public class ConferenceRoomsPage extends AdminPage {
     public List<WebElement> getRooms() {
 
 	return ExplicitWait.getElementsWhenVisible(
-		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 60);
+		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 80);
     }
 
     /**
@@ -97,7 +97,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	String xpathRoom = ConferenceRoomsMap.ROOM
 		.replace("roomName", roomName);
 
-	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 20);
+	return ExplicitWait.getWhenVisible(By.xpath(xpathRoom), 30);
     }
     
     /**
@@ -120,8 +120,11 @@ public class ConferenceRoomsPage extends AdminPage {
      */
     public RoomInfoPage openConfigurationPage(String roomToModify) throws InterruptedException {
     	Thread.sleep(2000);
-    	
-	UIActions.doubleClick(getRoom(roomToModify));
+    	WebElement room = getRoom(roomToModify);
+    	if (room != null) {
+    	    room.click();
+    	    UIActions.doubleClick(room);
+    	}
 	return new RoomInfoPage();
     }
     
@@ -375,20 +378,24 @@ public class ConferenceRoomsPage extends AdminPage {
      * @return return size of rooms found.
      */
     private int getRoomsWithScrollBar(int sizePage) {
-	
+
 	int visibleRows = 15;
 	int roomRead = sizePage / visibleRows;
 	List<String> list = new ArrayList<String>();
 	WebElement lastRow = null;
-	for (int i = 0; i < roomRead; i++) {
-	    for (WebElement room : getRooms()) {
-		if (!list.contains(room.getText().trim())) {
-		    list.add(room.getText().trim());
+	List<WebElement> roomList = getRooms();
+	if (roomList != null) {
+	    for (int i = 0; i < roomRead; i++) {
+		for (WebElement room : roomList) {
+		    if (!list.contains(room.getText().trim())) {
+			list.add(room.getText().trim());
+		    }
+		    lastRow = room;
 		}
-		lastRow = room;
+		((JavascriptExecutor) BrowserManager.getDriver())
+			.executeScript("arguments[0].scrollIntoView(true);",
+				lastRow);
 	    }
-	    ((JavascriptExecutor) BrowserManager.getDriver()).executeScript(
-		    "arguments[0].scrollIntoView(true);", lastRow);
 	}
 	return list.size();
     }
