@@ -40,10 +40,17 @@ public class ResourceThenSteps {
 	@Then("^Validate that the resource with the name \"([^\"]*)\" has been deleted$")
 	public void validate_that_the_resource_with_the_name_has_been_deleted(
 		String arg1) throws Throwable {
+		
+		BrowserManager.getDriver().navigate().refresh();
+		
 		AdminPage admin = new AdminPage();
+		
+		         admin
+		            .leftMenu
+		            .clickOnConferenceRoomsButton();
+		
 		ResourcePage resource = admin
 					.leftMenu
-					.clickOnIssuesButton()
 					.clickOnResourcesButton();
 		boolean isResourceNotPresent = resource
 						                      .verifyResourceNotExist(arg1);

@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.scenario.steps.tablet.search;
 
+import org.bson.types.ObjectId;
 import org.fundacionjala.automation.framework.utils.common.DatabaseConnection;
 
 import com.mongodb.BasicDBObject;
@@ -19,8 +20,8 @@ public class PrePostConditions {
 		
 		connection.switchCollection("locations");
 		BasicDBObject document = new BasicDBObject();
-		
-		document.put("path", "573cbf195580d33809e2270c");
+		ObjectId id = new ObjectId();
+		document.put("path", id);
 		document.put("name", "loc-jalasoft");
 		document.put("customName", "loc-jalasoft");
 		document.put("description", "loc-jalasoft");
