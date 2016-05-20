@@ -16,9 +16,9 @@ public class RMGenerator {
     
     public static String getTime(int nextHoursFromCurrentTime) {
     	Calendar calendar = Calendar.getInstance();
-    	calendar.add(Calendar.HOUR, nextHoursFromCurrentTime + 4);
+    	calendar.add(Calendar.HOUR, nextHoursFromCurrentTime);
     	SimpleDateFormat time = new SimpleDateFormat(
-    		"HH:mm:ss.SSS");
-    	return time.format(calendar.getTime());
+    		"HH:mm");
+    	return time.format(calendar.getTime())+":00.000";
         }
 }
