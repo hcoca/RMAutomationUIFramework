@@ -1,6 +1,7 @@
 package org.fundacionjala.automation.framework.pages.tablet.settings;
 
 import java.util.List;
+
 import org.fundacionjala.automation.framework.maps.tablet.settings.NavigationMap;
 import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Room;
@@ -10,6 +11,7 @@ import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,11 +36,9 @@ public class NavigationPage extends SettingsPage {
 	(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions
 			.elementToBeClickable(defaultRoomToggleButton));
-	int i = 0;
-	do {
-	    defaultRoomToggleButton.click();
-	    i++;
-	} while (!ExplicitWait.waitForElement(NavigationMap.ROOMS_LIST, 10) && i <= 3);
+	
+	Actions action = new Actions(BrowserManager.getDriver());
+ 	action.click(defaultRoomToggleButton).build().perform();
 
 	LogManager.info("Room Toggle Button has been clicked");
 

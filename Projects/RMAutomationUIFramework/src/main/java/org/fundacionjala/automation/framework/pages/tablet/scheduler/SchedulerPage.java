@@ -283,13 +283,8 @@ public class SchedulerPage {
      * @throws AWTException
      */
     public SchedulerPage displayAllDayOnTimeline() throws AWTException {
-	WebElement html = BrowserManager.getDriver()
-		.findElement(By.tagName("html"));
 	ExplicitWait.waitForElement(SchedulerMap.TIME_LINE, 30);
-	while(!verifyIfTimelineDisplayAllDay()){
-	    	UIActions.scrollTimeline(timelineCenter, 5000);
-	    	html.sendKeys(Keys.chord(Keys.CONTROL, Keys.SUBTRACT));   
-	}
+	UIActions.scrollTimeline(timelineCenter, 5000);  
 	return this;	
     }
 
