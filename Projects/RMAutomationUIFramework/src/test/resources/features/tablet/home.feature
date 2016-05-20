@@ -56,3 +56,8 @@ Scenario: Time left until current meeting finish is displayed on Home Page when 
 Given I am on Home Page of "Room098" room 
 When I create a meeting with "Meet8" subject and "RoomManager2" as organizer 
 Then The correct time left should be displayed according the current meeting "Meet8" 
+
+Scenario: Time left until room is available is displayed on Home Page when there is a next meeting
+Given I am on Home Page of "Room025" room
+When I create a meeting with "Meet" subject and "RoomManager2" as organizer in the next hour
+Then The correct time left should be displayed according the next meeting "Meet"  
