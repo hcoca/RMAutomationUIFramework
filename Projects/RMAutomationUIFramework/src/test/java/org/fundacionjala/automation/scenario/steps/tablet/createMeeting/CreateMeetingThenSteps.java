@@ -1,9 +1,9 @@
 package org.fundacionjala.automation.scenario.steps.tablet.createMeeting;
 
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
+import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.junit.Assert;
-import org.openqa.selenium.Keys;
 
 import cucumber.api.java.en.Then;
 
@@ -39,5 +39,6 @@ public class CreateMeetingThenSteps {
         Assert.assertTrue(
         	scheduler
         	.verifyIfTimelineDisplayAllDay());
+        BrowserManager.normalResize();
     }
 }

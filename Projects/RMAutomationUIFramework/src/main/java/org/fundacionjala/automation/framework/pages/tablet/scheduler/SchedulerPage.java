@@ -309,13 +309,9 @@ public class SchedulerPage {
     /**
      * this method is to verify if if time line displays all day, comparing 
      * time list with 24 hours
-     * @return true if timeline displays all day else false
+     * @return true if time line displays all day else false
      */
     public boolean verifyIfTimelineDisplayAllDay() {
-	WebElement html = BrowserManager.getDriver()
-		.findElement(By.tagName("html"));
-	boolean response = timeList.size() == 24 ? true : false;
-	html.sendKeys(Keys.chord(Keys.CONTROL, "0"));
-	return response;
+	return timeList.size() == 24 ? true : false;
     }
 }

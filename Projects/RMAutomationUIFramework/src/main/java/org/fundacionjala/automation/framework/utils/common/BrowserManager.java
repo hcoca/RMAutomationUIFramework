@@ -3,7 +3,9 @@ package org.fundacionjala.automation.framework.utils.common;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -98,5 +100,12 @@ public class BrowserManager extends EventFiringWebDriver {
             throw new UnsupportedOperationException("You shouldn't close this WebDriver. It's shared and will close after all scenarios.");
         }
    }
+
+public static void normalResize() {
+    WebElement html = driver
+		.findElement(By.tagName("html"));
+    html.sendKeys(Keys.chord(Keys.CONTROL, "0"));
+    
+}
 	
 }
