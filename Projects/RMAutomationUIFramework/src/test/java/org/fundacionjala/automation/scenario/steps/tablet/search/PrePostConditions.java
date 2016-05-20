@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 import org.fundacionjala.automation.framework.utils.common.DatabaseConnection;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
