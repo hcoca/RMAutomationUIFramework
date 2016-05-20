@@ -11,8 +11,8 @@ import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import cucumber.api.java.en.Given;
 
 public class ImpersonationGivenSteps {
-    	@Given("^I schedule a new meeting with a \"([^\"]*)\" subject$")
-   	public void createMeeting(String subject) throws Throwable {
+    	@Given("^I schedule a new meeting with a \"([^\"]*)\" subject in the Room \"([^\"]*)\"$")
+   	public void createMeeting(String subject, String roomName) throws Throwable {
     	BrowserManager.openBrowser();
     	ConnectionPage connection = new ConnectionPage();
 
@@ -23,7 +23,7 @@ public class ImpersonationGivenSteps {
 
 		HomePage home = navigation
 				.clickOnRoomToggleButton()
-				.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+				.selectConferenceRoom(roomName)
 				.clickOnSaveButton()
 				.topMenu
 				.clickOnHomeButton();

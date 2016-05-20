@@ -35,25 +35,6 @@ public class ImpersonationThenSteps {
 		}
 		
 		Assert.assertTrue(impersonate);
-		
-		MongoClient mongoClient = new MongoClient(
-				PropertiesReader.getHostIPAddress(),
-				PropertiesReader.getMongoDBConnectionPort());
-		
-		DB db = mongoClient.getDB(PropertiesReader.getDBName());
-		DBCollection table = db.getCollection(PropertiesReader
-				.getServicesTableName());
-		
-		BasicDBObject query = new BasicDBObject();
-		query.put(PropertiesReader.getImpersonateFieldName(), true);
-		
-		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
-		
-		BasicDBObject updateObj = new BasicDBObject();
-		updateObj.put("$set", newDocument);
-		
-		table.update(query, updateObj);
 	}
 
 	@Then("^the Impersonation Option is disabled$")
@@ -68,25 +49,6 @@ public class ImpersonationThenSteps {
 		}
 
 		Assert.assertFalse(impersonate);
-
-		MongoClient mongoClient = new MongoClient(
-				PropertiesReader.getHostIPAddress(),
-				PropertiesReader.getMongoDBConnectionPort());
-
-		DB db = mongoClient.getDB(PropertiesReader.getDBName());
-		DBCollection table = db.getCollection(PropertiesReader
-				.getServicesTableName());
-
-		BasicDBObject query = new BasicDBObject();
-		query.put(PropertiesReader.getImpersonateFieldName(), true);
-
-		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
-
-		BasicDBObject updateObj = new BasicDBObject();
-		updateObj.put("$set", newDocument);
-
-		table.update(query, updateObj);
 	}
 
 	@Then("^the Authentication Type is changed to \"([^\"]*)\"$")
@@ -99,15 +61,6 @@ public class ImpersonationThenSteps {
 
 		Assert.assertEquals(actualAuthenticationType,
 				expectedAuthenticationType);
-
-		if (actualAuthenticationType.equals(PropertiesReader
-				.getRFIDAuthenticationType())) {
-			Settings settings = new Settings(
-					PropertiesReader.getCredentialsAuthenticationType(), 5,
-					"blue");
-			SettingsAPIManager.putRequest(PropertiesReader.getServiceURL()
-					+ "/settings", settings);
-		}
 	}
 
 	@Then("^the Impersonation Options displayed in the Credentials Page$")
@@ -122,24 +75,6 @@ public class ImpersonationThenSteps {
 		}
 
 		Assert.assertTrue(impersonationOptionsArePresent);
-
-		MongoClient mongoClient = new MongoClient(
-				PropertiesReader.getHostIPAddress(),
-				PropertiesReader.getMongoDBConnectionPort());
-
-		DB db = mongoClient.getDB(PropertiesReader.getDBName());
-		DBCollection table = db.getCollection(PropertiesReader.getServiceURL());
-
-		BasicDBObject query = new BasicDBObject();
-		query.put(PropertiesReader.getImpersonateFieldName(), true);
-
-		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
-
-		BasicDBObject updateObj = new BasicDBObject();
-		updateObj.put("$set", newDocument);
-
-		table.update(query, updateObj);
 	}
 
 	@Then("^Impersonation Option is disabled$")
