@@ -66,6 +66,7 @@ public class ImpersonationWhenSteps {
 				.clickOnScheduleButton();
 		
 		CredentialsPage credentials = scheduler
+				.displayAllDayOnTimeline()
 				.clickOnMeetingButton(subject)
 				.clickRemoveButton();
 		
@@ -123,6 +124,7 @@ public class ImpersonationWhenSteps {
         			.clickOnScheduleButton();
         	
         	scheduler
+        		.displayAllDayOnTimeline()
         		.clickOnMeetingButton(subject)
         		.clickRemoveButton();
     	}
@@ -174,6 +176,7 @@ public class ImpersonationWhenSteps {
         			.clickOnScheduleButton();
         	
         	scheduler
+        		.displayAllDayOnTimeline()
         		.clickOnMeetingButton(subject)
         		.clickRemoveButton();
     	}

@@ -123,7 +123,9 @@ public class SchedulerPage {
     }
 
     public SchedulerPage clickOnMeetingButton(String subject) {
-	getMeetingButton(subject).click();
+	Actions action = new Actions(BrowserManager.getDriver());
+	action.click(getMeetingButton(subject));
+	action.perform();
 	(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions.visibilityOf(updateButton));
 	LogManager.info("Meeting Button " + subject + " has been clicked");
