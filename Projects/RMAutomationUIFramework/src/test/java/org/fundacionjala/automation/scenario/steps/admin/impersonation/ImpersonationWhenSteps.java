@@ -32,6 +32,9 @@ public class ImpersonationWhenSteps {
 					.clickOnSaveButton()
 					.waitForImpersonationMessage()
 					.getImpersonationMessage();
+			
+			impersonation
+				.waitForImpersonationMessageDisappear();
 		}
 	}
 
@@ -53,6 +56,9 @@ public class ImpersonationWhenSteps {
 					.clickOnSaveButton()
 					.waitForImpersonationMessage()
 					.getImpersonationMessage();
+			
+			impersonation
+				.waitForImpersonationMessageDisappear();
 		}
 	}
 
@@ -115,8 +121,7 @@ public class ImpersonationWhenSteps {
 						.clickOnIssuesButton()
 						.clickOnEmailServerButton();
 
-		boolean isEmailServerPresent = emailServer
-						.isEmailServerPresent();
+		boolean isEmailServerPresent = emailServer.isEmailServerPresent();
 
 		Assert.assertFalse(isEmailServerPresent);
 	}
