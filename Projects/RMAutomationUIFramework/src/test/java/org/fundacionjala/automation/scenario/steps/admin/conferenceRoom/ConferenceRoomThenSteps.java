@@ -23,10 +23,11 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 
 public class ConferenceRoomThenSteps {
-    String roomName;
+    String roomNameModified;
     @Then("^I validate if the room \"([^\"]*)\" is enabled in tablet page$")
     public void validateRoomEnabled(String roomName)
 	    throws Throwable {
+	roomNameModified = roomName;
 	ConnectionPage connection = new ConnectionPage();
 	NavigationPage navigation = connection
 		.setUpServiceURL(PropertiesReader.getServiceURL())
@@ -41,8 +42,8 @@ public class ConferenceRoomThenSteps {
     }
 
     @Then("^I validate if the room \"([^\"]*)\" is disabled in tablet page$")
-    public void validateRoomDisabled(
-	    String roomName) throws Throwable {
+    public void validateRoomDisabled(String roomName) throws Throwable {
+	roomNameModified = roomName;
 	ConnectionPage connection = new ConnectionPage();
 	NavigationPage navigation = connection
 		.setUpServiceURL(PropertiesReader.getServiceURL())
@@ -239,6 +240,6 @@ public class ConferenceRoomThenSteps {
     
     @After ("@conferenceDisabled")
     public void tearDownRoomDisabled (){
-	new ConferenceRoomDataBase(roomName).setEnable(true);
+	new ConferenceRoomDataBase(roomNameModified).setEnable(true);
     }
 }
