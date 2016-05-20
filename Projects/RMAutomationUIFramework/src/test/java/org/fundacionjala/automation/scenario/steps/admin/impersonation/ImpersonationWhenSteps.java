@@ -121,8 +121,7 @@ public class ImpersonationWhenSteps {
 						.clickOnIssuesButton()
 						.clickOnEmailServerButton();
 
-		boolean isEmailServerPresent = emailServer
-						.isEmailServerPresent();
+		boolean isEmailServerPresent = emailServer.isEmailServerPresent();
 
 		Assert.assertFalse(isEmailServerPresent);
 	}
