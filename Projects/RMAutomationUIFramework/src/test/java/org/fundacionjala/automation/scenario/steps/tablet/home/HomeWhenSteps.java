@@ -59,7 +59,5 @@ public class HomeWhenSteps {
 		.setUserName(organizer)
 		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOkButton();
-	System.out.println(">>>>>>>>>"+RMGenerator.getTime(1));
-	System.out.println(">>>>>>>>>"+RMGenerator.getTime(2));
     }
 }
