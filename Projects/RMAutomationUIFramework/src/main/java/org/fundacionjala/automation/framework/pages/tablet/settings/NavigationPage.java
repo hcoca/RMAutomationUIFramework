@@ -34,7 +34,11 @@ public class NavigationPage extends SettingsPage {
 	(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions
 			.elementToBeClickable(defaultRoomToggleButton));
-	defaultRoomToggleButton.click();
+	int i = 0;
+	do {
+	    defaultRoomToggleButton.click();
+	    i++;
+	} while (!ExplicitWait.waitForElement(NavigationMap.ROOMS_LIST, 10) && i <= 3);
 
 	LogManager.info("Room Toggle Button has been clicked");
 
