@@ -32,6 +32,9 @@ public class ImpersonationWhenSteps {
 					.clickOnSaveButton()
 					.waitForImpersonationMessage()
 					.getImpersonationMessage();
+			
+			impersonation
+				.waitForImpersonationMessageDisappear();
 		}
 	}
 
@@ -53,6 +56,9 @@ public class ImpersonationWhenSteps {
 					.clickOnSaveButton()
 					.waitForImpersonationMessage()
 					.getImpersonationMessage();
+			
+			impersonation
+				.waitForImpersonationMessageDisappear();
 		}
 	}
 
