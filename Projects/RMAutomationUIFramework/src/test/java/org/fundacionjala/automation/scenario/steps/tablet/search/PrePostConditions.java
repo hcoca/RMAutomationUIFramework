@@ -16,15 +16,6 @@ public class PrePostConditions {
 	
 	DatabaseConnection connection = new DatabaseConnection();
 	
-	@Before("@search")
-	public void tearDownMeetings() {
-		
-		connection.switchCollection("meetings");
-		DBCollection myCollection = connection.getCollection();
-    	myCollection.drop();
-
-	}
-	
 	@Before("@searchfeature4")
 	public void createLocation() {
 		
