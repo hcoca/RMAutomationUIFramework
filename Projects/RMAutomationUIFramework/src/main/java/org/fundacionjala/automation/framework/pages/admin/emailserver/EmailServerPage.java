@@ -70,16 +70,14 @@ public class EmailServerPage extends AdminPage {
      * @return new "DeleteEmailServerPage" instance
      */
     public DeleteEmailServerPage clickOnRemoveButton() {
-	
-	(new WebDriverWait(BrowserManager.getDriver(), 30))
-		.until(ExpectedConditions.elementToBeClickable(removeButton));
-	removeButton.click();
+
+	ExplicitWait.clickWhenReady(By.xpath(EmailServerMap.REMOVE_BUTTON), 30);
 
 	LogManager.info("Remove Email Server Button has been clicked");
 
 	return new DeleteEmailServerPage();
     }
-    
+
     /**
      * Click on Email Server item button
      * @return this "EmailServerPage" instance
@@ -245,6 +243,25 @@ public class EmailServerPage extends AdminPage {
 	       return false;	
 	    }
 	    		
+    }
+    /**
+     * Find if Email server doesn't exist in the Email Server Page
+     * @return boolean True - Email Server exist. 
+     *                 False - There is no Email Server
+     */
+    public boolean isRemoveButtonPresent() {
+
+	WebElement addButton = ExplicitWait.getWhenVisible(
+		By.xpath(EmailServerMap.REMOVE_BUTTON), 15, false);
+	if (addButton != null) {
+	    LogManager.info("Remove Button has been found");
+	    return true;
+	} else {
+	    LogManager.info("Remove Button has not been found");
+
+	    return false;
+	}
+
     }
     
     /**
