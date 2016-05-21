@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.scenario.steps.tablet.createMeeting;
 
+import org.fundacionjala.automation.framework.pages.tablet.scheduler.CredentialsPage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
@@ -48,5 +49,14 @@ public class CreateMeetingThenSteps {
         Assert.assertTrue(
         	scheduler
         	.verifyErrorMessageOfSubject());
+    }
+    
+    @Then("^validate that an error message is displayed with invalid credentials$")
+    public void validate_that_an_error_message_is_displayed_with_invalid_credentials() throws Throwable {
+	CredentialsPage credential = new CredentialsPage();
+        Assert.assertTrue(
+        	credential
+        	.verifyErrorMessageOfCredentialsIsDisplayed());
+        credential.clickCancelButton();
     }
 }

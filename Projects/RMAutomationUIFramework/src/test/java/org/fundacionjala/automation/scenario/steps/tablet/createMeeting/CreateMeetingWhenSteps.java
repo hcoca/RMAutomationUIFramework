@@ -87,5 +87,21 @@ public class CreateMeetingWhenSteps {
 	scheduler.setOrganizer(PropertiesReader.getExchangeOrganizerUser())
 		.clickOnCreateButton();
     }
+    
+    @When("^I want to create a meeting as \"([^\"]*)\" and this password \"([^\"]*)\"$")
+    public void createMeetingWithInvalidCredentials(String organizer, String password) throws Throwable {
+	HomePage home = new HomePage();
+	home.clickOnScheduleButton();
+
+	SchedulerPage scheduler = new SchedulerPage();
+	scheduler
+		.setOrganizer(organizer)
+		.setSubject(password)
+		.clickOnCreateButton()
+		.setUserName(organizer)
+		.setPassword(password)
+		.clickOnOkButton();
+    }
+
 
 }

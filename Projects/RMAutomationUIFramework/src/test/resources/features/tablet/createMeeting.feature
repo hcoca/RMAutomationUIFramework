@@ -27,3 +27,15 @@ Scenario: An error message is displayed when a meeting is created without subjec
 Given I am on Home Page of "Room031" room
 When I want to create a meeting without subject
 Then validate that an error message is displayed for subject
+
+#Scenario05
+Scenario: An error message is displayed when a meeting is created with invalid password
+Given I am on Home Page of "Room033" room
+When I want to create a meeting as "RoomManager2" and this password "incorrect"
+Then validate that an error message is displayed with invalid credentials
+
+#Scenario06
+Scenario: An error message is displayed when a meeting is created with invalid username
+Given I am on Home Page of "Room033" room
+When I want to create a meeting as "incorrectUser" and this password "Control*123"
+Then validate that an error message is displayed with invalid credentials
