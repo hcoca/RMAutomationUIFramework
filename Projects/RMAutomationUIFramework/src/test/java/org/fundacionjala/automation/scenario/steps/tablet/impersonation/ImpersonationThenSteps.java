@@ -41,6 +41,7 @@ public class ImpersonationThenSteps {
         	Assert.assertTrue(scheduler.isAttendeePresent(PropertiesReader.getExchangeInviteMail()));
         	
         	CredentialsPage credentials = scheduler
+        		.displayAllDayOnTimeline()
         		.clickOnMeetingButton(subject)
         		.clickRemoveButton();
         
@@ -141,6 +142,7 @@ public class ImpersonationThenSteps {
     	    	SchedulerPage scheduler = new SchedulerPage();
     	    	
     	    	CredentialsPage credentials = scheduler
+    	    			.displayAllDayOnTimeline()
 				.clickOnMeetingButton(subject)
 				.clickOnRemoveButton();
 	    
@@ -159,6 +161,7 @@ public class ImpersonationThenSteps {
     	    	SchedulerPage scheduler = new SchedulerPage();
     	    
     	    	CredentialsPage credentials = scheduler
+    	    					.displayAllDayOnTimeline()
     	    					.clickOnMeetingButton(subject)
     	    					.clickOnRemoveButton();
 	    
