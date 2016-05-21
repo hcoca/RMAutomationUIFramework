@@ -2,6 +2,7 @@ package org.fundacionjala.automation.framework.utils.common;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.awt.event.InputEvent;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -112,11 +113,11 @@ public class UIActions {
      * @throws AWTException
      */
     public static void scrollTimeline(WebElement timelineCenter, int size) throws AWTException {
-	Actions actions = new Actions(BrowserManager.getDriver());
-	actions.moveToElement(timelineCenter);
 	Robot robot = new Robot();
-	robot.mouseMove(timelineCenter.getLocation().x,
-	timelineCenter.getLocation().y);
+	robot.mouseMove(timelineCenter.getLocation().x + 50,
+	timelineCenter.getLocation().y + 50);
+	robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+	robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 	robot.mouseWheel(size);
     }
 }
