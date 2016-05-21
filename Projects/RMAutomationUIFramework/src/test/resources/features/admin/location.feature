@@ -2,6 +2,7 @@
 Feature: Location Page
 
 
+
 @location1 
 Scenario: All locations are displayed on Locations page when it is opened
 Given I have a location added with name: "Cochabamba_1", display name "Cbba-Location_1" and description "This is Cochabamba Location"
@@ -21,13 +22,6 @@ Given I have a location added with name: "Cochabamba_3", display name "Cbba-Loca
 	And I am logged as "Administrator" with password "Control*123"
 When I update location "Cbba-Location_3" with name: "Cochabamba_3NameUpdated", display name "Cbba-Location_3" and description "This is Cochabamba Location"
 Then The location "Cochabamba_3NameUpdated" is displayed on location page
-    
-@location4   
-Scenario: A location’s display  name changes are displayed on Locations page when it is updated
-Given I have a location added with name: "Cochabamba_4", display name "Cbba-Location_4" and description "This is Cochabamba Location"
-	And I am logged as "Administrator" with password "Control*123"
-When I update location "Cbba-Location_4" with name: "Cochabamba_4", display name "Cbba-Location_4-Updated" and description "This is Cochabamba Location"
-Then The location display name "Cbba-Location_4-Updated" is displayed on location page
 
 @location5
 Scenario: A location’s description changes are displayed on Update Location page when it is updated
@@ -85,5 +79,11 @@ Given I have a location added with name: "Cochabamba_12", display name "Cbba-Loc
 	And I am logged as "Administrator" with password "Control*123"
 When I associate the location "Cbba-Location_12" with a room "Room004"
 Then The number of associations on Location page has been increased by "Cochabamba_12" location association
-
+    
+@location4   
+Scenario: A location’s display  name changes are displayed on Locations page when it is updated
+Given I have a location added with name: "Cochabamba_4", display name "Cbba-Location_4" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I update location "Cbba-Location_4" with name: "Cochabamba_4", display name "Cbba-Location_4-Updated" and description "This is Cochabamba Location"
+Then The location display name "Cbba-Location_4-Updated" is displayed on location page
  

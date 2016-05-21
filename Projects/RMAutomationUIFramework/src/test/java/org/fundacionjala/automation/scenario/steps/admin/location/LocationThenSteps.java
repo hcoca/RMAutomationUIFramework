@@ -8,6 +8,7 @@ import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage
 import org.fundacionjala.automation.framework.pages.admin.locations.UpdateLocationPage;
 import org.fundacionjala.automation.framework.utils.api.managers.LocationAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Location;
+import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.DatabaseConnection;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
@@ -171,6 +172,7 @@ public class LocationThenSteps {
     public void verifyAssociationNumber(String name) throws Throwable {
     	
 	LocationPage locationPage = new LocationPage();
+	BrowserManager.getDriver().navigate().refresh();
 	locationPage.leftMenu.clickOnConferenceRoomsButton();
 	
 	locationPage
