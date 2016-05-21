@@ -10,14 +10,8 @@ import org.fundacionjala.automation.framework.pages.tablet.scheduler.Credentials
 import org.fundacionjala.automation.framework.utils.api.managers.ServiceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.managers.SettingsAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Service;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.Settings;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
-
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.MongoClient;
 
 import cucumber.api.java.en.Then;
 

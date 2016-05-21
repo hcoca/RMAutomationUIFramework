@@ -1,5 +1,8 @@
 package org.fundacionjala.automation.scenario.steps.tablet.impersonation;
 
+import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.impersonation.ImpersonationPage;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.CredentialsPage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
@@ -42,4 +45,35 @@ public class ImpersonationGivenSteps {
 				.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 				.clickOkButton();
 	}
+    	
+    	@Given("^impersonation is enabled by UI$")
+   	public void enableImpersonationUI() throws Throwable {
+            	BrowserManager.openBrowser();
+        	LoginPage loginPage = new LoginPage();
+        	
+        	AdminPage admin = loginPage
+        		.setUserName(PropertiesReader.getUserName())
+        		.setPassword(PropertiesReader.getPassword())
+        		.clickOnSigInButton();
+        	
+        	String message = "Impersonation is now disabled.";
+
+		ImpersonationPage impersonation = admin
+						.leftMenu
+						.clickOnIssuesButton()
+						.clickOnImpersonationButton();
+		
+		while(message.equals("Impersonation is now disabled.")) {
+			
+			message = impersonation	
+					.clickOnUseImpersonationCheckBox()
+					.clickOnUserAndPasswordRadioButton()
+					.clickOnSaveButton()
+					.waitForImpersonationMessage()
+					.getImpersonationMessage();
+			
+			impersonation
+				.waitForImpersonationMessageDisappear();
+		}
+    	}
 }

@@ -1,9 +1,13 @@
 package org.fundacionjala.automation.scenario.steps.tablet.impersonation;
 
+import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.impersonation.ImpersonationPage;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.CredentialsPage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.utils.api.managers.SettingsAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Settings;
+import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
 
@@ -226,9 +230,39 @@ public class ImpersonationThenSteps {
         		.clickOkButton();
     	}
     	
-    	@After("@IMP-DisableImpersonation")
-    	public void disableImpersonation() throws Throwable {
-    	    	System.out.println("PostCondition");
+    	@After("@IMP-DisableImpersonationUI")
+    	public void disableImpersonationUI() throws Throwable {
+            	BrowserManager.openBrowser();
+        	LoginPage loginPage = new LoginPage();
+        	
+        	AdminPage admin = loginPage
+        		.setUserName(PropertiesReader.getUserName())
+        		.setPassword(PropertiesReader.getPassword())
+        		.clickOnSigInButton();
+
+        	String message = "Impersonation is now enabled.";
+        
+        	ImpersonationPage impersonation = admin
+        					.leftMenu
+        					.clickOnIssuesButton()
+        					.clickOnImpersonationButton();
+        	
+        	while(message.equals("Impersonation is now enabled.")) {
+        		
+        		message = impersonation	
+        				.clickOnUseImpersonationCheckBox()
+        				.clickOnUserAndPasswordRadioButton()
+        				.clickOnSaveButton()
+        				.waitForImpersonationMessage()
+        				.getImpersonationMessage();
+        		
+        		impersonation
+        			.waitForImpersonationMessageDisappear();
+        	}
+    	}
+    	
+    	@After("@IMP-DisableImpersonationDB")
+    	public void disableImpersonationDB() throws Throwable {
         	MongoClient mongoClient = new MongoClient(
         	PropertiesReader.getHostIPAddress(),
         	PropertiesReader.getMongoDBConnectionPort());

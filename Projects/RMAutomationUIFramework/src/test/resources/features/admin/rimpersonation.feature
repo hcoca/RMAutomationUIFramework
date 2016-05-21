@@ -1,13 +1,13 @@
 Feature: Impersonation
 
-@IMP-DisableImpersonation
+@IMP-DisableImpersonationDB
 Scenario: Enable Impersonation
 Given impersonation is disabled
 And I am logged as "Administrator" with password "Control*123"
 When I enable Impersonation
 Then the Impersonation Option is enabled
 
-@IMP-DisableImpersonation
+@IMP-DisableImpersonationDB
 Scenario: Disable Impersonation
 Given impersonation is enabled
 And I am logged as "Administrator" with password "Control*123"
@@ -28,7 +28,7 @@ And I am logged as "Administrator" with password "Control*123"
 When I change Authentication to RFID
 Then the Authentication Type is changed to "rfid"
 
-@IMP-DisableImpersonation
+@IMP-DisableImpersonationDB
 Scenario: Impersonation Options are displayed in the Credentials Page
 Given impersonation is disabled
 And I am logged as "Administrator" with password "Control*123"
