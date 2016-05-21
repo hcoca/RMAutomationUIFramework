@@ -52,6 +52,8 @@ public class SchedulerPage {
     WebElement timelineCenter;
     @FindBy(xpath = SchedulerMap.TIME_TIMELINE)
     List<WebElement> timeList;
+    @FindBy(xpath = SchedulerMap.SUBJECT_ERROR_MESSAGE)
+    WebElement subjectErrorMessage;
 
     public SchedulerPage() {
 	this.topMenu = new TopMenu();
@@ -283,13 +285,8 @@ public class SchedulerPage {
      * @throws AWTException
      */
     public SchedulerPage displayAllDayOnTimeline() throws AWTException {
-	WebElement html = BrowserManager.getDriver()
-		.findElement(By.tagName("html"));
 	ExplicitWait.waitForElement(SchedulerMap.TIME_LINE, 30);
-	while(!verifyIfTimelineDisplayAllDay()){
-	    	UIActions.scrollTimeline(timelineCenter, 5000);
-	    	html.sendKeys(Keys.chord(Keys.CONTROL, Keys.SUBTRACT));   
-	}
+	UIActions.scrollTimeline(timelineCenter, 5000);  
 	return this;	
     }
 
@@ -314,6 +311,12 @@ public class SchedulerPage {
      * @return true if time line displays all day else false
      */
     public boolean verifyIfTimelineDisplayAllDay() {
-	return timeList.size() == 24 ? true : false;
+	return (timeList.size() == 24 || timeList.size() == 6)
+		? true : false;
+    }
+
+    public boolean verifyErrorMessageOfSubject() {
+	return ExplicitWait.waitForElement(SchedulerMap.SUBJECT_ERROR_MESSAGE, 30)
+	? true : false;
     }
 }

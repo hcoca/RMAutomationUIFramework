@@ -18,5 +18,5 @@ public class SchedulerMap {
 	public static final String ROOM_NAME_TITLE = "//span[text()='roomName']";
 	public static final String CENTRAL_TIMELINE = "//div[@class='vis-time-axis vis-foreground']/div[text()='12:00']";
 	public static final String TIME_TIMELINE = "//div[@class='vis-time-axis vis-foreground']/div[contains(text(), '00')]";
-	
+	public static final String SUBJECT_ERROR_MESSAGE = "//form//small[text()='Subject is required']";
 }

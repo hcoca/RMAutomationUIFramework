@@ -57,10 +57,15 @@ public class ResourceWhenSteps {
     @When("^I search the resource \"([^\"]*)\" in resources page$")
     public void i_search_the_resource_in_resources_page(String resourceName)
 	    throws Throwable {
-	AdminPage home = new AdminPage();
+    	
+    	AdminPage home = new AdminPage();
+    	
+    	home
+		.leftMenu
+		.clickOnConferenceRoomsButton();
+		
 		home
 		.leftMenu
-		.clickOnIssuesButton()
 		.clickOnResourcesButton()
 		.setResourceFilter(resourceName);
     }
