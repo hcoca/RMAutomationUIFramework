@@ -12,8 +12,8 @@ import cucumber.api.java.en.When;
 
 public class ImpersonationWhenSteps {
 
-    	@When("^I schedule a new meeting with \"([^\"]*)\" subject using Impersonation$")
-   	public void createMeetingUsingImpersonation(String subject) throws Throwable {
+    	@When("^I schedule a new meeting with \"([^\"]*)\" subject using Impersonation in the Room \"([^\"]*)\"$")
+   	public void createMeetingUsingImpersonation(String subject, String roomName) throws Throwable {
         	BrowserManager.openBrowser();
         	ConnectionPage connection = new ConnectionPage();
 
@@ -24,7 +24,7 @@ public class ImpersonationWhenSteps {
 
    		HomePage home = navigation
    				.clickOnRoomToggleButton()
-   				.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+   				.selectConferenceRoom(roomName)
    				.clickOnSaveButton()
    				.topMenu
    				.clickOnHomeButton();
@@ -45,8 +45,8 @@ public class ImpersonationWhenSteps {
    				.clickOkButton();
    	}
     
-    	@When("^I cancel a meeting with \"([^\"]*)\" subject using Impersonation$")
-    	public void cancelMeetingUsingImpersonation(String subject) throws Throwable {	
+    	@When("^I cancel a meeting with \"([^\"]*)\" subject using Impersonation in the Room \"([^\"]*)\"$")
+    	public void cancelMeetingUsingImpersonation(String subject, String roomName) throws Throwable {	
 		BrowserManager.openBrowser();
 		ConnectionPage connection = new ConnectionPage();
 
@@ -57,7 +57,7 @@ public class ImpersonationWhenSteps {
 
 		HomePage home = navigation
 				.clickOnRoomToggleButton()
-				.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+				.selectConferenceRoom(roomName)
 				.clickOnSaveButton()
 				.topMenu
 				.clickOnHomeButton();
@@ -66,7 +66,6 @@ public class ImpersonationWhenSteps {
 				.clickOnScheduleButton();
 		
 		CredentialsPage credentials = scheduler
-				.displayAllDayOnTimeline()
 				.clickOnMeetingButton(subject)
 				.clickRemoveButton();
 		
@@ -77,8 +76,8 @@ public class ImpersonationWhenSteps {
 			.clickOkButton();
     	}
     	
-    	@When("^I try to create a new meeting with \"([^\"]*)\" subject using Impersonation$")
-    	public void tryToCreateMeetingUsingImpersonation(String subject) throws Throwable {
+    	@When("^I try to create a new meeting with \"([^\"]*)\" subject using Impersonation in the Room \"([^\"]*)\"$")
+    	public void tryToCreateMeetingUsingImpersonation(String subject, String roomName) throws Throwable {
     	    	BrowserManager.openBrowser();
         	ConnectionPage connection = new ConnectionPage();
     
@@ -89,7 +88,7 @@ public class ImpersonationWhenSteps {
     
         	HomePage home = navigation
     				.clickOnRoomToggleButton()
-    				.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+    				.selectConferenceRoom(roomName)
     				.clickOnSaveButton()
     				.topMenu
     				.clickOnHomeButton();
@@ -103,8 +102,8 @@ public class ImpersonationWhenSteps {
         		.clickOnCreateButton();
     	}
     	
-    	@When("^I try to cancel a meeting with \"([^\"]*)\" subject using Impersonation$")
-    	public void tryToCancelMeetingUsingImpersonation(String subject) throws Throwable {
+    	@When("^I try to cancel a meeting with \"([^\"]*)\" subject using Impersonation in the Room \"([^\"]*)\"$")
+    	public void tryToCancelMeetingUsingImpersonation(String subject, String roomName) throws Throwable {
             	BrowserManager.openBrowser();
         	ConnectionPage connection = new ConnectionPage();
         
@@ -115,7 +114,7 @@ public class ImpersonationWhenSteps {
         
         	HomePage home = navigation
         			.clickOnRoomToggleButton()
-        			.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+        			.selectConferenceRoom(roomName)
         			.clickOnSaveButton()
         			.topMenu
         			.clickOnHomeButton();
@@ -124,13 +123,12 @@ public class ImpersonationWhenSteps {
         			.clickOnScheduleButton();
         	
         	scheduler
-        		.displayAllDayOnTimeline()
         		.clickOnMeetingButton(subject)
         		.clickRemoveButton();
     	}
     	
-    	@When("^I try to create a new meeting with \"([^\"]*)\" subject$")
-    	public void tryToCreateMeeting(String subject) throws Throwable {
+    	@When("^I try to create a new meeting with \"([^\"]*)\" subject in the Room \"([^\"]*)\"$")
+    	public void tryToCreateMeeting(String subject, String roomName) throws Throwable {
     	    	BrowserManager.openBrowser();
         	ConnectionPage connection = new ConnectionPage();
     
@@ -141,7 +139,7 @@ public class ImpersonationWhenSteps {
     
         	HomePage home = navigation
     				.clickOnRoomToggleButton()
-    				.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+    				.selectConferenceRoom(roomName)
     				.clickOnSaveButton()
     				.topMenu
     				.clickOnHomeButton();
@@ -155,8 +153,8 @@ public class ImpersonationWhenSteps {
         		.clickOnCreateButton();
     	}
     	
-    	@When("^I try to cancel a meeting with \"([^\"]*)\" subject$")
-    	public void tryToCancelMeeting(String subject) throws Throwable {
+    	@When("^I try to cancel a meeting with \"([^\"]*)\" subject in the Room \"([^\"]*)\"$")
+    	public void tryToCancelMeeting(String subject, String roomName) throws Throwable {
             	BrowserManager.openBrowser();
         	ConnectionPage connection = new ConnectionPage();
         
@@ -167,7 +165,7 @@ public class ImpersonationWhenSteps {
         
         	HomePage home = navigation
         			.clickOnRoomToggleButton()
-        			.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+        			.selectConferenceRoom(roomName)
         			.clickOnSaveButton()
         			.topMenu
         			.clickOnHomeButton();
@@ -176,13 +174,12 @@ public class ImpersonationWhenSteps {
         			.clickOnScheduleButton();
         	
         	scheduler
-        		.displayAllDayOnTimeline()
         		.clickOnMeetingButton(subject)
         		.clickRemoveButton();
     	}
     	
-    	@When("^I schedule a new meeting with \"([^\"]*)\" subject$")
-   	public void createMeeting(String subject) throws Throwable {
+    	@When("^I schedule a new meeting with \"([^\"]*)\" subject in the Room \"([^\"]*)\"$")
+   	public void createMeeting(String subject, String roomName) throws Throwable {
         	BrowserManager.openBrowser();
         	ConnectionPage connection = new ConnectionPage();
 
@@ -193,7 +190,7 @@ public class ImpersonationWhenSteps {
 
    		HomePage home = navigation
    				.clickOnRoomToggleButton()
-   				.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+   				.selectConferenceRoom(roomName)
    				.clickOnSaveButton()
    				.topMenu
    				.clickOnHomeButton();
