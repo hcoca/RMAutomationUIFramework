@@ -41,4 +41,12 @@ public class CreateMeetingThenSteps {
         	.verifyIfTimelineDisplayAllDay());
         BrowserManager.normalResize();
     }
+    
+    @Then("^validate that an error message is displayed for subject$")
+    public void validate_that_an_error_message_is_displayed_for_subject() throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+        Assert.assertTrue(
+        	scheduler
+        	.verifyErrorMessageOfSubject());
+    }
 }

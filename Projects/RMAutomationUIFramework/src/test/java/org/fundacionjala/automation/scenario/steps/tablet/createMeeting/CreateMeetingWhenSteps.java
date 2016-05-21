@@ -77,4 +77,15 @@ public class CreateMeetingWhenSteps {
 	scheduler
         	.displayAllDayOnTimeline();
     }
+    
+    @When("^I want to create a meeting without subject$")
+    public void i_want_to_create_a_meeting_without_subject() throws Throwable {
+	HomePage home = new HomePage();
+	home.clickOnScheduleButton();
+
+	SchedulerPage scheduler = new SchedulerPage();
+	scheduler.setOrganizer(PropertiesReader.getExchangeOrganizerUser())
+		.clickOnCreateButton();
+    }
+
 }
