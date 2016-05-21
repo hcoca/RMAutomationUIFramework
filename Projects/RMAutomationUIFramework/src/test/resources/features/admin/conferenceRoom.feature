@@ -26,7 +26,7 @@ Scenario: Resource buttons created are displayed on conference room page.
 Given I am logged as "Administrator" with password "Control*123"
 When I create a new "resourceForTry" Resource
 Then I validate if the resource is in Conference Room page.
-    
+@conferenceDisabled    
 Scenario: A room is enabled when its button is clicked.
 Given I have "Room005" room disabled
 And I am logged as "Administrator" with password "Control*123"
