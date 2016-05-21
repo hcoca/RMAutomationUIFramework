@@ -61,3 +61,9 @@ Scenario: Time left until room is available is displayed on Home Page when there
 Given I am on Home Page of "Room120" room
 When I create a meeting with "Meet" subject and "RoomManager2" as organizer in the next hour
 Then The correct time left should be displayed according the next meeting "Meet" in room "Room120"
+
+Scenario: A meeting is not displayed on Home Page time line when it is deleted
+Given I have a meeting with "Meeting" subject and "RoomManager2" as organizer on "Room020" room
+	And I am on Home Page of "Room020" room
+When I remove "Meeting" meeting
+Then the meeting "Meeting" is not displayed on Home page in room "Room020"
