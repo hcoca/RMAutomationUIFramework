@@ -11,4 +11,5 @@ public class CredentialsMap {
 	public static final String CANCEL_AS_CHECKBOX = "//span[@class='checkbox-label ng-binding'][contains(text(),'Cancel as')]";
 	public static final String CANCEL_IN_BEHALF_OF_MESSAGE = "//h4[@class='ng-binding'][contains(text(),'Cancel in behalf of')]";
 	public static final String NO_FUNCTIONALITY_PROVIDED_MESSAGE = "//h3[text()='No functionality provided yet']";
+	public static final String INVALID_CREDENTIALS_ERROR = "//small[text()='Wrong username or password']";
 }

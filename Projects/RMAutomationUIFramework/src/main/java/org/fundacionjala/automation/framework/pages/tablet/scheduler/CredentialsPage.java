@@ -2,6 +2,7 @@ package org.fundacionjala.automation.framework.pages.tablet.scheduler;
 
 import org.fundacionjala.automation.framework.maps.tablet.scheduler.CredentialsMap;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -63,6 +64,18 @@ public class CredentialsPage {
 
 	LogManager.info("Ok Button has been clicked");
 
+	return new SchedulerPage();
+    }
+    
+    /**
+     * This method is to perform click on ok button for creating meeting
+     * @return SchedulerPage instance
+     */
+    public SchedulerPage clickOnOkButton() {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.elementToBeClickable(okButton));
+	okButton.click();
+	LogManager.info("Ok Button has been clicked");
 	return new SchedulerPage();
     }
     
@@ -195,5 +208,14 @@ public class CredentialsPage {
 	    LogManager.info("Password Text Field has not been found");
 	    return false;
 	}
+    }
+
+    /**
+     * this method is to verify if an error message is displayed.
+     * @return true if message is displayed else false
+     */
+    public boolean verifyErrorMessageOfCredentialsIsDisplayed() {
+	return ExplicitWait.waitForElement(CredentialsMap.INVALID_CREDENTIALS_ERROR, 30)
+		? true : false;
     }
 }
