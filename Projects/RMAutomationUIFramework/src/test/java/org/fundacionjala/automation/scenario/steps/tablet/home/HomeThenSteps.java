@@ -145,6 +145,24 @@ public class HomeThenSteps {
 	Assert.assertTrue(actualResult,
 		"The Time Left displayed is not according the next Meeting");
     }
+    
+    @Then("^the meeting \"([^\"]*)\" is not displayed on Home page in room \"([^\"]*)\"$")
+    public void meetingNotInTimeLine(String subject, String roomName) throws Throwable {
+	SchedulerPage schedulerPage = new SchedulerPage();
+	HomePage homePage = new HomePage();
+
+	schedulerPage.topMenu.clickOnHomeButton();
+
+	boolean actualResult = homePage.verifyMeetingInTimeLine(subject);
+
+	Meeting meetingToDelete = MeetingAPIManager.getMeetingBySubject(
+		roomName, subject);
+	if (meetingToDelete != null) {
+	    MeetingAPIManager.deleteRequest(roomName, meetingToDelete);
+	}
+	
+	Assert.assertTrue(actualResult);
+    }
 
     public void deleteMeetingByUI(String subject) throws AWTException {
 	HomePage homePage = new HomePage();
