@@ -1,9 +1,9 @@
 Feature: Tablet Home Page
 
 Scenario: All meetings are displayed on Home Page time line when it is opened
-Given I have a meeting with "Meet1" subject and "RoomManager2" as organizer on "Room110" room
-When I am on Home Page of "Room110" room
-Then All meetings of "Room110" room are displayed on home time line even "Meet1" meeting
+Given I have a meeting with "Meet1" subject and "RoomManager2" as organizer on "Room121" room
+When I am on Home Page of "Room121" room
+Then All meetings of "Room121" room are displayed on home time line even "Meet1" meeting
 
 Scenario: Current meeting subject  is displayed on Home Page when it is created
 Given I am on Home Page of "Room111" room
@@ -63,7 +63,7 @@ When I create a meeting with "Meet" subject and "RoomManager2" as organizer in t
 Then The correct time left should be displayed according the next meeting "Meet" in room "Room120"
 
 Scenario: A meeting is not displayed on Home Page time line when it is deleted
-Given I have a meeting with "Meeting" subject and "RoomManager2" as organizer on "Room020" room
-	And I am on Home Page of "Room020" room
-When I remove "Meeting" meeting
-Then the meeting "Meeting" is not displayed on Home page in room "Room020"
+Given I have a meeting with "Meet9" subject and "RoomManager2" as organizer on "Room122" room
+	And I am on Home Page of "Room122" room
+When I remove "Meet9" meeting
+Then the meeting "Meet9" is not displayed on Home page in room "Room122"

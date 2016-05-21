@@ -24,7 +24,7 @@ public class HomeThenSteps {
     @Then("^All meetings of \"([^\"]*)\" room are displayed on home time line even \"([^\"]*)\" meeting$")
     public void verifyTimeLineMeetings(String roomName, String subject)
 	    throws Throwable {
-	HomePage homePage = new HomePage();
+	HomePage homePage = new HomePage().displayAllDayOnTimeline();
 
 	MongoClient mongoClient = new MongoClient(
 		PropertiesReader.getHostIPAddress(),
@@ -151,10 +151,10 @@ public class HomeThenSteps {
 	SchedulerPage schedulerPage = new SchedulerPage();
 	HomePage homePage = new HomePage();
 
-	schedulerPage.topMenu.clickOnHomeButton();
-
+	schedulerPage.topMenu.clickOnHomeButton().displayAllDayOnTimeline();
+	
 	boolean actualResult = homePage.verifyMeetingInTimeLine(subject);
-
+	
 	Meeting meetingToDelete = MeetingAPIManager.getMeetingBySubject(
 		roomName, subject);
 	if (meetingToDelete != null) {

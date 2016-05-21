@@ -1,5 +1,8 @@
 package org.fundacionjala.automation.framework.pages.tablet.home;
 
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
@@ -10,6 +13,7 @@ import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -52,6 +56,20 @@ public class HomePage {
 	LogManager.info("Schedule Button has been clicked");
 
 	return new SchedulerPage();
+    }
+    
+    /**
+     * this method expand the time line in order to display all day on time line 
+     * @return SchedulerPage instance
+     * @throws AWTException
+     */
+    public HomePage displayAllDayOnTimeline() throws AWTException {
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	double y = screenSize.getHeight();
+	ExplicitWait.waitForElement(HomeMap.HOME_TIME_LINE, 30);
+	UIActions
+	.scrollTimelineWithCoordinates(200,y-100, 5000);  
+	return this;	
     }
 
     public SettingsPage clickOnSettinsButton() {
