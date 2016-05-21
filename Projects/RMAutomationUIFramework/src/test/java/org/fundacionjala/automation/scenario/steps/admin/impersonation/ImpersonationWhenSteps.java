@@ -88,8 +88,8 @@ public class ImpersonationWhenSteps {
 		  .waitForImpersonationMessageDisappear();
 	}
 
-	@When("^I create a new meeting with subject \"([^\"]*)\"$")
-	public void createMeetingWithSubject(String subject) throws Throwable {
+	@When("^I create a new meeting with subject \"([^\"]*)\" in the Room \"([^\"]*)\"$")
+	public void createMeetingWithSubject(String subject, String roomName) throws Throwable {
 		ConnectionPage connection = new ConnectionPage();
 
 		NavigationPage navigation = connection
@@ -99,7 +99,7 @@ public class ImpersonationWhenSteps {
 
 		HomePage home = navigation
 				.clickOnRoomToggleButton()
-				.selectConferenceRoom(PropertiesReader.getConferenceRoom())
+				.selectConferenceRoom(roomName)
 				.clickOnSaveButton()
 				.topMenu
 				.clickOnHomeButton();
