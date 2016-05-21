@@ -63,7 +63,7 @@ When I create a meeting with "Meet" subject and "RoomManager2" as organizer in t
 Then The correct time left should be displayed according the next meeting "Meet" in room "Room120"
 
 Scenario: A meeting is not displayed on Home Page time line when it is deleted
-Given I have a meeting with "Meeting" subject and "RoomManager2" as organizer on "Room122" room
+Given I have a meeting with "Meet9" subject and "RoomManager2" as organizer on "Room122" room
 	And I am on Home Page of "Room122" room
 When I remove "Meet9" meeting
 Then the meeting "Meet9" is not displayed on Home page in room "Room122"
