@@ -120,4 +120,22 @@ public class UIActions {
 	robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 	robot.mouseWheel(size);
     }
+    
+    /**
+     * This method is to expand and minimize time line.
+     * first of all this click in the corner, after it
+     *  goes over time line then this expand or minimize
+     * @param timelineCenter WebElement time line
+     * @param size positive number to minimize and negative to maximize
+     * @throws AWTException
+     */
+    public static void scrollTimelineWithCoordinates
+    (double x, double y, int size) throws AWTException {
+	Robot robot = new Robot();
+	robot.mouseMove(0,0);
+	robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+	robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+	robot.mouseMove((int)x, (int)y);
+	robot.mouseWheel(size);
+    }
 }
