@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
-import org.fundacionjala.automation.framework.maps.admin.impersonation.ImpersonationMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;

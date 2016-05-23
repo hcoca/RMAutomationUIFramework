@@ -3,12 +3,9 @@ package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.OutOfOrderMap;
-import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomInfoMap;
 import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.OutOfOrderPage;
-import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
-import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
 import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
@@ -161,7 +158,6 @@ public class ConferenceRoomThenSteps {
     @Then("^The \"([^\"]*)\" room should changes its status to non-available with the \"([^\"]*)\" title corresponding$")
     public void validateRoomChangesStatusNonAvailable(String roomName,
 	    String titleOutOfOrder) throws Throwable {
-	AdminPage home = new AdminPage();
 	boolean verification = false;
 
 	WebElement title = BrowserManager.getDriver().findElement(
