@@ -1,6 +1,5 @@
 package org.fundacionjala.automation.scenario.steps.tablet.editMeeting;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
@@ -35,7 +34,7 @@ public class EditMeetingGivenSteps {
 	@Given("^I had a created meeting in the \"([^\"]*)\" room, with \"([^\"]*)\" subject and attendees:$")
 	public void i_had_a_created_meeting_in_the_room_with_subject_and_attendees(
 			String roomName, String subject, List<String> attendees)
-		throws Throwable {
+			throws Throwable {
 		String startDate = RMGenerator.getIsoTime(0);
 		String endDate = RMGenerator.getIsoTime(1);
 		String roomEmail = roomName + "@"
@@ -60,9 +59,7 @@ public class EditMeetingGivenSteps {
 				.clickOnSaveButton().clickOnNavigationButton();
 
 		home = navigation.clickOnRoomToggleButton()
-				.selectConferenceRoom(roomName)
-				.clickOnSaveButton()
-				.topMenu
+				.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
 				.clickOnHomeButton();
 
 		home.clickOnScheduleButton();
@@ -78,9 +75,7 @@ public class EditMeetingGivenSteps {
 			String EndTime) throws Throwable {
 
 		SchedulerPage scheduler = new SchedulerPage();
-		scheduler
-			.setStartTime(startTime)
-			.setEndTime(EndTime);
+		scheduler.setStartTime(startTime).setEndTime(EndTime);
 
 	}
 
@@ -97,18 +92,11 @@ public class EditMeetingGivenSteps {
 	public void body(String body) throws Throwable {
 
 		SchedulerPage scheduler = new SchedulerPage();
-		CredentialsPage credentials  = 
-			scheduler.setBody(body).clickOnCreateButton();
-		credentials
-		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
-		.clickOkButton();
+		CredentialsPage credentials = scheduler.setBody(body)
+				.clickOnCreateButton();
+		credentials.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+				.clickOkButton();
 
 	}
-
-	
-
-
-
-
 
 }
