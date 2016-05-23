@@ -17,6 +17,8 @@ public class SchedulerMap {
 	public static final String ATTENDEE_NAME = "li/span";
 	public static final String ROOM_NAME_TITLE = "//span[text()='roomName']";
 	public static final String CENTRAL_TIMELINE = "//div[@class='vis-time-axis vis-foreground']/div[text()='12:00']";
-	public static final String TIME_TIMELINE = "//div[@class='vis-time-axis vis-foreground']/div[contains(text(), '00')]";
+	public static final String TIME_TIMELINE = "//div[@class='vis-time-axis vis-foreground']/div[contains(text(), ':')]";
 	public static final String SUBJECT_ERROR_MESSAGE = "//form//small[text()='Subject is required']";
+	public static final String FROM_DATE = "//input[@ng-model='editable.from'][1]";
+	public static final String TO_DATE = "//input[@ng-model='editable.to'][1]";
 }
