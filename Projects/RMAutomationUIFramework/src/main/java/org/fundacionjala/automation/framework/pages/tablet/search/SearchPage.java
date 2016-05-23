@@ -83,11 +83,12 @@ public class SearchPage {
 	public SearchPage setMinimumCapacity(String minCapCriteria) {
 		
 		if (minimumCapacityField != null) {
+			minimumCapacityField.clear();
 			minimumCapacityField.sendKeys(minCapCriteria);
-			LogManager.info("Field room name was changed to " + minCapCriteria);
+			LogManager.info("Capacity textbox was changed to " + minCapCriteria);
 		}
 		else {
-			LogManager.error("Field room name was not found");
+			LogManager.error("Capacity textbox was not found");
 		}
 		
 		return this;
