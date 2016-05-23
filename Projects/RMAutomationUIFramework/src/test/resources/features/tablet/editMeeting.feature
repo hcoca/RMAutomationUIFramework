@@ -44,3 +44,12 @@ Examples:
 |endTime	|12:00:00.000										|
 |attendees|RoomManager5@roommanager.local	|
 |body			|This meeting has been modified	|
+
+#Scenario 4
+
+@DeleteMeetingOutOfOrder
+Scenario: A message is displayed when a meeting is modified over the same time of out of order time
+Given I had a created meeting from "08:00:00.000" to "09:00:00.000", with "Meeting QDAEV06" subject in the "Room002" room
+Given the "Room002" room is out of order
+ When I want to modify the meeting  "Meeting QDAEV06" in the "Room002" room over the same time of out of order
+ Then validate that an error message is displayed with conflict of time interval
