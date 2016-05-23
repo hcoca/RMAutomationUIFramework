@@ -10,11 +10,9 @@ import org.fundacionjala.automation.framework.utils.api.managers.LocationAPIMana
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Location;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.DatabaseConnection;
-import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mongodb.DBCollection;
 
 import cucumber.api.java.After;
@@ -180,6 +178,13 @@ public class LocationThenSteps {
     		.clickOnLocationsButton();
 	Assert.assertTrue(locationPage.verifyNumberOfAssociations(name, "1"));
 
+    }
+    
+    @Then("^An error message should be displayed$")
+    public void an_error_message_should_be_displayed() throws Throwable {
+    	UpdateLocationPage updateLocationPage = new UpdateLocationPage();
+        Assert.assertTrue(updateLocationPage.verifyErrorMessageDisplayed(), "The error message has been not displayed: Test Failed");
+        updateLocationPage.clickOnCancelButton();
     }
     
     @After("@location")
