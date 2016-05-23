@@ -6,6 +6,7 @@ import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationAssociationPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.UpdateLocationPage;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.LocationAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Location;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -196,6 +197,14 @@ public class LocationThenSteps {
     	UpdateLocationPage updateLocationPage = new UpdateLocationPage();
         Assert.assertTrue(updateLocationPage.verifyErrorMessageDisplayed(), "The error message has been not displayed: Test Failed");
         updateLocationPage.clickOnCancelButton();
+    }
+    
+    @Then("^Validate that the location table size is same than the option \"([^\"]*)\" selected$")
+    public void validateTableSizeSelected(String sizeTable) throws Throwable {
+    	LocationPage location = new LocationPage();
+        Assert.assertTrue(
+        		location 
+        		.verifyNumberOfLocations(sizeTable));
     }
     
     @After("@location")

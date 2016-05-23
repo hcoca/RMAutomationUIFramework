@@ -90,7 +90,14 @@ Scenario: A message is displayed on ‘Update Location’ page  when a location 
 Given I have a location added with name: "Cochabamba_3", display name "Cbba-Location_3" and description "This is Cochabamba Location"
 	And I am logged as "Administrator" with password "Control*123"
 When I update location "Cbba-Location_3" with name: "Cochabamba_3NameUpdated", display name "" and description "This is Cochabamba Location"
-Then An error message should be displayed   
+Then An error message should be displayed  
+
+@location26
+Scenario: The quantity selected in page size is displayed in resource table
+Given I have at least "200" locations created 
+  And I am logged as "Administrator" with password "Control*123"
+ When I select "100" on location page size option 
+ Then Validate that the location table size is same than the option "100" selected 
 
 @location24
 Scenario: An error message is displayed on ‘Update Location’ page when a location is updated with special characters in its name
