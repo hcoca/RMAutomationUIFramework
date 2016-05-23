@@ -59,4 +59,13 @@ public class CreateMeetingThenSteps {
         	.verifyErrorMessageOfCredentialsIsDisplayed());
         credential.clickCancelButton();
     }
+
+    @Then("^validate that an error message is displayed with conflict of time interval$")
+    public void validate_that_an_error_message_is_displayed_with_conflict_of_time_interval() throws Throwable {
+    	CredentialsPage credential = new CredentialsPage();
+        Assert.assertTrue(
+        	credential
+        	.verifyErrorMessageOfMeetingConflictIsDisplayed());
+        credential.clickCancelButton();
+    }
 }

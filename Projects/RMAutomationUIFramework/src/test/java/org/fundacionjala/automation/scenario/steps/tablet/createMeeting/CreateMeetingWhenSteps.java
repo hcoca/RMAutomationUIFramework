@@ -103,5 +103,21 @@ public class CreateMeetingWhenSteps {
 		.clickOnOkButton();
     }
 
+    @When("^I want to create a meeting over interval time of other meeting  from \"([^\"]*)\" start time to \"([^\"]*)\" end time with \"([^\"]*)\" subject$")
+    public void i_want_to_create_a_meeting_over_interval(String start, String end, String subject) throws Throwable {
+    	HomePage home = new HomePage();
+    	home.clickOnScheduleButton();
+
+    	SchedulerPage scheduler = new SchedulerPage();
+    	scheduler
+    		.setOrganizer(PropertiesReader.getExchangeOrganizerUser())
+    		.setSubject(PropertiesReader.getExchangeOrganizerPwd())
+    		.setStartTime(start)
+    		.setEndTime(end)
+    		.clickOnCreateButton()
+    		.setUserName(PropertiesReader.getExchangeOrganizerUser())
+    		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+    		.clickOnOkButton();
+    }
 
 }
