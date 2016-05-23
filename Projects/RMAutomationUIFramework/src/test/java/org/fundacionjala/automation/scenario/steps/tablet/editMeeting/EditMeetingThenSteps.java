@@ -49,9 +49,9 @@ public class EditMeetingThenSteps {
 
     }
     
-    @Then("^I validate that \"([^\"]*)\" subject has been modified$")
-    public void i_validate_that_subject_has_been_modified(String newSubject) throws Throwable {
-    
+    @Then("^validate that \"([^\"]*)\" subject has been modified$")
+    public void validate_that_subject_has_been_modified(String newSubject) throws Throwable {
+
 	SchedulerPage scheduler = new SchedulerPage();
 	Assert.assertTrue(
         	scheduler.topMenu
