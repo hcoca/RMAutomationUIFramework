@@ -52,6 +52,8 @@ public class SchedulerPage {
     WebElement timelineCenter;
     @FindBy(xpath = SchedulerMap.TIME_TIMELINE)
     List<WebElement> timeList;
+    @FindBy(xpath = SchedulerMap.SUBJECT_ERROR_MESSAGE)
+    WebElement subjectErrorMessage;
 
     public SchedulerPage() {
 	this.topMenu = new TopMenu();
@@ -309,6 +311,12 @@ public class SchedulerPage {
      * @return true if time line displays all day else false
      */
     public boolean verifyIfTimelineDisplayAllDay() {
-	return timeList.size() == 24 ? true : false;
+	return (timeList.size() == 24 || timeList.size() == 6)
+		? true : false;
+    }
+
+    public boolean verifyErrorMessageOfSubject() {
+	return ExplicitWait.waitForElement(SchedulerMap.SUBJECT_ERROR_MESSAGE, 30)
+	? true : false;
     }
 }

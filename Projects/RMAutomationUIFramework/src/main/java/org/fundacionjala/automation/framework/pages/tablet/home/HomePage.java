@@ -1,5 +1,8 @@
 package org.fundacionjala.automation.framework.pages.tablet.home;
 
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
@@ -10,8 +13,10 @@ import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -53,13 +58,27 @@ public class HomePage {
 	return new SchedulerPage();
     }
     
-    public SettingsPage clickOnSettinsButton(){
+    /**
+     * this method expand the time line in order to display all day on time line 
+     * @return SchedulerPage instance
+     * @throws AWTException
+     */
+    public HomePage displayAllDayOnTimeline() throws AWTException {
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	double y = screenSize.getHeight();
+	ExplicitWait.waitForElement(HomeMap.HOME_TIME_LINE, 30);
+	UIActions
+	.scrollTimelineWithCoordinates(200,y-100, 5000);  
+	return this;	
+    }
+
+    public SettingsPage clickOnSettinsButton() {
 	(new WebDriverWait(BrowserManager.getDriver(), 30))
-	.until(ExpectedConditions.elementToBeClickable(settingsButton));
+		.until(ExpectedConditions.elementToBeClickable(settingsButton));
 	settingsButton.click();
 
 	LogManager.info("Settings Button has been clicked");
-	
+
 	return new SettingsPage();
     }
 
@@ -100,19 +119,21 @@ public class HomePage {
 	return new SearchPage();
     }
 
-    
-    public boolean verifyTimeLeft(){
-	ExplicitWait.waitForUrl(PropertiesReader.getServiceURL()+"/tablet/#/home", 15);
+    public boolean verifyTimeLeft() {
+	ExplicitWait.waitForUrl(PropertiesReader.getServiceURL()
+		+ "/tablet/#/home", 15);
 	BrowserManager.getDriver().navigate().refresh();
 	boolean verification = false;
-	WebElement currentTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.CURRENT_TIME), 60);
-	WebElement leftTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.LEFT_TIME), 60);
-	if(Integer.parseInt(currentTime.getText().replace(":", ""))+Integer.parseInt(leftTime.getText().replace(":", ""))== 2359){
+	WebElement currentTime = ExplicitWait.getWhenVisible(
+		By.xpath(HomeMap.CURRENT_TIME), 60);
+	WebElement leftTime = ExplicitWait.getWhenVisible(
+		By.xpath(HomeMap.LEFT_TIME), 60);
+	if (Integer.parseInt(currentTime.getText().replace(":", ""))
+		+ Integer.parseInt(leftTime.getText().replace(":", "")) == 2359) {
 	    verification = true;
 	}
 	return verification;
     }
-
 
     public boolean verifyCurrentOrganizerDisplayed(String organizer) {
 	try {
@@ -128,11 +149,11 @@ public class HomePage {
 	    return false;
 	}
     }
-  
+
     public boolean verifyNextMeetingDisplayed(String subject) {
 	try {
 	    BrowserManager.getDriver().findElement(
-		    By.xpath("//div[@ng-bind='next._title' and text()='" 
+		    By.xpath("//div[@ng-bind='next._title' and text()='"
 			    + subject + "']"));
 	    LogManager.info("Test Passed: " + subject + " has been displayed");
 	    return true;
@@ -157,14 +178,15 @@ public class HomePage {
 	    return false;
 	}
     }
-    
+
     public boolean verifyRoomNameDisplayed(String roomName) {
 	try {
-	    BrowserManager.getDriver().findElement(
-		    By.xpath("//span[@ng-bind='room.customDisplayName' and text()='"
-			    + roomName + "']"));
-	    LogManager
-		    .info("Test Passed: " + roomName + " has been displayed");
+	    BrowserManager
+		    .getDriver()
+		    .findElement(
+			    By.xpath("//span[@ng-bind='room.customDisplayName' and text()='"
+				    + roomName + "']"));
+	    LogManager.info("Test Passed: " + roomName + " has been displayed");
 	    return true;
 	} catch (NoSuchElementException e) {
 	    LogManager.warning("Test Failed");
@@ -172,36 +194,63 @@ public class HomePage {
 	    return false;
 	}
     }
-    
+
     public boolean verifyTimeLeftOfCurrentMeeting() {
-    	ExplicitWait.waitForUrl(PropertiesReader.getServiceURL()+"/tablet/#/home", 15);
-    	BrowserManager.getDriver().navigate().refresh();
-    	boolean verification = false;
-    	WebElement currentTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.CURRENT_TIME), 60);
-    	WebElement leftTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.LEFT_TIME), 60);
-    	WebElement endTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.TIME_OUT_OF_ORDER), 60);
-    	int result = (Integer.parseInt(endTime.getText().replace("-0:00", "").replace(":", ""))- Integer.parseInt(currentTime.getText().replace(":", "")))-1;
-    	if(result >= 60){
-    	    result = result - 40;
-    	}
-    	if(result == Integer.parseInt(leftTime.getText().replace(":", ""))){
-    	    verification = true;
-    	}
-    	return verification;
-        }
-    
+	ExplicitWait.waitForUrl(PropertiesReader.getServiceURL()
+		+ "/tablet/#/home", 15);
+	BrowserManager.getDriver().navigate().refresh();
+	boolean verification = false;
+	WebElement currentTime = ExplicitWait.getWhenVisible(
+		By.xpath(HomeMap.CURRENT_TIME), 60);
+	WebElement leftTime = ExplicitWait.getWhenVisible(
+		By.xpath(HomeMap.LEFT_TIME), 60);
+	WebElement endTime = ExplicitWait.getWhenVisible(
+		By.xpath(HomeMap.TIME_OUT_OF_ORDER), 60);
+	int result = (Integer.parseInt(endTime.getText().replace("-0:00", "")
+		.replace(":", "")) - Integer.parseInt(currentTime.getText()
+		.replace(":", ""))) - 1;
+	if (result >= 60) {
+	    result = result - 40;
+	}
+	if (result == Integer.parseInt(leftTime.getText().replace(":", ""))) {
+	    verification = true;
+	}
+	return verification;
+    }
+
     public boolean verifyTimeLeftOfNextMeeting() {
-    	ExplicitWait.waitForUrl(PropertiesReader.getServiceURL()+"/tablet/#/home", 15);
-    	BrowserManager.getDriver().navigate().refresh();
-    	boolean verification = false;
-    	WebElement currentTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.CURRENT_TIME), 60);
-    	WebElement leftTime = ExplicitWait.getWhenVisible(By.xpath(HomeMap.LEFT_TIME), 60);
-    	WebElement startTimeNextMeeting = ExplicitWait.getWhenVisible(By.xpath(HomeMap.TIME_OUT_OF_ORDER), 60);
-    	int result = (Integer.parseInt(startTimeNextMeeting.getText().substring(0,5).replace(":", ""))- Integer.parseInt(currentTime.getText().replace(":", "")))-41;
-    	if(result == Integer.parseInt(leftTime.getText().replace(":", ""))){
-    	    verification = true;
-    	}
-    	return verification;
-        }
+	ExplicitWait.waitForUrl(PropertiesReader.getServiceURL()
+		+ "/tablet/#/home", 15);
+	BrowserManager.getDriver().navigate().refresh();
+	boolean verification = false;
+	WebElement currentTime = ExplicitWait.getWhenVisible(
+		By.xpath(HomeMap.CURRENT_TIME), 60);
+	WebElement leftTime = ExplicitWait.getWhenVisible(
+		By.xpath(HomeMap.LEFT_TIME), 60);
+	WebElement startTimeNextMeeting = ExplicitWait.getWhenVisible(
+		By.xpath(HomeMap.TIME_OUT_OF_ORDER), 60);
+	int result = (Integer.parseInt(startTimeNextMeeting.getText()
+		.substring(0, 5).replace(":", "")) - Integer
+		.parseInt(currentTime.getText().replace(":", ""))) - 41;
+	if (result == Integer.parseInt(leftTime.getText().replace(":", ""))) {
+	    verification = true;
+	}
+	return verification;
+    }
+
+    public boolean verifyMeetingInTimeLine(String subject) {
+	try {
+	    (new WebDriverWait(BrowserManager.getDriver(), 5))
+		    .until(ExpectedConditions.presenceOfElementLocated(By
+			    .xpath("//span[@class='vis-item-content' and text()='"
+				    + subject + "']")));
+	    LogManager.warning("Test Failed: The meeting is displayed");
+	    return false;
+	} catch (TimeoutException e) {
+	    LogManager.info("Test Passed: " + subject
+		    + " has not been displayed");
+	    return true;
+	}
+    }
 
 }

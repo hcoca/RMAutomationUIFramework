@@ -24,7 +24,7 @@ public class HomeThenSteps {
     @Then("^All meetings of \"([^\"]*)\" room are displayed on home time line even \"([^\"]*)\" meeting$")
     public void verifyTimeLineMeetings(String roomName, String subject)
 	    throws Throwable {
-	HomePage homePage = new HomePage();
+	HomePage homePage = new HomePage().displayAllDayOnTimeline();
 
 	MongoClient mongoClient = new MongoClient(
 		PropertiesReader.getHostIPAddress(),
@@ -144,6 +144,24 @@ public class HomeThenSteps {
 	deleteMeetingByAPI(roomName, subject);
 	Assert.assertTrue(actualResult,
 		"The Time Left displayed is not according the next Meeting");
+    }
+    
+    @Then("^the meeting \"([^\"]*)\" is not displayed on Home page in room \"([^\"]*)\"$")
+    public void meetingNotInTimeLine(String subject, String roomName) throws Throwable {
+	SchedulerPage schedulerPage = new SchedulerPage();
+	HomePage homePage = new HomePage();
+
+	schedulerPage.topMenu.clickOnHomeButton().displayAllDayOnTimeline();
+	
+	boolean actualResult = homePage.verifyMeetingInTimeLine(subject);
+	
+	Meeting meetingToDelete = MeetingAPIManager.getMeetingBySubject(
+		roomName, subject);
+	if (meetingToDelete != null) {
+	    MeetingAPIManager.deleteRequest(roomName, meetingToDelete);
+	}
+	
+	Assert.assertTrue(actualResult);
     }
 
     public void deleteMeetingByUI(String subject) throws AWTException {

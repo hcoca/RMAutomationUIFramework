@@ -1,9 +1,13 @@
 package org.fundacionjala.automation.scenario.steps.tablet.impersonation;
 
+import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.impersonation.ImpersonationPage;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.CredentialsPage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.utils.api.managers.SettingsAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Settings;
+import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
 
@@ -12,6 +16,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 
 public class ImpersonationThenSteps {
@@ -23,7 +28,6 @@ public class ImpersonationThenSteps {
         	Assert.assertTrue(scheduler.isMeetingPresentOnTimeLine(subject));
         	
         	scheduler
-        		.displayAllDayOnTimeline()
         		.clickOnMeetingButton(subject);
         	
         	String expectedSubject = subject;
@@ -38,30 +42,12 @@ public class ImpersonationThenSteps {
         	
         	CredentialsPage credentials = scheduler
         		.displayAllDayOnTimeline()
-			.clickOnMeetingButton(subject)
-			.clickRemoveButton();
-	
+        		.clickOnMeetingButton(subject)
+        		.clickRemoveButton();
+        
         	credentials
         		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
         		.clickOkButton();
-        	
-        	MongoClient mongoClient = new MongoClient(
-			PropertiesReader.getHostIPAddress(),
-			PropertiesReader.getMongoDBConnectionPort());
-
-        	DB db = mongoClient.getDB(PropertiesReader.getDBName());
-        	DBCollection table = db.getCollection(PropertiesReader.getServiceURL());
-        
-        	BasicDBObject query = new BasicDBObject();
-        	query.put(PropertiesReader.getImpersonateFieldName(), true);
-        
-        	BasicDBObject newDocument = new BasicDBObject();
-        	newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
-        
-        	BasicDBObject updateObj = new BasicDBObject();
-        	updateObj.put("$set", newDocument);
-        
-        	table.update(query, updateObj);
     	}
     
     	@Then("^A meeting with \"([^\"]*)\" subject is removed$")
@@ -69,24 +55,6 @@ public class ImpersonationThenSteps {
 		SchedulerPage scheduler = new SchedulerPage();
 		
 		Assert.assertFalse(scheduler.isMeetingPresentOnTimeLine(subject));
-		
-		MongoClient mongoClient = new MongoClient(
-			PropertiesReader.getHostIPAddress(),
-			PropertiesReader.getMongoDBConnectionPort());
-
-        	DB db = mongoClient.getDB(PropertiesReader.getDBName());
-        	DBCollection table = db.getCollection(PropertiesReader.getServiceURL());
-        
-        	BasicDBObject query = new BasicDBObject();
-        	query.put(PropertiesReader.getImpersonateFieldName(), true);
-        
-        	BasicDBObject newDocument = new BasicDBObject();
-        	newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
-        
-        	BasicDBObject updateObj = new BasicDBObject();
-        	updateObj.put("$set", newDocument);
-        
-        	table.update(query, updateObj);
     	}
     	
     	@Then("^create Impersonation Options are displayed in the Credentials Page$")
@@ -100,24 +68,6 @@ public class ImpersonationThenSteps {
         	}
         
         	Assert.assertTrue(impersonationOptionsArePresent);
-        	
-        	MongoClient mongoClient = new MongoClient(
-			PropertiesReader.getHostIPAddress(),
-			PropertiesReader.getMongoDBConnectionPort());
-
-        	DB db = mongoClient.getDB(PropertiesReader.getDBName());
-        	DBCollection table = db.getCollection(PropertiesReader.getServiceURL());
-        
-        	BasicDBObject query = new BasicDBObject();
-        	query.put(PropertiesReader.getImpersonateFieldName(), true);
-        
-        	BasicDBObject newDocument = new BasicDBObject();
-        	newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
-        
-        	BasicDBObject updateObj = new BasicDBObject();
-        	updateObj.put("$set", newDocument);
-        
-        	table.update(query, updateObj);
     	}
     	
     	@Then("^create Impersonation Options are not displayed in the Credentials Page$")
@@ -148,24 +98,6 @@ public class ImpersonationThenSteps {
             	credentials
             		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
             		.clickOkButton();
-        	
-        	MongoClient mongoClient = new MongoClient(
-			PropertiesReader.getHostIPAddress(),
-			PropertiesReader.getMongoDBConnectionPort());
-
-        	DB db = mongoClient.getDB(PropertiesReader.getDBName());
-        	DBCollection table = db.getCollection(PropertiesReader.getServiceURL());
-        
-        	BasicDBObject query = new BasicDBObject();
-        	query.put(PropertiesReader.getImpersonateFieldName(), true);
-        
-        	BasicDBObject newDocument = new BasicDBObject();
-        	newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
-        
-        	BasicDBObject updateObj = new BasicDBObject();
-        	updateObj.put("$set", newDocument);
-        
-        	table.update(query, updateObj);
     	}
     	
     	@Then("^cancel Impersonation Options are not displayed in the Credentials Page$")
@@ -203,11 +135,6 @@ public class ImpersonationThenSteps {
     	    	Assert.assertFalse(credentials.isPasswordTextFieldPresent());
     	    	Assert.assertFalse(credentials.isCreateAsCheckBoxPresent());
     	    	Assert.assertFalse(credentials.isCreateInBehalfOfTextFieldPresent());
-    	    	
-    	    	Settings settings = new Settings(PropertiesReader
-	    		.getCredentialsAuthenticationType(), 5, "blue");
-		SettingsAPIManager.putRequest(PropertiesReader.getServiceURL()
-				+ "/settings", settings);
     	}
     	
     	@Then("^cancel Credentials Authentication Options are displayed in the Credentials Page when cancelling \"([^\"]*)\" meeting$")
@@ -216,7 +143,7 @@ public class ImpersonationThenSteps {
     	    	
     	    	CredentialsPage credentials = scheduler
     	    			.displayAllDayOnTimeline()
-				.clickOnMeeting(subject)
+				.clickOnMeetingButton(subject)
 				.clickOnRemoveButton();
 	    
 	    	Assert.assertTrue(credentials.isUserNameTextFieldPresent());
@@ -235,7 +162,7 @@ public class ImpersonationThenSteps {
     	    
     	    	CredentialsPage credentials = scheduler
     	    					.displayAllDayOnTimeline()
-    	    					.clickOnMeeting(subject)
+    	    					.clickOnMeetingButton(subject)
     	    					.clickOnRemoveButton();
 	    
 	    	Assert.assertFalse(credentials.isUserNameTextFieldPresent());
@@ -264,11 +191,6 @@ public class ImpersonationThenSteps {
     	    	CredentialsPage credentials = new CredentialsPage();
     	    	
     	    	Assert.assertTrue(credentials.isNoFunctionalityProvidedMessagePresent());
-    	    	
-    	    	Settings settings = new Settings(PropertiesReader
-    	    		.getCredentialsAuthenticationType(), 5, "blue");
-		SettingsAPIManager.putRequest(PropertiesReader.getServiceURL()
-				+ "/settings", settings);
     	}
     	
     	@Then("^create RFID Authentication Options are not displayed in the Credentials Page$")
@@ -309,5 +231,65 @@ public class ImpersonationThenSteps {
             	credentials
         		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
         		.clickOkButton();
+    	}
+    	
+    	@After("@IMP-DisableImpersonationUI")
+    	public void disableImpersonationUI() throws Throwable {
+            	BrowserManager.openBrowser();
+        	LoginPage loginPage = new LoginPage();
+        	
+        	AdminPage admin = loginPage
+        		.setUserName(PropertiesReader.getUserName())
+        		.setPassword(PropertiesReader.getPassword())
+        		.clickOnSigInButton();
+
+        	String message = "Impersonation is now enabled.";
+        
+        	ImpersonationPage impersonation = admin
+        					.leftMenu
+        					.clickOnIssuesButton()
+        					.clickOnImpersonationButton();
+        	
+        	while(message.equals("Impersonation is now enabled.")) {
+        		
+        		message = impersonation	
+        				.clickOnUseImpersonationCheckBox()
+        				.clickOnUserAndPasswordRadioButton()
+        				.clickOnSaveButton()
+        				.waitForImpersonationMessage()
+        				.getImpersonationMessage();
+        		
+        		impersonation
+        			.waitForImpersonationMessageDisappear();
+        	}
+    	}
+    	
+    	@After("@IMP-DisableImpersonationDB")
+    	public void disableImpersonationDB() throws Throwable {
+        	MongoClient mongoClient = new MongoClient(
+        	PropertiesReader.getHostIPAddress(),
+        	PropertiesReader.getMongoDBConnectionPort());
+        
+        	DB db = mongoClient.getDB(PropertiesReader.getDBName());
+        	DBCollection table = db.getCollection(PropertiesReader.getServicesTableName());
+        
+        	BasicDBObject query = new BasicDBObject();
+        	query.put(PropertiesReader.getImpersonateFieldName(), true);
+        
+        	BasicDBObject newDocument = new BasicDBObject();
+        	newDocument.put(PropertiesReader.getImpersonateFieldName(), false);
+        
+        	BasicDBObject updateObj = new BasicDBObject();
+        	updateObj.put("$set", newDocument);
+        
+        	table.update(query, updateObj);
+    	}
+    	
+    	@After("@IMP-EnableCredentialsAuthentication")
+    	public void enableCredentialsAuthentication() throws Throwable {
+            	Settings settings = new Settings(PropertiesReader
+            		.getCredentialsAuthenticationType(), 5, "blue");
+        	SettingsAPIManager.putRequest(PropertiesReader.getServiceURL()
+        			+ "/settings", settings);
     	}
 }
