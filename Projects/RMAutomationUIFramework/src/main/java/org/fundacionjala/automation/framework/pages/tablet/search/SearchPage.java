@@ -60,9 +60,6 @@ public class SearchPage {
 		else {
 			LogManager.error("Field room name was not found");
 		}
-		System.out.println("**********************");
-		System.out.println(roomNameField.getAttribute("value"));
-		System.out.println("**********************");
 		return false;
 		
 	}
