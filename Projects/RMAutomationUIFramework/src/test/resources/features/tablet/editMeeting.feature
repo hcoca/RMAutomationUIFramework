@@ -54,8 +54,16 @@ Given the "Room002" room is out of order
  Then validate that an error message is displayed with conflict of time interval
  
 #Scenario 5
+@DeleteMeeting
+Scenario: The schedule in a meeting is modified when the new time is entered
+Given I had a created meeting with "RoomManager2" organizer, with "Creating meeting" subject in the "Room132" room
+When I modify the "Creating meeting" meeting in "Room132" room from "18:00" to "19:30"
+Then I validate that "Creating meeting" meeting has been modified with schedule from "18:00" to "19:30"
+
+#Scenario 6
+@DeleteMeeting
 Scenario: The subject text field is modified when is edited
-Given I had a created meeting with "RoomManager2" organizer, with "Creating meeting" subject in the "Room082" room
-When I modify the "Creating meeting" meeting in "Room082" room with new subject "subject modified"
+Given I had a created meeting with "RoomManager2" organizer, with "Creating meeting" subject in the "Room112" room
+When I modify the "Creating meeting" meeting in "Room112" room with new subject "subject modified"
 Then I validate that "subject modified" subject has been modified
  

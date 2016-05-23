@@ -160,9 +160,10 @@ public class EditMeetingWhenSteps {
 				.clickOnHomeButton();
 
 		scheduler = home.clickOnScheduleButton();
-			scheduler.clickOnMeetingButton(subject)
-        		 	 .setEndTime(endTime)
-			    	 .setStartTime(startTime)
+			scheduler.displayAllDayOnTimeline()
+				 .clickOnMeetingButton(subject)
+				 .setStartTime(startTime)
+				 .setEndTime(endTime)
         			 .clickUpdateButton();
 		credential	
 			.setPassword(PropertiesReader.getExchangeOrganizerPwd())
