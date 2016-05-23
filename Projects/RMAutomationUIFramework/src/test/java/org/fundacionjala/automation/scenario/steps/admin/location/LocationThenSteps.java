@@ -10,11 +10,9 @@ import org.fundacionjala.automation.framework.utils.api.managers.LocationAPIMana
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Location;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.DatabaseConnection;
-import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mongodb.DBCollection;
 
 import cucumber.api.java.After;
@@ -179,7 +177,18 @@ public class LocationThenSteps {
     		.leftMenu
     		.clickOnLocationsButton();
 	Assert.assertTrue(locationPage.verifyNumberOfAssociations(name, "1"));
-
+    }
+    
+    @Then("^The number of associations on Location page has been decreased by removing \"([^\"]*)\" location association$")
+    public void verifyAssociationNumberDecrease(String name) throws Throwable {
+	LocationPage locationPage = new LocationPage();
+	BrowserManager.getDriver().navigate().refresh();
+	locationPage.leftMenu.clickOnConferenceRoomsButton();
+	
+	locationPage
+    		.leftMenu
+    		.clickOnLocationsButton();
+	Assert.assertTrue(locationPage.verifyNumberOfAssociations(name, "0"));
     }
     
     @After("@location")
