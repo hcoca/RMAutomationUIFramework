@@ -123,3 +123,10 @@ Given I have a location added with name: "Cochabamba_15", display name "Cbba-Loc
 	And I associate the location "Cbba-Child" with a room "Room007"
 When I delete the association between location "Cbba-Child" and "Room007"
 Then The number of associations on Location page has been decreased by removing "Cochabamba_15" location association
+
+@location16
+Scenario: A message is displayed on Add Location  page when a new location is added with the same name than another location
+Given I have a location added with name: "Cochabamba_16", display name "Cbba-Location_16" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I add a new location with name: "Cochabamba_16", display name "Cbba-Location_Diferent" and description "This is Cochabamba Location"
+Then An error message should be displayed 
