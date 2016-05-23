@@ -46,4 +46,18 @@ public class CreateMeetingGivenSteps {
 	
 	MeetingAPIManager.postRequest(roomName, meeting);
     }
+    
+    @Given("^I have a meeting created on \"([^\"]*)\" as \"([^\"]*)\" from \"([^\"]*)\" start time to \"([^\"]*)\" end time with \"([^\"]*)\" subject$")
+    public void i_have_a_meeting_created(String roomName, String organizer, String start, String end, String subject) throws Throwable {
+    	String roomEmail = roomName + "@" + PropertiesReader.getExchangeDomain();
+    	String resources = roomName + "@" + PropertiesReader.getExchangeDomain();
+    	start = RMGenerator.getIsoTime(0);
+    	end = RMGenerator.getIsoTime(1);
+    	List<String> attendees = new ArrayList<String>();
+    	attendees.add(PropertiesReader.getExchangeInviteMail());
+    	Meeting meeting = new Meeting(PropertiesReader.getExchangeOrganizerUser(),
+    		subject, start, end, roomName, roomEmail, resources,
+    		attendees);
+    	MeetingAPIManager.postRequest(roomName, meeting);
+    }
 }
