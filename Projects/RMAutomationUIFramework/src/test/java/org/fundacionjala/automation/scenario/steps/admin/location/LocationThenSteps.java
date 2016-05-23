@@ -177,7 +177,18 @@ public class LocationThenSteps {
     		.leftMenu
     		.clickOnLocationsButton();
 	Assert.assertTrue(locationPage.verifyNumberOfAssociations(name, "1"));
-
+    }
+    
+    @Then("^The number of associations on Location page has been decreased by removing \"([^\"]*)\" location association$")
+    public void verifyAssociationNumberDecrease(String name) throws Throwable {
+	LocationPage locationPage = new LocationPage();
+	BrowserManager.getDriver().navigate().refresh();
+	locationPage.leftMenu.clickOnConferenceRoomsButton();
+	
+	locationPage
+    		.leftMenu
+    		.clickOnLocationsButton();
+	Assert.assertTrue(locationPage.verifyNumberOfAssociations(name, "0"));
     }
     
     @Then("^An error message should be displayed$")

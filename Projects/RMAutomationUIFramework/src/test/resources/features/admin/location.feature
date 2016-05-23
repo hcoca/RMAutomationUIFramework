@@ -14,7 +14,7 @@ Given I am logged as "Administrator" with password "Control*123"
 When I add a new location with name: "Cochabamba_2", display name "Cbba-Location_2" and description "This is Cochabamba Location"
 Then The location "Cochabamba_2" is displayed on location page
 
-@location3  
+@location3
 Scenario: A location’s  name changes are displayed on Location page when it is updated
 Given I have a location added with name: "Cochabamba_3", display name "Cbba-Location_3" and description "This is Cochabamba Location"
 	And I am logged as "Administrator" with password "Control*123"
@@ -96,3 +96,12 @@ Given I have a location added with name: "Cochabamba_3", display name "Cbba-Loca
 	And I am logged as "Administrator" with password "Control*123"
 When I update location "Cbba-Location_3" with name: "/*/*****", display name "Cbba-Location_2" and description "This is Cochabamba Location"
 Then An error message should be displayed  
+
+@location13
+Scenario: The number of rooms asociated displayed on Locations page decreases when a room association is removed
+Given I have a location added with name: "Cochabamba_13", display name "Cbba-Location_13" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+	And I associate the location "Cbba-Location_13" with a room "Room005"
+When I delete the association between location "Cbba-Location_13" and "Room005"
+Then The number of associations on Location page has been decreased by removing "Cochabamba_13" location association
+
