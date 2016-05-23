@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
-import org.fundacionjala.automation.framework.maps.admin.impersonation.ImpersonationMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
+import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.fundacionjala.automation.framework.utils.common.ConferenceRoomDataBase;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
@@ -86,7 +86,8 @@ public class ConferenceRoomsPage extends AdminPage {
 	return ExplicitWait.getElementsWhenVisible(
 		By.xpath(ConferenceRoomsMap.ROOMS_COLUMN), 80);
     }
-
+    
+        
     /**
      * This method is to return one web element
      * @param roomName - string that represent the displayname of the room
@@ -227,17 +228,15 @@ public class ConferenceRoomsPage extends AdminPage {
      * @return ConferenceRoomsPage
      */
     public ConferenceRoomsPage clickOnTurnOnOffButton(String roomName) {
-	
-	WebElement turnOnOffButton = BrowserManager.getDriver().findElement(
-		By.xpath(ConferenceRoomsMap.TURN_ON_OFF_BUTTON.replace(
-			"roomName", roomName)));
-	
+	WebElement turnOnOffButton = ExplicitWait.getWhenVisible(By
+		.xpath(ConferenceRoomsMap.TURN_ON_OFF_BUTTON.replace(
+			"roomName", roomName)), 30);
+
 	Actions action = new Actions(BrowserManager.getDriver());
 	action.click(turnOnOffButton).perform();
-	
-	(new WebDriverWait(BrowserManager.getDriver(), 30))
-	.until(ExpectedConditions.visibilityOfElementLocated(By
-			.xpath(ConferenceRoomsMap.ENABLE_DISABLE_MESSAGE)));
+
+	ExplicitWait.getWhenVisible(
+		By.xpath(ConferenceRoomsMap.ENABLE_DISABLE_MESSAGE), 30);
 	return this;
     }
 
@@ -379,7 +378,7 @@ public class ConferenceRoomsPage extends AdminPage {
      */
     private int getRoomsWithScrollBar(int sizePage) {
 
-	int visibleRows = 15;
+	int visibleRows = 10;
 	int roomRead = sizePage / visibleRows;
 	List<String> list = new ArrayList<String>();
 	WebElement lastRow = null;
@@ -397,6 +396,7 @@ public class ConferenceRoomsPage extends AdminPage {
 				lastRow);
 	    }
 	}
+	
 	return list.size();
     }
 

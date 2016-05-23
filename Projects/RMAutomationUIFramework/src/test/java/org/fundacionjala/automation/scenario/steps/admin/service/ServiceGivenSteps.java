@@ -6,6 +6,8 @@ import org.fundacionjala.automation.framework.pages.admin.emailserver.EmailServe
 import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+
+
 import org.testng.Assert;
 
 import cucumber.api.java.en.Given;
@@ -46,7 +48,7 @@ public class ServiceGivenSteps {
 		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 		.clickOnEmailServerButton();
 
-	if (!emailServer.isAddButtonPresent()) {
+	if (emailServer.isRemoveButtonPresent()) {
 
 	    emailServer.clickOnRemoveButton().clickOnYesButton();
 	}
@@ -62,10 +64,14 @@ public class ServiceGivenSteps {
 		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 		.clickOnConferenceRoomsButton();
 
-	boolean stateMeeting = conferenceRooms
-		.doubleClickOnRoom(PropertiesReader.getSecondConferenceRoom())
-		.SelectOutOfOrder().activeOutOfOrder().clickOnSaveButton();
-	Assert.assertTrue(stateMeeting, "Meeting couldn't be created");
+	Assert.assertTrue(
+		conferenceRooms
+			.doubleClickOnRoom(
+				PropertiesReader.getSecondConferenceRoom())
+			.SelectOutOfOrder().activeOutOfOrder()
+			.clickOnSaveButtonState(),
+		"Meeting-out of order could not be created");
+
     }
 
     @Given("^At least an out of order$")
@@ -78,9 +84,10 @@ public class ServiceGivenSteps {
 		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
 		.clickOnConferenceRoomsButton();
 
-	boolean stateOutOfOrder = conferenceRooms
+	Assert.assertTrue(conferenceRooms
 		.doubleClickOnRoom(PropertiesReader.getConferenceRoom())
-		.SelectOutOfOrder().activeOutOfOrder().clickOnSaveButton();
-	Assert.assertTrue(stateOutOfOrder, "Out of order couldn't be created");
+		.SelectOutOfOrder().clickOnSaveButtonState(),
+		"Out of orders could not be created");
+	
     }
 }

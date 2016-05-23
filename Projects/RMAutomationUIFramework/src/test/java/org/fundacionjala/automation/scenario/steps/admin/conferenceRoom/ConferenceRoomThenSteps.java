@@ -3,6 +3,7 @@ package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.OutOfOrderMap;
+import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomInfoMap;
 import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.OutOfOrderPage;
@@ -14,6 +15,7 @@ import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Room;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ConferenceRoomDataBase;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -28,7 +30,9 @@ public class ConferenceRoomThenSteps {
     public void validateRoomEnabled(String roomName)
 	    throws Throwable {
 	roomNameModified = roomName;
+	BrowserManager.getDriver().navigate().refresh();
 	ConnectionPage connection = new ConnectionPage();
+	
 	NavigationPage navigation = connection
 		.setUpServiceURL(PropertiesReader.getServiceURL())
 		.clickOnSaveButton()
@@ -92,9 +96,8 @@ public class ConferenceRoomThenSteps {
 	    throws Throwable {
 	ConferenceRoomsPage conferenceRoom = new ConferenceRoomsPage();
 	Assert.assertTrue("There are more than " + sizePage
-		+ " rooms in this page",
-		conferenceRoom.verifySizePage(sizePage));
-    }
+		+ " rooms in this page", conferenceRoom.verifySizePage(sizePage));
+ }
 
     @Then("^I validate if the next page is displayed according the page size specified \"([^\"]*)\" and the page \"([^\"]*)\"$")
     public void i_validate_if_the_next_page_is_displayed_according_the_page_size_specified_and_the_page(
@@ -241,5 +244,14 @@ public class ConferenceRoomThenSteps {
     @After ("@conferenceDisabled")
     public void tearDownRoomDisabled (){
 	new ConferenceRoomDataBase(roomNameModified).setEnable(true);
+    }
+    
+    @After ("@outoforder")
+    public void tearDownOutOfOrder() {
+	WebElement cancel_button =ExplicitWait.getWhenVisible(
+		By.xpath(RoomInfoMap.CANCEL_BUTTON), 15, false);
+	if (cancel_button != null) {
+	    cancel_button.click();
+	}
     }
 }
