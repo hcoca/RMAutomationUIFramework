@@ -31,10 +31,10 @@ public class SearchGivenSteps {
 		HomePage home = 
 		    navigation
 		    .clickOnRoomToggleButton()
-			.selectConferenceRoom("Room002").clickOnSaveButton().topMenu
+			.selectConferenceRoom("Room118").clickOnSaveButton().topMenu
 			.clickOnHomeButton();
 		
-	   home.clickOnSearchButton();
+	        home.clickOnSearchButton();
 	}
 	
 	@Given("^I am in location page of Room Manager Admin$")
@@ -58,5 +58,14 @@ public class SearchGivenSteps {
 		            .clickOnAssigned()
 		            .clickOnAddAvailableRoom()
 		            .clickOnSaveButton();
+	}
+	
+	@Given("^I am on the conference rooms page of Room Manager$")
+	public void i_am_on_the_conference_rooms_page_of_Room_Manager() throws Throwable {
+
+    	LoginActions
+		    		.ExecuteLogin()
+		    		.leftMenu
+			        .clickOnConferenceRoomsButton();
 	}
 }

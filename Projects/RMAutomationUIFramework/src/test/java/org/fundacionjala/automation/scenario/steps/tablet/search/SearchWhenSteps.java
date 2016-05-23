@@ -1,5 +1,6 @@
 package org.fundacionjala.automation.scenario.steps.tablet.search;
 
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.search.SearchPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
@@ -20,7 +21,7 @@ public class SearchWhenSteps {
 
 	@When("^I set the room name field$")
 	public void i_set_the_room_name_field() throws Throwable {
-		
+	   
 	   search.setRoomName("Room00");		
 	}
 	
@@ -41,7 +42,7 @@ public class SearchWhenSteps {
 		HomePage home = 
 		    navigation
 				    .clickOnRoomToggleButton()
-					.selectConferenceRoom("Room002").clickOnSaveButton().topMenu
+					.selectConferenceRoom("Room118").clickOnSaveButton().topMenu
 					.clickOnHomeButton();
 		
 	   home.clickOnSearchButton();
@@ -54,5 +55,39 @@ public class SearchWhenSteps {
 		 search
 		    .clickOnSearchButton()
 		    .selectLocation(location);
+	}
+	
+	@When("^I press the clear button$")
+	public void i_press_the_clear_button() throws Throwable {
+	    
+		search
+		  .clickOnClear();
+	}
+	
+	@When("^I set the room name field with the search option displayed$")
+	public void i_set_the_room_name_field_with_the_search_option_displayed() throws Throwable {
+	  
+		 search
+		      .clickOnSearchButton()
+		      .setRoomName("Room00");	
+	}
+
+	@When("^I change the capacity of the \"([^\"]*)\" for \"([^\"]*)\"$")
+	public void i_change_the_capacity_of_the_for(String roomName, String qty) throws Throwable {
+	    ConferenceRoomsPage conferenceRoom = new ConferenceRoomsPage();
+	    
+	    conferenceRoom
+	                .openConfigurationPage(roomName)
+	                .typeOnCapacity(qty)
+	                .clickOnSave();
+		
+	}
+
+	@When("^I set the Minimun capacity field to \"([^\"]*)\"$")
+	public void i_set_the_Minimun_capacity_field_to(String capacity) throws Throwable {
+
+		 search
+		      .clickOnSearchButton()
+		      .setMinimumCapacity(capacity);	
 	}
 }

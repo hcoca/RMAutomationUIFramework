@@ -7,6 +7,7 @@ import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 
 
+
 import cucumber.api.java.en.When;
 
 public class ResourceWhenSteps {
@@ -215,7 +216,7 @@ public class ResourceWhenSteps {
     	adminPage
     	.leftMenu
 		.clickOnResourcesButton()
-		.selectResource(resourceName)
+		.selectAResource(resourceName)
 		.clickOnRemoveButton();
     }
     
@@ -240,4 +241,5 @@ public class ResourceWhenSteps {
 		.clickOnResourcesButton()
 		.clickOnLastPageButton();
     }
+
 }

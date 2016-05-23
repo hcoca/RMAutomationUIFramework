@@ -2,10 +2,6 @@ package org.fundacionjala.automation.scenario.steps.admin.location;
 
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
-import org.fundacionjala.automation.framework.utils.common.BrowserManager;
-import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.en.When;
 

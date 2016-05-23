@@ -5,6 +5,8 @@ import java.util.List;
 
 
 
+
+
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
@@ -109,7 +111,7 @@ public class ResourcePage extends AdminPage {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(ResourceMap.RESOURCE_NAMES)));
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
-				UIActions.clickAt(name);
+			    UIActions.clickAt(name);
 			}
 		}		
 		return this;
@@ -553,6 +555,17 @@ public class ResourcePage extends AdminPage {
 		UIActions.waitFor(ResourceMap.RESOURCE_NAMES);
 		return (firstElement.equalsIgnoreCase(
 			resourceNames.get(0).getText())) ? true : false;
+	}
+
+	/**
+	 * This method is to select a one resource
+	 * @param resourceName
+	 * @return 
+	 */
+	public ResourcePage selectAResource(String resourceName) {
+            	ExplicitWait.clickWhenReady(By.xpath(ResourceMap.CHECKBOX_RESOURCE
+            		.replace("resourceName", resourceName)), 50);
+            	return this;
 	}
 
 }
