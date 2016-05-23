@@ -275,4 +275,14 @@ public class CredentialsPage {
 		return new SchedulerPage();
 	}
 
+	/**
+	 * this method is to verify if an error message is displayed.
+	 * 
+	 * @return true if message is displayed else false
+	 */
+	public boolean verifyErrorMessageOfMeetingConflictIsDisplayed() {
+		return ExplicitWait.waitForElement(
+				CredentialsMap.MEETING_CONFLICT_ERROR, 30) ? true : false;
+	}
+
 }

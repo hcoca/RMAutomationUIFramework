@@ -14,5 +14,5 @@ public class CredentialsMap {
 	public static final String INVALID_CREDENTIALS_ERROR = "//small[text()='Wrong username or password']";
 	public static final String UPDATE_AS_CHECKBOX = "//span[@class='checkbox-label ng-binding'][contains(text(),'Update as')]";
 	public static final String MESSAGE_OF_UPDATE = "//div[@id='toast-container']//div[@class='ng-binding ng-scope' and contains(text(), 'Meeting successfully updated')]";
-
+	public static final String MEETING_CONFLICT_ERROR = "//div[@ng-switch-default and @class='ng-binding ng-scope' and text()='There is a conflict with another meeting, please choose another time interval']";
 }
