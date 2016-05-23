@@ -28,3 +28,14 @@ And I associate the location "loc-jalasoft" to "Room004"
 When I go to search page of Room Manager tablet
 And I filter rooms by the location "loc-jalasoft"
 Then I see the "Room004" listed in the results
+
+@searchfeature5
+Scenario: Clear fields of search advanced
+Given I am on search page 
+When I set the room name field 
+And I filter rooms by the location "<All>"
+And I press the clear button
+Then I verify that all fields of the advanced option is cleared
+
+
+

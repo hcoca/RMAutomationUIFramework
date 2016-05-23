@@ -31,10 +31,10 @@ public class SearchGivenSteps {
 		HomePage home = 
 		    navigation
 		    .clickOnRoomToggleButton()
-			.selectConferenceRoom("Room002").clickOnSaveButton().topMenu
+			.selectConferenceRoom("Room118").clickOnSaveButton().topMenu
 			.clickOnHomeButton();
 		
-	   home.clickOnSearchButton();
+	        home.clickOnSearchButton();
 	}
 	
 	@Given("^I am in location page of Room Manager Admin$")

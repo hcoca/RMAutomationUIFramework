@@ -41,4 +41,11 @@ public class SearchThenSteps {
 	    Assert.assertTrue(search.isListedRoom(roomName));
 	}
 	
+	@Then("^I verify that all fields of the advanced option is cleared$")
+	public void i_verify_that_all_fields_of_the_advanced_option_is_cleared() throws Throwable {
+	 
+		
+		Assert.assertTrue("All fields should be empty", search.isRoomNameEmpty());		
+	}
+	
 }

@@ -48,6 +48,25 @@ public class SearchPage {
 		return this;
 	}
 	
+	public boolean isRoomNameEmpty() {
+		
+		if (roomNameField != null) {
+			
+			if (roomNameField.getAttribute("value").isEmpty()) {
+				LogManager.info("Field room name is empty");
+				return true;
+			}
+		}
+		else {
+			LogManager.error("Field room name was not found");
+		}
+		System.out.println("**********************");
+		System.out.println(roomNameField.getAttribute("value"));
+		System.out.println("**********************");
+		return false;
+		
+	}
+	
 	public SearchPage setRoomName(String nameCriteria) {
 		
 		if (roomNameField != null) {
