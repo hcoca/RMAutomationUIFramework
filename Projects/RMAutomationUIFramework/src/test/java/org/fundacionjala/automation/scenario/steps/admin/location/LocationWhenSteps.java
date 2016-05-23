@@ -1,7 +1,12 @@
 package org.fundacionjala.automation.scenario.steps.admin.location;
 
+import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
+import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+import org.fundacionjala.automation.framework.utils.common.UIActions;
+import org.openqa.selenium.By;
 
 import cucumber.api.java.en.When;
 
@@ -132,5 +137,24 @@ public class LocationWhenSteps {
 	 		     		.clickOnLocationsButton();
 	    
 	    return locationPage;
+	}
+	
+	@When("^I select \"([^\"]*)\" on location page size option$")
+	public LocationPage i_select_on_location_page_size_option(String quantity) throws Throwable {
+		LocationPage locationPage = new LocationPage();
+		locationPage
+		    .leftMenu
+		    .clickOnConferenceRoomsButton();
+		
+		locationPage
+			.leftMenu
+			.clickOnLocationsButton();
+		
+		UIActions.waitFor("//div[@id='locationGrid']");
+		String xpath = "//div[@id='locationGrid']/div[3]/div/div[2]/div[1]/select//option[text()='number']"
+			.replace("number", quantity);
+		BrowserManager.getDriver().findElement(By.xpath(xpath)).click();
+		
+		return new LocationPage();
 	}
 }
