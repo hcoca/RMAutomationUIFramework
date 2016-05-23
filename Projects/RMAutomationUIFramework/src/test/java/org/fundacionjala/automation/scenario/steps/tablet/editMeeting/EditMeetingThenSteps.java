@@ -6,6 +6,7 @@ import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPa
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 
 public class EditMeetingThenSteps {
@@ -31,6 +32,33 @@ public class EditMeetingThenSteps {
 		.clickOnRemoveButton()
 		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOkButton();
+    }
+    
+    @Then("^Validate that the \"([^\"]*)\" has been modified with the value \"([^\"]*)\" of the \"([^\"]*)\"$")
+    public void validate_that_the_has_been_modified_with_the_value_of_the(String field, String value, String subject) throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+	scheduler.topMenu
+		.clickOnHomeButton()
+		.clickOnScheduleButton();
+	if(field.equalsIgnoreCase("subject")){
+	    Assert.assertTrue(
+	    scheduler.isMeetingPresentOnTimeLine(value));
+	}else{
+	    Assert.assertTrue(
+	    scheduler
+	    	.clickOnMeetingButton(subject)
+		.verifyFieldEdited(field, value));
+	}
+		
+    }
+    
+    @After("@DeleteMeeting")
+    public void deleteMeeting(){
+	SchedulerPage schedule = new SchedulerPage();
+	schedule
+        	.clickOnRemoveButton()
+        	.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+        	.clickOkButton();
     }
 
 

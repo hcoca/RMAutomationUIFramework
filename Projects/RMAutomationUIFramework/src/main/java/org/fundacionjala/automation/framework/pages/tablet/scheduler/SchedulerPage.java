@@ -141,7 +141,19 @@ public class SchedulerPage {
     public String getSubject() {
 	return subjectTextField.getAttribute("value");
     }
+    
+    public String getStartTime() {
+	return startTextField.getAttribute("value");
+    }
 
+    public String getEndTime() {
+	return endTextField.getAttribute("value");
+    }
+    
+    public String getBody() {
+	return bodyTextField.getAttribute("value");
+    }
+    
     public boolean isMeetingPresentOnTimeLine(String subject) {
 	WebElement html = BrowserManager.getDriver()
 		.findElement(By.tagName("html"));
@@ -318,5 +330,32 @@ public class SchedulerPage {
     public boolean verifyErrorMessageOfSubject() {
 	return ExplicitWait.waitForElement(SchedulerMap.SUBJECT_ERROR_MESSAGE, 30)
 	? true : false;
+    }
+
+    public boolean verifyFieldEdited(String field, String value) {
+	switch (field) {
+	case "subject":{
+	    return (getSubject().equalsIgnoreCase(value)) ?
+		true : false;
+	}
+	   
+	case "startTime":{
+	    return (getStartTime().equalsIgnoreCase(value)) ?
+		true : false;
+	}
+	case "endTime":{
+	    return (getEndTime().equalsIgnoreCase(value)) ?
+			true : false;
+	}
+	case "attendees":{
+	    return (isAttendeePresent(value)) ?
+		true : false;
+	}
+	case "body":{
+	    return (getBody().equalsIgnoreCase(value)) ?
+		true : false;
+	}
+	}
+	return false;
     }
 }

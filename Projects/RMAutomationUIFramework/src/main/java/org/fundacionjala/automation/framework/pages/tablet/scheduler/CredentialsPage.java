@@ -28,6 +28,9 @@ public class CredentialsPage {
     @FindBy (xpath = CredentialsMap.CANCEL_AS_CHECKBOX)
     WebElement cancelAsCheckBox;
 
+    @FindBy (xpath = CredentialsMap.UPDATE_AS_CHECKBOX)
+    WebElement updateAsCheckBox;
+
     public CredentialsPage() {
 	PageFactory.initElements(BrowserManager.getDriver(), this);
     }
@@ -218,4 +221,45 @@ public class CredentialsPage {
 	return ExplicitWait.waitForElement(CredentialsMap.INVALID_CREDENTIALS_ERROR, 30)
 		? true : false;
     }
+    
+
+    public CredentialsPage clickUpdateAsCheckBox() {
+	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions
+			.elementToBeClickable(updateAsCheckBox));
+	updateAsCheckBox.click();
+
+	LogManager.info("Update As CheckBox has been clicked");
+
+	return this;
+    }
+    
+    public SchedulerPage tryToClickOnOkButton(){
+    	
+    	int count = 1;
+    	WebElement element = null;
+    	(new WebDriverWait(BrowserManager.getDriver(), 30))
+    		.until(ExpectedConditions.elementToBeClickable(okButton));
+    	while(count <= 2){
+    	    okButton.click();
+    	    LogManager.info("Ok Button has been clicked");
+    	    element = ExplicitWait.getWhenVisible(By.xpath(CredentialsMap.MESSAGE_OF_UPDATE), 30);
+    	    if (element != null){
+    		count = 4;
+    	    }
+    	    else{
+    		count = count +1;
+    	    }
+    	}
+    	if (element != null){
+    	    LogManager.info("Ok Button has been clicked");
+    	}
+    	else{
+    	    (new WebDriverWait(BrowserManager.getDriver(), 30)).until(ExpectedConditions.elementToBeClickable(cancelButton));
+    		cancelButton.click();
+    		LogManager.info("Cancel Button has been clicked");
+    	}
+    	return new SchedulerPage();
+        }
+
 }

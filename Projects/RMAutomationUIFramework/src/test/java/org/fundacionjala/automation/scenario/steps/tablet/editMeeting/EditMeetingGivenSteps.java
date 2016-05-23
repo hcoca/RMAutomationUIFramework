@@ -1,8 +1,8 @@
 package org.fundacionjala.automation.scenario.steps.tablet.editMeeting;
 
+
 import java.util.ArrayList;
 import java.util.List;
-
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.CredentialsPage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
@@ -21,22 +21,21 @@ public class EditMeetingGivenSteps {
 	@Given("^I had a created meeting with \"([^\"]*)\" organizer, with \"([^\"]*)\" subject in the \"([^\"]*)\" room$")
 	public void IHadAMeetingCreated(String organizer, String subject,
 			String room) throws Throwable {
-
 		String startDate = RMGenerator.getIsoTime(0);
 		String endDate = RMGenerator.getIsoTime(1);
 		String roomEmail = room + "@" + PropertiesReader.getExchangeDomain();
 		List<String> attendees = new ArrayList<String>();
 		attendees.add(PropertiesReader.getExchangeInviteMail());
-
 		Meeting meeting = new Meeting(organizer, subject, startDate, endDate,
 				room, roomEmail, roomEmail, attendees);
 		MeetingAPIManager.postRequest(room, meeting);
+
 	}
 
 	@Given("^I had a created meeting in the \"([^\"]*)\" room, with \"([^\"]*)\" subject and attendees:$")
 	public void i_had_a_created_meeting_in_the_room_with_subject_and_attendees(
 			String roomName, String subject, List<String> attendees)
-			throws Throwable {
+		throws Throwable {
 		String startDate = RMGenerator.getIsoTime(0);
 		String endDate = RMGenerator.getIsoTime(1);
 		String roomEmail = roomName + "@"
@@ -65,18 +64,19 @@ public class EditMeetingGivenSteps {
 				.clickOnSaveButton()
 				.topMenu
 				.clickOnHomeButton();
-		
+
 		home.clickOnScheduleButton();
 
 		SchedulerPage scheduler = new SchedulerPage();
 		scheduler.setOrganizer(PropertiesReader.getExchangeOrganizerUser())
 				.setSubject(subject);
+
 	}
 
 	@Given("^the schedule with start time: \"([^\"]*)\" end time \"([^\"]*)\"$")
 	public void the_schedule_with_start_time_end_time(String startTime,
 			String EndTime) throws Throwable {
-		
+
 		SchedulerPage scheduler = new SchedulerPage();
 		scheduler
 			.setStartTime(startTime)
@@ -86,34 +86,29 @@ public class EditMeetingGivenSteps {
 
 	@Given("^attendees$")
 	public void attendees(List<String> attendees) throws Throwable {
-		
+
 		SchedulerPage scheduler = new SchedulerPage();
 		for (String attendee : attendees) {
 			scheduler.setAttende(attendee);
-			
 		}
 	}
-	
+
 	@Given("^body \"([^\"]*)\"$")
 	public void body(String body) throws Throwable {
-	    
+
 		SchedulerPage scheduler = new SchedulerPage();
-		scheduler.setBody(body);
+		CredentialsPage credentials  = 
+			scheduler.setBody(body).clickOnCreateButton();
+		credentials
+		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOkButton();
+
 	}
+
 	
-	@Given("^impersonate the meeting with the user \"([^\"]*)\" and password \"([^\"]*)\"$")
-	public void impersonate_the_meeting_with_the_user_and_password(String user, String pass) throws Throwable {
-		
-		SchedulerPage scheduler = new SchedulerPage();
-		CredentialsPage credentials = scheduler
-   				.clickOnCreateButton();
-   		
-   		scheduler = credentials
-   				.clickCreateAsCheckBox()
-   				.setUserName(user)
-   				.setPassword(pass)
-   				.clickOkButton();
-	}
+
+
+
 
 
 }
