@@ -25,20 +25,20 @@ When I modified the meeting "Maria" in the "Room082" room  adding the attendees
 #Scenario 3
 @IMP-DisableImpersonationUI @DeleteMeeting
 Scenario Outline: A meeting created is modified when the information meeting  is edited using impersonation
-Given I have a created in the "Room004" room with subject "New meeting"
+Given I have a created in the "Room013" room with subject "New meeting"
  And the schedule with start time: "09:00:00.000" end time "10:30:00.000"
  And attendees
 |RoomManager1@roommanager.local|
 |RoomManager4@roommanager.local|
  And body "This is a new meeting"
  And impersonation is enabled by UI
-When I modify the "Field" with "value" in the "New meeting" meeting in "Room004" room
+When I modify the "<field>" with "<value>" in the "New meeting" meeting in "Room013" room
  And Confirm the changes with the user "RoomManager1" and password "Control*123"
-Then Validate that the "Field" has been modified with the value "value" of the "New meeting" 
+Then Validate that the "<field>" has been modified with the value "<value>" of the "New meeting" 
 
 #field to modify (subject, startTime, endTime, attendees, body)
 Examples:
-|Field		|Value													|
+|field		|value													|
 |subject	|this is a new subject					|
 |startTime|10:00:00.000										|
 |endTime	|12:00:00.000										|
