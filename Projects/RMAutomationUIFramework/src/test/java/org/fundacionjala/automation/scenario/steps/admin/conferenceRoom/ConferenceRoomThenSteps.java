@@ -6,17 +6,17 @@ import org.fundacionjala.automation.framework.maps.admin.conferencerooms.OutOfOr
 import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.OutOfOrderPage;
-import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
-import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
 import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Room;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ConferenceRoomDataBase;
+import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.After;
@@ -28,7 +28,9 @@ public class ConferenceRoomThenSteps {
     public void validateRoomEnabled(String roomName)
 	    throws Throwable {
 	roomNameModified = roomName;
+	BrowserManager.getDriver().navigate().refresh();
 	ConnectionPage connection = new ConnectionPage();
+	
 	NavigationPage navigation = connection
 		.setUpServiceURL(PropertiesReader.getServiceURL())
 		.clickOnSaveButton()
@@ -92,9 +94,8 @@ public class ConferenceRoomThenSteps {
 	    throws Throwable {
 	ConferenceRoomsPage conferenceRoom = new ConferenceRoomsPage();
 	Assert.assertTrue("There are more than " + sizePage
-		+ " rooms in this page",
-		conferenceRoom.verifySizePage(sizePage));
-    }
+		+ " rooms in this page", conferenceRoom.verifySizePage(sizePage));
+ }
 
     @Then("^I validate if the next page is displayed according the page size specified \"([^\"]*)\" and the page \"([^\"]*)\"$")
     public void i_validate_if_the_next_page_is_displayed_according_the_page_size_specified_and_the_page(
@@ -157,7 +158,6 @@ public class ConferenceRoomThenSteps {
     @Then("^The \"([^\"]*)\" room should changes its status to non-available with the \"([^\"]*)\" title corresponding$")
     public void validateRoomChangesStatusNonAvailable(String roomName,
 	    String titleOutOfOrder) throws Throwable {
-	AdminPage home = new AdminPage();
 	boolean verification = false;
 
 	WebElement title = BrowserManager.getDriver().findElement(
@@ -241,5 +241,11 @@ public class ConferenceRoomThenSteps {
     @After ("@conferenceDisabled")
     public void tearDownRoomDisabled (){
 	new ConferenceRoomDataBase(roomNameModified).setEnable(true);
+    }
+    
+    @After("@outoforder")
+    public void tearDownAfterOutOfOrder() {
+	WebElement body = ExplicitWait.getWhenVisible(By.tagName("body"), 20);
+	body.sendKeys(Keys.ESCAPE);
     }
 }

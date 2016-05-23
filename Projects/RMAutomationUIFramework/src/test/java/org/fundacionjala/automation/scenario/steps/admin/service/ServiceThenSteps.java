@@ -12,6 +12,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 
 public class ServiceThenSteps {
@@ -84,25 +85,6 @@ public class ServiceThenSteps {
 	boolean areConferenceRoomsPresent = emailServer.verifyIfThereAreRooms();
 
 	Assert.assertFalse(areConferenceRoomsPresent);
-
-	LoginPage login = new LoginPage();
-
-	EmailServerPage server = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
-		.clickOnEmailServerButton();
-
-	if (server.isAddButtonPresent()) {
-
-	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
-
-	    server = addEmailServer
-		    .setDomainServer(PropertiesReader.getExchangeHostname())
-		    .setUserName(PropertiesReader.getExchangeConnectUserName())
-		    .setPassword(PropertiesReader.getExchangeConnectPassword())
-		    .clickSaveButton();
-	}
     }
 
     @Then("^Service information details are deleted$")
@@ -119,25 +101,6 @@ public class ServiceThenSteps {
 	long expectedServiceSize = 0;
 
 	Assert.assertEquals(actualServiceSize, expectedServiceSize);
-
-	LoginPage login = new LoginPage();
-
-	EmailServerPage server = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
-		.clickOnEmailServerButton();
-
-	if (server.isAddButtonPresent()) {
-
-	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
-
-	    server = addEmailServer
-		    .setDomainServer(PropertiesReader.getExchangeHostname())
-		    .setUserName(PropertiesReader.getExchangeConnectUserName())
-		    .setPassword(PropertiesReader.getExchangeConnectPassword())
-		    .clickSaveButton();
-	}
     }
 
     @Then("^The meetings are deleted$")
@@ -154,25 +117,6 @@ public class ServiceThenSteps {
 	long expectedMeetingsSize = 0;
 
 	Assert.assertEquals(actualMeetingsSize, expectedMeetingsSize);
-
-	LoginPage login = new LoginPage();
-
-	EmailServerPage server = login
-		.setUserName(PropertiesReader.getUserName())
-		.setPassword(PropertiesReader.getPassword())
-		.clickOnSigInButton().leftMenu.clickOnIssuesButton()
-		.clickOnEmailServerButton();
-
-	if (server.isAddButtonPresent()) {
-
-	    AddEmailServerPage addEmailServer = server.clickOnAddButton();
-
-	    server = addEmailServer
-		    .setDomainServer(PropertiesReader.getExchangeHostname())
-		    .setUserName(PropertiesReader.getExchangeConnectUserName())
-		    .setPassword(PropertiesReader.getExchangeConnectPassword())
-		    .clickSaveButton();
-	}
     }
 
     @Then("^The out-of-orders are deleted$")
@@ -189,7 +133,11 @@ public class ServiceThenSteps {
 	long expectedOutOfOrdersSize = 0;
 
 	Assert.assertEquals(actualOutOfOrdersSize, expectedOutOfOrdersSize);
-
+	
+    }
+    
+    @After ("@servicedeleted")
+    public void tearDownServiceDeleted () {
 	LoginPage login = new LoginPage();
 
 	EmailServerPage server = login
@@ -207,6 +155,7 @@ public class ServiceThenSteps {
 		    .setUserName(PropertiesReader.getExchangeConnectUserName())
 		    .setPassword(PropertiesReader.getExchangeConnectPassword())
 		    .clickSaveButton();
+	    
 	}
     }
 }

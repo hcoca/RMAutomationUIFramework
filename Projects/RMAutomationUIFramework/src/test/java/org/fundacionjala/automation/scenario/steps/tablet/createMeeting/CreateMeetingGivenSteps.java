@@ -15,35 +15,51 @@ import cucumber.api.java.en.Given;
 
 public class CreateMeetingGivenSteps {
 
-    @Given("^I am on Home Page of \"([^\"]*)\" room$")
-    public void i_am_on_Home_Page_of_room(String roomName) throws Throwable {
-	BrowserManager.openBrowser();
-	ConnectionPage connection = new ConnectionPage();
+	@Given("^I am on Home Page of \"([^\"]*)\" room$")
+	public void i_am_on_Home_Page_of_room(String roomName) throws Throwable {
+		BrowserManager.openBrowser();
+		ConnectionPage connection = new ConnectionPage();
 
-	NavigationPage navigation = connection
-		.setUpServiceURL(PropertiesReader.getServiceURL())
-		.clickOnSaveButton()
-		.clickOnNavigationButton();
+		NavigationPage navigation = connection
+				.setUpServiceURL(PropertiesReader.getServiceURL())
+				.clickOnSaveButton().clickOnNavigationButton();
 
-	navigation.clickOnRoomToggleButton()
-		.selectConferenceRoom(roomName)
-		.clickOnSaveButton()
-		.topMenu
-		.clickOnHomeButton();
-    }
-    
-    @Given("^I have a meeting with this subject \"([^\"]*)\" on \"([^\"]*)\" room$")
-    public void i_have_a_meeting(String subject, String roomName) throws Throwable {
-	String roomEmail = roomName + "@" + PropertiesReader.getExchangeDomain();
-	String resources = roomName + "@" + PropertiesReader.getExchangeDomain();
-	String start = RMGenerator.getIsoTime(0);
-	String end = RMGenerator.getIsoTime(1);
-	List<String> attendees = new ArrayList<String>();
-	attendees.add(PropertiesReader.getExchangeInviteMail());
-	Meeting meeting = new Meeting(PropertiesReader.getExchangeOrganizerUser(),
-		subject, start, end, roomName, roomEmail, resources,
-		attendees);
-	
-	MeetingAPIManager.postRequest(roomName, meeting);
-    }
+		navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
+				.clickOnSaveButton().topMenu.clickOnHomeButton();
+	}
+
+	@Given("^I have a meeting with this subject \"([^\"]*)\" on \"([^\"]*)\" room$")
+	public void i_have_a_meeting(String subject, String roomName)
+			throws Throwable {
+		String roomEmail = roomName + "@"
+				+ PropertiesReader.getExchangeDomain();
+		String resources = roomName + "@"
+				+ PropertiesReader.getExchangeDomain();
+		String start = RMGenerator.getIsoTime(0);
+		String end = RMGenerator.getIsoTime(1);
+		List<String> attendees = new ArrayList<String>();
+		attendees.add(PropertiesReader.getExchangeInviteMail());
+		Meeting meeting = new Meeting(
+				PropertiesReader.getExchangeOrganizerUser(), subject, start,
+				end, roomName, roomEmail, resources, attendees);
+
+		MeetingAPIManager.postRequest(roomName, meeting);
+	}
+
+	@Given("^I have a meeting created on \"([^\"]*)\" as \"([^\"]*)\" from \"([^\"]*)\" start time to \"([^\"]*)\" end time with \"([^\"]*)\" subject$")
+	public void i_have_a_meeting_created(String roomName, String organizer,
+			String start, String end, String subject) throws Throwable {
+		String roomEmail = roomName + "@"
+				+ PropertiesReader.getExchangeDomain();
+		String resources = roomName + "@"
+				+ PropertiesReader.getExchangeDomain();
+		start = RMGenerator.getIsoTime(0);
+		end = RMGenerator.getIsoTime(1);
+		List<String> attendees = new ArrayList<String>();
+		attendees.add(PropertiesReader.getExchangeInviteMail());
+		Meeting meeting = new Meeting(
+				PropertiesReader.getExchangeOrganizerUser(), subject, start,
+				end, roomName, roomEmail, resources, attendees);
+		MeetingAPIManager.postRequest(roomName, meeting);
+	}
 }

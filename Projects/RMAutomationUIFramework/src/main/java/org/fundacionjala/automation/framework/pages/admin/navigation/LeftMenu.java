@@ -11,6 +11,7 @@ import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -72,10 +73,13 @@ public class LeftMenu {
 		return new ImpersonationPage();
 	}
 	
-	public EmailServerPage clickOnEmailServerButton() {
-		LogManager.info("Click on Email Server menu");
-		UIActions.waitFor(LeftMenuMap.EMAILSERVER_BUTTON);
-		emailServerButton.click();
-		return new EmailServerPage();
-	}
+        public EmailServerPage clickOnEmailServerButton() {
+        	LogManager.info("Click on Email Server menu");
+        	emailServerButton = ExplicitWait.getWhenVisible(
+        		By.xpath(LeftMenuMap.EMAILSERVER_BUTTON), 30);
+        	if (emailServerButton != null) {
+        	    emailServerButton.click();
+        	}
+        	return new EmailServerPage();
+        }
 }

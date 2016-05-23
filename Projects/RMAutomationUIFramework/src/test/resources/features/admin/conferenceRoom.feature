@@ -59,35 +59,35 @@ Examples:
     |  200  |
     |  100  |
     |  35   |
-
+@outoforder
 Scenario: The icon of "Out of Order" changes its color to green so the Conference Room selected changes its state to non-available.
 Given I am logged as "Administrator" with password "Control*123"
   And I create an Out of Order on a specific "Room002" room 
 When  I did click on the icon of Out of Order on the "Room002" room
 	And I sign in to Tablet page using the "Room002" room
 Then The "Room002" room should changes its status to non-available with the "Closed for maintenance" title corresponding
-
+@outoforder
 Scenario: An "Out of Order Planning" is created with the corresponding interval of time that has been specified.
 Given I am logged as "Administrator" with password "Control*123"
 When  I create an Out of Order on "Room003" room with a time by default
 Then The Out Of Order on "Room003" room should be created with the time interval defined
-
+@outoforder
 Scenario: An "Out of Order Planning" is created with the corresponding title that has been specified.
 Given I am logged as "Administrator" with password "Control*123"
 When  I create an Out Of Order on "Room004" room with a title defined 
 Then The Out Of Order on "Room004" room should have been created an OutOfOrder with the "Closed for maintenance" title corresponding
-
+@outoforder
 Scenario: An "Out of Order Planning" can be disabled.
 Given I am logged as "Administrator" with password "Control*123"
 When  I create an Out Of Order on "Room005" room with a title defined 
  And  I disable this OutOfOrder on "Room005" room
 Then The Out Of Order on "Room005" room should has been disabled correctly with the "Closed for maintenance" title corresponding
-
+@outoforder
 Scenario: An "Out of Order" cannot be established when a time in the past is used.
 Given I am logged as "Administrator" with password "Control*123" 
 When  I create an OutOfOrder on "Room006" room with a time in the past
 Then The Out Of Order cannot be created an error message is displayed
-
+@outoforder
 Scenario: An "Out of Order" cannot be established when a date in the past is used.
 Given I am logged as "Administrator" with password "Control*123"
 When  I create an OutOfOrder on "Room007" with a date in the past
