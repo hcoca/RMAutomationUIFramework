@@ -54,5 +54,15 @@ public class EditMeetingThenSteps {
 				.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 				.clickOkButton();
 	}
+	
+	@After("@DeleteMeetingOutOfOrder")
+	public void deleteMeetingOutOfOrder() {
+		SchedulerPage schedule = new SchedulerPage();
+		schedule
+				.clickOnMeetingButton("Meeting QDAEV06")
+				.clickOnRemoveButton()
+				.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+				.clickOkButton();
+	}
 
 }

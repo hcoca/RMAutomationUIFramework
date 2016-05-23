@@ -2,6 +2,9 @@ package org.fundacionjala.automation.scenario.steps.tablet.editMeeting;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.CredentialsPage;
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
@@ -97,6 +100,57 @@ public class EditMeetingGivenSteps {
 		credentials.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 				.clickOkButton();
 
+	}
+
+	@Given("^I had a created meeting from \"([^\"]*)\" to \"([^\"]*)\", with \"([^\"]*)\" subject in the \"([^\"]*)\" room$")
+	public void i_had_a_created_meeting_from_to_with_subject_in_the_room(
+			String startTime, String endTime, String subject, String roomName)
+			throws Throwable {
+		
+		BrowserManager.openBrowser();
+		HomePage home = new HomePage();
+		ConnectionPage connection = new ConnectionPage();
+		CredentialsPage credential = new CredentialsPage();
+
+		NavigationPage navigation = connection
+				.setUpServiceURL(PropertiesReader.getServiceURL())
+				.clickOnSaveButton().clickOnNavigationButton();
+
+		home = navigation.clickOnRoomToggleButton()
+				.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+				.clickOnHomeButton();
+
+		home.clickOnScheduleButton();
+
+		SchedulerPage scheduler = new SchedulerPage();
+		credential = scheduler
+				.setOrganizer(PropertiesReader.getExchangeOrganizerUser())
+				.setSubject(subject)
+				.setStartTime(startTime)
+				.setEndTime(endTime)
+				.clickOnCreateButton();
+		credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+			.clickOnOkButton();
+	}
+	
+	
+	
+	@Given("^the \"([^\"]*)\" room is out of order$")
+	public void the_room_is_out_of_order(String roomName) throws Throwable {
+		BrowserManager.openBrowser();
+		LoginPage loginPage = new LoginPage();
+		AdminPage adminPage = new AdminPage();
+		
+		loginPage
+			.setUserName(PropertiesReader.getUserName())
+			.setPassword(PropertiesReader.getPassword())
+			.clickOnSigInButton();
+		
+		adminPage.leftMenu.clickOnConferenceRoomsButton()
+			.openConfigurationPage(roomName).clickOnOutOfOrder()
+			.setTimeBeginUp().setTimeEndUp().clickOnBoxButon()
+			.ClickOnClosedForMaintenanceLink().activeOutOfOrder()
+			.clickOnSave();
 	}
 
 }

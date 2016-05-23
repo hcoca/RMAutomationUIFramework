@@ -109,4 +109,37 @@ public class EditMeetingWhenSteps {
 				.tryToClickOnOkButton();
 	}
 
+	@When("^I want to modify the meeting  \"([^\"]*)\" in the \"([^\"]*)\" room over the same time of out of order$")
+	public void i_want_to_modify_the_meeting_in_the_room_over_the_same_time_of_out_of_order(
+			String subject, String roomName) throws Throwable {
+		
+		String startTime = "07:00:00.000";
+		String endTime = "23:00:00.000";
+		BrowserManager.openBrowser();
+		HomePage home = new HomePage();
+		ConnectionPage connection = new ConnectionPage();
+		CredentialsPage credential = new CredentialsPage();
+
+		NavigationPage navigation = connection
+				.setUpServiceURL(PropertiesReader.getServiceURL())
+				.clickOnSaveButton().clickOnNavigationButton();
+
+		home = navigation.clickOnRoomToggleButton()
+				.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+				.clickOnHomeButton();
+
+		home.clickOnScheduleButton();
+
+		SchedulerPage scheduler = new SchedulerPage();
+		credential = scheduler
+				.setOrganizer(PropertiesReader.getExchangeOrganizerUser())
+				.setSubject(subject)
+				.setStartTime(startTime)
+				.setEndTime(endTime)
+				.clickOnCreateButton();
+		credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+			.clickOnOkButton();
+
+	}
+
 }
