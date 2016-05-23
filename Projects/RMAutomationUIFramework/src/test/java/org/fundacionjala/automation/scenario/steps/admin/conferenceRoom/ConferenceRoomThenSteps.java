@@ -3,12 +3,9 @@ package org.fundacionjala.automation.scenario.steps.admin.conferenceRoom;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.OutOfOrderMap;
-import org.fundacionjala.automation.framework.maps.admin.conferencerooms.RoomInfoMap;
 import org.fundacionjala.automation.framework.maps.tablet.home.HomeMap;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.OutOfOrderPage;
-import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
-import org.fundacionjala.automation.framework.pages.admin.login.LoginPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
 import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
@@ -19,6 +16,7 @@ import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.After;
@@ -160,7 +158,6 @@ public class ConferenceRoomThenSteps {
     @Then("^The \"([^\"]*)\" room should changes its status to non-available with the \"([^\"]*)\" title corresponding$")
     public void validateRoomChangesStatusNonAvailable(String roomName,
 	    String titleOutOfOrder) throws Throwable {
-	AdminPage home = new AdminPage();
 	boolean verification = false;
 
 	WebElement title = BrowserManager.getDriver().findElement(
@@ -246,12 +243,9 @@ public class ConferenceRoomThenSteps {
 	new ConferenceRoomDataBase(roomNameModified).setEnable(true);
     }
     
-    @After ("@outoforder")
-    public void tearDownOutOfOrder() {
-	WebElement cancel_button =ExplicitWait.getWhenVisible(
-		By.xpath(RoomInfoMap.CANCEL_BUTTON), 15, false);
-	if (cancel_button != null) {
-	    cancel_button.click();
-	}
+    @After("@outoforder")
+    public void tearDownAfterOutOfOrder() {
+	WebElement body = ExplicitWait.getWhenVisible(By.tagName("body"), 20);
+	body.sendKeys(Keys.ESCAPE);
     }
 }
