@@ -98,7 +98,7 @@ public class EditMeetingGivenSteps {
 		CredentialsPage credentials = scheduler.setBody(body)
 				.clickOnCreateButton();
 		credentials.setPassword(PropertiesReader.getExchangeOrganizerPwd())
-				.clickOkButton();
+				.clickOnOkButton();
 
 	}
 
