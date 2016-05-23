@@ -16,5 +16,5 @@ public class ResourceMap {
 	public static final String NEXT_PAGE_BUTTON = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//button[@title='Next Page']";
 	public static final String PREVIOUS_PAGE_BUTTON = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//button[@title='Previous Page']";
 	public static final String TOTAL_PAGES_LABEL = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']/div[@class='ngPagerControl']//span";
-	
+	public static final String CHECKBOX_RESOURCE = "//div[@tabindex]/div/div/child::*[3]//span[text()='resourceName']/ancestor::div[4]/div[1]//input";
 }
