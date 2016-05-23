@@ -78,6 +78,7 @@ public class EditMeetingWhenSteps {
 
 		home.clickOnScheduleButton();
 		schedule.displayAllDayOnTimeline().clickOnMeetingButton(subject);
+
 		switch (field) {
 		case "subject":
 			schedule.setSubject(value);
@@ -92,8 +93,8 @@ public class EditMeetingWhenSteps {
 			schedule.setAttende(value);
 			break;
 		case "body":
-			schedule.setBody(value);
-			break;
+		    schedule.setBody(value);
+			break;	
 		}
 	}
 
@@ -141,5 +142,7 @@ public class EditMeetingWhenSteps {
 			.clickOnOkButton();
 
 	}
+	
+	
 
 }
