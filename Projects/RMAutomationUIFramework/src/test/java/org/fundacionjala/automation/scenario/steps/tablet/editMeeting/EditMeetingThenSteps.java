@@ -61,10 +61,9 @@ public class EditMeetingThenSteps {
         		"The subject was not modified");
     }
     
-
-    @Then("^I validate that \"([^\"]*)\" meeting has been modified with schedule from \"([^\"]*)\" to \"([^\"]*)\"$")
-    public void i_validate_that_meeting_has_been_modified_with_schedule_from_to(String subject, String startTime, String endTime) throws Throwable {
-    
+    @Then("^validate that \"([^\"]*)\" meeting has been modified with schedule from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void validate_that_meeting_has_been_modified_with_schedule_from_to(String subject, String startTime, String endTime) throws Throwable {
+	
 	SchedulerPage scheduler = new SchedulerPage();
 	Assert.assertTrue(
         	scheduler.topMenu
