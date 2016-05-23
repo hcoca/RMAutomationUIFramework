@@ -85,6 +85,20 @@ Given I have a location added with name: "Cochabamba_4", display name "Cbba-Loca
 When I update location "Cbba-Location_4" with name: "Cochabamba_4", display name "Cbba-Location_4-Updated" and description "This is Cochabamba Location"
 Then The location display name "Cbba-Location_4-Updated" is displayed on location page
 
+@location23
+Scenario: A message is displayed on ‘Update Location’ page  when a location display name is updated to empty
+Given I have a location added with name: "Cochabamba_3", display name "Cbba-Location_3" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I update location "Cbba-Location_3" with name: "Cochabamba_3NameUpdated", display name "" and description "This is Cochabamba Location"
+Then An error message should be displayed   
+
+@location24
+Scenario: An error message is displayed on ‘Update Location’ page when a location is updated with special characters in its name
+Given I have a location added with name: "Cochabamba_3", display name "Cbba-Location_3" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I update location "Cbba-Location_3" with name: "/*/*****", display name "Cbba-Location_2" and description "This is Cochabamba Location"
+Then An error message should be displayed  
+
 @location13
 Scenario: The number of rooms asociated displayed on Locations page decreases when a room association is removed
 Given I have a location added with name: "Cochabamba_13", display name "Cbba-Location_13" and description "This is Cochabamba Location"
@@ -92,4 +106,4 @@ Given I have a location added with name: "Cochabamba_13", display name "Cbba-Loc
 	And I associate the location "Cbba-Location_13" with a room "Room005"
 When I delete the association between location "Cbba-Location_13" and "Room005"
 Then The number of associations on Location page has been decreased by removing "Cochabamba_13" location association
- 
+
