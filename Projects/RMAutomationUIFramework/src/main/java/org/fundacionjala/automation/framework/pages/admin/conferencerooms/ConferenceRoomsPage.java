@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
+import org.fundacionjala.automation.framework.maps.admin.impersonation.ImpersonationMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
@@ -425,5 +426,12 @@ public class ConferenceRoomsPage extends AdminPage {
     WebElement enableDisableMessage;
     public String getMessage() {
 	return enableDisableMessage.getText();
+    }
+
+    public void waitRoomMessageDissapear(String message) {
+	
+	if (ExplicitWait.isElementInvisible(By.xpath(ConferenceRoomsMap.ENABLE_DISABLE_MESSAGE), 10)) {
+	    LogManager.info(message);
+	}
     }
 }

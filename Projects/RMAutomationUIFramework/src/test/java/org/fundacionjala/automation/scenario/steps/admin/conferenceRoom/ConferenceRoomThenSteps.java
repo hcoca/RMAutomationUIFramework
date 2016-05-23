@@ -19,6 +19,7 @@ import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.After;
@@ -246,12 +247,10 @@ public class ConferenceRoomThenSteps {
 	new ConferenceRoomDataBase(roomNameModified).setEnable(true);
     }
     
-    @After ("@outoforder")
+    @After("@outoforder")
     public void tearDownOutOfOrder() {
-	WebElement cancel_button =ExplicitWait.getWhenVisible(
-		By.xpath(RoomInfoMap.CANCEL_BUTTON), 15, false);
-	if (cancel_button != null) {
-	    cancel_button.click();
-	}
+	WebElement body = BrowserManager.getDriver().findElement(
+		By.tagName("body"));
+	body.sendKeys(Keys.ESCAPE);
     }
 }

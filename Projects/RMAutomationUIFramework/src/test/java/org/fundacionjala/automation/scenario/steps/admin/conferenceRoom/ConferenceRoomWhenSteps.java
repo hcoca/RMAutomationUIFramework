@@ -24,6 +24,7 @@ public class ConferenceRoomWhenSteps {
 	while (message.equals("Room " + roomName + " was disabled")
 		|| message.contains("Error on trying to")) {
 	    message = rooms.clickOnTurnOnOffButton(roomName).getMessage();
+	    rooms.waitRoomMessageDissapear(message);
 	}
     }
 
