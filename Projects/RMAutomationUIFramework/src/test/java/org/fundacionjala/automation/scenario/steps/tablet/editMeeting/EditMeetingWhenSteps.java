@@ -143,6 +143,59 @@ public class EditMeetingWhenSteps {
 
 	}
 	
+	@When("^I modify the \"([^\"]*)\" meeting in \"([^\"]*)\" room from \"([^\"]*)\" to \"([^\"]*)\"$")
+	public void modify_the_schedule_meeting(String subject, String roomName, String startTime, String endTime) throws Throwable {
+	    	BrowserManager.openBrowser();
+		HomePage home = new HomePage();
+		ConnectionPage connection = new ConnectionPage();
+		CredentialsPage credential = new CredentialsPage();
+		SchedulerPage scheduler = new SchedulerPage();
+
+		NavigationPage navigation = connection
+				.setUpServiceURL(PropertiesReader.getServiceURL())
+				.clickOnSaveButton().clickOnNavigationButton();
+
+		home = navigation.clickOnRoomToggleButton()
+				.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+				.clickOnHomeButton();
+
+		scheduler = home.clickOnScheduleButton();
+			scheduler.clickOnMeetingButton(subject)
+        		 	 .setEndTime(endTime)
+			    	 .setStartTime(startTime)
+        			 .clickUpdateButton();
+		credential	
+			.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+			.clickOnOkButton();
+			
+	}
+	
+	@When("^I modify the \"([^\"]*)\" meeting in \"([^\"]*)\" room with new subject \"([^\"]*)\"$")
+	public void i_modify_the_meeting_in_room_with_new_subject(String subject, String roomName, String newSubject) throws Throwable {
+	
+	    BrowserManager.openBrowser();
+		HomePage home = new HomePage();
+		ConnectionPage connection = new ConnectionPage();
+		CredentialsPage credential = new CredentialsPage();
+		SchedulerPage scheduler = new SchedulerPage();
+
+		NavigationPage navigation = connection
+				.setUpServiceURL(PropertiesReader.getServiceURL())
+				.clickOnSaveButton().clickOnNavigationButton();
+
+		home = navigation.clickOnRoomToggleButton()
+				.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+				.clickOnHomeButton();
+
+		scheduler = home.clickOnScheduleButton();
+			scheduler.clickOnMeetingButton(subject)
+				.setSubject(newSubject)
+				.clickUpdateButton();
+		credential	
+			.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+			.clickOnOkButton();
+	}
+	
 	
 
 }

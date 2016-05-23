@@ -48,6 +48,21 @@ public class EditMeetingThenSteps {
 	}
 
     }
+    
+    @Then("^I validate that \"([^\"]*)\" subject has been modified$")
+    public void i_validate_that_subject_has_been_modified(String newSubject) throws Throwable {
+    
+	SchedulerPage scheduler = new SchedulerPage();
+	Assert.assertTrue(
+        	scheduler.topMenu
+        		.clickOnHomeButton()
+        		.clickOnScheduleButton()
+        		.verifySubjectModified(newSubject),
+        		"The subject was not modified");
+	scheduler.clickOnRemoveButton()
+		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOnOkButton();
+    }
 
     @After("@DeleteMeeting")
     public void deleteMeeting() {

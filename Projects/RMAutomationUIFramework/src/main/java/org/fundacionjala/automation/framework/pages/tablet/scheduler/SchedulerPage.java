@@ -487,4 +487,23 @@ public class SchedulerPage {
 
 	return (minutes == 10) ? true : false;
     }
+
+    /**
+     * This function is to validate if the subject value is the same that the
+     * parameter
+     * @param newSubject
+     * @return true if the values are same else return false
+     */
+    public boolean verifySubjectModified(String newSubject) {
+	
+	if(isMeetingPresentOnTimeLine(newSubject)){
+	    clickOnMeetingButton(newSubject);
+	    return (getSubject().equalsIgnoreCase(newSubject)) ?
+		    true : false;
+	}
+	else{
+	    return false;
+	}
+	
+    }
 }
