@@ -31,7 +31,7 @@ Then validate that an error message is displayed for subject
 #Scenario05
 Scenario: An error message is displayed when a meeting is created with invalid password
 Given I am on Home Page of "Room033" room
-When I want to create a meeting as "RoomManager2" and this password "incorrect"
+hen I want to create a meeting as "RoomManager2" and this password "incorrect"
 Then validate that an error message is displayed with invalid credentials
 
 #Scenario06
@@ -46,3 +46,9 @@ Given I have a meeting created on "Room057" as "RoomManager2" from "08:00:00.000
 And I am on Home Page of "Room057" room
 When I want to create a meeting over interval time of other meeting  from "06:00:00.000" start time to "23:50:00.000" end time with "Over" subject
 Then validate that an error message is displayed with conflict of time interval
+
+#Scenario08
+Scenario: Meeting only is created for current date
+Given I am on Home Page of "Room045" room
+When I try to create a meeting for "2016/05" date
+Then Validate that start time date and end time date are disabled to edit

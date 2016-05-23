@@ -54,6 +54,10 @@ public class SchedulerPage {
 	List<WebElement> timeList;
 	@FindBy(xpath = SchedulerMap.SUBJECT_ERROR_MESSAGE)
 	WebElement subjectErrorMessage;
+	@FindBy(xpath = SchedulerMap.FROM_DATE)
+	WebElement fromDateTextbox;
+	@FindBy(xpath = SchedulerMap.TO_DATE)
+	WebElement toDateTextbox;
 
 	public SchedulerPage() {
 		this.topMenu = new TopMenu();
@@ -388,5 +392,44 @@ public class SchedulerPage {
 		}
 		}
 		return false;
+	}
+
+	/**
+	 * this method is to set up date on "from" text box
+	 * @param date
+	 * @return SchedulerPage instance
+	 */
+	public SchedulerPage setFromDate(String date) {
+		if(fromDateTextbox.getAttribute("disabled").equalsIgnoreCase("false")){
+			fromDateTextbox.clear();
+			fromDateTextbox.sendKeys(date);
+			LogManager.info("Date " + fromDateTextbox + " has been set up");
+		}
+		LogManager.info("Date " + fromDateTextbox + " has not been set up, because textbox is disabled");
+		return this;
+	}
+	
+	/**
+	 * this method is to set up date on "to" text box
+	 * @param date
+	 * @return SchedulerPage instance
+	 */
+	public SchedulerPage setToDate(String date) {
+		if(toDateTextbox.getAttribute("disabled").equalsIgnoreCase("false")){
+			toDateTextbox.clear();
+			toDateTextbox.sendKeys(date);
+			LogManager.info("Date " + toDateTextbox + " has been set up");
+		}
+		LogManager.info("Date " + toDateTextbox + " has not been set up, because textbox is disabled");
+		return this;
+	}
+
+	/**
+	 * This method is to verify date text box are disabled
+	 * @return true if "to" and "from" are disabled else false
+	 */
+	public boolean verifyTextboxDisabled() {
+		return (toDateTextbox.getAttribute("disabled").equalsIgnoreCase("true") &&
+				fromDateTextbox.getAttribute("disabled").equalsIgnoreCase("true")) ? true : false;
 	}
 }
