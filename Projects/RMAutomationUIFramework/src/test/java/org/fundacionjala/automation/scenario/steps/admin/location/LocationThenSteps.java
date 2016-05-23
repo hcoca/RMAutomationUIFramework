@@ -191,6 +191,13 @@ public class LocationThenSteps {
 	Assert.assertTrue(locationPage.verifyNumberOfAssociations(name, "0"));
     }
     
+    @Then("^An error message should be displayed$")
+    public void an_error_message_should_be_displayed() throws Throwable {
+    	UpdateLocationPage updateLocationPage = new UpdateLocationPage();
+        Assert.assertTrue(updateLocationPage.verifyErrorMessageDisplayed(), "The error message has been not displayed: Test Failed");
+        updateLocationPage.clickOnCancelButton();
+    }
+    
     @After("@location")
     public void deleteAllLocations() {
     	

@@ -28,6 +28,8 @@ public class UpdateLocationPage {
     WebElement parentField;
     @FindBy(xpath = UpdateLocationMap.SAVE_BUTTON)
     WebElement saveButton;
+    @FindBy(xpath = UpdateLocationMap.CANCEL_BUTTON)
+    WebElement cancelButton;
     @FindBy(xpath = UpdateLocationMap.LOCATION_ASSOCIATION_LINK)
     WebElement associationLink;
 
@@ -94,6 +96,16 @@ public class UpdateLocationPage {
 	
 	LogManager.info("Save button has been clicked");
 	return new LocationPage();
+    }
+    
+    /**
+     * Clicks on "Cancel" Button.
+     * @return a new "Locations" page.
+     */
+    public LocationPage clickOnCancelButton(){
+    	cancelButton.click();
+    	LogManager.info("Cancel button has been clicked");
+    	return new LocationPage();
     }
 
     /**
@@ -162,5 +174,17 @@ public class UpdateLocationPage {
 	}
 	LogManager.warning("Test Failed");
 	return false;
+    }
+    
+    /**
+     * This method verifies if an error message is displayed 
+     * @return true if this message is displayed
+     */
+    public boolean verifyErrorMessageDisplayed(){
+    	if(ExplicitWait.waitForElement("//small[@class='inline-error ng-binding ng-scope']", 15)){
+    		LogManager.info("The error message has been displayed");
+    		return true;
+    	}
+    	return false;
     }
 }
