@@ -48,6 +48,33 @@ public class EditMeetingThenSteps {
 	}
 
     }
+    
+    @Then("^I validate that \"([^\"]*)\" subject has been modified$")
+    public void i_validate_that_subject_has_been_modified(String newSubject) throws Throwable {
+    
+	SchedulerPage scheduler = new SchedulerPage();
+	Assert.assertTrue(
+        	scheduler.topMenu
+        		.clickOnHomeButton()
+        		.clickOnScheduleButton()
+        		.verifySubjectModified(newSubject),
+        		"The subject was not modified");
+    }
+    
+
+    @Then("^I validate that \"([^\"]*)\" meeting has been modified with schedule from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_validate_that_meeting_has_been_modified_with_schedule_from_to(String subject, String startTime, String endTime) throws Throwable {
+    
+	SchedulerPage scheduler = new SchedulerPage();
+	Assert.assertTrue(
+        	scheduler.topMenu
+        		.clickOnHomeButton()
+        		.clickOnScheduleButton()
+        		.clickOnMeetingButton(subject)
+        		.verifyTheScheduleModified(startTime, endTime),
+        		"The schedule was not modified");
+    }
+
 
     @After("@DeleteMeeting")
     public void deleteMeeting() {

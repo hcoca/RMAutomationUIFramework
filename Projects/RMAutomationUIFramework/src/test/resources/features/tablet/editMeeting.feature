@@ -3,16 +3,16 @@ Feature: Edit meeting
 
 #Scenario 1
 Scenario: The organizer is not able to modified in a meeting created
-Given I had a created meeting with "RoomManager2" organizer, with "Maria" subject in the "Room082" room
- When I display the meeting "Maria" in the "Room082" room
+Given I had a created meeting with "RoomManager2" organizer, with "Pizza" subject in the "Room082" room
+ When I display the meeting "Pizza" in the "Room082" room
  Then Validate that the organizer is not able to modified
 
 #Scenario 2
 Scenario: The attendees text field is modified in a meeting created
-Given I had a created meeting in the "Room082" room, with "Maria" subject and attendees: 
+Given I had a created meeting in the "Room082" room, with "New Project RM" subject and attendees: 
 |RoomManager5@roommanager.local|
 |RoomManager6@roommanager.local|
-When I modified the meeting "Maria" in the "Room082" room  adding the attendees
+When I modified the meeting "New Project RM" in the "Room082" room  adding the attendees
 |RoomManager7@roommanager.local|
 |RoomManager8@roommanager.local|
   And Save the changes
@@ -46,10 +46,24 @@ Examples:
 |body			|This meeting has been modified	|
 
 #Scenario 4
-
 @DeleteMeetingOutOfOrder
 Scenario: A message is displayed when a meeting is modified over the same time of out of order time
 Given I had a created meeting from "08:00:00.000" to "09:00:00.000", with "Meeting QDAEV06" subject in the "Room002" room
 Given the "Room002" room is out of order
  When I want to modify the meeting  "Meeting QDAEV06" in the "Room002" room over the same time of out of order
  Then validate that an error message is displayed with conflict of time interval
+ 
+#Scenario 5
+@DeleteMeeting
+Scenario: The schedule in a meeting is modified when the new time is entered
+Given I had a created meeting with "RoomManager2" organizer, with "Creating meeting" subject in the "Room132" room
+When I modify the "Creating meeting" meeting in "Room132" room from "18:00" to "19:30"
+Then I validate that "Creating meeting" meeting has been modified with schedule from "18:00" to "19:30"
+
+#Scenario 6
+@DeleteMeeting
+Scenario: The subject text field is modified when is edited
+Given I had a created meeting with "RoomManager2" organizer, with "Creating meeting" subject in the "Room112" room
+When I modify the "Creating meeting" meeting in "Room112" room with new subject "subject modified"
+Then I validate that "subject modified" subject has been modified
+ 
