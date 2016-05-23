@@ -31,7 +31,7 @@ Then validate that an error message is displayed for subject
 #Scenario05
 Scenario: An error message is displayed when a meeting is created with invalid password
 Given I am on Home Page of "Room033" room
-hen I want to create a meeting as "RoomManager2" and this password "incorrect"
+When I want to create a meeting as "RoomManager2" and this password "incorrect"
 Then validate that an error message is displayed with invalid credentials
 
 #Scenario06
@@ -52,3 +52,18 @@ Scenario: Meeting only is created for current date
 Given I am on Home Page of "Room045" room
 When I try to create a meeting for "2016/05" date
 Then Validate that start time date and end time date are disabled to edit
+
+#Scenario09
+Scenario: Timeline displays  ten minutes interval when zoom is extendest.
+Given I am on Home Page of "Room077" room
+When I extend the time line.
+Then validate that the timeline displays time in intervals of ten minutes
+
+#Scenario10
+Scenario: Timeline show a created meeting when user moves timeline up to it
+Given I am on Home Page of "Room0165" room
+When I create a meeting as "RoomManager2" organizer
+And it meeting will be from "08:30:00.000" start time to "10:30:00.000" end time
+And it has "Meet" as subject, "this is a description for new meeting" as description
+And it has the following attendee "Administrator@roommanager.local"
+Then validate that "Meet" meeting is found on timeline

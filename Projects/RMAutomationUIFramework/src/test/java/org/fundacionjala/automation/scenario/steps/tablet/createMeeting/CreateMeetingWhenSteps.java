@@ -118,5 +118,17 @@ public class CreateMeetingWhenSteps {
 
 		SchedulerPage scheduler = new SchedulerPage();
 		scheduler.setFromDate(date).setToDate(date);
-	}	
+	}
+	
+	@When("^I extend the time line\\.$")
+	public void i_extend_the_time_line() throws Throwable {
+	    HomePage home = new HomePage();
+		home.clickOnScheduleButton();
+
+		SchedulerPage scheduler = new SchedulerPage();
+		scheduler
+			.extendTimeline();
+	}
+
+	
 }
