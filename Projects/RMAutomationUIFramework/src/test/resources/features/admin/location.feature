@@ -86,10 +86,17 @@ When I update location "Cbba-Location_4" with name: "Cochabamba_4", display name
 Then The location display name "Cbba-Location_4-Updated" is displayed on location page
 
 @location13
-Scenario: The number of rooms asociated displayed on Locations page decreases when a room association is removed
+Scenario: The number of rooms associated displayed on Locations page decreases when a room association is removed
 Given I have a location added with name: "Cochabamba_13", display name "Cbba-Location_13" and description "This is Cochabamba Location"
 	And I am logged as "Administrator" with password "Control*123"
 	And I associate the location "Cbba-Location_13" with a room "Room005"
 When I delete the association between location "Cbba-Location_13" and "Room005"
 Then The number of associations on Location page has been decreased by removing "Cochabamba_13" location association
- 
+
+@location14
+Scenario: The number of roms of a parent location increases when a room is associated to its child locations
+Given I have a location added with name: "Cochabamba_14", display name "Cbba-Location_12" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+	And I add a new location with name: "Cochabamba_14_Child", display name "Cbba-Child" and parent "Cochabamba_14"
+When I associate the location "Cbba-Child" with a room "Room006"
+Then The number of associations on Location page has been increased by "Cochabamba_14" location association
