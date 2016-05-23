@@ -62,8 +62,16 @@ Then validate that "Creating meeting" meeting has been modified with schedule fr
 
 #Scenario 6
 @DeleteMeeting
-Scenario: The subject text field is modified when is edited
+Scenario: The subject text field is modified when it is edited
 Given I had a created meeting with "RoomManager2" organizer, with "Creating meeting" subject in the "Room112" room
 When I modify the "Creating meeting" meeting in "Room112" room with new subject "subject modified"
 Then validate that "subject modified" subject has been modified
+ 
+#Scenario 7
+@DeleteMeeting
+Scenario: The body text field is modified when it is edited
+Given I had a created meeting with "RoomManager2" organizer, with "meeting QADEV06" subject in the "Room111" room
+When I modify the "meeting QADEV06" meeting in "Room111" room with new body "This is a meeting modified in body field"
+Then validate that the body "This is a meeting modified in body field" has been modified in "meeting QADEV06"
+
  
