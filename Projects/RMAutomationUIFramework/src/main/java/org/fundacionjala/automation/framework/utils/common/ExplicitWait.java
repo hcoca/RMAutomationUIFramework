@@ -28,6 +28,23 @@ public class ExplicitWait {
 	    LogManager.info("Element waiting for clickable was not found");
 	}
     }
+    
+    public static boolean clickWhenReadyState(By locator, int timeout) {
+	WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),
+		timeout);
+
+	try {
+	    WebElement element = wait.until(ExpectedConditions
+		    .elementToBeClickable(locator));
+	    element.click();
+	    LogManager.info("Element was clicked");
+
+	} catch (TimeoutException e) {
+	    LogManager.info("Element waiting for clickable was not found");
+	    return false;
+	}
+	 return true;
+    }
 
     public static void waitForUrl(String url, int timeout) {
 
@@ -114,7 +131,7 @@ public class ExplicitWait {
 
 	return elements;
     }
-
+    
     public static void waitFluentElement(final By locator,
 	    final int timeoutSeconds) {
 	final WebDriver driver = BrowserManager.getDriver();
@@ -131,9 +148,9 @@ public class ExplicitWait {
 	try {
 	    WebDriverWait wait = new WebDriverWait(BrowserManager.getDriver(),
 		timeout);
-
-	    return wait.until(ExpectedConditions
-		.invisibilityOfElementLocated(locator));
+	    boolean state = wait.until(ExpectedConditions
+			.invisibilityOfElementLocated(locator));
+	    return state;
     	} catch (Exception exc) {
     	    return true;
     	}
