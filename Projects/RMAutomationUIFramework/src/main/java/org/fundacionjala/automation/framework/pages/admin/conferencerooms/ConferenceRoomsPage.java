@@ -428,7 +428,7 @@ public class ConferenceRoomsPage extends AdminPage {
 	return enableDisableMessage.getText();
     }
 
-    public void waitRoomMessageDissapear(String message) {
+    public void waitRoomEnableMessageDissapear(String message) {
 	
 	if (ExplicitWait.isElementInvisible(By.xpath(ConferenceRoomsMap.ENABLE_DISABLE_MESSAGE), 10)) {
 	    LogManager.info(message);

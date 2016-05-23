@@ -248,9 +248,8 @@ public class ConferenceRoomThenSteps {
     }
     
     @After("@outoforder")
-    public void tearDownOutOfOrder() {
-	WebElement body = BrowserManager.getDriver().findElement(
-		By.tagName("body"));
+    public void tearDownAfterOutOfOrder() {
+	WebElement body = ExplicitWait.getWhenVisible(By.tagName("body"), 20);
 	body.sendKeys(Keys.ESCAPE);
     }
 }
