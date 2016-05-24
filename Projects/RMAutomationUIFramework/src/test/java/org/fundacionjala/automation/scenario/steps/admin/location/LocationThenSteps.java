@@ -2,16 +2,12 @@ package org.fundacionjala.automation.scenario.steps.admin.location;
 
 import java.util.List;
 
-import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationAssociationPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.UpdateLocationPage;
-import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.LocationAPIManager;
-import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Location;
-import org.fundacionjala.automation.framework.utils.api.objects.admin.Room;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.DatabaseConnection;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;

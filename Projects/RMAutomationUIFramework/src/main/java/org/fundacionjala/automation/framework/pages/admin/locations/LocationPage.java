@@ -3,10 +3,7 @@ package org.fundacionjala.automation.framework.pages.admin.locations;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fundacionjala.automation.framework.maps.admin.conferencerooms.ConferenceRoomsMap;
 import org.fundacionjala.automation.framework.maps.admin.locations.LocationMap;
-import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
-import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
