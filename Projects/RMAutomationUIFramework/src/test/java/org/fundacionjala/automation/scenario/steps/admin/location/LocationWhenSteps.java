@@ -157,4 +157,10 @@ public class LocationWhenSteps {
 		
 		return new LocationPage();
 	}
+	
+	@When("^I set the page by \"([^\"]*)\" on location page$")
+	public void setPageOnLocation(String page) throws Throwable {
+	   LocationPage location = new LocationPage();
+	   location.setPage(page);
+	}
 }
