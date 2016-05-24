@@ -3,6 +3,7 @@ package org.fundacionjala.automation.scenario.steps.admin.resource;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.resource.AddResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
@@ -224,4 +225,44 @@ public class ResourceThenSteps {
 	removeResourcePage.clickOnCloseButton();
     }
 
+    @Then("^Validate that a form to create a resource is diplayed$")
+    public void validate_that_a_form_to_create_a_resource_is_diplayed() throws Throwable {
+	AddResourcePage addResourcePage = new AddResourcePage();
+	Assert.assertTrue(
+	addResourcePage.verifyIfFormIsDisplayed(),
+	"The form is not displayed");
+	addResourcePage.clickOnCancelButton();
+    }
+    
+    @Then("^Validate that an error message is displayed$")
+    public void validate_that_an_error_message_is_displayed() throws Throwable {
+	AddResourcePage addResourcePage = new AddResourcePage();
+	Assert.assertTrue(
+	addResourcePage.verifyErrorMessagesWhenFieldsAreEmpty(),
+	"The form is not displayed");
+	addResourcePage.clickOnCancelButton();
+    }
+    
+    @Then("^Validate that an error message is displayed for special characters$")
+    public void validate_that_an_error_message_is_displayed_for_special_characters() throws Throwable {
+	AddResourcePage addResourcePage = new AddResourcePage();
+	Assert.assertTrue(
+	addResourcePage.verifyErrorMessageWhenSpecialCharactersAreEntered(),
+	"The form is not displayed");
+	addResourcePage.clickOnCancelButton();
+    }
+
+    @Then("^Validate that a form to remove a resource is diplayed$")
+    public void validate_that_a_form_to_remove_a_resource_is_diplayed() throws Throwable {
+	AddResourcePage addResourcePage = new AddResourcePage();
+	Assert.assertTrue(
+	addResourcePage.verifyErrorMessageWhenNameAlreadyExists(),
+	"The form is not displayed");
+	addResourcePage.clickOnCancelButton();
+    }
+
+    @Then("^Validate that an error message is displayed when I want to create a new resource that already exists\\.$")
+    public void validate_that_an_error_message_is_displayed_when_I_want_to_create_a_new_resource_that_already_exists() throws Throwable {
+        
+    }
 }
