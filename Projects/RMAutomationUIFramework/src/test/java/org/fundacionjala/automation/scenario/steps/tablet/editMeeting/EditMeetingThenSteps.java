@@ -3,8 +3,12 @@ package org.fundacionjala.automation.scenario.steps.tablet.editMeeting;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
+import org.fundacionjala.automation.framework.utils.api.managers.MeetingAPIManager;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Meeting;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
@@ -89,6 +93,12 @@ public class EditMeetingThenSteps {
         		.verifyTheBodyModified(bodyModified),
         		"The schedule was not modified");
     }
+      
+    @After("@DeleteTwoMeetings")
+    public void deleteTwoMeetings() throws UnirestException{
+	deleteMeetingByAPI("Room111", "first meeting");
+	deleteMeetingByAPI("Room111", "second meeting");
+    }
 
     @After("@DeleteMeeting")
     public void deleteMeeting() {
@@ -105,5 +115,12 @@ public class EditMeetingThenSteps {
 		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOkButton();
     }
+     private void deleteMeetingByAPI(String roomName, String subject) throws UnirestException{
+	 
+	 Meeting meetingToDelete = MeetingAPIManager.getMeetingBySubject(
+			roomName, subject);
+		MeetingAPIManager.deleteRequest(roomName, meetingToDelete);
+     }
+     
 
 }

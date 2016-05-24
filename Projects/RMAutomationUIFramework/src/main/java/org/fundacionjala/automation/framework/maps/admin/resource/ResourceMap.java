@@ -16,5 +16,9 @@ public class ResourceMap {
 	public static final String NEXT_PAGE_BUTTON = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//button[@title='Next Page']";
 	public static final String PREVIOUS_PAGE_BUTTON = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']//button[@title='Previous Page']";
 	public static final String TOTAL_PAGES_LABEL = "//div[@id='resourcesGrid']//div[@class='ngPagerContainer']/div[@class='ngPagerControl']//span";
+	public static final String RESOURCE_CHECKBOX = "//span[@class='ng-binding'][text()='resourceName']/parent::div/parent::div/parent::div/parent::div/descendant::input[@class='ngSelectionCheckbox'][@type='checkbox']";
+	public static final String SELECTED_ITEMS = "//span[@class='ngLabel ng-binding'][contains(text(),'Selected Items:')]";
+	public static final String RESOURCE_TABLE_HEADER_CHECKBOX = "//input[@type='checkbox'][@ng-model='allSelected'][@ng-show='multiSelect']";
+	public static final String RESOURCE_TOTAL_ITEMS = "//span[@class='ngLabel ng-binding'][contains(text(),'Total Items:')]";
 	public static final String CHECKBOX_RESOURCE = "//div[@tabindex]/div/div/child::*[3]//span[text()='resourceName']/ancestor::div[4]/div[1]//input";
 }

@@ -186,7 +186,9 @@ public class EditMeetingWhenSteps {
 		.clickOnHomeButton();
 
 	scheduler = home.clickOnScheduleButton();
-	scheduler.clickOnMeetingButton(subject).setSubject(newSubject)
+	scheduler.displayAllDayOnTimeline()
+		.clickOnMeetingButton(subject)
+		.setSubject(newSubject)
 		.clickUpdateButton();
 	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOnOkButton();
@@ -214,6 +216,21 @@ public class EditMeetingWhenSteps {
 	scheduler.displayAllDayOnTimeline().clickOnMeetingButton(subject)
 		.setBody(bodyToModify).clickUpdateButton();
 	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOnOkButton();
+    }
+    
+    @When("^I want to modify the schedule of the meeting \"([^\"]*)\" from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_want_to_modify_the_schedule_of_the_meeting_from_to(String subject, String startTime, String endTime) throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+	scheduler.topMenu
+		.clickOnHomeButton()
+		.clickOnScheduleButton()
+		.displayAllDayOnTimeline()
+		.clickOnMeetingButton(subject)
+		.setStartTime(startTime)
+		.setEndTime(endTime)
+		.clickUpdateButton()
+		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOnOkButton();
     }
 

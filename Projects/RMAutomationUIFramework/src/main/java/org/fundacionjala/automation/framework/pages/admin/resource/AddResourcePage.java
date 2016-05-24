@@ -6,6 +6,7 @@ import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -29,6 +30,8 @@ public class AddResourcePage {
 	WebElement cancelButton;
 	@FindBy (xpath = AddResourceMap.ICON_BUTTON) 
 	WebElement iconButton;
+	@FindBy (xpath = AddResourceMap.CLOSE_BUTTON)
+	WebElement closeButton;
 	
 	/**
 	 * The constructor initialize the AddResourcePage
@@ -195,4 +198,53 @@ public class AddResourcePage {
 	    return !alreadyExists.contains("ng-hide") ? true : false;
 	}
 
+	public ResourcePage clickOnCloseButton() {
+	    	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.elementToBeClickable(closeButton));
+	    	
+		Actions action = new Actions(BrowserManager.getDriver());
+	    	action.click(closeButton);
+		action.perform();
+		
+		LogManager.info("'Close' button has been clicked");
+	    
+	    	return new ResourcePage();
+	}
+	
+	public ResourcePage clickOnCancelButtonAndWaitForAddResourcePageDissapear() {
+	    
+	    	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.elementToBeClickable(cancelButton));
+		
+		cancelButton.click();
+		
+		LogManager.info("'Cancel' button has been clicked");
+		
+		(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.invisibilityOfElementLocated(By
+				.xpath(AddResourceMap.ADD_RESOURCE_WINDOW)));
+		
+		LogManager.info("Add Resource Window has dissapeared");
+
+		return new ResourcePage();
+	}
+	
+	public ResourcePage clickOnCloseButtonAndWaitForAddResourcePageDissapear() {
+	    	(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.elementToBeClickable(closeButton));
+	    	
+		Actions action = new Actions(BrowserManager.getDriver());
+	    	action.click(closeButton);
+		action.perform();
+		
+		LogManager.info("'Close' button has been clicked");
+		
+		(new WebDriverWait(BrowserManager.getDriver(), 30))
+		.until(ExpectedConditions.invisibilityOfElementLocated(By
+				.xpath(AddResourceMap.ADD_RESOURCE_WINDOW)));
+		
+		LogManager.info("Add Resource Window has dissapeared");
+	    
+	    	return new ResourcePage();
+	}
 }
