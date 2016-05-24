@@ -244,6 +244,37 @@ public class ResourceWhenSteps {
 		.clickOnLastPageButton();
     }
 
+    @When("^I want to create a new resource$")
+    public void i_want_to_create_a_new_resource() throws Throwable {
+	AdminPage home = new AdminPage();
+	home
+        	.leftMenu
+        	.clickOnResourcesButton()
+        	.clickOnAddButton();
+    }
+
+    @When("^I want to create a new resource without filling data$")
+    public void i_want_to_create_a_new_resource_without_filling_data() throws Throwable {
+	AdminPage home = new AdminPage();
+	home
+        	.leftMenu
+        	.clickOnResourcesButton()
+        	.clickOnAddButton()
+        	.clickOnSaveButton();
+    }
+    
+    @When("^I want to create a new resource with special characters like \"([^\"]*)\"$")
+    public void i_want_to_create_a_new_resource_with_special_characters_like(String specialCharacters) throws Throwable {
+	AdminPage home = new AdminPage();
+	home
+        	.leftMenu
+        	.clickOnResourcesButton()
+        	.clickOnAddButton()
+        	.setResourceName(specialCharacters)
+        	.setDisplayName(specialCharacters)
+        	.clickOnSaveButton();
+    }
+    
     @When("^I click on Cancel button on the Add Resource Page$")
     public void cancelResourceCreation() {
 	AddResourcePage addResource = new AddResourcePage();

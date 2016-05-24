@@ -144,6 +144,60 @@ public class AddResourcePage {
 		return new ResourcePage();
 	}
 
+	/**
+	 * This method is to verify if the form to create a resource is displayed
+	 * @return true if form is displayed else false
+	 */
+	public boolean verifyIfFormIsDisplayed() {
+	return (ExplicitWait.waitForElement(AddResourceMap.ICON_LABEL, 30) && 
+		ExplicitWait.waitForElement(AddResourceMap.NAME_LABEL, 30) &&
+		ExplicitWait.waitForElement(AddResourceMap.DISPLAY_NAME_LABEL, 30) &&
+		ExplicitWait.waitForElement(AddResourceMap.DESCRIPTION_LABEL, 30) ) 
+		? true : false;
+	}
+	
+	@FindBy (xpath = AddResourceMap.NAME_EMPTY_ERROR) 
+	WebElement nameEmptyError;
+	@FindBy (xpath = AddResourceMap.DISPLAY_NAME_EMPTY_ERROR) 
+	WebElement displayNameEmptyError;
+
+	/**
+	 * This method is to verify the error messages when a resources with
+	 * empty fields is created.
+	 * @return true if messages are displayed else false
+	 */
+	public boolean verifyErrorMessagesWhenFieldsAreEmpty() {
+	    String classNameEmpty = nameEmptyError.getAttribute("class");
+	    String classDisplayNameEmpty = displayNameEmptyError.getAttribute("class");	   
+	    return ( !classNameEmpty.contains("ng-hide") && !classDisplayNameEmpty.contains("ng-hide")) 
+		? true : false;
+	}
+
+	@FindBy (xpath = AddResourceMap.INVALID_CHARACTERS_ERROR) 
+	WebElement specialCharacterError;
+	
+	/**
+	 * this method is to verify that error messages is displayed when
+	 * name contains special characters
+	 * @return true if message is displayed else false
+	 */
+	public boolean verifyErrorMessageWhenSpecialCharactersAreEntered() {
+	    String invalidCharacters = specialCharacterError.getAttribute("class");   
+	    return !invalidCharacters.contains("ng-hide") ? true : false;
+	}
+
+	@FindBy (xpath = AddResourceMap.ALREADY_EXISTS_ERROR) 
+	WebElement alreadyExistsError;
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean verifyErrorMessageWhenNameAlreadyExists() {
+	    String alreadyExists = alreadyExistsError.getAttribute("class");   
+	    return !alreadyExists.contains("ng-hide") ? true : false;
+	}
+
 	public ResourcePage clickOnCloseButton() {
 	    	(new WebDriverWait(BrowserManager.getDriver(), 30))
 		.until(ExpectedConditions.elementToBeClickable(closeButton));
