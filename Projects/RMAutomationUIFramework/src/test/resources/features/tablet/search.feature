@@ -1,4 +1,3 @@
-
 @search
 Feature: Search rooms
 
@@ -62,7 +61,6 @@ When I go to search page of Room Manager tablet
 And I filter rooms by the location "loc-jalasoft"
 Then I validate that the meeting with subject "Meeting" is displayed
 
-
 @searchfeature9
 Scenario: All meetings of the room are displayed after filter by capacity
 
@@ -80,14 +78,3 @@ And I have the resource "Folder" associated to "Room008"
 When I go to search page of Room Manager tablet
 And I perform one click on the resource "Folder" 
 Then I see the "Room008" listed in the results 
-
-
-
-
-
-
-
-
-
-
-
