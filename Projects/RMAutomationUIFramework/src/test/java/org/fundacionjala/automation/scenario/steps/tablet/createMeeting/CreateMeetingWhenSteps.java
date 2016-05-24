@@ -104,7 +104,7 @@ public class CreateMeetingWhenSteps {
 
 		SchedulerPage scheduler = new SchedulerPage();
 		scheduler.setOrganizer(PropertiesReader.getExchangeOrganizerUser())
-				.setSubject(PropertiesReader.getExchangeOrganizerPwd())
+				.setSubject(subject)
 				.setStartTime(start).setEndTime(end).clickOnCreateButton()
 				.setUserName(PropertiesReader.getExchangeOrganizerUser())
 				.setPassword(PropertiesReader.getExchangeOrganizerPwd())
