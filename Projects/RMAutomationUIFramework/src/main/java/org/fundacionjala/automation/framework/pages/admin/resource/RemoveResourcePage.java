@@ -105,4 +105,15 @@ public class RemoveResourcePage {
 		
 	}
 	
+	/**
+	 * This method is to verify if a form to remove a resource is displayed
+	 * @return true if form is displayed, else false
+	 */
+	public boolean verifyFormToRemoveResource() {
+	    return ExplicitWait.waitForElement(RemoveResourceMap.REMOVE_BUTTON, 30) &&
+		   ExplicitWait.waitForElement(RemoveResourceMap.CLOSE_BUTTON, 30) &&
+		   ExplicitWait.waitForElement(RemoveResourceMap.CANCEL_BUTTON, 30)
+		    ? true : false;
+	}
+	
 }
