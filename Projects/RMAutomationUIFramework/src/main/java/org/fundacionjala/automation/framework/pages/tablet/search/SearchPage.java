@@ -172,4 +172,13 @@ public class SearchPage {
 		LogManager.info("Location: " + nameLocation + " not found");
 		return this;
 	}
+	
+	public boolean isMeetingPresent(String meetingSubject) {
+		
+	    String meetingXpath = SearchMap.MEETING_ITEM.replace("meetingName", meetingSubject);
+	    WebElement meeting = ExplicitWait.getWhenVisible(By.xpath(meetingXpath), 15);
+	    
+	    return ((meeting == null)? false : true);
+	}
+	
 }

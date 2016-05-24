@@ -21,4 +21,6 @@ public class SchedulerMap {
 	public static final String SUBJECT_ERROR_MESSAGE = "//form//small[text()='Subject is required']";
 	public static final String FROM_DATE = "//input[@ng-model='editable.from'][1]";
 	public static final String TO_DATE = "//input[@ng-model='editable.to'][1]";
+	public static final String MESSAGE_TIME_ERROR = "//label[text() = 'From']/following::small[contains(text(), 'Start time must be smaller than end time')]";
+	
 }

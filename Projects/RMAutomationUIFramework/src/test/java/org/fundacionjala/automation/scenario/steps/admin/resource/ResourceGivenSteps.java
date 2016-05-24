@@ -3,6 +3,7 @@ package org.fundacionjala.automation.scenario.steps.admin.resource;
 import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -82,4 +83,16 @@ public class ResourceGivenSteps {
 		.clickOnSave();
     }
 
+    @Given("^I try to create a new Resource$")
+    public void tryToCreateResource() throws Throwable {
+	AdminPage adminPage = new AdminPage();
+	
+	ResourcePage resource = adminPage
+					.leftMenu
+					.clickOnConferenceRoomsButton()
+					.leftMenu
+					.clickOnResourcesButton();
+	resource
+		.clickOnAddButton();
+    }
 }
