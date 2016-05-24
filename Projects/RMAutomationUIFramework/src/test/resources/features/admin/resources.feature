@@ -83,7 +83,6 @@ Given I have atleast "200" created resources
  Given I have atleast "200" created resources
    And I as Administrator Login to Room Manager
   When Go to the "3" page on resource page
-<<<<<<< HEAD
   Then Validate that the "3" page is displayed 
   
 #scenario 15
@@ -93,8 +92,40 @@ Given I have a resource created with the name "resourceassoc", display name "res
 And I as Administrator Login to Room Manager
 When I want to remove the resource "resourceassoc"
 Then Validate that a form with "resourceassoc" resource and "fa-fire" icon is displayed
-=======
-  Then Validate that the "3" page is displayed
+
+#scenario 16
+Scenario: A form to create a new resource is displayed when add button is clicked
+Given I as Administrator Login to Room Manager
+When I want to create a new resource
+Then Validate that a form to create a resource is diplayed
+
+#scenario 17
+Scenario: A message is displayed when data is not entered to create a resource
+Given I as Administrator Login to Room Manager
+When I want to create a new resource without filling data
+Then Validate that an error message is displayed
+
+#scenario 18
+Scenario: An message is displayed when characters not allowed are entered in the text field 
+Given I as Administrator Login to Room Manager
+When I want to create a new resource with special characters like "**.,/*//?+=-"
+Then Validate that an error message is displayed for special characters
+
+#scenario 19
+@resourceCreated
+Scenario: A message is displayed when a name already exists is entered in resource name text field
+Given I have a resource created with the name "resourceassoc", display name "resourceassoc", description "resourceassoc" and icon "fa-fire"
+And I as Administrator Login to Room Manager
+When I create a resource with name "resourceassoc", display name "resourceassoc", description "Description" and icon "fa-desktop"
+Then Validate that an error message is displayed when I want to create a new resource that already exists.
+
+#scenario 20
+@resourceCreated
+Scenario: A form to delete a resource is displayed when Remove button is clicked
+Given I have a resource created with the name "resourceassoc", display name "resourceassoc", description "resourceassoc" and icon "fa-fire"
+And I as Administrator Login to Room Manager
+When I want to remove the resource "resourceassoc"
+Then Validate that a form to remove a resource is displayed
  
 Scenario: Resource Info Page is closed when clicking Cancel button
 Given I as Administrator Login to Room Manager
@@ -143,4 +174,3 @@ Given I have atleast "1" created resources
 And I as Administrator Login to Room Manager
 When I select "1" resources
 Then the resource "Gift0" is checked
->>>>>>> 20c4860a325624fb32644cff5a0a6216c7b32f29

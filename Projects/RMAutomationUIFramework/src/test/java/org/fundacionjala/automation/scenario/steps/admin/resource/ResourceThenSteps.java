@@ -252,13 +252,13 @@ public class ResourceThenSteps {
 	addResourcePage.clickOnCancelButton();
     }
 
-    @Then("^Validate that a form to remove a resource is diplayed$")
+    @Then("^Validate that a form to remove a resource is displayed$")
     public void validate_that_a_form_to_remove_a_resource_is_diplayed() throws Throwable {
-	AddResourcePage addResourcePage = new AddResourcePage();
+	RemoveResourcePage removeResourcePage = new RemoveResourcePage();
 	Assert.assertTrue(
-	addResourcePage.verifyErrorMessageWhenNameAlreadyExists(),
+		removeResourcePage.verifyFormToRemoveResource(),
 	"The form is not displayed");
-	addResourcePage.clickOnCancelButton();
+	removeResourcePage.clickOnCancelButton();
     }
 
     @Then("^Validate that an error message is displayed when I want to create a new resource that already exists\\.$")
