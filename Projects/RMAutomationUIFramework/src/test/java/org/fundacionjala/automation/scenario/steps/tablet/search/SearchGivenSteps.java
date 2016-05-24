@@ -1,17 +1,22 @@
 package org.fundacionjala.automation.scenario.steps.tablet.search;
 
+import org.fundacionjala.automation.framework.maps.admin.resource.IconResources;
+import org.fundacionjala.automation.framework.pages.admin.conferencerooms.ConferenceRoomsPage;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
 import org.fundacionjala.automation.framework.pages.tablet.home.HomePage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.ConnectionPage;
 import org.fundacionjala.automation.framework.pages.tablet.settings.NavigationPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.DatabaseConnection;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -26,12 +31,16 @@ public class SearchGivenSteps {
 		ConnectionPage connection = new ConnectionPage();
 		NavigationPage navigation = connection
 			.setUpServiceURL(PropertiesReader.getServiceURL())
-			.clickOnSaveButton().clickOnNavigationButton();
+			.clickOnSaveButton()
+			.clickOnNavigationButton();
 
 		HomePage home = 
 		    navigation
 		    .clickOnRoomToggleButton()
-			.selectConferenceRoom("Room118").clickOnSaveButton().topMenu
+		    .insertConferenceRoom("Room118")
+			.selectConferenceRoom("Room118")
+			.clickOnSaveButton()
+			.topMenu
 			.clickOnHomeButton();
 		
 	        home.clickOnSearchButton();
@@ -67,5 +76,17 @@ public class SearchGivenSteps {
 		    		.ExecuteLogin()
 		    		.leftMenu
 			        .clickOnConferenceRoomsButton();
+	}
+	
+	@Given("^I have the resource \"([^\"]*)\" associated to \"([^\"]*)\"$")
+	public void i_have_the_resource_associated_to(String resourceName, String RoomName) throws Throwable {
+	   
+		ConferenceRoomsPage conferenceRoomsPage = new ConferenceRoomsPage();
+		
+		            conferenceRoomsPage
+		                  .openConfigurationPage(RoomName)
+		                  .clickOnResourceAssociations()
+		                  .addResource(resourceName)
+		                  .clickOnSave();
 	}
 }

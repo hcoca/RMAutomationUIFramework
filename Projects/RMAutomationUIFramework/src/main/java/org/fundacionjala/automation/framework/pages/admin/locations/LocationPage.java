@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fundacionjala.automation.framework.maps.admin.locations.LocationMap;
-import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
@@ -29,6 +28,10 @@ public class LocationPage extends AdminPage {
     WebElement addButton;
     @FindBy(xpath = LocationMap.REMOVE_LOCATION_BUTTON)
     WebElement removeButton;
+    @FindBy(xpath = LocationMap.NEXT_PAGE_FIELD)
+    WebElement pageField;
+    @FindBy(xpath = LocationMap.FIRST_ROW)
+    WebElement firstRow;
 
     /**
      * The constructor initializes web factory.
@@ -190,4 +193,14 @@ public class LocationPage extends AdminPage {
 		return ExplicitWait.getElementsWhenVisible(
 			By.xpath("//div[@tabindex]/div/div/child::*[3]//span"), 60);
 	    }
+
+    public LocationPage setPage(String page) {
+		pageField.clear();
+		pageField.sendKeys(page);
+		return this;
+    }
+    
+    public String getFirstRow() {
+    	return firstRow.getText();
+    }
 }

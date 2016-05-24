@@ -1,4 +1,3 @@
-
 @search
 Feature: Search rooms
 
@@ -51,3 +50,31 @@ Given I have a meeting with this subject "Meet" on "Room008" room
 When I am on search page
 And I set the room name for "Room008"
 Then I validate that the meeting with subject "Meet" is displayed
+
+
+@searchfeature8
+Scenario: All meetings of the room are displayed after filter by location
+Given I have a meeting with this subject "Meeting" on "Room008" room
+And I am in location page of Room Manager Admin
+And I associate the location "loc-jalasoft" to "Room008"
+When I go to search page of Room Manager tablet
+And I filter rooms by the location "loc-jalasoft"
+Then I validate that the meeting with subject "Meeting" is displayed
+
+@searchfeature9
+Scenario: All meetings of the room are displayed after filter by capacity
+
+Given I am on the conference rooms page of Room Manager
+And I change the capacity of the "Room008" for "35" 
+When I go to search page of Room Manager tablet
+And I set the room name for "Room008"
+And I change the Minimun capacity field to "20"
+Then I validate that the meeting with subject "Meeting" is displayed
+
+@searchfeature10
+Scenario: Rooms are displayed by associated resource
+Given I am on the conference rooms page of Room Manager
+And I have the resource "Folder" associated to "Room008"  
+When I go to search page of Room Manager tablet
+And I perform one click on the resource "Folder" 
+Then I see the "Room008" listed in the results 

@@ -3,10 +3,7 @@ package org.fundacionjala.automation.framework.pages.admin.resource;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
+import org.fundacionjala.automation.framework.maps.admin.resource.AddResourceMap;
 import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
@@ -18,10 +15,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 /**
  * This class represents Resource page
  * @author mariaalcocer
@@ -51,6 +50,12 @@ public class ResourcePage extends AdminPage {
 	WebElement previousPageButton;
 	@FindBy (xpath = ResourceMap.TOTAL_PAGES_LABEL) 
 	WebElement totalPagesLabel;
+	@FindBy (xpath = ResourceMap.SELECTED_ITEMS)
+	WebElement selectedItems;
+	@FindBy (xpath = ResourceMap.RESOURCE_TABLE_HEADER_CHECKBOX)
+	WebElement resourceTableHeaderCheckBox;
+	@FindBy (xpath = ResourceMap.RESOURCE_TOTAL_ITEMS)
+	WebElement resourceTotalItems;
 	
 	/**
 	 * The constructor initializes the page factory
@@ -556,6 +561,80 @@ public class ResourcePage extends AdminPage {
 		return (firstElement.equalsIgnoreCase(
 			resourceNames.get(0).getText())) ? true : false;
 	}
+	
+	public boolean isAddResourcePageOpen() {
+	    try {
+		(new WebDriverWait(BrowserManager.getDriver(), 15))
+        		.until(ExpectedConditions
+        		    .visibilityOfElementLocated(By.xpath(AddResourceMap.ADD_RESOURCE_WINDOW)));
+		LogManager.info("Add Resource Page has been found");
+		return true;
+        	} catch (Exception e) {
+        		LogManager
+        			.info("Add Resource Page has not been found");
+        		return false;
+        	}
+	}
+	
+	public ResourcePage clickResourceCheckBox(String resourceName) {
+	    	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	    		.until(ExpectedConditions
+	    		    .presenceOfElementLocated(By.xpath(ResourceMap
+	    			    .RESOURCE_CHECKBOX.replace("resourceName", resourceName))));
+		WebElement resourceCheckbox = BrowserManager.getDriver()
+			.findElement(By.xpath(ResourceMap
+			    .RESOURCE_CHECKBOX.replace("resourceName", resourceName)));
+		
+		Actions action = new Actions(BrowserManager.getDriver());
+		action.click(resourceCheckbox);
+		action.perform();
+		
+		LogManager.info("Resource " + resourceName + " CheckBox has been clicked");
+		
+		return this;
+	}
+	
+	public int getSelectedItems() {
+    	    	(new WebDriverWait(BrowserManager.getDriver(), 30))
+    	    	    .until(ExpectedConditions
+    	    		.presenceOfElementLocated(By.xpath(ResourceMap.SELECTED_ITEMS)));
+    	    
+    	    	return Integer.parseInt(selectedItems.getText().replace("Selected Items: ", ""));
+	}
+	
+	public ResourcePage clickResourceTableHeaderCheckBox() {
+	    	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	    		.until(ExpectedConditions
+	    			.elementToBeClickable(resourceTableHeaderCheckBox));
+	    	Actions action = new Actions(BrowserManager.getDriver());
+		action.click(resourceTableHeaderCheckBox);
+		action.perform();
+		
+		LogManager.info("Resource Table Header CheckBox has been clicked");
+	    
+		return this;
+	}
+	
+	public int getTotalItems() {
+	    	(new WebDriverWait(BrowserManager.getDriver(), 30))
+	    	    .until(ExpectedConditions
+	    		.presenceOfElementLocated(By.xpath(ResourceMap.RESOURCE_TOTAL_ITEMS)));
+	    	
+	    	return Integer.parseInt(resourceTotalItems.getText().replace("Total Items: ", ""));
+	}
+	
+	public boolean isRemoveButtonDisabled() {
+	    	
+	    	return Boolean.parseBoolean(removeButton.getAttribute("disabled"));
+	}
+	
+	public boolean isResourceChecked(String resourceName) {
+	    	WebElement resourceCheckbox = BrowserManager.getDriver()
+			.findElement(By.xpath(ResourceMap
+			    .RESOURCE_CHECKBOX.replace("resourceName", resourceName)));
+	    	
+	    	return Boolean.parseBoolean(resourceCheckbox.getAttribute("checked"));
+	}
 
 	/**
 	 * This method is to select a one resource
@@ -567,5 +646,4 @@ public class ResourcePage extends AdminPage {
             		.replace("resourceName", resourceName)), 50);
             	return this;
 	}
-
 }

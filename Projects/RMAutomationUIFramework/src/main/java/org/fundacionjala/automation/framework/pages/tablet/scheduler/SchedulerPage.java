@@ -524,7 +524,7 @@ public class SchedulerPage {
      * @param endTime
      * @return true if the time are equal else return false
      */
-    public boolean verifyTheScheduleModified(String startTime, String endTime) {
+    public boolean verifyTheSchedule(String startTime, String endTime) {
 	return (getStartTime().contains(startTime) && getEndTime().contains(
 		endTime)) ? true : false;
     }
@@ -535,9 +535,14 @@ public class SchedulerPage {
      * @param bodyModified
      * @return
      */
-    public boolean verifyTheBodyModified(String bodyModified) {
+    public boolean verifyTheBody(String bodyModified) {
 	
 	return (getBody().equalsIgnoreCase(bodyModified)) ?
 		true : false;
+    }
+
+    public boolean validateErrorMessageIsDIsplayed() {
+	return( !(ExplicitWait.isElementInvisible(By.xpath(SchedulerMap.MESSAGE_TIME_ERROR), 30))) ?
+		true : false ;
     }
 }

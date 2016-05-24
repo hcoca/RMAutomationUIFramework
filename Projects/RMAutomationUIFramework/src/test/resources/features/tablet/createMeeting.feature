@@ -44,7 +44,7 @@ Then validate that an error message is displayed with invalid credentials
 Scenario: A meeting is not created when it is created over interval time of other meeting
 Given I have a meeting created on "Room057" as "RoomManager2" from "08:00:00.000Z" start time to "09:00:00.000Z" end time with "Meet" subject
 And I am on Home Page of "Room057" room
-When I want to create a meeting over interval time of other meeting  from "06:00:00.000" start time to "23:50:00.000" end time with "Over" subject
+When I want to create a meeting over interval time of other meeting  from "00:10:00.000" start time to "23:50:00.000" end time with "Over" subject
 Then validate that an error message is displayed with conflict of time interval
 
 #Scenario08

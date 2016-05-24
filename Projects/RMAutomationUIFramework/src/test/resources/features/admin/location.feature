@@ -104,7 +104,15 @@ Scenario: An error message is displayed on ‘Update Location’ page when a loc
 Given I have a location added with name: "Cochabamba_3", display name "Cbba-Location_3" and description "This is Cochabamba Location"
 	And I am logged as "Administrator" with password "Control*123"
 When I update location "Cbba-Location_3" with name: "/*/*****", display name "Cbba-Location_2" and description "This is Cochabamba Location"
-Then An error message should be displayed  
+Then An error message should be displayed 
+
+@location30
+Scenario: Next page is displayed in "Location" table when "Next Page" button is clicked.
+Given I have at least "200" locations created 
+  And I am logged as "Administrator" with password "Control*123"
+When I select "100" on location page size option 
+  And I set the page by "2" on location page  
+Then I validate if the next page is displayed on Location page according the page size specified "100" and the page "2" 
 
 @location13
 Scenario: The number of rooms associated displayed on Locations page decreases when a room association is removed
@@ -135,5 +143,23 @@ Then The number of associations on Location page has been decreased by removing 
 Scenario: A message is displayed on Add Location  page when a new location is added with the same name than another location
 Given I have a location added with name: "Cochabamba_16", display name "Cbba-Location_16" and description "This is Cochabamba Location"
 	And I am logged as "Administrator" with password "Control*123"
-When I add a new location with name: "Cochabamba_16", display name "Cbba-Location_Diferent" and description "This is Cochabamba Location"
+When I add a new location with name: "Cochabamba_16", display name "Cbba-Location_Diferent" and description "This is Description"
 Then An error message should be displayed 
+
+@location17
+Scenario: A message is displayed on Add Location page when a new location is added with empty name
+Given I am logged as "Administrator" with password "Control*123"
+When I add a new location with name: "", display name "Cbba-Location_17" and description "This is Cochabamba Location"
+Then An error message should be displayed 
+
+@location18
+Scenario: A message is displayed on Add Location page when a location is added with empty display name
+Given I am logged as "Administrator" with password "Control*123"
+When I add a new location with name: "Cochabamba_18", display name "" and description "This is Cochabamba Location"
+Then An error message should be displayed
+
+@location19
+Scenario: A message is displayed on ‘Add Location’ page when a new location is added with special characters in its name
+Given I am logged as "Administrator" with password "Control*123"
+When I add a new location with name: "/\?%*:|", display name "Cbba-Location_19" and description "This is Cochabamba Location"
+Then An error message should be displayed

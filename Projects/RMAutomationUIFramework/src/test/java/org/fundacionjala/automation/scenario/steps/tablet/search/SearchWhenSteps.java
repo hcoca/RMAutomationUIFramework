@@ -37,15 +37,20 @@ public class SearchWhenSteps {
 		ConnectionPage connection = new ConnectionPage();
 		NavigationPage navigation = connection
 			.setUpServiceURL(PropertiesReader.getServiceURL())
-			.clickOnSaveButton().clickOnNavigationButton();
+			.clickOnSaveButton()
+			.clickOnNavigationButton();
 
 		HomePage home = 
 		    navigation
 				    .clickOnRoomToggleButton()
-					.selectConferenceRoom("Room118").clickOnSaveButton().topMenu
+				    .insertConferenceRoom("Room118")
+					.selectConferenceRoom("Room118")
+					.clickOnSaveButton()
+				    .topMenu
 					.clickOnHomeButton();
 		
-	   home.clickOnSearchButton();
+	            home
+	                .clickOnSearchButton();
 	 
 	}
 
@@ -91,12 +96,25 @@ public class SearchWhenSteps {
 		      .setMinimumCapacity(capacity);	
 	}
 	
+	@When("^I change the Minimun capacity field to \"([^\"]*)\"$")
+	public void i_change_the_Minimun_capacity_field_to(String capacity) throws Throwable {
+
+		 search
+		      .setMinimumCapacity(capacity);	
+	}
+	
 	@When("^I set the room name for \"([^\"]*)\"$")
 	public void i_set_the_room_name_for(String roomName) throws Throwable {
 		
 		search
 	      .clickOnSearchButton()
-	      .setRoomName(roomName);
-		
+	      .setRoomName(roomName);	
+	}
+	
+	@When("^I perform one click on the resource \"([^\"]*)\"$")
+	public void i_perform_one_click_on_the_resource(String iconName) throws Throwable {
+	  
+		search
+		  .clickOnResource();
 	}
 }
