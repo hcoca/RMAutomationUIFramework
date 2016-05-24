@@ -1,16 +1,23 @@
 package org.fundacionjala.automation.scenario.steps.tablet.search;
 
+import java.awt.AWTException;
+
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.pages.tablet.search.SearchPage;
+import org.fundacionjala.automation.framework.utils.api.managers.MeetingAPIManager;
+import org.fundacionjala.automation.framework.utils.api.objects.admin.Meeting;
 import org.fundacionjala.automation.framework.utils.common.CrudOperationRooms;
 import org.junit.Assert;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
+import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 
 public class SearchThenSteps {
 	
-	SearchPage search = new SearchPage();
-
+	private SearchPage search = new SearchPage();
+    private String subject;
 	
 	@Then("^I see the advanced option with all field to search$")
 	public void i_see_the_advanced_option_with_all_field_to_search() throws Throwable {
@@ -51,6 +58,22 @@ public class SearchThenSteps {
 	public void i_verify_that_is_not_listed(String roomName) throws Throwable {
 		
 		Assert.assertFalse(search.isListedRoom(roomName));
+	}
+	
+	@Then("^I validate that the meeting with subject \"([^\"]*)\" is displayed$")
+	public void i_validate_that_the_meeting_with_subject_is_displayed(String meetingSubject) throws Throwable {
+		
+		subject = meetingSubject;
+	    Assert.assertTrue(search.isMeetingPresent(meetingSubject));
+	}
+	
+    @After("@searchfeature7")
+	public void deleteMeetingByAPI()
+		    throws AWTException, UnirestException {
+    	
+		Meeting meetingToDelete = MeetingAPIManager.getMeetingBySubject(
+			"Room008", subject);
+		MeetingAPIManager.deleteRequest("Room008", meetingToDelete);
 	}
 	
 }

@@ -90,4 +90,13 @@ public class SearchWhenSteps {
 		      .clickOnSearchButton()
 		      .setMinimumCapacity(capacity);	
 	}
+	
+	@When("^I set the room name for \"([^\"]*)\"$")
+	public void i_set_the_room_name_for(String roomName) throws Throwable {
+		
+		search
+	      .clickOnSearchButton()
+	      .setRoomName(roomName);
+		
+	}
 }
