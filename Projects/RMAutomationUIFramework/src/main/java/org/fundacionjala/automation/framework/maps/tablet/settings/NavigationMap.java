@@ -8,6 +8,6 @@ public class NavigationMap {
 	public static final String ROOMS_LIST_ELEMENT = "li";
 	public static final String ROOM_NAME = "strong";
 	public static final String INACTIVITY_TIMEOUT_FIELD = "//input[@id='inactivity-timeout-input']";
-	public static final String SEARCH_FIELD = "//input[@type='text']";
+	public static final String SEARCH_FIELD = "//input[@placeholder='Room name']";
 	public static final String MESSAGE_STATUS = "//div[@ng-switch-default]";
 }

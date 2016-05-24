@@ -10,6 +10,6 @@ public class SearchMap {
 	public static final String ROOMS_LIST = "//button[@class='room-box ng-scope']";
 	public static final String ROOM_BUTTON = "//button[text()='roomName']";
 	public static final String MEETING_ITEM = "//div[text()='meetingName']";
-	
+	public static final String FOLDER_ICON = "//i[@class='fa fa-folder-o fa-2x']";
 }
 

@@ -8,7 +8,7 @@ public class IconResources {
 	public static final String DESKTOP = PREFIX + "fa-deskop";
 	public static final String INFO_CIRCLE = PREFIX + "fa-info-circle";
 	public static final String FIRE = PREFIX + "fa-fire";
-	public static final String FOLDER = PREFIX + "fa-folder";
+	public static final String FOLDER = PREFIX + "fa-folder-o";
 	public static final String FEMALE = PREFIX + "fa-female";
 	public static final String GAMEPAD = PREFIX + "fa-gamepad";
 	public static final String FLASK = PREFIX + "fa-flask";
