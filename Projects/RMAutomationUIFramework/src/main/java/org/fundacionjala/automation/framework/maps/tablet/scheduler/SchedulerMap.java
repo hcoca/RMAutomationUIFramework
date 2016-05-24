@@ -4,8 +4,8 @@ public class SchedulerMap {
 
 	public static final String ORGANIZER_TEXT_FIELD = "//input[@id='txtOrganizer'][@placeholder='User name'][@type='text']";
 	public static final String SUBJECT_TEXT_FIELD = "//input[@id='txtSubject'][@type='text'][@ng-model='editable.title']";
-	public static final String START_TEXT_FIELD = "//label[text()='From']/following::input[2]";
-	public static final String END_TEXT_FIELD = "//label[text()='To']/following::input[2]";
+	public static final String START_TEXT_FIELD = "//label[text()='From']/following::input[@type='time']";
+	public static final String END_TEXT_FIELD = "//label[text()='To']/following::input[@type='time']";
 	public static final String ATTENDEES_TEXT_FIELD = "//input[@type='text'][@ng-model='buffer'][@placeholder='Press enter or semicolon to confirm']";
 	public static final String BODY_TEXT_FIELD = "//textarea[@id='txtBody']";
 	public static final String CREATE_BUTTON = "//button[@class='clean item item-btn'][@ng-show='state.edit === editStates.CREATE']";
