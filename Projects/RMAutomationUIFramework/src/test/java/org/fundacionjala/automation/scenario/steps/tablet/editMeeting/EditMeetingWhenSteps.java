@@ -186,10 +186,8 @@ public class EditMeetingWhenSteps {
 		.clickOnHomeButton();
 
 	scheduler = home.clickOnScheduleButton();
-	scheduler.displayAllDayOnTimeline()
-		.clickOnMeetingButton(subject)
-		.setSubject(newSubject)
-		.clickUpdateButton();
+	scheduler.displayAllDayOnTimeline().clickOnMeetingButton(subject)
+		.setSubject(newSubject).clickUpdateButton();
 	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOnOkButton();
     }
@@ -218,20 +216,33 @@ public class EditMeetingWhenSteps {
 	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOnOkButton();
     }
-    
+
     @When("^I want to modify the schedule of the meeting \"([^\"]*)\" from \"([^\"]*)\" to \"([^\"]*)\"$")
-    public void i_want_to_modify_the_schedule_of_the_meeting_from_to(String subject, String startTime, String endTime) throws Throwable {
+    public void i_want_to_modify_the_schedule_of_the_meeting_from_to(
+	    String subject, String startTime, String endTime) throws Throwable {
 	SchedulerPage scheduler = new SchedulerPage();
-	scheduler.topMenu
-		.clickOnHomeButton()
-		.clickOnScheduleButton()
-		.displayAllDayOnTimeline()
-		.clickOnMeetingButton(subject)
-		.setStartTime(startTime)
-		.setEndTime(endTime)
+	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton()
+		.displayAllDayOnTimeline().clickOnMeetingButton(subject)
+		.setStartTime(startTime).setEndTime(endTime)
 		.clickUpdateButton()
 		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOnOkButton();
+    }
+
+    @When("^I want to modify the start time in the meeting \"([^\"]*)\" with \"([^\"]*)\"$")
+    public void i_want_to_modify_the_start_time_in_the_meeting_with(
+	    String subject, String startTime) throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton()
+		.displayAllDayOnTimeline().clickOnMeetingButton(subject)
+		.setStartTime(startTime).clickUpdateButton();
+    }
+
+    @When("^I select the meeting \"([^\"]*)\"$")
+    public void i_select_the_meeting(String subject) throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton()
+		.displayAllDayOnTimeline().clickOnMeetingButton(subject);
     }
 
 }

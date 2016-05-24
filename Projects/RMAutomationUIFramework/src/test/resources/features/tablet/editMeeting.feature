@@ -26,7 +26,7 @@ When I modified the meeting "New Project RM" in the "Room082" room  adding the a
 @IMP-DisableImpersonationUI @DeleteMeeting
 Scenario Outline: A meeting created is modified when the information meeting  is edited using impersonation
 Given I have a created in the "Room013" room with subject "meeting QADEV06"
- And the schedule with start time: "09:00" end time "10:30"
+ And the schedule with start time: "07:00" end time "08:30"
  And attendees
 |RoomManager1@roommanager.local|
 |RoomManager4@roommanager.local|
@@ -81,4 +81,27 @@ Given I have a created meeting with "first meeting" subject in the "Room111" roo
   And I have a created meeting from "08:00:00.000" to "09:00:00.000", with "second meeting" subject in the "Room111" room
  When I want to modify the schedule of the meeting "first meeting" from "07:00" to "11:00"
  Then validate that an error message is displayed with conflict of time interval 
+
+#Scenario 9
+Scenario: An error message is displayed when start time is modified with a bigger value than end time
+Given I have a created meeting from "08:00:00.000" to "09:00:00.000", with "meeting QADEV06" subject in the "Room111" room 
+ When I want to modify the start time in the meeting "meeting QADEV06" with "12:30"
+ Then validate that an error message is displayed in the startTime field of the meeting "meeting QADEV06"
+
+#Scenario 10
+@DeleteMeeting
+Scenario: When created meeting is clicked the information to modify is displayed
+Given I have a created in the "Room029" room with subject "meeting QADEV06"
+And the schedule with start time: "07:00" end time "08:30"
+ And attendees
+|RoomManager1@roommanager.local|
+|RoomManager4@roommanager.local|
+ And body "This is a new meeting"
+When I select the meeting "meeting QADEV06"
+Then validate that information meeting is displayed subject "meeting QADEV06"
+ And schedule from "07:00" to "08:30"
+ And body is "This is a new meeting" 
+ And attendees: 
+|RoomManager1@roommanager.local|
+|RoomManager4@roommanager.local|
  
