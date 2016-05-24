@@ -67,7 +67,7 @@ public class SearchThenSteps {
 	    Assert.assertTrue(search.isMeetingPresent(meetingSubject));
 	}
 	
-    @After("@searchfeature7")
+    @After("@searchfeature7,@searchfeature8,@searchfeature9")
 	public void deleteMeetingByAPI()
 		    throws AWTException, UnirestException {
     	

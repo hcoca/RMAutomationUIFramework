@@ -180,5 +180,11 @@ public class SearchPage {
 	    
 	    return ((meeting == null)? false : true);
 	}
+
+	public SearchPage clickOnResource() {
+		
+		ExplicitWait.clickWhenReady(By.xpath(SearchMap.FOLDER_ICON), 20);
+		return this;
+	}
 	
 }
