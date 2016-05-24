@@ -90,7 +90,7 @@ Scenario: A message is displayed on ‘Update Location’ page  when a location 
 Given I have a location added with name: "Cochabamba_3", display name "Cbba-Location_3" and description "This is Cochabamba Location"
 	And I am logged as "Administrator" with password "Control*123"
 When I update location "Cbba-Location_3" with name: "Cochabamba_3NameUpdated", display name "" and description "This is Cochabamba Location"
-Then An error message should be displayed  
+Then An error message should be displayed
 
 @location26
 Scenario: The quantity selected in page size is displayed in resource table
@@ -162,4 +162,19 @@ Then An error message should be displayed
 Scenario: A message is displayed on ‘Add Location’ page when a new location is added with special characters in its name
 Given I am logged as "Administrator" with password "Control*123"
 When I add a new location with name: "/\?%*:|", display name "Cbba-Location_19" and description "This is Cochabamba Location"
+Then An error message should be displayed
+
+@location21
+Scenario: A message is displayed on ‘Update Location’ page when a location name is updated to already existent name
+Given I have a location added with name: "Cochabamba_21", display name "Cbba-Location_21" and description "Description1"
+	And I have a location added with name: "Other_Cochabamba", display name "Other_Cbba" and description "Description2"
+	And I am logged as "Administrator" with password "Control*123"
+When I update location "Other_Cbba" with name: "Cochabamba_21", display name "Other_Cbba_21" and description "Cochabamba Location"
+Then An error message should be displayed
+
+@location22
+Scenario: A message is displayed on ‘Update Location’ page  when a location name is updated to empty
+Given I have a location added with name: "Cochabamba_22", display name "Cbba-Location_22" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I update location "Cbba-Location_22" with name: "", display name "Cbba-Location_22Updated" and description "Description"
 Then An error message should be displayed
