@@ -57,6 +57,7 @@ public class EditMeetingThenSteps {
         	scheduler.topMenu
         		.clickOnHomeButton()
         		.clickOnScheduleButton()
+        		.displayAllDayOnTimeline()
         		.verifySubjectModified(newSubject),
         		"The subject was not modified");
     }
@@ -70,10 +71,24 @@ public class EditMeetingThenSteps {
         		.clickOnHomeButton()
         		.clickOnScheduleButton()
         		.clickOnMeetingButton(subject)
+        		.displayAllDayOnTimeline()
         		.verifyTheScheduleModified(startTime, endTime),
         		"The schedule was not modified");
     }
 
+
+    @Then("^validate that the body \"([^\"]*)\" has been modified in \"([^\"]*)\"$")
+    public void validate_body_has_been_modified(String bodyModified, String subject) throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+	Assert.assertTrue(
+        	scheduler.topMenu
+        		.clickOnHomeButton()
+        		.clickOnScheduleButton()
+        		.displayAllDayOnTimeline()
+        		.clickOnMeetingButton(subject)
+        		.verifyTheBodyModified(bodyModified),
+        		"The schedule was not modified");
+    }
 
     @After("@DeleteMeeting")
     public void deleteMeeting() {

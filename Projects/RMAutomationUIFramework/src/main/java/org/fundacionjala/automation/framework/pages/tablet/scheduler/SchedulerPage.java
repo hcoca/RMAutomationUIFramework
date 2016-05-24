@@ -515,4 +515,16 @@ public class SchedulerPage {
 	return (getStartTime().contains(startTime) && getEndTime().contains(
 		endTime)) ? true : false;
     }
+
+    /**
+     * This function is to verify if the value in the parameter is same than 
+     * the value in body text field
+     * @param bodyModified
+     * @return
+     */
+    public boolean verifyTheBodyModified(String bodyModified) {
+	
+	return (getBody().equalsIgnoreCase(bodyModified)) ?
+		true : false;
+    }
 }
