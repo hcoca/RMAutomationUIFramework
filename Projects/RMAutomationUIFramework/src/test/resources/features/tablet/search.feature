@@ -45,3 +45,9 @@ And I go to search page of Room Manager tablet
 And I set the Minimun capacity field to "20"
 Then I verify that "Room001" is not listed
 
+@searchfeature7
+Scenario: All meetings of the room are displayed aftering filter by name
+Given I have a meeting with this subject "Meet" on "Room008" room
+When I am on search page
+And I set the room name for "Room008"
+Then I validate that the meeting with subject "Meet" is displayed
