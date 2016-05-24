@@ -88,4 +88,20 @@ Given I have a created meeting from "08:00:00.000" to "09:00:00.000", with "meet
  When I want to modify the start time in the meeting "meeting QADEV06" with "12:30"
  Then validate that an error message is displayed in the startTime field of the meeting "meeting QADEV06"
 
+#Scenario 10
+@DeleteMeeting
+Scenario: When created meeting is clicked the information to modify is displayed
+Given I have a created in the "Room029" room with subject "meeting QADEV06"
+And the schedule with start time: "07:00" end time "08:30"
+ And attendees
+|RoomManager1@roommanager.local|
+|RoomManager4@roommanager.local|
+ And body "This is a new meeting"
+When I select the meeting "meeting QADEV06"
+Then validate that information meeting is displayed subject "meeting QADEV06"
+ And schedule from "07:00" to "08:30"
+ And body is "This is a new meeting" 
+ And attendees: 
+|RoomManager1@roommanager.local|
+|RoomManager4@roommanager.local|
  
