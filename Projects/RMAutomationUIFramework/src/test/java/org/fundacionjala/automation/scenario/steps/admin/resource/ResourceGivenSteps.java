@@ -2,13 +2,9 @@ package org.fundacionjala.automation.scenario.steps.admin.resource;
 
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.login.LoginActions;
-import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcesActions;
-import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
-import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
-
 import cucumber.api.java.en.Given;
 
 public class ResourceGivenSteps {
