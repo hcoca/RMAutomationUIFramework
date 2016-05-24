@@ -138,25 +138,35 @@ public class UIActions {
 	robot.mouseMove((int)x, (int)y);
 	robot.mouseWheel(size);
     }
+    /**
+     * This method allows press on an WebElement and drag and drop along X axis
+     * an amount of pixels
+     * @param meetingButton WebElement
+     * @param amount Pixels (e.g. -100, 100)
+     * @throws AWTException
+     */
+    public static void dragAndDropOnXAxis(WebElement meetingButton, int amount)
+	    throws AWTException {
+	int screenX, screenY, increment, sign;
+	increment = 10;
+	sign = 1;
+	screenX = 25;
+	screenY = 100;
+	Robot r = new Robot();
 
-    public static void dragAndDropOnXAxis(WebElement meetingButton, int amount) throws AWTException {
-	Robot r = new Robot();//construct a Robot object for default screen
-	String cursor = ExplicitWait.getWhenVisible(By.tagName("body"), 30).getCssValue("cursor");
-	System.out.println("Cursor:" + cursor);
-	int i=10;
-	r.mouseMove(meetingButton.getLocation().x+25, meetingButton.getLocation().y+90);//move mouse to java coords 1360, 7
-	r.mousePress(InputEvent.BUTTON1_MASK);//press the left mouse button
-	
-	while (cursor != "wait" && i!= 100)
-	{
-	    r.mouseMove(meetingButton.getLocation().x +25 + i, meetingButton.getLocation().y+90);//move mouse to java coords 1360, 7
-		
-	    cursor = ExplicitWait.getWhenVisible(By.tagName("body"), 30).getCssValue("cursor");
-		System.out.println("Cursor:" + cursor);
-		i = i +10 ;
+	r.mouseMove(meetingButton.getLocation().x + screenX,
+		meetingButton.getLocation().y + screenY);
+	r.mousePress(InputEvent.BUTTON1_MASK);
+	if (amount < 0) {
+	    increment = -10;
+	    sign = -1;
 	}
-	//r.mouseMove(meetingButton.getLocation().x + 50+ amount, meetingButton.getLocation().y+50);//move mouse to java coords 1360, 7
-	r.mouseRelease(InputEvent.BUTTON1_MASK);//release the mouse button
-	
+	while (Math.abs(increment) <= Math.abs(amount)) {
+	    r.mouseMove(meetingButton.getLocation().x + screenX + increment,
+		    meetingButton.getLocation().y + screenY);
+	    increment = increment + (10 * sign);
+	}
+	r.mouseRelease(InputEvent.BUTTON1_MASK);
+
     }
 }

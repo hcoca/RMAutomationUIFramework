@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPage;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+import org.fundacionjala.automation.framework.utils.common.Utility;
 import org.testng.Assert;
 
 import cucumber.api.java.After;
@@ -90,19 +91,24 @@ public class EditMeetingThenSteps {
         		"The schedule was not modified");
     }
 
-    @Then("^Validate that the schedule start and end time on \"([^\"]*)\" were \"([^\"]*)\" (\\d+) hour$")
+    @Then("^Validate that the schedule start \"([^\"]*)\" and end time \"([^\"]*)\" on \"([^\"]*)\" were \"([^\"]*)\" \"([^\"]*)\" hour$")
     public void validate_that_the_schedule_start_and_end_time_were_hour(
-	    String meetingName, String status, int arg2) throws Throwable {
-	// Write code here that turns the phrase above into concrete actions
+	    String startTime, String endTime, String meetingName,
+	    String status, int hours) throws Throwable {
 	SchedulerPage scheduler = new SchedulerPage();
+	String startTimeExpected, endTimeExpected;
 	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton();
+	startTimeExpected = Utility.getnewStartTimeByHour(startTime, endTime,
+		status, hours);
+	endTimeExpected = Utility.getnewEndTimeByHour(startTime, endTime,
+		status, hours);
 
 	Assert.assertTrue(scheduler.clickOnMeetingButton(meetingName)
-		.verifyFieldEdited("startTime", "09:00:00.000"),
-		"The field start time" + "in the meeting cannot be modified");
+		.verifyFieldEdited("startTime", startTimeExpected),
+		"The field start time in the meeting cannot be modified");
 	Assert.assertTrue(
-		scheduler.verifyFieldEdited("endTime", "10:00:00.000"),
-		"The field end time" + "in the meeting cannot be modified");
+		scheduler.verifyFieldEdited("endTime", endTimeExpected),
+		"The field end time in the meeting cannot be modified");
     }
 
     @After("@DeleteMeeting")

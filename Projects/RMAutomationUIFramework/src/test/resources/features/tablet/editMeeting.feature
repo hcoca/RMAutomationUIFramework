@@ -74,4 +74,14 @@ Given I had a created meeting with "RoomManager2" organizer, with "meeting QADEV
 When I modify the "meeting QADEV06" meeting in "Room111" room with new body "This is a meeting modified in body field"
 Then validate that the body "This is a meeting modified in body field" has been modified in "meeting QADEV06"
 
+#Scenario 11 This work only with times o'clock, hours positive integer
+@DeleteMeeting
+ Scenario Outline: The schedule of a created meeting is modified doing drag and drop
+Given I had a created meeting from "<start>" to "<end>", with "Meeting Scheduled" subject in the "Room121" room
+When I modify the schedule in the "Meeting Scheduled" meeting on "Room121" drag and drop the whole meeting to the "<direction>" "<hours>" hour 
+Then Validate that the schedule start "<start>" and end time "<end>" on "Meeting Scheduled" were "<status>" "<hours>" hour
+Examples:
+|start |end |direction	|status	|hours |
+|08:00	|09:00	|left		|ahead	|1	|
+|08:00	|09:00	|right	|delayed	|1	|
  

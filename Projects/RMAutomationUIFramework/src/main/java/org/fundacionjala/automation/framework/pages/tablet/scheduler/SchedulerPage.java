@@ -455,11 +455,13 @@ public class SchedulerPage {
      * @param amount
      * @throws AWTException 
      */
-    public void moveMeetingOnTimeLine(String nameMeeting, int amount) throws AWTException {
+    public SchedulerPage moveMeetingOnTimeLine(String nameMeeting, int amount)
+	    throws AWTException {
 	WebElement meetingButton = getMeetingButton(nameMeeting);
-	UIActions.dragAndDropOnXAxis(meetingButton, amount * 80);
+	UIActions.dragAndDropOnXAxis(meetingButton, amount * 50);
 	LogManager.info("Meeting Button " + nameMeeting + " has been moved "
 		+ amount + " in x axis.");
+	return this;
     }
 
     public boolean verifyTimeIntervals() throws InterruptedException {
