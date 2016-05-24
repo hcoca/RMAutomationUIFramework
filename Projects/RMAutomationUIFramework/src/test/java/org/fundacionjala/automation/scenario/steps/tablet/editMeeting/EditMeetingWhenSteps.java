@@ -233,5 +233,17 @@ public class EditMeetingWhenSteps {
 		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOnOkButton();
     }
+    
+    @When("^I want to modify the start time in the meeting \"([^\"]*)\" with \"([^\"]*)\"$")
+    public void i_want_to_modify_the_start_time_in_the_meeting_with(String subject, String startTime) throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+	scheduler.topMenu
+        	.clickOnHomeButton()
+        	.clickOnScheduleButton()
+        	.displayAllDayOnTimeline()
+        	.clickOnMeetingButton(subject)
+        	.setStartTime(startTime)
+        	.clickUpdateButton();
+    }
 
 }

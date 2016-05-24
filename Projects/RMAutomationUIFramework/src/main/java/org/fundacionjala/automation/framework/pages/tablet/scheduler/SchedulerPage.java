@@ -527,4 +527,9 @@ public class SchedulerPage {
 	return (getBody().equalsIgnoreCase(bodyModified)) ?
 		true : false;
     }
+
+    public boolean validateErrorMessageIsDIsplayed() {
+	return( !(ExplicitWait.isElementInvisible(By.xpath(SchedulerMap.MESSAGE_TIME_ERROR), 30))) ?
+		true : false ;
+    }
 }

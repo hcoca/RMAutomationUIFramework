@@ -93,6 +93,17 @@ public class EditMeetingThenSteps {
         		.verifyTheBodyModified(bodyModified),
         		"The schedule was not modified");
     }
+    
+    @Then("^validate that an error message is displayed in the startTime field of the meeting \"([^\"]*)\"$")
+    public void validate_error_message_in_startTime_field(String subject) throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+	Assert.assertFalse(
+		scheduler.validateErrorMessageIsDIsplayed(), "The error message was not displayed");
+	scheduler.clickRemoveButton()
+		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOnOkButton();
+    }
+
       
     @After("@DeleteTwoMeetings")
     public void deleteTwoMeetings() throws UnirestException{
@@ -107,7 +118,7 @@ public class EditMeetingThenSteps {
 		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
 		.clickOkButton();
     }
-
+    
     @After("@DeleteMeetingOutOfOrder")
     public void deleteMeetingOutOfOrder() {
 	SchedulerPage schedule = new SchedulerPage();
