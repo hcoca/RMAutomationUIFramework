@@ -116,7 +116,7 @@ public class ResourcePage extends AdminPage {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(ResourceMap.RESOURCE_NAMES)));
 		for (WebElement name : resourceNames) {
 			if (name.getText().equalsIgnoreCase(resourceName)) {
-				UIActions.clickAt(name);
+			    UIActions.clickAt(name);
 			}
 		}		
 		return this;
@@ -569,7 +569,6 @@ public class ResourcePage extends AdminPage {
         		    .visibilityOfElementLocated(By.xpath(AddResourceMap.ADD_RESOURCE_WINDOW)));
 		LogManager.info("Add Resource Page has been found");
 		return true;
-
         	} catch (Exception e) {
         		LogManager
         			.info("Add Resource Page has not been found");
@@ -635,5 +634,16 @@ public class ResourcePage extends AdminPage {
 			    .RESOURCE_CHECKBOX.replace("resourceName", resourceName)));
 	    	
 	    	return Boolean.parseBoolean(resourceCheckbox.getAttribute("checked"));
+	}
+
+	/**
+	 * This method is to select a one resource
+	 * @param resourceName
+	 * @return 
+	 */
+	public ResourcePage selectAResource(String resourceName) {
+            	ExplicitWait.clickWhenReady(By.xpath(ResourceMap.CHECKBOX_RESOURCE
+            		.replace("resourceName", resourceName)), 50);
+            	return this;
 	}
 }

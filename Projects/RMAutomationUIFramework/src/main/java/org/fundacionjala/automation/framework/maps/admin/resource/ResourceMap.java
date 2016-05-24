@@ -20,4 +20,5 @@ public class ResourceMap {
 	public static final String SELECTED_ITEMS = "//span[@class='ngLabel ng-binding'][contains(text(),'Selected Items:')]";
 	public static final String RESOURCE_TABLE_HEADER_CHECKBOX = "//input[@type='checkbox'][@ng-model='allSelected'][@ng-show='multiSelect']";
 	public static final String RESOURCE_TOTAL_ITEMS = "//span[@class='ngLabel ng-binding'][contains(text(),'Total Items:')]";
+	public static final String CHECKBOX_RESOURCE = "//div[@tabindex]/div/div/child::*[3]//span[text()='resourceName']/ancestor::div[4]/div[1]//input";
 }

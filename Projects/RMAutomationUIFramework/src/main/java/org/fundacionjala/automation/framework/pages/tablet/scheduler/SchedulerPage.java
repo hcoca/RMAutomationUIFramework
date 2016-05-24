@@ -455,14 +455,13 @@ public class SchedulerPage {
 	Thread.sleep(5000);
 	List<WebElement> timelineList = BrowserManager.getDriver()
 		.findElements(By.xpath(SchedulerMap.TIME_TIMELINE));
-	
-	    if (verifyInterval(timelineList.get(1).getText().trim(),
-		    timelineList.get(2).getText().trim())) {
-		return true;
-	    }
-	    else{
-		return false;
-	    }
+
+	if (verifyInterval(timelineList.get(1).getText().trim(), timelineList
+		.get(2).getText().trim())) {
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
     private boolean verifyInterval(String firstTime, String secondTime) {
@@ -486,5 +485,46 @@ public class SchedulerPage {
 		+ Integer.parseInt(firstTimeArray[1]) + "=" + minutes);
 
 	return (minutes == 10) ? true : false;
+    }
+
+    /**
+     * This function is to validate if the subject value is the same that the
+     * parameter
+     * 
+     * @param newSubject
+     * @return true if the values are same else return false
+     */
+    public boolean verifySubjectModified(String newSubject) {
+
+	if (isMeetingPresentOnTimeLine(newSubject)) {
+	    clickOnMeetingButton(newSubject);
+	    return (getSubject().equalsIgnoreCase(newSubject)) ? true : false;
+	} else {
+	    return false;
+	}
+
+    }
+
+    /**
+     * This function is to verify that the start and end time has been modified
+     * @param startTime
+     * @param endTime
+     * @return true if the time are equal else return false
+     */
+    public boolean verifyTheScheduleModified(String startTime, String endTime) {
+	return (getStartTime().contains(startTime) && getEndTime().contains(
+		endTime)) ? true : false;
+    }
+
+    /**
+     * This function is to verify if the value in the parameter is same than 
+     * the value in body text field
+     * @param bodyModified
+     * @return
+     */
+    public boolean verifyTheBodyModified(String bodyModified) {
+	
+	return (getBody().equalsIgnoreCase(bodyModified)) ?
+		true : false;
     }
 }

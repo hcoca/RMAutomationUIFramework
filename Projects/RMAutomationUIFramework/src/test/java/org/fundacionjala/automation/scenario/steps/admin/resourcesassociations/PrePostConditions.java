@@ -69,7 +69,8 @@ public class PrePostConditions {
 			
 		}
 		
-	    @After("@scenario#1,@scenario#2,@scenario#3,@scenario#4,@scenario#5,@scenario#6,@scenario#7,@scenario#8")
+	    @After("@scenario#1,@scenario#2,@scenario#3,@scenario#4,"
+	    	+ "@scenario#5,@scenario#6,@scenario#7,@scenario#8,@resourceCreated")
 		public void tearDown() throws Throwable
 		{
 		    deleteResourcesCreated();
