@@ -149,17 +149,91 @@ public class EditMeetingWhenSteps {
 	BrowserManager.openBrowser();
 	ConnectionPage connection = new ConnectionPage();
 	SchedulerPage schedule = new SchedulerPage();
-
+	
 	NavigationPage navigation = connection
 		.setUpServiceURL(PropertiesReader.getServiceURL())
 		.clickOnSaveButton().clickOnNavigationButton();
-
+	
 	navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
 		.clickOnSaveButton().topMenu.clickOnHomeButton()
 		.clickOnScheduleButton().displayAllDayOnTimeline()
 		.clickOnMeetingButton(meetingName);
 	schedule.moveMeetingOnTimeLine(meetingName, 1);
-	
+    }
+
+    @When("^I modify the \"([^\"]*)\" meeting in \"([^\"]*)\" room from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void modify_the_schedule_meeting(String subject, String roomName,
+	    String startTime, String endTime) throws Throwable {
+	BrowserManager.openBrowser();
+	HomePage home = new HomePage();
+	ConnectionPage connection = new ConnectionPage();
+	CredentialsPage credential = new CredentialsPage();
+	SchedulerPage scheduler = new SchedulerPage();
+
+	NavigationPage navigation = connection
+		.setUpServiceURL(PropertiesReader.getServiceURL())
+		.clickOnSaveButton().clickOnNavigationButton();
+
+	home = navigation.clickOnRoomToggleButton()
+		.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+		.clickOnHomeButton();
+
+	scheduler = home.clickOnScheduleButton();
+	scheduler.displayAllDayOnTimeline().clickOnMeetingButton(subject)
+		.setStartTime(startTime).setEndTime(endTime)
+		.clickUpdateButton();
+	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOnOkButton();
+
+    }
+
+    @When("^I modify the \"([^\"]*)\" meeting in \"([^\"]*)\" room with new subject \"([^\"]*)\"$")
+    public void i_modify_the_meeting_in_room_with_new_subject(String subject,
+	    String roomName, String newSubject) throws Throwable {
+
+	BrowserManager.openBrowser();
+	HomePage home = new HomePage();
+	ConnectionPage connection = new ConnectionPage();
+	CredentialsPage credential = new CredentialsPage();
+	SchedulerPage scheduler = new SchedulerPage();
+	NavigationPage navigation = connection
+		.setUpServiceURL(PropertiesReader.getServiceURL())
+		.clickOnSaveButton().clickOnNavigationButton();
+
+	home = navigation.clickOnRoomToggleButton()
+		.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+		.clickOnHomeButton();
+
+	scheduler = home.clickOnScheduleButton();
+	scheduler.clickOnMeetingButton(subject).setSubject(newSubject)
+		.clickUpdateButton();
+	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOnOkButton();
+    }
+
+    @When("^I modify the \"([^\"]*)\" meeting in \"([^\"]*)\" room with new body \"([^\"]*)\"$")
+    public void modify_body_in_meeting(String subject, String roomName,
+	    String bodyToModify) throws Throwable {
+
+	BrowserManager.openBrowser();
+	HomePage home = new HomePage();
+	ConnectionPage connection = new ConnectionPage();
+	CredentialsPage credential = new CredentialsPage();
+	SchedulerPage scheduler = new SchedulerPage();
+
+	NavigationPage navigation = connection
+		.setUpServiceURL(PropertiesReader.getServiceURL())
+		.clickOnSaveButton().clickOnNavigationButton();
+
+	home = navigation.clickOnRoomToggleButton()
+		.selectConferenceRoom(roomName).clickOnSaveButton().topMenu
+		.clickOnHomeButton();
+
+	scheduler = home.clickOnScheduleButton();
+	scheduler.displayAllDayOnTimeline().clickOnMeetingButton(subject)
+		.setBody(bodyToModify).clickUpdateButton();
+	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOnOkButton();
     }
 
 }

@@ -48,6 +48,22 @@ public class SearchPage {
 		return this;
 	}
 	
+	public boolean isRoomNameEmpty() {
+		
+		if (roomNameField != null) {
+			
+			if (roomNameField.getAttribute("value").isEmpty()) {
+				LogManager.info("Field room name is empty");
+				return true;
+			}
+		}
+		else {
+			LogManager.error("Field room name was not found");
+		}
+		return false;
+		
+	}
+	
 	public SearchPage setRoomName(String nameCriteria) {
 		
 		if (roomNameField != null) {
@@ -64,11 +80,12 @@ public class SearchPage {
 	public SearchPage setMinimumCapacity(String minCapCriteria) {
 		
 		if (minimumCapacityField != null) {
+			minimumCapacityField.clear();
 			minimumCapacityField.sendKeys(minCapCriteria);
-			LogManager.info("Field room name was changed to " + minCapCriteria);
+			LogManager.info("Capacity textbox was changed to " + minCapCriteria);
 		}
 		else {
-			LogManager.error("Field room name was not found");
+			LogManager.error("Capacity textbox was not found");
 		}
 		
 		return this;
@@ -155,4 +172,13 @@ public class SearchPage {
 		LogManager.info("Location: " + nameLocation + " not found");
 		return this;
 	}
+	
+	public boolean isMeetingPresent(String meetingSubject) {
+		
+	    String meetingXpath = SearchMap.MEETING_ITEM.replace("meetingName", meetingSubject);
+	    WebElement meeting = ExplicitWait.getWhenVisible(By.xpath(meetingXpath), 15);
+	    
+	    return ((meeting == null)? false : true);
+	}
+	
 }

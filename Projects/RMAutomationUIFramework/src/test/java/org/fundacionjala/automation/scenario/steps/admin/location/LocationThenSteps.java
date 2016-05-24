@@ -6,15 +6,14 @@ import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationAssociationPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.UpdateLocationPage;
+import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.api.managers.LocationAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Location;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.DatabaseConnection;
-import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.testng.Assert;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mongodb.DBCollection;
 
 import cucumber.api.java.After;
@@ -179,7 +178,33 @@ public class LocationThenSteps {
     		.leftMenu
     		.clickOnLocationsButton();
 	Assert.assertTrue(locationPage.verifyNumberOfAssociations(name, "1"));
-
+    }
+    
+    @Then("^The number of associations on Location page has been decreased by removing \"([^\"]*)\" location association$")
+    public void verifyAssociationNumberDecrease(String name) throws Throwable {
+	LocationPage locationPage = new LocationPage();
+	BrowserManager.getDriver().navigate().refresh();
+	locationPage.leftMenu.clickOnConferenceRoomsButton();
+	
+	locationPage
+    		.leftMenu
+    		.clickOnLocationsButton();
+	Assert.assertTrue(locationPage.verifyNumberOfAssociations(name, "0"));
+    }
+    
+    @Then("^An error message should be displayed$")
+    public void an_error_message_should_be_displayed() throws Throwable {
+    	UpdateLocationPage updateLocationPage = new UpdateLocationPage();
+        Assert.assertTrue(updateLocationPage.verifyErrorMessageDisplayed(), "The error message has been not displayed: Test Failed");
+        updateLocationPage.clickOnCancelButton();
+    }
+    
+    @Then("^Validate that the location table size is same than the option \"([^\"]*)\" selected$")
+    public void validateTableSizeSelected(String sizeTable) throws Throwable {
+    	LocationPage location = new LocationPage();
+        Assert.assertTrue(
+        		location 
+        		.verifyNumberOfLocations(sizeTable));
     }
     
     @After("@location")

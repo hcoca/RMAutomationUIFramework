@@ -1,8 +1,6 @@
 @location
 Feature: Location Page
 
-
-
 @location1 
 Scenario: All locations are displayed on Locations page when it is opened
 Given I have a location added with name: "Cochabamba_1", display name "Cbba-Location_1" and description "This is Cochabamba Location"
@@ -16,7 +14,7 @@ Given I am logged as "Administrator" with password "Control*123"
 When I add a new location with name: "Cochabamba_2", display name "Cbba-Location_2" and description "This is Cochabamba Location"
 Then The location "Cochabamba_2" is displayed on location page
 
-@location3  
+@location3
 Scenario: A location’s  name changes are displayed on Location page when it is updated
 Given I have a location added with name: "Cochabamba_3", display name "Cbba-Location_3" and description "This is Cochabamba Location"
 	And I am logged as "Administrator" with password "Control*123"
@@ -86,4 +84,56 @@ Given I have a location added with name: "Cochabamba_4", display name "Cbba-Loca
 	And I am logged as "Administrator" with password "Control*123"
 When I update location "Cbba-Location_4" with name: "Cochabamba_4", display name "Cbba-Location_4-Updated" and description "This is Cochabamba Location"
 Then The location display name "Cbba-Location_4-Updated" is displayed on location page
- 
+
+@location23
+Scenario: A message is displayed on ‘Update Location’ page  when a location display name is updated to empty
+Given I have a location added with name: "Cochabamba_3", display name "Cbba-Location_3" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I update location "Cbba-Location_3" with name: "Cochabamba_3NameUpdated", display name "" and description "This is Cochabamba Location"
+Then An error message should be displayed  
+
+@location26
+Scenario: The quantity selected in page size is displayed in resource table
+Given I have at least "200" locations created 
+  And I am logged as "Administrator" with password "Control*123"
+ When I select "100" on location page size option 
+ Then Validate that the location table size is same than the option "100" selected 
+
+@location24
+Scenario: An error message is displayed on ‘Update Location’ page when a location is updated with special characters in its name
+Given I have a location added with name: "Cochabamba_3", display name "Cbba-Location_3" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I update location "Cbba-Location_3" with name: "/*/*****", display name "Cbba-Location_2" and description "This is Cochabamba Location"
+Then An error message should be displayed  
+
+@location13
+Scenario: The number of rooms associated displayed on Locations page decreases when a room association is removed
+Given I have a location added with name: "Cochabamba_13", display name "Cbba-Location_13" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+	And I associate the location "Cbba-Location_13" with a room "Room005"
+When I delete the association between location "Cbba-Location_13" and "Room005"
+Then The number of associations on Location page has been decreased by removing "Cochabamba_13" location association
+
+@location14
+Scenario: The number of roms of a parent location increases when a room is associated to its child locations
+Given I have a location added with name: "Cochabamba_14", display name "Cbba-Location_14" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+	And I add a new location with name: "Cochabamba_14_Child", display name "Cbba-Child" and parent "Cochabamba_14"
+When I associate the location "Cbba-Child" with a room "Room006"
+Then The number of associations on Location page has been increased by "Cochabamba_14" location association
+
+@location15
+Scenario: The number of roms of a parent location increases when a room is associated to its child locations
+Given I have a location added with name: "Cochabamba_15", display name "Cbba-Location_15" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+	And I add a new location with name: "Cochabamba_15_Child", display name "Cbba-Child" and parent "Cochabamba_15"
+	And I associate the location "Cbba-Child" with a room "Room007"
+When I delete the association between location "Cbba-Child" and "Room007"
+Then The number of associations on Location page has been decreased by removing "Cochabamba_15" location association
+
+@location16
+Scenario: A message is displayed on Add Location  page when a new location is added with the same name than another location
+Given I have a location added with name: "Cochabamba_16", display name "Cbba-Location_16" and description "This is Cochabamba Location"
+	And I am logged as "Administrator" with password "Control*123"
+When I add a new location with name: "Cochabamba_16", display name "Cbba-Location_Diferent" and description "This is Cochabamba Location"
+Then An error message should be displayed 

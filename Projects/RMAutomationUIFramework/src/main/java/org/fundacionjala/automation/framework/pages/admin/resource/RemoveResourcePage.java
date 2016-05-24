@@ -88,4 +88,21 @@ public class RemoveResourcePage {
 			return false;
 		}
 	}
+	
+	/**
+	 * This method is to verify name and icon of a resource.
+	 * @param resourceName
+	 * @param iconName
+	 * @return true when information is correct else false
+	 */
+	public boolean verifyResourceInformation(String resourceName, String iconName) {
+	    iconName = "fa " + iconName;
+	    	return (
+		ExplicitWait.waitForElement(RemoveResourceMap.RESOURCE_NAME
+			.replace("resourceName", resourceName), 30) && 
+		ExplicitWait.waitForElement(RemoveResourceMap.ICON_NAME
+			.replace("iconName", iconName), 30)) ? true : false;
+		
+	}
+	
 }

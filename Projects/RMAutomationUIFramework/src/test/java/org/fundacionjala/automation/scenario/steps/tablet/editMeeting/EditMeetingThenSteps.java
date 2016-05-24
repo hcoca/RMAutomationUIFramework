@@ -48,6 +48,47 @@ public class EditMeetingThenSteps {
 	}
 
     }
+    
+    @Then("^validate that \"([^\"]*)\" subject has been modified$")
+    public void validate_that_subject_has_been_modified(String newSubject) throws Throwable {
+
+	SchedulerPage scheduler = new SchedulerPage();
+	Assert.assertTrue(
+        	scheduler.topMenu
+        		.clickOnHomeButton()
+        		.clickOnScheduleButton()
+        		.displayAllDayOnTimeline()
+        		.verifySubjectModified(newSubject),
+        		"The subject was not modified");
+    }
+    
+    @Then("^validate that \"([^\"]*)\" meeting has been modified with schedule from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void validate_that_meeting_has_been_modified_with_schedule_from_to(String subject, String startTime, String endTime) throws Throwable {
+	
+	SchedulerPage scheduler = new SchedulerPage();
+	Assert.assertTrue(
+        	scheduler.topMenu
+        		.clickOnHomeButton()
+        		.clickOnScheduleButton()
+        		.clickOnMeetingButton(subject)
+        		.displayAllDayOnTimeline()
+        		.verifyTheScheduleModified(startTime, endTime),
+        		"The schedule was not modified");
+    }
+
+
+    @Then("^validate that the body \"([^\"]*)\" has been modified in \"([^\"]*)\"$")
+    public void validate_body_has_been_modified(String bodyModified, String subject) throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+	Assert.assertTrue(
+        	scheduler.topMenu
+        		.clickOnHomeButton()
+        		.clickOnScheduleButton()
+        		.displayAllDayOnTimeline()
+        		.clickOnMeetingButton(subject)
+        		.verifyTheBodyModified(bodyModified),
+        		"The schedule was not modified");
+    }
 
     @Then("^Validate that the schedule start and end time on \"([^\"]*)\" were \"([^\"]*)\" (\\d+) hour$")
     public void validate_that_the_schedule_start_and_end_time_were_hour(

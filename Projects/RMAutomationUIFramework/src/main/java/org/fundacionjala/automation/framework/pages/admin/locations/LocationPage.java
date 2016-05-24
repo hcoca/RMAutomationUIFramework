@@ -1,12 +1,17 @@
 package org.fundacionjala.automation.framework.pages.admin.locations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fundacionjala.automation.framework.maps.admin.locations.LocationMap;
+import org.fundacionjala.automation.framework.maps.admin.resource.ResourceMap;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.LogManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -153,4 +158,36 @@ public class LocationPage extends AdminPage {
 	LogManager.warning("Test Failed");
 	return false;
     }
+    
+    public boolean verifyNumberOfLocations(String pageSize){
+    	String actualResult = getLocationTableSize(pageSize).trim();
+		return (pageSize.trim().equalsIgnoreCase(actualResult))
+			? true : false;
+    }
+    
+    public String getLocationTableSize(String sizePage)
+	{
+	    int size = Integer.parseInt(sizePage);
+	    int loactionRead =  size / 15;
+		List<String> list = new ArrayList<String>();
+		WebElement lastRow = null;
+		for (int i = 0; i < loactionRead; i++) {
+		    for (WebElement location : getLocations()) {
+			if (!list.contains(location.getText().trim())) {
+			    list.add(location.getText().trim());
+			}
+			lastRow = location;
+		    }
+		    ((JavascriptExecutor) BrowserManager.getDriver())
+		    .executeScript(
+			    "arguments[0].scrollIntoView(true);", lastRow);
+		}
+		return list.size() + "";
+	}
+    
+    public List<WebElement> getLocations() {
+
+		return ExplicitWait.getElementsWhenVisible(
+			By.xpath("//div[@tabindex]/div/div/child::*[3]//span"), 60);
+	    }
 }
