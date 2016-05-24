@@ -62,6 +62,18 @@ public class NavigationPage extends SettingsPage {
 	}
 	return this;
     }
+    
+    public NavigationPage insertConferenceRoom(String roomName) {
+    	
+    	if (searchField != null) {
+    		searchField.clear();
+    		searchField.sendKeys(roomName);
+    		LogManager.info("Room " + roomName + " was inserted");
+		}
+    	
+    	return this;
+    }
+    
 
     /**
      * This function is for getting a room by name
