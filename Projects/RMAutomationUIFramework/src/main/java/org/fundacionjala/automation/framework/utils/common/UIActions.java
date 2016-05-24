@@ -138,4 +138,25 @@ public class UIActions {
 	robot.mouseMove((int)x, (int)y);
 	robot.mouseWheel(size);
     }
+
+    public static void dragAndDropOnXAxis(WebElement meetingButton, int amount) throws AWTException {
+	Robot r = new Robot();//construct a Robot object for default screen
+	String cursor = ExplicitWait.getWhenVisible(By.tagName("body"), 30).getCssValue("cursor");
+	System.out.println("Cursor:" + cursor);
+	int i=10;
+	r.mouseMove(meetingButton.getLocation().x+25, meetingButton.getLocation().y+90);//move mouse to java coords 1360, 7
+	r.mousePress(InputEvent.BUTTON1_MASK);//press the left mouse button
+	
+	while (cursor != "wait" && i!= 100)
+	{
+	    r.mouseMove(meetingButton.getLocation().x +25 + i, meetingButton.getLocation().y+90);//move mouse to java coords 1360, 7
+		
+	    cursor = ExplicitWait.getWhenVisible(By.tagName("body"), 30).getCssValue("cursor");
+		System.out.println("Cursor:" + cursor);
+		i = i +10 ;
+	}
+	//r.mouseMove(meetingButton.getLocation().x + 50+ amount, meetingButton.getLocation().y+50);//move mouse to java coords 1360, 7
+	r.mouseRelease(InputEvent.BUTTON1_MASK);//release the mouse button
+	
+    }
 }

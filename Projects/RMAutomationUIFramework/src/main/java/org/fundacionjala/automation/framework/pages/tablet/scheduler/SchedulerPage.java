@@ -2,7 +2,6 @@ package org.fundacionjala.automation.framework.pages.tablet.scheduler;
 
 import java.awt.AWTException;
 import java.util.List;
-
 import org.fundacionjala.automation.framework.maps.tablet.scheduler.SchedulerMap;
 import org.fundacionjala.automation.framework.pages.tablet.navigation.TopMenu;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -449,6 +448,18 @@ public class SchedulerPage {
 	ExplicitWait.waitForElement(SchedulerMap.TIME_LINE, 30);
 	UIActions.scrollTimeline(timelineCenter, -3000);
 
+    }
+    /**
+     * Drag and drop on meeting created
+     * @param nameMeeting
+     * @param amount
+     * @throws AWTException 
+     */
+    public void moveMeetingOnTimeLine(String nameMeeting, int amount) throws AWTException {
+	WebElement meetingButton = getMeetingButton(nameMeeting);
+	UIActions.dragAndDropOnXAxis(meetingButton, amount * 80);
+	LogManager.info("Meeting Button " + nameMeeting + " has been moved "
+		+ amount + " in x axis.");
     }
 
     public boolean verifyTimeIntervals() throws InterruptedException {

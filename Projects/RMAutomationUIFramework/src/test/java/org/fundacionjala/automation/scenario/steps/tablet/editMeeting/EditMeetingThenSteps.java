@@ -49,6 +49,21 @@ public class EditMeetingThenSteps {
 
     }
 
+    @Then("^Validate that the schedule start and end time on \"([^\"]*)\" were \"([^\"]*)\" (\\d+) hour$")
+    public void validate_that_the_schedule_start_and_end_time_were_hour(
+	    String meetingName, String status, int arg2) throws Throwable {
+	// Write code here that turns the phrase above into concrete actions
+	SchedulerPage scheduler = new SchedulerPage();
+	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton();
+
+	Assert.assertTrue(scheduler.clickOnMeetingButton(meetingName)
+		.verifyFieldEdited("startTime", "09:00:00.000"),
+		"The field start time" + "in the meeting cannot be modified");
+	Assert.assertTrue(
+		scheduler.verifyFieldEdited("endTime", "10:00:00.000"),
+		"The field end time" + "in the meeting cannot be modified");
+    }
+
     @After("@DeleteMeeting")
     public void deleteMeeting() {
 	SchedulerPage schedule = new SchedulerPage();
