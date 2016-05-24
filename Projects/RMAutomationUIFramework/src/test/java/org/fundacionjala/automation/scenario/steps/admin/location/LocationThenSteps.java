@@ -186,10 +186,9 @@ public class LocationThenSteps {
 		LocationPage location = new LocationPage();
 		Assert.assertTrue(location.verifyNumberOfLocations(sizeTable));
 	}
-
-	@Then("^I validate if the next page is displayed on Location page according the page size specified \"([^\"]*)\" and the page \"([^\"]*)\"$")
-	public void validateNextpageOnLocation(String pageSize, String page)
-			throws Throwable {
+	
+	@Then("^I validate if the corresonding page is displayed on Location page according the page size specified \"([^\"]*)\" and the page \"([^\"]*)\"$")
+	public void validateCorresondingPageIsDisplayed(String pageSize, String page) throws Throwable {
 		LocationPage location = new LocationPage();
 
 		boolean verification = false;
@@ -206,7 +205,7 @@ public class LocationThenSteps {
 			}
 		}
 		Assert.assertTrue(verification,
-				"Next page isn't displaying according page size");
+				"The corresponding page isn't displaying according page size");
 	}
 
 	@After("@location")
