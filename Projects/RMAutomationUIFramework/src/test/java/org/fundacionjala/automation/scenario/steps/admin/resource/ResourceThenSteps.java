@@ -224,4 +224,51 @@ public class ResourceThenSteps {
 	removeResourcePage.clickOnCloseButton();
     }
 
+    @Then("^the Resource Info Page is closed$")
+    public void verifyIfAddResourcePageisClosed() {
+	ResourcePage resource = new ResourcePage();
+	
+	Assert.assertFalse(resource.isAddResourcePageOpen());
+    }
+    
+    @Then("^the quantity of selected resources displayed is the same as the number of resources selected \"([^\"]*)\"$")
+    public void verifyNumberOfResourceSelected(String resourceNumber) {
+	int expectedResourceSelectedNumber = Integer.parseInt(resourceNumber);
+	ResourcePage resource = new ResourcePage();
+	int actualResourceSelectedNumber = resource.getSelectedItems();
+	
+	Assert.assertEquals(actualResourceSelectedNumber, expectedResourceSelectedNumber);
+    }
+    
+    @Then("^All the resources are selected$")
+    public void verifyAllResourceAreSelected() {
+	ResourcePage resource = new ResourcePage();
+	int expectedTotalNumberOfItems = resource.getTotalItems();
+	int actualTotalNumberOfItems = resource.getSelectedItems();
+	
+	Assert.assertEquals(actualTotalNumberOfItems, expectedTotalNumberOfItems);
+    }
+    
+    @Then("^All the resources are unselected$")
+    public void verifyNoResourcesAreSelected() {
+	ResourcePage resource = new ResourcePage();
+	int expectedTotalNumberOfItems = 0;
+	int actualTotalNumberOfItems = resource.getSelectedItems();
+	
+	Assert.assertEquals(actualTotalNumberOfItems, expectedTotalNumberOfItems);
+    }
+    
+    @Then("^the Remove button is enabled$")
+    public void verifyIfRemoveButtonIsEnabled() {
+	ResourcePage resource = new ResourcePage();
+	
+	Assert.assertFalse(resource.isRemoveButtonDisabled());
+    }
+    
+    @Then("^the resource \"([^\"]*)\" is checked$")
+    public void verifyIfTheResourceIsChecked(String resourceName) {
+	ResourcePage resource = new ResourcePage();
+	
+	Assert.assertTrue(resource.isResourceChecked(resourceName));
+    }
 }

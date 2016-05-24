@@ -1,10 +1,12 @@
 package org.fundacionjala.automation.scenario.steps.admin.resource;
 
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.resource.AddResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourceInfoPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
+
 
 
 
@@ -242,4 +244,59 @@ public class ResourceWhenSteps {
 		.clickOnLastPageButton();
     }
 
+    @When("^I click on Cancel button on the Add Resource Page$")
+    public void cancelResourceCreation() {
+	AddResourcePage addResource = new AddResourcePage();
+	
+	addResource
+		.clickOnCancelButtonAndWaitForAddResourcePageDissapear();
+    }
+    
+    @When("^I click on Close button on the Add Resource Page$")
+    public void closeResourceCreationPage() {
+	AddResourcePage addResource = new AddResourcePage();
+	
+	addResource
+		.clickOnCloseButtonAndWaitForAddResourcePageDissapear();
+    }
+    
+    @When("^I select \"([^\"]*)\" resources$")
+    public void selectResources(String resourceNumber) throws Throwable {
+	int quantity = Integer.parseInt(resourceNumber);
+	AdminPage adminPage = new AdminPage();
+	
+	ResourcePage resource = adminPage
+				    .leftMenu
+				    .clickOnConferenceRoomsButton()
+				    .leftMenu
+				    .clickOnResourcesButton();
+
+	for (int i = 0; i < quantity; i++) {
+	    resource.clickResourceCheckBox("Gift" + i);
+	}
+    }
+    
+    @When("^I check the Table Header CheckBox$")
+    public void checkTableResourceCheckBox() throws Throwable { 
+	AdminPage adminPage = new AdminPage();
+	
+	ResourcePage resource = adminPage
+				    .leftMenu
+				    .clickOnConferenceRoomsButton()
+				    .leftMenu
+				    .clickOnResourcesButton();
+	resource
+		.clickResourceTableHeaderCheckBox();
+    }
+    
+    @When("^the Table Header CheckBox is unchecked$")
+    public void uncheckTableResourceCheckBox() { 
+	AdminPage adminPage = new AdminPage();
+	
+	ResourcePage resource = adminPage
+				    .leftMenu
+				    .clickOnResourcesButton();
+	resource
+		.clickResourceTableHeaderCheckBox();
+    }
 }

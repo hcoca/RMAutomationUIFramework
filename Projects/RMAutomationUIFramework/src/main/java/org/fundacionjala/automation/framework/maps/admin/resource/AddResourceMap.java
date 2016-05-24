@@ -11,5 +11,6 @@ public class AddResourceMap {
 	public static final String ICON = "//table[@class='table-icons']/tbody//button[@value='iconName']";
 	public static final String RIGHT_BUTTON = "//table[@class='table-icons']/thead//button[@value='1']";
 	public static final String LEFT_BUTTON = "//table[@class='table-icons']/thead//button[@value='-1']";
-	
+	public static final String CLOSE_BUTTON = "//i[@class='fa fa-times']/parent::span[@class='btn btn-xs pull-right'][@ng-click='cancel()']";
+	public static final String ADD_RESOURCE_WINDOW = "//div[@class='modal-content'][@modal-transclude='']";
 }
