@@ -154,3 +154,18 @@ Given I have a location added with name: "Cochabamba_16", display name "Cbba-Loc
 	And I am logged as "Administrator" with password "Control*123"
 When I add a new location with name: "Cochabamba_16", display name "Cbba-Location_Diferent" and description "This is Cochabamba Location"
 Then An error message should be displayed
+
+@location31
+Scenario: Location is not created after canceling the creation process
+Given I am logged as "Administrator" with password "Control*123" 
+When I tried to add a new location with name: "Fundacion", display name "Cbba-Fundacion" and description "This is Cochabamba Location"
+And I press the cancel button
+Then The location "Fundacion" is not displayed on location page
+
+@location32
+Scenario: Location is not updated 
+Given I have a location added with name: "Cochabamba_3", display name "Cbba-Location_3" and description "This is Cochabamba Location"
+And I am logged as "Administrator" with password "Control*123"
+When I try to update location "Cbba-Location_3" with name: "Fundacion", display name "Cbba-Location_2" and description "This is Fundacion Location"
+And I press the cancel button
+Then The location "Fundacion" is not displayed on location page

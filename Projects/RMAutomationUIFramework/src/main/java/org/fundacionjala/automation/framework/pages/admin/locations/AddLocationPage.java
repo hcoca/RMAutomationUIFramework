@@ -25,6 +25,8 @@ public class AddLocationPage {
     WebElement addParentButton;
     @FindBy(xpath = AddLocationMap.SAVE_BUTTON)
     WebElement saveButton;
+    @FindBy(xpath = AddLocationMap.CANCEL_BUTTON)
+    WebElement cancelButton;
     @FindBy(xpath = AddLocationMap.LOCATION_ASSOCIATION_LINK)
     WebElement associationLink;
 
@@ -79,6 +81,20 @@ public class AddLocationPage {
 	LogManager.info("Save button has been clicked");
 	return new LocationPage();
     }
+    
+    /**
+     * Clicks on "Cancel" Button.
+     * @return a new "Locations" page.
+     */
+    public LocationPage clickOnCancelButton() {
+    	
+    	if (cancelButton != null) {
+		   cancelButton.click();
+		   LogManager.info("Cancel button has been clicked");
+		}
+     	return new LocationPage();
+    }
+    
 
     /**
      * Clicks on "(+)Add Parent" button.
