@@ -3,6 +3,7 @@ package org.fundacionjala.automation.scenario.steps.admin.location;
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.AddLocationPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
+import org.fundacionjala.automation.framework.pages.admin.locations.RemoveLocationPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
 import org.openqa.selenium.By;
@@ -73,6 +74,15 @@ public class LocationWhenSteps {
 			.clickOnALocation(displayName)
 			.clickOnRemoveButton()
 			.clickOnRemoveButton();
+	}
+	
+	@When("^I try to delete the location \"([^\"]*)\"$")
+	public void i_try_to_delete_the_location(String locationName) throws Throwable {
+		
+		goToLocationPage()
+			.clickOnALocation(locationName)
+			.clickOnRemoveButton();
+		
 	}
 	
 	@When("^I add a new location with name: \"([^\"]*)\", display name \"([^\"]*)\" and parent \"([^\"]*)\"$")
@@ -194,4 +204,14 @@ public class LocationWhenSteps {
 		addLocation
 		         .clickOnCancelButton();
 	}
+	
+	@When("^I press the cancel button on delete page$")
+	public void i_press_the_cancel_button_on_delete_page() throws Throwable {
+		
+	   RemoveLocationPage removeLocation = new RemoveLocationPage();
+		
+	   removeLocation
+	               .clickOnCancelButton();
+	}
 }
+

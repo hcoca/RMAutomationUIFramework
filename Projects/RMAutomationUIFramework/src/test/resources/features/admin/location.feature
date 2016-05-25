@@ -169,3 +169,12 @@ And I am logged as "Administrator" with password "Control*123"
 When I try to update location "Cbba-Location_3" with name: "Fundacion", display name "Cbba-Location_2" and description "This is Fundacion Location"
 And I press the cancel button
 Then The location "Fundacion" is not displayed on location page
+
+@location33
+Scenario: Location is not deleted 
+Given I have a location added with name: "Cochabamba_3", display name "Cochabamba_3" and description "This is Cochabamba Location"
+And I am logged as "Administrator" with password "Control*123"
+When I try to delete the location "Cochabamba_3"
+And I press the cancel button on delete page 
+Then The location "Cochabamba_3" is displayed on location page
+
