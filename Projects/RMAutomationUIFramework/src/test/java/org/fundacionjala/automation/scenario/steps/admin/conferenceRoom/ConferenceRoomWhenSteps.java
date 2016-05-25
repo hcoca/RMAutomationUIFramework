@@ -76,7 +76,7 @@ public class ConferenceRoomWhenSteps {
 		.setUpServiceURL(PropertiesReader.getServiceURL())
 		.clickOnSaveButton().clickOnNavigationButton();
 
-	navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
+	navigation.clickOnRoomToggleButton().insertConferenceRoom(roomName).selectConferenceRoom(roomName)
 		.clickOnSaveButton().topMenu.clickOnHomeButton();
     }
 
