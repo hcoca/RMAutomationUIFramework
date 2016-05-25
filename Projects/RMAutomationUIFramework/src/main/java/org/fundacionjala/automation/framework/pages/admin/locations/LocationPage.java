@@ -32,6 +32,10 @@ public class LocationPage extends AdminPage {
     WebElement pageField;
     @FindBy(xpath = LocationMap.FIRST_ROW)
     WebElement firstRow;
+    @FindBy(xpath = LocationMap.FIRST_PAGE_BUTTON)
+    WebElement firstPageButton;
+    @FindBy(xpath = LocationMap.LAST_PAGE_BUTTON)
+    WebElement lastPageButton;
 
     /**
      * The constructor initializes web factory.
@@ -202,5 +206,17 @@ public class LocationPage extends AdminPage {
     
     public String getFirstRow() {
     	return firstRow.getText();
+    }
+    
+    public LocationPage clickOnFirstPageButton() {
+    	firstPageButton.click();
+    	LogManager.info("The First Page button has been clicked");
+    	return this;
+    }
+    
+    public LocationPage clickOnLastPageButton() {
+    	lastPageButton.click();
+    	LogManager.info("The Last Page button has been clicked");
+    	return this;
     }
 }

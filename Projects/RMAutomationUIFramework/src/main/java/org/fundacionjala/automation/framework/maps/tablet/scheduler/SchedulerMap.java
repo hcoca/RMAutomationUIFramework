@@ -13,6 +13,8 @@ public class SchedulerMap {
 	public static final String REMOVE_BUTTON = "//span[text()='Remove']/parent::button[@class='clean item item-btn'][@ng-show='state.edit === editStates.UPDATE']";
 	public static final String MEETING_BUTTON = "div/div/div[2]/div/div";
 	public static final String TIME_LINE = "//div[@id='timelinePanel']/rm-vis/div/div[4]";
+	public static final String MEETING_BUTTON_START = "div[@class='vis-drag-left']";
+	public static final String MEETING_BUTTON_END = "div[@class='vis-drag-right']";
 	public static final String ATTENDEES_LIST = "//ul[contains(@class,'list-inline')]";
 	public static final String ATTENDEE_NAME = "li/span";
 	public static final String ROOM_NAME_TITLE = "//span[text()='roomName']";
