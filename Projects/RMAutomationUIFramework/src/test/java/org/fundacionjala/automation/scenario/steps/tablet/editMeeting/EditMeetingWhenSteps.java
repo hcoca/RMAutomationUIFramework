@@ -142,7 +142,7 @@ public class EditMeetingWhenSteps {
     }
 
     @When("^I modify the schedule in the \"([^\"]*)\" meeting on \"([^\"]*)\" drag and drop the whole meeting to the \"([^\"]*)\" \"([^\"]*)\" hour$")
-    public void i_modify_the_schedule_in_the_meeting_dragging_and_dropping_the_whole_meeting_to_the_hour(
+    public void dragging_and_dropping_the_whole_meeting_to_the_hour(
 	    String meetingName, String roomName, String direction, int hours)
 	    throws Throwable {
 	BrowserManager.openBrowser();
@@ -268,5 +268,57 @@ public class EditMeetingWhenSteps {
 	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton()
 		.displayAllDayOnTimeline().clickOnMeetingButton(subject);
     }
+
+    @When("^I modify the schedule in the \"([^\"]*)\" meeting on \"([^\"]*)\" drag and drop the start time in \"([^\"]*)\" \"([^\"]*)\" hour$")
+    public void drag_and_drop_start_time_in_hour(String meetingName,
+	    String roomName, String direction, byte hours) throws Throwable {
+	BrowserManager.openBrowser();
+	ConnectionPage connection = new ConnectionPage();
+	SchedulerPage schedule = new SchedulerPage();
+	CredentialsPage credential = new CredentialsPage();
+
+	NavigationPage navigation = connection
+		.setUpServiceURL(PropertiesReader.getServiceURL())
+		.clickOnSaveButton().clickOnNavigationButton();
+
+	navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
+		.clickOnSaveButton().topMenu.clickOnHomeButton()
+		.clickOnScheduleButton().displayAllDayOnTimeline()
+		.clickOnMeetingButton(meetingName);
+	if (direction.equals("left")) {
+	    hours = (byte) (hours * -1);
+	}
+	schedule.moveStartTimeMeetingOnTimeLine(meetingName, hours).clickUpdateButton();
+	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOnOkButton();
+
+    }
+
+    @When("^I modify the schedule in the \"([^\"]*)\" meeting on \"([^\"]*)\" drag and drop the end time in \"([^\"]*)\" \"([^\"]*)\" hour$")
+    public void drag_and_drop_end_time_in_hour(String meetingName,
+	    String roomName, String direction, byte hours) throws Throwable {
+	BrowserManager.openBrowser();
+	ConnectionPage connection = new ConnectionPage();
+	SchedulerPage schedule = new SchedulerPage();
+	CredentialsPage credential = new CredentialsPage();
+
+	NavigationPage navigation = connection
+		.setUpServiceURL(PropertiesReader.getServiceURL())
+		.clickOnSaveButton().clickOnNavigationButton();
+
+	navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
+		.clickOnSaveButton().topMenu.clickOnHomeButton()
+		.clickOnScheduleButton().displayAllDayOnTimeline()
+		.clickOnMeetingButton(meetingName);
+	if (direction.equals("left")) {
+	    hours = (byte) (hours * -1);
+	}
+	schedule.moveEndTimeMeetingOnTimeLine(meetingName, hours).clickUpdateButton();
+	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOnOkButton();
+
+    }
+
+   
 
 }

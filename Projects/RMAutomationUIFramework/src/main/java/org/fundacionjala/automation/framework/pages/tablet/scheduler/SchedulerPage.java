@@ -2,6 +2,7 @@ package org.fundacionjala.automation.framework.pages.tablet.scheduler;
 
 import java.awt.AWTException;
 import java.util.List;
+
 import org.fundacionjala.automation.framework.maps.tablet.scheduler.SchedulerMap;
 import org.fundacionjala.automation.framework.pages.tablet.navigation.TopMenu;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -542,7 +543,49 @@ public class SchedulerPage {
     }
 
     public boolean validateErrorMessageIsDIsplayed() {
-	return( !(ExplicitWait.isElementInvisible(By.xpath(SchedulerMap.MESSAGE_TIME_ERROR), 30))) ?
-		true : false ;
+	return (!(ExplicitWait.isElementInvisible(
+		By.xpath(SchedulerMap.MESSAGE_TIME_ERROR), 30))) ? true : false;
     }
+    /**
+     * Drag and drop on StartTime of a meeting on Time line panel
+     * according the hours
+     * @param meetingName
+     * @param hours
+     * @return SchedulerPage this
+     * @throws AWTException 
+     */
+    public SchedulerPage moveStartTimeMeetingOnTimeLine(String meetingName,
+	    byte hours) throws AWTException {
+	WebElement meetingButton = getMeetingButton(meetingName);
+	WebElement meetingButtonStart = meetingButton.findElement(By
+		.xpath(SchedulerMap.MEETING_BUTTON_START));
+	UIActions.draggingAndDroppingOnXAxis(meetingButtonStart, hours * 50);
+	LogManager.info("Meeting Start has been moved "
+		+ hours + " in x axis.");
+	return this;
+    }
+
+    /**
+     * Drag and drop on EndTime of a meeting on Time line panel
+     * according the hours
+     * @param meetingName
+     * @param hours
+     * @return SchedulerPage this
+     * @throws AWTException 
+     */
+    public SchedulerPage moveEndTimeMeetingOnTimeLine(String meetingName,
+	    byte hours) throws AWTException {
+	WebElement meetingButton,meetingButtonEnd;
+	
+	meetingButton = getMeetingButton(meetingName);
+	meetingButtonEnd = meetingButton.findElement(By
+		.xpath(SchedulerMap.MEETING_BUTTON_END));
+	UIActions.dragAndDropOnXAxis(meetingButtonEnd, hours * 50);
+	
+	LogManager.info("Meeting End has been moved "
+		+ hours + " in x axis.");
+	return this;
+    }
+
+   
 }
