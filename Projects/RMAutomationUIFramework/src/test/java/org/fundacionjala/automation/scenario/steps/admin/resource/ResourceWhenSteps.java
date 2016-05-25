@@ -330,4 +330,12 @@ public class ResourceWhenSteps {
 	resource
 		.clickResourceTableHeaderCheckBox();
     }
+    
+    @When("^I select \"([^\"]*)\" Icon$")
+    public void i_select_Icon(String icon) throws Throwable {
+	AddResourcePage addResourcePage = new AddResourcePage();
+	
+	addResourcePage
+	.selectIcon(icon);
+    }
 }

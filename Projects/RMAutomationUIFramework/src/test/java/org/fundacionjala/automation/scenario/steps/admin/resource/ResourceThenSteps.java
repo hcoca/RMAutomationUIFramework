@@ -312,4 +312,13 @@ public class ResourceThenSteps {
 	
 	Assert.assertTrue(resource.isResourceChecked(resourceName));
     }
+
+    @Then("^Validate that icon image is updated to \"([^\"]*)\" Icon on add page\\.$")
+    public void validate_that_icon_image_is_updated_on_add_page(String icon) throws Throwable {
+	AddResourcePage addResourcePage = new AddResourcePage();
+	Assert.assertTrue(
+	addResourcePage.verifyIconUpdate(icon),
+	"The Icon is not updated to " + icon);
+	addResourcePage.clickOnCancelButton();
+    }
 }

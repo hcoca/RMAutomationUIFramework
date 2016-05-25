@@ -21,4 +21,5 @@ public class AddResourceMap {
 	public static final String INVALID_CHARACTERS_ERROR = "//form/small[contains(text(),'Invalid name')]";
 	public static final String CLOSE_BUTTON = "//i[@class='fa fa-times']/parent::span[@class='btn btn-xs pull-right'][@ng-click='cancel()']";
 	public static final String ADD_RESOURCE_WINDOW = "//div[@class='modal-content'][@modal-transclude='']";
+	public static final String ICON_BOX = "//resource-card//span[@class='fa fa iconName']";
 }

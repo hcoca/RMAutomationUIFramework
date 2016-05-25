@@ -190,8 +190,9 @@ public class AddResourcePage {
 	WebElement alreadyExistsError;
 	
 	/**
-	 * 
-	 * @return
+	 * This method is to verify that an error message appear when a resources
+	 * is created with the same name
+	 * @return true if the message appear else false
 	 */
 	public boolean verifyErrorMessageWhenNameAlreadyExists() {
 	    String alreadyExists = alreadyExistsError.getAttribute("class");   
@@ -246,5 +247,14 @@ public class AddResourcePage {
 		LogManager.info("Add Resource Window has dissapeared");
 	    
 	    	return new ResourcePage();
+	}
+
+	/**
+	 * This method is to verify if icon is updated when it is changed
+	 * @return true if icon change else false
+	 */
+	public boolean verifyIconUpdate(String icon) {
+	    return ExplicitWait.waitForElement(AddResourceMap.ICON_BOX
+		    .replace("iconName", icon), 30) ? true : false;
 	}
 }
