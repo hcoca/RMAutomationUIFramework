@@ -194,4 +194,16 @@ public class LocationWhenSteps {
 		addLocation
 		         .clickOnCancelButton();
 	}
+	
+	@When("^I select the First Page button$")
+	public void selectFirstPageButton() throws Throwable {
+	    LocationPage location = new LocationPage();
+	    location.clickOnFirstPageButton();
+	}
+	
+	@When("^I select the Last Page button$")
+	public void i_select_the_Last_Page_button() throws Throwable {
+		LocationPage location = new LocationPage();
+		location.clickOnLastPageButton();
+	}
 }
