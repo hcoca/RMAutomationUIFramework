@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 
+import org.fundacionjala.automation.framework.maps.tablet.scheduler.SchedulerMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
@@ -157,6 +158,32 @@ public class UIActions {
 	r.mouseMove(meetingButton.getLocation().x + screenX,
 		meetingButton.getLocation().y + screenY);
 	r.mousePress(InputEvent.BUTTON1_MASK);
+	if (amount < 0) {
+	    increment = -10;
+	    sign = -1;
+	}
+	while (Math.abs(increment) <= Math.abs(amount)) {
+	    r.mouseMove(meetingButton.getLocation().x + screenX + increment,
+		    meetingButton.getLocation().y + screenY);
+	    increment = increment + (10 * sign);
+	}
+	r.mouseRelease(InputEvent.BUTTON1_MASK);
+
+    }
+
+    public static void draggingAndDroppingOnXAxis(WebElement meetingButton, int amount)
+	    throws AWTException {
+	int screenX, screenY, increment, sign;
+	increment = 10;
+	sign = 1;
+	screenX = 7;
+	screenY = 100;
+	Robot r = new Robot();
+
+	r.mouseMove(meetingButton.getLocation().x + screenX,
+		meetingButton.getLocation().y + screenY);
+	r.mousePress(InputEvent.BUTTON1_MASK);
+	ExplicitWait.waitForElement(SchedulerMap.TIME_LINE, 20);
 	if (amount < 0) {
 	    increment = -10;
 	    sign = -1;

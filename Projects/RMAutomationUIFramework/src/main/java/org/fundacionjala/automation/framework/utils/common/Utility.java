@@ -78,20 +78,21 @@ public class Utility {
 	return convertHourToString(hourEndInt + hoursToMove);
 
     }
-
+    
+    /**
+     * This method allows convert and hour int (e.g. 1 --> 01:00:00.000)
+     * @param hour
+     * @return String time formated
+     */
     private static String convertHourToString(int hour) {
 	String browser = PropertiesReader.getBrowser();
 	if (browser.equals("firefox") || browser.equals("safari")) {
-	    System.out.println(String.format("%02d:00:00.000", hour));
 	    return String.format("%02d:00:00.000", hour);
 	}
-	 if (hour > 12) {
-	     System.out.println(String.format("%02d:00:00.000", hour));
-	     return String.format("%02d:00:00.000", hour);
-	 } else {
-	     System.out.println(String.format("%02d:00:00.000", hour - 12));
-		    return String.format("%02d:00:00.000", hour - 12);
-	 }
-	
+	if (hour > 12) {
+	    return String.format("%02d:00 PM", hour - 12);
+	}
+	return String.format("%02d:00 AM", hour);
+
     }
 }
