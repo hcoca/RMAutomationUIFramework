@@ -106,6 +106,22 @@ Given I have at least "200" locations created
  When I select "100" on location page size option 
  Then Validate that the location table size is same than the option "100" selected 
 
+@location27
+Scenario: First Locations page is displayed when First Page button is pressed
+Given I have at least "200" locations created 
+  And I am logged as "Administrator" with password "Control*123"
+When I select "50" on location page size option 
+  When I select the First Page button
+Then I validate if the corresonding page is displayed on Location page according the page size specified "200" and the page "1"    
+
+@location28
+Scenario: Last Locations page is displayed when Last Page button is pressed
+Given I have at least "200" locations created 
+  And I am logged as "Administrator" with password "Control*123"
+When I select "50" on location page size option 
+  When I select the Last Page button
+Then I validate if the corresonding page is displayed on Location page according the page size specified "200" and the page "4"
+
 @location29
 Scenario: Previous Locations page is displayed when Previous Page button is pressed
 Given I have at least "200" locations created 
