@@ -12,12 +12,15 @@ import org.fundacionjala.automation.framework.utils.api.managers.RoomAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Room;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.ConferenceRoomDataBase;
+import org.fundacionjala.automation.framework.utils.common.DatabaseConnection;
 import org.fundacionjala.automation.framework.utils.common.ExplicitWait;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+
+import com.mongodb.DBCollection;
 
 import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
@@ -39,6 +42,7 @@ public class ConferenceRoomThenSteps {
 	Assert.assertTrue(roomName + " room is not in the list",
 		navigation
 		.clickOnRoomToggleButton()
+		.selectConferenceRoom(roomName)
 		.verifyIfExistRoomInList(roomName)
 		);
     }
@@ -227,7 +231,7 @@ public class ConferenceRoomThenSteps {
 		.setUpServiceURL(PropertiesReader.getServiceURL())
 		.clickOnSaveButton().clickOnNavigationButton();
 
-	navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
+	navigation.clickOnRoomToggleButton().insertConferenceRoom(roomName).selectConferenceRoom(roomName)
 		.clickOnSaveButton().topMenu.clickOnHomeButton();
 
 	WebElement title = BrowserManager.getDriver().findElement(
@@ -247,5 +251,15 @@ public class ConferenceRoomThenSteps {
     public void tearDownAfterOutOfOrder() {
 	WebElement body = ExplicitWait.getWhenVisible(By.tagName("body"), 20);
 	body.sendKeys(Keys.ESCAPE);
+	
+	deleteOutOfOrders();
+    }
+    
+    private void deleteOutOfOrders() {
+
+    	DatabaseConnection connection = new DatabaseConnection();
+    	connection.switchCollection("outoforders");
+    	DBCollection myCollection = connection.getCollection();
+    	myCollection.drop();
     }
 }
