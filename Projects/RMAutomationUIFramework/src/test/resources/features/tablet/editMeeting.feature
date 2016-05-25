@@ -2,21 +2,24 @@ Feature: Edit meeting
 	I want to edit alll fields allowed in a created meeting
 
 #Scenario 1
+@DeleteMeeting
 Scenario: The organizer is not able to modified in a meeting created
-Given I have a created meeting with "Pizza" subject in the "Room082" room 
- When I display the meeting "Pizza" in the "Room082" room
- Then Validate that the organizer is not able to modified
+Given I have a created meeting with "Pizza" subject in the "Room152" room 
+ When I display the meeting "Pizza" in the "Room152" room
+ Then Validate that in the meeting "Pizza" of the "Room152" room the organizer is not able to modified 
+
 
 #Scenario 2
+@DeleteMeeting
 Scenario: The attendees text field is modified in a meeting created
-Given I had a created meeting in the "Room082" room, with "New Project RM" subject and attendees: 
+Given I had a created meeting in the "Room153" room, with "New Project RM" subject and attendees: 
 |RoomManager5@roommanager.local|
 |RoomManager6@roommanager.local|
-When I modified the meeting "New Project RM" in the "Room082" room  adding the attendees
+When I modified the meeting "New Project RM" in the "Room153" room  adding the attendees
 |RoomManager7@roommanager.local|
 |RoomManager8@roommanager.local|
   And Save the changes
- Then Validate that the attendees has been modified with
+ Then Validate that in the meeting "New Project RM" of the "Room153" room the attendees has been modified with
 |RoomManager5@roommanager.local|
 |RoomManager6@roommanager.local|
 |RoomManager7@roommanager.local|
@@ -25,23 +28,23 @@ When I modified the meeting "New Project RM" in the "Room082" room  adding the a
 #Scenario 3
 @IMP-DisableImpersonationUI @DeleteMeeting
 Scenario Outline: A meeting created is modified when the information meeting  is edited using impersonation
-Given I have a created in the "Room013" room with subject "meeting QADEV06"
- And the schedule with start time: "07:00" end time "08:30"
+Given I have a created in the "Room155" room with subject "meeting QADEV06"
+ And the schedule with start time: "16:00" end time "16:30"
  And attendees
 |RoomManager1@roommanager.local|
 |RoomManager4@roommanager.local|
  And body "This is a new meeting"
  And impersonation is enabled by UI
-When I modify the "<field>" with "<value>" in the "meeting QADEV06" meeting in "Room013" room
+When I modify the "<field>" with "<value>" in the "meeting QADEV06" meeting in "Room155" room
  And Confirm the changes with the user "RoomManager1" and password "Control*123"
-Then Validate that the "<field>" has been modified with the value "<value>" of the "meeting QADEV06" 
+Then Validate that the "<field>" has been modified with the value "<value>" of the "meeting QADEV06" in the "Room155" room  
 
 #field to modify (subject, startTime, endTime, attendees, body)
 Examples:
 |field		|value													|
-|subject	|this is a new subject					|
-|startTime|10:00													|
-|endTime	|12:00													|
+#|subject	|new subject|
+|startTime|15:30|
+|endTime	|18:00|
 |attendees|RoomManager5@roommanager.local	|
 |body			|This meeting has been modified	|
 
