@@ -138,4 +138,35 @@ public class UIActions {
 	robot.mouseMove((int)x, (int)y);
 	robot.mouseWheel(size);
     }
+    /**
+     * This method allows press on an WebElement and drag and drop along X axis
+     * an amount of pixels
+     * @param meetingButton WebElement
+     * @param amount Pixels (e.g. -100, 100)
+     * @throws AWTException
+     */
+    public static void dragAndDropOnXAxis(WebElement meetingButton, int amount)
+	    throws AWTException {
+	int screenX, screenY, increment, sign;
+	increment = 10;
+	sign = 1;
+	screenX = 25;
+	screenY = 100;
+	Robot r = new Robot();
+
+	r.mouseMove(meetingButton.getLocation().x + screenX,
+		meetingButton.getLocation().y + screenY);
+	r.mousePress(InputEvent.BUTTON1_MASK);
+	if (amount < 0) {
+	    increment = -10;
+	    sign = -1;
+	}
+	while (Math.abs(increment) <= Math.abs(amount)) {
+	    r.mouseMove(meetingButton.getLocation().x + screenX + increment,
+		    meetingButton.getLocation().y + screenY);
+	    increment = increment + (10 * sign);
+	}
+	r.mouseRelease(InputEvent.BUTTON1_MASK);
+
+    }
 }

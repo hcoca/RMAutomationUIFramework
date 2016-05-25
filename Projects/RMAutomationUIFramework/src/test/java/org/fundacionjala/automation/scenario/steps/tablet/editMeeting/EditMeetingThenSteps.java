@@ -6,6 +6,7 @@ import org.fundacionjala.automation.framework.pages.tablet.scheduler.SchedulerPa
 import org.fundacionjala.automation.framework.utils.api.managers.MeetingAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Meeting;
 import org.fundacionjala.automation.framework.utils.common.PropertiesReader;
+import org.fundacionjala.automation.framework.utils.common.Utility;
 import org.testng.Assert;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -101,6 +102,26 @@ public class EditMeetingThenSteps {
     public void deleteTwoMeetings() throws UnirestException {
 	deleteMeetingByAPI("Room111", "first meeting");
 	deleteMeetingByAPI("Room111", "second meeting");
+    }
+
+    @Then("^Validate that the schedule start \"([^\"]*)\" and end time \"([^\"]*)\" on \"([^\"]*)\" were \"([^\"]*)\" \"([^\"]*)\" hour$")
+    public void validate_that_the_schedule_start_and_end_time_were_hour(
+	    String startTime, String endTime, String meetingName,
+	    String status, int hours) throws Throwable {
+	SchedulerPage scheduler = new SchedulerPage();
+	String startTimeExpected, endTimeExpected;
+	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton();
+	startTimeExpected = Utility.getnewStartTimeByHour(startTime, endTime,
+		status, hours);
+	endTimeExpected = Utility.getnewEndTimeByHour(startTime, endTime,
+		status, hours);
+
+	Assert.assertTrue(scheduler.clickOnMeetingButton(meetingName)
+		.verifyFieldEdited("startTime", startTimeExpected),
+		"The field start time in the meeting cannot be modified");
+	Assert.assertTrue(
+		scheduler.verifyFieldEdited("endTime", endTimeExpected),
+		"The field end time in the meeting cannot be modified");
     }
 
     @After("@DeleteMeeting")
