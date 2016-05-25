@@ -194,7 +194,7 @@ When I try to delete the location "Cochabamba_3"
 And I press the cancel button on delete page 
 Then The location "Cochabamba_3" is displayed on location page
 
-@location17		
+ @location17		
  Scenario: A message is displayed on Add Location page when a new location is added with empty name		
  Given I am logged as "Administrator" with password "Control*123"		
  When I add a new location with name: "", display name "Cbba-Location_17" and description "This is Cochabamba Location"		
