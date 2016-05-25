@@ -117,6 +117,22 @@ public class AddResourcePage {
 	}
 	
 	/**
+	 * this method is to do click on icon button
+	 * @param icon is the value to select an icon
+	 * @return AddResourcePage
+	 */
+	public SelectIconPage ClickOnIconButton(){
+	    
+		(new WebDriverWait(BrowserManager.getDriver(), 10))
+		.until(ExpectedConditions.presenceOfElementLocated(
+			By.xpath(AddResourceMap.ICON_BUTTON)));
+		iconButton.click();
+		LogManager.info("'Icon' button has been clicked");
+				
+		return new SelectIconPage();
+	}
+	
+	/**
 	 * This function is to click on SAVE button on AddResourcePage
 	 * @return ResourcePage
 	 */

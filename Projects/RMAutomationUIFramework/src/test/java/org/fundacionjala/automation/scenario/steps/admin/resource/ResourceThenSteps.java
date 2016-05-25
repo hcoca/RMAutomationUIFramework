@@ -6,6 +6,7 @@ import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
 import org.fundacionjala.automation.framework.pages.admin.resource.AddResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.RemoveResourcePage;
 import org.fundacionjala.automation.framework.pages.admin.resource.ResourcePage;
+import org.fundacionjala.automation.framework.pages.admin.resource.SelectIconPage;
 import org.fundacionjala.automation.framework.utils.api.managers.ResourceAPIManager;
 import org.fundacionjala.automation.framework.utils.api.objects.admin.Resource;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
@@ -320,5 +321,13 @@ public class ResourceThenSteps {
 	addResourcePage.verifyIconUpdate(icon),
 	"The Icon is not updated to " + icon);
 	addResourcePage.clickOnCancelButton();
+    }
+
+    @Then("^Validate that icon page change to \"([^\"]*)\"$")
+    public void validate_that_icon_page_change_to(String button) throws Throwable {
+	SelectIconPage selectIconPage = new SelectIconPage();
+	Assert.assertTrue(
+		selectIconPage.verifyIfIconPageChanged(button),
+	"The Icon page does not change to " + button);
     }
 }

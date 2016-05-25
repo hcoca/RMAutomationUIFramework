@@ -10,6 +10,7 @@ import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 
 
 
+
 import cucumber.api.java.en.When;
 
 public class ResourceWhenSteps {
@@ -337,5 +338,15 @@ public class ResourceWhenSteps {
 	
 	addResourcePage
 	.selectIcon(icon);
+    }
+    
+    @When("^I want to change to \"([^\"]*)\" icon page$")
+    public void i_want_to_change_to_icon_page(String button) throws Throwable {
+	AddResourcePage addResourcePage = new AddResourcePage();
+	
+	addResourcePage
+	.ClickOnIconButton()
+	.clickOnPagebutton(button);
+	
     }
 }
