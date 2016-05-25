@@ -1,6 +1,7 @@
 package org.fundacionjala.automation.scenario.steps.admin.location;
 
 import org.fundacionjala.automation.framework.pages.admin.home.AdminPage;
+import org.fundacionjala.automation.framework.pages.admin.locations.AddLocationPage;
 import org.fundacionjala.automation.framework.pages.admin.locations.LocationPage;
 import org.fundacionjala.automation.framework.utils.common.BrowserManager;
 import org.fundacionjala.automation.framework.utils.common.UIActions;
@@ -41,6 +42,17 @@ public class LocationWhenSteps {
 		.setDisplayNameField(displayName)
 		.setDescriptionArea(description)
 		.clickOnSaveButton();
+	}
+	
+	@When("^I try to update location \"([^\"]*)\" with name: \"([^\"]*)\", display name \"([^\"]*)\" and description \"([^\"]*)\"$")
+	public void i_try_to_update_location_with_name_display_name_and_description(String currentLoc, String nameLoc, String dispName, String desc) throws Throwable {
+		
+		goToLocationPage()
+		.doubleClickOnALocation(currentLoc)
+		.setNameField(nameLoc)
+		.setDisplayNameField(dispName)
+		.setDescriptionArea(desc);
+		
 	}
 	
 	@When("^I update \"([^\"]*)\" location parent to \"([^\"]*)\"$")
@@ -160,5 +172,26 @@ public class LocationWhenSteps {
 	public void setPageOnLocation(String page) throws Throwable {
 	   LocationPage location = new LocationPage();
 	   location.setPage(page);
+	}
+	
+	@When("^I tried to add a new location with name: \"([^\"]*)\", display name \"([^\"]*)\" and description \"([^\"]*)\"$")
+	public void i_tried_to_add_a_new_location_with_name_display_name_and_description(String name, String dispName, String desc) throws Throwable {
+		
+		 goToLocationPage()
+			.clickOnAddButton()
+			.setNameField(name)
+			.setDisplayNameField(dispName)
+			.setDescriptionArea(desc);
+			
+		
+	}
+
+	@When("^I press the cancel button$")
+	public void i_press_the_cancel_button() throws Throwable {
+		
+		AddLocationPage addLocation = new AddLocationPage();
+		
+		addLocation
+		         .clickOnCancelButton();
 	}
 }
