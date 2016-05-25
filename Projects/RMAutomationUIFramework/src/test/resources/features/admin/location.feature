@@ -106,6 +106,22 @@ Given I have at least "200" locations created
  When I select "100" on location page size option 
  Then Validate that the location table size is same than the option "100" selected 
 
+@location27
+Scenario: First Locations page is displayed when First Page button is pressed
+Given I have at least "200" locations created 
+  And I am logged as "Administrator" with password "Control*123"
+When I select "50" on location page size option 
+  When I select the First Page button
+Then I validate if the corresonding page is displayed on Location page according the page size specified "200" and the page "1"    
+
+@location28
+Scenario: Last Locations page is displayed when Last Page button is pressed
+Given I have at least "200" locations created 
+  And I am logged as "Administrator" with password "Control*123"
+When I select "50" on location page size option 
+  When I select the Last Page button
+Then I validate if the corresonding page is displayed on Location page according the page size specified "200" and the page "4"
+
 @location29
 Scenario: Previous Locations page is displayed when Previous Page button is pressed
 Given I have at least "200" locations created 
@@ -178,3 +194,35 @@ When I try to delete the location "Cochabamba_3"
 And I press the cancel button on delete page 
 Then The location "Cochabamba_3" is displayed on location page
 
+ @location17		
+ Scenario: A message is displayed on Add Location page when a new location is added with empty name		
+ Given I am logged as "Administrator" with password "Control*123"		
+ When I add a new location with name: "", display name "Cbba-Location_17" and description "This is Cochabamba Location"		
+ Then An error message should be displayed 		
+ 		
+ @location18		
+ Scenario: A message is displayed on Add Location page when a location is added with empty display name		
+ Given I am logged as "Administrator" with password "Control*123"		
+ When I add a new location with name: "Cochabamba_18", display name "" and description "This is Cochabamba Location"		
+ Then An error message should be displayed		
+ 		
+ @location19		
+ Scenario: A message is displayed on ‘Add Location’ page when a new location is added with special characters in its name		
+ Given I am logged as "Administrator" with password "Control*123"		
+ When I add a new location with name: "/\?%*:|", display name "Cbba-Location_19" and description "This is Cochabamba Location"		
+ Then An error message should be displayed		
+ 		
+ @location21		
+ Scenario: A message is displayed on ‘Update Location’ page when a location name is updated to already existent name		
+ Given I have a location added with name: "Cochabamba_21", display name "Cbba-Location_21" and description "Description1"		
+ 	And I have a location added with name: "Other_Cochabamba", display name "Other_Cbba" and description "Description2"		
+ 	And I am logged as "Administrator" with password "Control*123"		
+ When I update location "Other_Cbba" with name: "Cochabamba_21", display name "Other_Cbba_21" and description "Cochabamba Location"		
+ Then An error message should be displayed		
+ 		
+ @location22		
+ Scenario: A message is displayed on ‘Update Location’ page  when a location name is updated to empty		
+ Given I have a location added with name: "Cochabamba_22", display name "Cbba-Location_22" and description "This is Cochabamba Location"		
+ 	And I am logged as "Administrator" with password "Control*123"		
+ When I update location "Cbba-Location_22" with name: "", display name "Cbba-Location_22Updated" and description "Description"		
+ Then An error message should be displayed

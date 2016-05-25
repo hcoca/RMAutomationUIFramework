@@ -15,7 +15,9 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
 
 public class EditMeetingThenSteps {
-
+    String roomNameToDelete;
+    String meetingName;
+    
     @Then("^Validate that the organizer is not able to modified$")
     public void validateOrganizerIsNotAbleToModified() throws Throwable {
 
@@ -40,7 +42,7 @@ public class EditMeetingThenSteps {
     @Then("^Validate that the \"([^\"]*)\" has been modified with the value \"([^\"]*)\" of the \"([^\"]*)\"$")
     public void validate_that_the_has_been_modified_with_the_value_of_the(
 	    String field, String value, String subject) throws Throwable {
-
+	meetingName = subject;
 	SchedulerPage scheduler = new SchedulerPage();
 	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton();
 	if (field.equalsIgnoreCase("subject")) {
@@ -57,7 +59,7 @@ public class EditMeetingThenSteps {
     @Then("^validate that \"([^\"]*)\" subject has been modified$")
     public void validate_that_subject_has_been_modified(String newSubject)
 	    throws Throwable {
-
+	meetingName = newSubject;
 	SchedulerPage scheduler = new SchedulerPage();
 	Assert.assertTrue(scheduler.topMenu.clickOnHomeButton()
 		.clickOnScheduleButton().displayAllDayOnTimeline()
@@ -68,7 +70,7 @@ public class EditMeetingThenSteps {
     @Then("^validate that \"([^\"]*)\" meeting has been modified with schedule from \"([^\"]*)\" to \"([^\"]*)\"$")
     public void validate_that_meeting_has_been_modified_with_schedule_from_to(
 	    String subject, String startTime, String endTime) throws Throwable {
-
+	meetingName = subject;
 	SchedulerPage scheduler = new SchedulerPage();
 	Assert.assertTrue(scheduler.topMenu.clickOnHomeButton()
 		.clickOnScheduleButton().clickOnMeetingButton(subject)
@@ -80,6 +82,7 @@ public class EditMeetingThenSteps {
     @Then("^validate that the body \"([^\"]*)\" has been modified in \"([^\"]*)\"$")
     public void validate_body_has_been_modified(String bodyModified,
 	    String subject) throws Throwable {
+	meetingName = subject;
 	SchedulerPage scheduler = new SchedulerPage();
 	Assert.assertTrue(scheduler.topMenu.clickOnHomeButton()
 		.clickOnScheduleButton().displayAllDayOnTimeline()
@@ -90,6 +93,7 @@ public class EditMeetingThenSteps {
     @Then("^validate that an error message is displayed in the startTime field of the meeting \"([^\"]*)\"$")
     public void validate_error_message_in_startTime_field(String subject)
 	    throws Throwable {
+	meetingName = subject;
 	SchedulerPage scheduler = new SchedulerPage();
 	Assert.assertFalse(scheduler.validateErrorMessageIsDIsplayed(),
 		"The error message was not displayed");
@@ -98,59 +102,11 @@ public class EditMeetingThenSteps {
 		.clickOnOkButton();
     }
 
-    @After("@DeleteTwoMeetings")
-    public void deleteTwoMeetings() throws UnirestException {
-	deleteMeetingByAPI("Room111", "first meeting");
-	deleteMeetingByAPI("Room111", "second meeting");
-    }
-
-    @Then("^Validate that the schedule start \"([^\"]*)\" and end time \"([^\"]*)\" on \"([^\"]*)\" were \"([^\"]*)\" \"([^\"]*)\" hour$")
-    public void validate_that_the_schedule_start_and_end_time_were_hour(
-	    String startTime, String endTime, String meetingName,
-	    String status, int hours) throws Throwable {
-	SchedulerPage scheduler = new SchedulerPage();
-	String startTimeExpected, endTimeExpected;
-	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton();
-	startTimeExpected = Utility.getnewStartTimeByHour(startTime, endTime,
-		status, hours);
-	endTimeExpected = Utility.getnewEndTimeByHour(startTime, endTime,
-		status, hours);
-
-	Assert.assertTrue(scheduler.clickOnMeetingButton(meetingName)
-		.verifyFieldEdited("startTime", startTimeExpected),
-		"The field start time in the meeting cannot be modified");
-	Assert.assertTrue(
-		scheduler.verifyFieldEdited("endTime", endTimeExpected),
-		"The field end time in the meeting cannot be modified");
-    }
-
-    @After("@DeleteMeeting")
-    public void deleteMeeting() {
-	SchedulerPage schedule = new SchedulerPage();
-	schedule.clickOnRemoveButton()
-		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
-		.clickOkButton();
-    }
-
-    @After("@DeleteMeetingOutOfOrder")
-    public void deleteMeetingOutOfOrder() {
-	SchedulerPage schedule = new SchedulerPage();
-	schedule.clickOnMeetingButton("Meeting QDAEV06").clickOnRemoveButton()
-		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
-		.clickOkButton();
-    }
-
-    private void deleteMeetingByAPI(String roomName, String subject)
-	    throws UnirestException {
-
-	Meeting meetingToDelete = MeetingAPIManager.getMeetingBySubject(
-		roomName, subject);
-	MeetingAPIManager.deleteRequest(roomName, meetingToDelete);
-    }
-
+   
     @Then("^validate that information meeting is displayed subject \"([^\"]*)\"$")
     public void validate_that_information_meeting_is_displayed_subject(
 	    String subject) throws Throwable {
+	meetingName = subject;
 	SchedulerPage schedule = new SchedulerPage();
 	Assert.assertTrue(schedule.isTitlePresent(subject),
 		"The subject is not present");
@@ -179,5 +135,90 @@ public class EditMeetingThenSteps {
 	Assert.assertTrue(schedule.verifyAteendees(attendees),
 		"The attendees is not present");
     }
+    
+    @Then("^Validate that in the \"([^\"]*)\" the schedule start \"([^\"]*)\" and end time \"([^\"]*)\" on \"([^\"]*)\" were \"([^\"]*)\" \"([^\"]*)\" hour$")
+    public void validate_that_the_schedule_start_and_end_time_were_hour(
+	    String roomName, String startTime, String endTime, String meetingName,
+	    String status, int hours) throws Throwable {
+	roomNameToDelete = roomName;
+	this.meetingName = meetingName;
+	SchedulerPage scheduler = new SchedulerPage();
+	String startTimeExpected, endTimeExpected;
+	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton();
+	startTimeExpected = Utility.getnewStartTimeByHour(startTime, endTime,
+		status, hours);
+	endTimeExpected = Utility.getnewEndTimeByHour(startTime, endTime,
+		status, hours);
 
+	Assert.assertTrue(scheduler.clickOnMeetingButton(meetingName)
+		.verifyFieldEdited("startTime", startTimeExpected),
+		"The field start time in the meeting cannot be modified");
+	Assert.assertTrue(
+		scheduler.verifyFieldEdited("endTime", endTimeExpected),
+		"The field end time in the meeting cannot be modified");
+    }
+    
+    @Then("^Validate that in the \"([^\"]*)\" the schedule end \"([^\"]*)\"  with start time \"([^\"]*)\" on \"([^\"]*)\" were \"([^\"]*)\" \"([^\"]*)\" hour$")
+    public void validate_that_the_schedule_end(
+	    String roomName, String endTime, String startTime, String meetingName,
+	    String status, int hours) throws Throwable {
+	roomNameToDelete = roomName;
+	this.meetingName = meetingName;
+	SchedulerPage scheduler = new SchedulerPage();
+	String  endTimeExpected;
+	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton();
+	endTimeExpected = Utility.getnewEndTimeByHour(startTime, endTime,
+		status, hours);
+	
+	Assert.assertTrue(
+		scheduler.verifyFieldEdited("endTime", endTimeExpected),
+		"The field end time in the meeting cannot be modified");
+    }
+    
+    @Then("^Validate that in the \"([^\"]*)\" the schedule start \"([^\"]*)\" with end time \"([^\"]*)\" on \"([^\"]*)\" were \"([^\"]*)\" \"([^\"]*)\" hour$")
+    public void validate_that_the_schedule_start(
+	    String roomName, String startTime, String endTime, String meetingName,
+	    String status, int hours) throws Throwable {
+	roomNameToDelete = roomName;
+	this.meetingName = meetingName;
+	SchedulerPage scheduler = new SchedulerPage();
+	String startTimeExpected;
+	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton();
+	startTimeExpected = Utility.getnewStartTimeByHour(startTime, endTime,
+		status, hours);
+	
+	Assert.assertTrue(scheduler.clickOnMeetingButton(meetingName)
+		.verifyFieldEdited("startTime", startTimeExpected),
+		"The field start time in the meeting cannot be modified");
+	
+    }
+    
+    @After("@DeleteTwoMeetings")
+    public void deleteTwoMeetings() throws UnirestException {
+	deleteMeetingByAPI("Room111", "first meeting");
+	deleteMeetingByAPI("Room111", "second meeting");
+    }
+
+    @After("@DeleteMeeting")
+    public void deleteMeeting() throws UnirestException {
+	System.out.println("Room: " + roomNameToDelete + "Subject:" + meetingName);
+	deleteMeetingByAPI(roomNameToDelete, meetingName);
+    }
+
+    @After("@DeleteMeetingOutOfOrder")
+    public void deleteMeetingOutOfOrder() {
+	SchedulerPage schedule = new SchedulerPage();
+	schedule.clickOnMeetingButton(meetingName).clickOnRemoveButton()
+		.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOkButton();
+    }
+    
+    private void deleteMeetingByAPI(String roomName, String subject)
+	    throws UnirestException {
+
+	Meeting meetingToDelete = MeetingAPIManager.getMeetingBySubject(
+		roomName, subject);
+	MeetingAPIManager.deleteRequest(roomName, meetingToDelete);
+    }
+  
 }
