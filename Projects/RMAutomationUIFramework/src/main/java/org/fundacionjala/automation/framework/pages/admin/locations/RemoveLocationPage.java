@@ -34,7 +34,19 @@ public class RemoveLocationPage {
     public LocationPage clickOnRemoveButton() {
 	ExplicitWait.clickWhenReady(By.xpath(RemoveLocationMap.REMOVE_BUTTON),
 		30);
-	LogManager.info("'-Remove'button has been clicked");
+	LogManager.info("'-Remove' button has been clicked");
 	return new LocationPage();
     }
+    
+    /**
+     * Clicks on "(x)Cancel" button.
+     * @return a new "Location" page.
+     */
+    public LocationPage clickOnCancelButton() {
+	ExplicitWait.clickWhenReady(By.xpath(RemoveLocationMap.CANCEL_BUTTON),
+		30);
+	LogManager.info("'x Cancel' button has been clicked");
+	return new LocationPage();
+    }
+    
 }
