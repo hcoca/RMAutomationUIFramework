@@ -229,8 +229,11 @@ public class HomePage {
 		By.xpath(HomeMap.LEFT_TIME), 60);
 	WebElement startTimeNextMeeting = ExplicitWait.getWhenVisible(
 		By.xpath(HomeMap.TIME_OUT_OF_ORDER), 60);
-	int result = (Integer.parseInt(startTimeNextMeeting.getText()
-		.substring(0, 5).replace(":", "")) - Integer
+	String timeNextMeeting = startTimeNextMeeting.getText().substring(0, 5).replace(":", "");
+	if(timeNextMeeting.indexOf('-')!= -1){
+		timeNextMeeting.replace("-", "");
+	}
+	int result = (Integer.parseInt(timeNextMeeting) - Integer
 		.parseInt(currentTime.getText().replace(":", ""))) - 41;
 	if (result == Integer.parseInt(leftTime.getText().replace(":", ""))) {
 	    verification = true;
