@@ -93,7 +93,7 @@ public class CreateMeetingWhenSteps {
 		SchedulerPage scheduler = new SchedulerPage();
 		scheduler.setOrganizer(organizer).setSubject(password)
 				.clickOnCreateButton().setUserName(organizer)
-				.setPassword(password).clickOnOkButton();
+				.setPassword(password).clickOkButtonWithoutWait();
 	}
 
 	@When("^I want to create a meeting over interval time of other meeting  from \"([^\"]*)\" start time to \"([^\"]*)\" end time with \"([^\"]*)\" subject$")
@@ -108,7 +108,7 @@ public class CreateMeetingWhenSteps {
 				.setStartTime(start).setEndTime(end).clickOnCreateButton()
 				.setUserName(PropertiesReader.getExchangeOrganizerUser())
 				.setPassword(PropertiesReader.getExchangeOrganizerPwd())
-				.clickOnOkButton();
+				.clickOkButtonWithoutWait();
 	}
 	
 	@When("^I try to create a meeting for \"([^\"]*)\" date$")

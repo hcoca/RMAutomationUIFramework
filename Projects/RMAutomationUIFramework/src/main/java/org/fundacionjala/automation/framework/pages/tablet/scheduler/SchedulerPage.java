@@ -587,5 +587,24 @@ public class SchedulerPage {
 	return this;
     }
 
+    public boolean verifyTwoMeetingWithSameSubject(String subject) {
+    	(new WebDriverWait(BrowserManager.getDriver(), 60))
+    	.until(ExpectedConditions.visibilityOf(timeLine));
+        WebElement time = BrowserManager.getDriver().findElement(
+        	By.xpath(SchedulerMap.TIME_LINE));
+        
+        List<WebElement> meetings = time.findElements(By
+        	.xpath(SchedulerMap.MEETING_BUTTON));
+        int counter = 0;
+        for (WebElement element : meetings) {
+            if (element.getText().equalsIgnoreCase(subject)) {
+        	LogManager.info("Meeting " + subject + " has been found");
+        	counter = counter + 1;
+            }
+        }
+        return (counter == 2) ? true : false ; 
+       
+    }
+
    
 }

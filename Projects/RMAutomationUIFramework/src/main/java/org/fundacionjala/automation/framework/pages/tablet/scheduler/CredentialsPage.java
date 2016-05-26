@@ -76,10 +76,21 @@ public class CredentialsPage {
 	 * @return SchedulerPage instance
 	 */
 	public SchedulerPage clickOnOkButton() {
-		(new WebDriverWait(BrowserManager.getDriver(), 30))
-				.until(ExpectedConditions.elementToBeClickable(okButton));
-		okButton.click();
+		ExplicitWait.clickWhenReady(By.xpath(CredentialsMap.OK_BUTTON), 30);
 		LogManager.info("Ok Button has been clicked");
+		ExplicitWait.isElementInvisible(By.xpath(CredentialsMap.OK_BUTTON), 30);
+		return new SchedulerPage();
+	}
+	
+	/**
+	 * This method is to perform click on ok button for creating meeting
+	 * 
+	 * @return SchedulerPage instance
+	 */
+	public SchedulerPage clickOkButtonWithoutWait() {
+		ExplicitWait.clickWhenReady(By.xpath(CredentialsMap.OK_BUTTON), 30);
+		LogManager.info("Ok Button has been clicked");
+		
 		return new SchedulerPage();
 	}
 
