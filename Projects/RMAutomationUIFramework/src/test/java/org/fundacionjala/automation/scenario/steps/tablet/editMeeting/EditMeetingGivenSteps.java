@@ -51,6 +51,21 @@ public class EditMeetingGivenSteps {
 
     }
 
+    @Given("^I have a created meeting in past time with \"([^\"]*)\" subject in the \"([^\"]*)\" room$")
+    public void createdMeetingInPastTime(String subject, String roomName)
+	    throws Throwable {
+	String startDate = RMGenerator.getIsoTime(-2);
+	String endDate = RMGenerator.getIsoTime(-1);
+	String roomEmail = roomName + "@"
+		+ PropertiesReader.getExchangeDomain();
+	List<String> attendees = new ArrayList<String>();
+	attendees.add(PropertiesReader.getExchangeInviteMail());
+	Meeting meeting = new Meeting(
+		PropertiesReader.getExchangeOrganizerUser(), subject,
+		startDate, endDate, roomName, roomEmail, roomEmail, attendees);
+	MeetingAPIManager.postRequest(roomName, meeting);
+    }
+
     @Given("^I have a created in the \"([^\"]*)\" room with subject \"([^\"]*)\"$")
     public void createdMeetingWithRoomSubject(String roomName, String subject)
 	    throws Throwable {

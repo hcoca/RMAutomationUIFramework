@@ -61,7 +61,7 @@ Then validate that the timeline displays time in intervals of ten minutes
 
 #Scenario10
 Scenario: Timeline show a created meeting when user moves timeline up to it
-Given I am on Home Page of "Room0165" room
+Given I am on Home Page of "Room016" room
 When I create a meeting as "RoomManager2" organizer
 And it meeting will be from "08:30:00.000" start time to "10:30:00.000" end time
 And it has "Meet" as subject, "this is a description for new meeting" as description

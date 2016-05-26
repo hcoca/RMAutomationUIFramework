@@ -145,17 +145,11 @@ public class EditMeetingWhenSteps {
     public void dragging_and_dropping_the_whole_meeting_to_the_hour(
 	    String meetingName, String roomName, String direction, int hours)
 	    throws Throwable {
-	BrowserManager.openBrowser();
-	ConnectionPage connection = new ConnectionPage();
+	
 	SchedulerPage schedule = new SchedulerPage();
 	CredentialsPage credential = new CredentialsPage();
-
-	NavigationPage navigation = connection
-		.setUpServiceURL(PropertiesReader.getServiceURL())
-		.clickOnSaveButton().clickOnNavigationButton();
-
-	navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
-		.clickOnSaveButton().topMenu.clickOnHomeButton()
+	
+	schedule.topMenu.clickOnHomeButton()
 		.clickOnScheduleButton().displayAllDayOnTimeline()
 		.clickOnMeetingButton(meetingName);
 	if (direction.equals("left")) {
@@ -272,17 +266,10 @@ public class EditMeetingWhenSteps {
     @When("^I modify the schedule in the \"([^\"]*)\" meeting on \"([^\"]*)\" drag and drop the start time in \"([^\"]*)\" \"([^\"]*)\" hour$")
     public void drag_and_drop_start_time_in_hour(String meetingName,
 	    String roomName, String direction, byte hours) throws Throwable {
-	BrowserManager.openBrowser();
-	ConnectionPage connection = new ConnectionPage();
 	SchedulerPage schedule = new SchedulerPage();
 	CredentialsPage credential = new CredentialsPage();
-
-	NavigationPage navigation = connection
-		.setUpServiceURL(PropertiesReader.getServiceURL())
-		.clickOnSaveButton().clickOnNavigationButton();
-
-	navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
-		.clickOnSaveButton().topMenu.clickOnHomeButton()
+	
+	schedule.topMenu.clickOnHomeButton()
 		.clickOnScheduleButton().displayAllDayOnTimeline()
 		.clickOnMeetingButton(meetingName);
 	if (direction.equals("left")) {
@@ -297,17 +284,10 @@ public class EditMeetingWhenSteps {
     @When("^I modify the schedule in the \"([^\"]*)\" meeting on \"([^\"]*)\" drag and drop the end time in \"([^\"]*)\" \"([^\"]*)\" hour$")
     public void drag_and_drop_end_time_in_hour(String meetingName,
 	    String roomName, String direction, byte hours) throws Throwable {
-	BrowserManager.openBrowser();
-	ConnectionPage connection = new ConnectionPage();
 	SchedulerPage schedule = new SchedulerPage();
 	CredentialsPage credential = new CredentialsPage();
-
-	NavigationPage navigation = connection
-		.setUpServiceURL(PropertiesReader.getServiceURL())
-		.clickOnSaveButton().clickOnNavigationButton();
-
-	navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
-		.clickOnSaveButton().topMenu.clickOnHomeButton()
+	
+	schedule.topMenu.clickOnHomeButton()
 		.clickOnScheduleButton().displayAllDayOnTimeline()
 		.clickOnMeetingButton(meetingName);
 	if (direction.equals("left")) {
@@ -319,6 +299,39 @@ public class EditMeetingWhenSteps {
 
     }
 
-   
+    @When("^I modify the meeting \"([^\"]*)\" with same subject \"([^\"]*)\" the first meeting in the \"([^\"]*)\" room$")
+    public void i_modify_the_meeting_with_same_subject_the_first_meeting_in_the_room(String firstSubject, String secondSubject, String roomName) throws Throwable {
+	
+	CredentialsPage credential = new CredentialsPage();
+	SchedulerPage scheduler = new SchedulerPage();
 
+	credential = scheduler.topMenu.clickOnHomeButton()
+		.clickOnScheduleButton().displayAllDayOnTimeline()
+		.clickOnMeetingButton(firstSubject)
+		.setSubject(secondSubject)
+		.clickUpdateButton();
+	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOnOkButton();
+    }
+
+    @When("^I modify the schedule from \"([^\"]*)\" to \"([^\"]*)\" in the meeting \"([^\"]*)\" of the \"([^\"]*)\" room$")
+    public void i_modify_the_schedule_from_to_in_the_meeting_of_the_room(String startTime, String endTime, String subject, String roomName) throws Throwable {
+	BrowserManager.openBrowser();
+	ConnectionPage connection = new ConnectionPage();
+	CredentialsPage credential = new CredentialsPage();
+
+	NavigationPage navigation = connection
+		.setUpServiceURL(PropertiesReader.getServiceURL())
+		.clickOnSaveButton().clickOnNavigationButton();
+
+	credential = navigation.clickOnRoomToggleButton().selectConferenceRoom(roomName)
+		.clickOnSaveButton().topMenu.clickOnHomeButton()
+		.clickOnScheduleButton().displayAllDayOnTimeline()
+		.clickOnMeetingButton(subject)
+		.setStartTime(startTime)
+		.setEndTime(endTime)
+		.clickUpdateButton();
+	credential.setPassword(PropertiesReader.getExchangeOrganizerPwd())
+		.clickOnOkButton();
+    }
 }
