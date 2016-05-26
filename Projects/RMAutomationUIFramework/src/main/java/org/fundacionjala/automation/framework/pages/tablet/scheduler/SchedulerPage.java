@@ -385,10 +385,10 @@ public class SchedulerPage {
 	}
 
 	case "startTime": {
-	    return (getStartTime().equalsIgnoreCase(value)) ? true : false;
+	    return (getStartTime().contains(value)) ? true : false;
 	}
 	case "endTime": {
-	    return (getEndTime().equalsIgnoreCase(value)) ? true : false;
+	   return (getEndTime().contains(value)) ? true : false;
 	}
 	case "attendees": {
 	    return (isAttendeePresent(value)) ? true : false;
@@ -580,7 +580,7 @@ public class SchedulerPage {
 	meetingButton = getMeetingButton(meetingName);
 	meetingButtonEnd = meetingButton.findElement(By
 		.xpath(SchedulerMap.MEETING_BUTTON_END));
-	UIActions.dragAndDropOnXAxis(meetingButtonEnd, hours * 50);
+	UIActions.draggingAndDroppingOnXAxis(meetingButtonEnd, hours * 50);
 	
 	LogManager.info("Meeting End has been moved "
 		+ hours + " in x axis.");
