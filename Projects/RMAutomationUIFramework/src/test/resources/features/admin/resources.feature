@@ -126,6 +126,25 @@ Given I have a resource created with the name "resourceassoc", display name "res
 And I as Administrator Login to Room Manager
 When I want to remove the resource "resourceassoc"
 Then Validate that a form to remove a resource is displayed
+
+#scenario 21
+Scenario Outline: The icon table change the page when right/left button is clicked
+Given I as Administrator Login to Room Manager
+And I try to create a new Resource
+When I want to change to "<button>" icon page
+Then Validate that icon page change to "<button>"
+
+Examples:
+    | button  |
+    |  left   |
+    |  right  |
+
+#scenario 22
+Scenario: The image in the icon box is updated when different icon is selected
+Given I as Administrator Login to Room Manager
+And I try to create a new Resource
+When I select "fa-fire" Icon
+Then Validate that icon image is updated to "fa-fire" Icon on add page.
  
 Scenario: Resource Info Page is closed when clicking Cancel button
 Given I as Administrator Login to Room Manager

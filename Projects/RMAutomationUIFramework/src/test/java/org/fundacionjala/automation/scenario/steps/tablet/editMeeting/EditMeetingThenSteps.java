@@ -154,10 +154,12 @@ public class EditMeetingThenSteps {
 
 	Assert.assertTrue(scheduler.clickOnMeetingButton(meetingName)
 		.verifyFieldEdited("startTime", startTimeExpected),
-		"The field start time in the meeting cannot be modified");
+		"The field start time must be " + startTimeExpected
+			+ "in the meeting");
 	Assert.assertTrue(
 		scheduler.verifyFieldEdited("endTime", endTimeExpected),
-		"The field end time in the meeting cannot be modified");
+		"The field end time must be " + endTimeExpected
+			+ "in the meeting");
     }
 
     @Then("^Validate that in the \"([^\"]*)\" the schedule end \"([^\"]*)\"  with start time \"([^\"]*)\" on \"([^\"]*)\" were \"([^\"]*)\" \"([^\"]*)\" hour$")
@@ -167,14 +169,19 @@ public class EditMeetingThenSteps {
 	roomNameToDelete = roomName;
 	this.meetingName = meetingName;
 	SchedulerPage scheduler = new SchedulerPage();
-	String endTimeExpected;
+	String startTimeExpected, endTimeExpected;
 	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton();
-	endTimeExpected = Utility.getnewEndTimeByHour(startTime, endTime,
-		status, hours);
-
+	endTimeExpected = Utility.getnewEndTimeforEndPulledByHour(startTime,
+		endTime, status, hours);//11
+	startTimeExpected = startTime;
+	Assert.assertTrue(scheduler.clickOnMeetingButton(meetingName)
+		.verifyFieldEdited("endTime", endTimeExpected),
+		"The field end time must be " + endTimeExpected
+			+ " in the meeting");
 	Assert.assertTrue(
-		scheduler.verifyFieldEdited("endTime", endTimeExpected),
-		"The field end time in the meeting cannot be modified");
+		scheduler.verifyFieldEdited("startTime", startTimeExpected),
+		"The field start time must be " + startTimeExpected
+			+ " in the meeting");
     }
 
     @Then("^Validate that in the \"([^\"]*)\" the schedule start \"([^\"]*)\" with end time \"([^\"]*)\" on \"([^\"]*)\" were \"([^\"]*)\" \"([^\"]*)\" hour$")
@@ -184,14 +191,20 @@ public class EditMeetingThenSteps {
 	roomNameToDelete = roomName;
 	this.meetingName = meetingName;
 	SchedulerPage scheduler = new SchedulerPage();
-	String startTimeExpected;
+	String startTimeExpected, endTimeExpected;
 	scheduler.topMenu.clickOnHomeButton().clickOnScheduleButton();
-	startTimeExpected = Utility.getnewStartTimeByHour(startTime, endTime,
+	startTimeExpected = Utility.getnewStartTimeforStartPulledByHour(startTime, endTime,
 		status, hours);
 
+	endTimeExpected = endTime;
 	Assert.assertTrue(scheduler.clickOnMeetingButton(meetingName)
 		.verifyFieldEdited("startTime", startTimeExpected),
-		"The field start time in the meeting cannot be modified");
+		"The field start time must be " + startTimeExpected
+			+ " in the meeting cannot be modified");
+	Assert.assertTrue(
+		scheduler.verifyFieldEdited("endTime", endTimeExpected),
+		"The field end time must be " + endTimeExpected
+			+ " in the meeting cannot be modified");
 
     }
 
