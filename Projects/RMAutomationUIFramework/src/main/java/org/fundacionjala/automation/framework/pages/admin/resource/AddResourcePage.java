@@ -117,6 +117,22 @@ public class AddResourcePage {
 	}
 	
 	/**
+	 * this method is to do click on icon button
+	 * @param icon is the value to select an icon
+	 * @return AddResourcePage
+	 */
+	public SelectIconPage ClickOnIconButton(){
+	    
+		(new WebDriverWait(BrowserManager.getDriver(), 10))
+		.until(ExpectedConditions.presenceOfElementLocated(
+			By.xpath(AddResourceMap.ICON_BUTTON)));
+		iconButton.click();
+		LogManager.info("'Icon' button has been clicked");
+				
+		return new SelectIconPage();
+	}
+	
+	/**
 	 * This function is to click on SAVE button on AddResourcePage
 	 * @return ResourcePage
 	 */
@@ -190,8 +206,9 @@ public class AddResourcePage {
 	WebElement alreadyExistsError;
 	
 	/**
-	 * 
-	 * @return
+	 * This method is to verify that an error message appear when a resources
+	 * is created with the same name
+	 * @return true if the message appear else false
 	 */
 	public boolean verifyErrorMessageWhenNameAlreadyExists() {
 	    String alreadyExists = alreadyExistsError.getAttribute("class");   
@@ -246,5 +263,14 @@ public class AddResourcePage {
 		LogManager.info("Add Resource Window has dissapeared");
 	    
 	    	return new ResourcePage();
+	}
+
+	/**
+	 * This method is to verify if icon is updated when it is changed
+	 * @return true if icon change else false
+	 */
+	public boolean verifyIconUpdate(String icon) {
+	    return ExplicitWait.waitForElement(AddResourceMap.ICON_BOX
+		    .replace("iconName", icon), 30) ? true : false;
 	}
 }
