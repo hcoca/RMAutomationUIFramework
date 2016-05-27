@@ -26,6 +26,20 @@ public class LocationWhenSteps {
 	    	.clickOnSaveButton();
 	}
 	
+	@When("^I add a new location with a (\\d+) characters name and diaplay name \"([^\"]*)\"$")
+	public void addLongStringLocation(int length, String displayName) throws Throwable {
+	    String name = "ThisIsALongString";
+	    for (int i = 0; i < length-17; i++) {
+		name = name + "0";
+	    }
+	    
+	    	goToLocationPage()
+	    	.clickOnAddButton()
+	    	.setNameField(name)
+	    	.setDisplayNameField(displayName)
+	    	.clickOnSaveButton();
+	}
+	
 	@When("^I open locations page$")
 	public void i_open_locations_page() throws Throwable {
 		goToLocationPage();
@@ -42,6 +56,22 @@ public class LocationWhenSteps {
 		.setNameField(name)
 		.setDisplayNameField(displayName)
 		.setDescriptionArea(description)
+		.clickOnSaveButton();
+	}
+	
+	@When("^I update location \"([^\"]*)\" with a (\\d+) characters name and diaplay name \"([^\"]*)\"$")
+	public void updateLongLocation(String currentLocation,
+					int length, 
+					String displayName) throws Throwable {
+		
+	    String name = "ThisIsALongString";
+	    for (int i = 0; i < length-17; i++) {
+		name = name + "0";
+	    }
+		goToLocationPage()
+		.doubleClickOnALocation(currentLocation)
+		.setNameField(name)
+		.setDisplayNameField(displayName)
 		.clickOnSaveButton();
 	}
 	
